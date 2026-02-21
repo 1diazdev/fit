@@ -14,7 +14,7 @@
       "schedule": "15 6 * * *"
     },
     {
-      "path": "/api/update-zepp",
+      "path": "/api/update-googlefit",
       "schedule": "30 6 * * *"
     }
   ]

@@ -120,7 +120,7 @@ const main = async (): Promise<void> => {
       },
     };
 
-    // Write to public directory (renamed from zepp-health-data.json)
+    // Write to public directory
     const outputPath = 'public/health-data.json';
     await writeFile(outputPath, JSON.stringify(healthData, null, 2));
 

@@ -24,9 +24,10 @@ STRAVA_CLIENT_ID=tu_client_id
 STRAVA_CLIENT_SECRET=tu_client_secret
 STRAVA_REFRESH_TOKEN=tu_refresh_token
 HEVY_API_KEY=tu_hevy_api_key
-ZEPP_EMAIL=tu_email_zepp (opcional)
-ZEPP_PASSWORD=tu_password_zepp (opcional)
-ZEPP_REFRESH_TOKEN=tu_zepp_refresh_token (opcional)
+GOOGLE_FIT_CLIENT_ID=tu_google_fit_client_id
+GOOGLE_FIT_CLIENT_SECRET=tu_google_fit_client_secret
+GOOGLE_FIT_REDIRECT_URI=http://localhost:3000/callback
+GOOGLE_FIT_REFRESH_TOKEN=tu_google_fit_refresh_token
 ```
 
 ### 3. Scheduled Functions
@@ -35,7 +36,7 @@ Netlify ejecutará automáticamente estas funciones diariamente:
 
 - **6:00 AM UTC**: `update-strava` - Actualiza datos de Strava
 - **6:15 AM UTC**: `update-hevy` - Actualiza workouts de Hevy
-- **6:30 AM UTC**: `update-zepp` - Actualiza datos de salud de Zepp
+- **6:30 AM UTC**: `update-googlefit` - Actualiza datos de salud desde Google Fit
 
 ### 4. Build Settings
 
@@ -98,9 +99,10 @@ STRAVA_CLIENT_ID=tu_client_id
 STRAVA_CLIENT_SECRET=tu_client_secret
 STRAVA_REFRESH_TOKEN=tu_refresh_token
 HEVY_API_KEY=tu_hevy_api_key
-ZEPP_EMAIL=tu_email_zepp (opcional)
-ZEPP_PASSWORD=tu_password_zepp (opcional)
-ZEPP_REFRESH_TOKEN=tu_zepp_refresh_token (opcional)
+GOOGLE_FIT_CLIENT_ID=tu_google_fit_client_id
+GOOGLE_FIT_CLIENT_SECRET=tu_google_fit_client_secret
+GOOGLE_FIT_REDIRECT_URI=http://localhost:3000/callback
+GOOGLE_FIT_REFRESH_TOKEN=tu_google_fit_refresh_token
 CRON_SECRET=genera_un_secret_aleatorio
 ```
 

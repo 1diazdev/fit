@@ -12,10 +12,6 @@
     "lint": "bunx eslint . --ext .js,.ts,.astro",
     "test": "vitest",
     "strava-script": "bun scripts/strava-script.ts",
-    "zepp-setup": "bun scripts/zepp-setup.ts",
-    "zepp-script": "bun scripts/zepp-script.ts",
-    "test-zepp": "bun scripts/test-zepp-api.ts",
-    "debug-zepp": "bun scripts/debug-zepp-auth.ts",
     "googlefit-setup": "bun scripts/googlefit-setup.ts",
     "googlefit-script": "bun scripts/googlefit-script.ts",
     "debug-googlefit": "bun scripts/debug-googlefit.ts"
