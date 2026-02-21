@@ -1,3 +1,5 @@
+import { memoize } from '@/lib/dataCache';
+
 // TypeScript interfaces for Hevy workout data
 interface Set {
   set_id: string;
@@ -55,78 +57,81 @@ const getApiKey = (): string | undefined => {
 
 // Function to fetch data from the Hevy API
 const fetchHevyData = async (apiKey?: string): Promise<Workout[]> => {
-  // Get API key from parameter or environment
+  // Memoize with today's date to cache for the day
+  const today = new Date().toISOString().split('T')[0];
   const key = apiKey || getApiKey();
 
-  if (!key) {
-    console.error("API key is required to fetch Hevy data.");
-    console.error(
-      "Make sure HEVY_API_KEY or VITE_HEVY_API_KEY is set in your .env file",
-    );
-    throw new Error("Hevy API key not provided.");
-  }
-
-  // Verificar que la API key tenga el formato correcto (opcional)
-  if (!key.startsWith("hvy_")) {
-    console.warn(
-      "Warning: Hevy API keys usually start with 'hvy_'. Please verify your API key.",
-    );
-  }
-
-  const apiUrl = "https://api.hevyapp.com/v1/workouts";
-
-  console.log(`Fetching data from ${apiUrl}`);
-  console.log(
-    `Using API key: ${key.substring(0, 8)}...${key.substring(key.length - 4)}`,
-  ); // Solo mostrar parte de la key por seguridad
-
-  try {
-    const response = await fetch(apiUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "api-key": key,
-      },
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.text();
+  return memoize(`hevy-workouts-${today}`, async () => {
+    if (!key) {
+      console.error("API key is required to fetch Hevy data.");
       console.error(
-        `API request failed with status ${response.status}: ${response.statusText}`,
+        "Make sure HEVY_API_KEY or VITE_HEVY_API_KEY is set in your .env file",
       );
-      console.error("Error body:", errorBody);
+      throw new Error("Hevy API key not provided.");
+    }
 
-      if (response.status === 401) {
+    // Verificar que la API key tenga el formato correcto (opcional)
+    if (!key.startsWith("hvy_")) {
+      console.warn(
+        "Warning: Hevy API keys usually start with 'hvy_'. Please verify your API key.",
+      );
+    }
+
+    const apiUrl = "https://api.hevyapp.com/v1/workouts";
+
+    console.log(`Fetching data from ${apiUrl}`);
+    console.log(
+      `Using API key: ${key.substring(0, 8)}...${key.substring(key.length - 4)}`,
+    ); // Solo mostrar parte de la key por seguridad
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": key,
+        },
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        console.error(
+          `API request failed with status ${response.status}: ${response.statusText}`,
+        );
+        console.error("Error body:", errorBody);
+
+        if (response.status === 401) {
+          throw new Error(
+            `Authentication failed. Please verify your Hevy API key is correct and active. Status: ${response.status}`,
+          );
+        }
+
         throw new Error(
-          `Authentication failed. Please verify your Hevy API key is correct and active. Status: ${response.status}`,
+          `Failed to fetch workout data from Hevy API. Status: ${response.status}, Body: ${errorBody}`,
         );
       }
 
-      throw new Error(
-        `Failed to fetch workout data from Hevy API. Status: ${response.status}, Body: ${errorBody}`,
-      );
-    }
-
-    const data = await response.json();
-    if (!data || !Array.isArray(data.workouts)) {
-      // Check if data.workouts is an array
-      throw new Error(
-        "Unexpected data structure from Hevy API: No workouts found or data.workouts is not an array.",
-      );
-    }
-    // Sort workouts by start_time in descending order (newest first)
-    const sortedWorkouts: Workout[] = data.workouts.sort(
-      (a: Workout, b: Workout) => {
-        return (
-          new Date(b.start_time).getTime() - new Date(a.start_time).getTime()
+      const data = await response.json();
+      if (!data || !Array.isArray(data.workouts)) {
+        // Check if data.workouts is an array
+        throw new Error(
+          "Unexpected data structure from Hevy API: No workouts found or data.workouts is not an array.",
         );
-      },
-    );
-    return sortedWorkouts;
-  } catch (error) {
-    console.error("Error during fetchHevyData execution:", error);
-    throw error;
-  }
+      }
+      // Sort workouts by start_time in descending order (newest first)
+      const sortedWorkouts: Workout[] = data.workouts.sort(
+        (a: Workout, b: Workout) => {
+          return (
+            new Date(b.start_time).getTime() - new Date(a.start_time).getTime()
+          );
+        },
+      );
+      return sortedWorkouts;
+    } catch (error) {
+      console.error("Error during fetchHevyData execution:", error);
+      throw error;
+    }
+  });
 };
 
 // Alternative function with different endpoint (in case the main one doesn't work)
@@ -168,50 +173,53 @@ const fetchHevyWorkouts = async (
 // Function to fetch the total number of workouts
 const fetchWorkoutCount = async (apiKey?: string): Promise<number> => {
   const key = apiKey || getApiKey();
+  const today = new Date().toISOString().split('T')[0];
 
-  if (!key) {
-    throw new Error("Hevy API key not provided.");
-  }
-
-  const apiUrl = "https://api.hevyapp.com/v1/workouts/count";
-
-  try {
-    const response = await fetch(apiUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "api-key": key,
-      },
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.text();
-      throw new Error(
-        `Failed to fetch workout count. Status: ${response.status}, Body: ${errorBody}`,
-      );
+  return memoize(`hevy-workout-count-${today}`, async () => {
+    if (!key) {
+      throw new Error("Hevy API key not provided.");
     }
 
-    const data = await response.json();
-    console.log("Workout count API response:", data);
+    const apiUrl = "https://api.hevyapp.com/v1/workouts/count";
 
-    // Handle different possible response structures
-    if (typeof data === "number") {
-      return data;
-    } else if (data && typeof data.workout_count === "number") {
-      // Fixed: Added support for workout_count key
-      return data.workout_count;
-    } else if (data && typeof data.count === "number") {
-      return data.count;
-    } else if (data && typeof data.total === "number") {
-      return data.total;
-    } else {
-      console.warn("Unexpected response structure for workout count:", data);
-      return 0;
+    try {
+      const response = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": key,
+        },
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(
+          `Failed to fetch workout count. Status: ${response.status}, Body: ${errorBody}`,
+        );
+      }
+
+      const data = await response.json();
+      console.log("Workout count API response:", data);
+
+      // Handle different possible response structures
+      if (typeof data === "number") {
+        return data;
+      } else if (data && typeof data.workout_count === "number") {
+        // Fixed: Added support for workout_count key
+        return data.workout_count;
+      } else if (data && typeof data.count === "number") {
+        return data.count;
+      } else if (data && typeof data.total === "number") {
+        return data.total;
+      } else {
+        console.warn("Unexpected response structure for workout count:", data);
+        return 0;
+      }
+    } catch (error) {
+      console.error("Error fetching workout count:", error);
+      throw error;
     }
-  } catch (error) {
-    console.error("Error fetching workout count:", error);
-    throw error;
-  }
+  });
 };
 
 // Example usage and testing

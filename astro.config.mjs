@@ -5,7 +5,9 @@ import compress from "astro-compress";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://fun.jpdiaz.dev",
+  site: "https://fit.jpdiaz.dev",
+  // output: "static" is the default - Netlify Functions are separate
+  // For Vercel with API routes, you would use: output: "server"
   integrations: [
     sitemap(),
     compress({

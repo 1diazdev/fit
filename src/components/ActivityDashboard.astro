@@ -1,16 +1,49 @@
 ---
 // Import the MinimalDaysSince component
 import MinimalDaysSince from "@components/MinimalDaysSince.astro";
+import type { StravaActivity } from "@services/stravaService";
+
+export interface Props {
+  // Optional pre-fetched activity data to optimize API calls
+  activityData?: {
+    run?: { date: Date | null; activity: StravaActivity | null } | null;
+    ride?: { date: Date | null; activity: StravaActivity | null } | null;
+    swim?: { date: Date | null; activity: StravaActivity | null } | null;
+    walk?: { date: Date | null; activity: StravaActivity | null } | null;
+  };
+}
+
+const { activityData } = Astro.props;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-  <MinimalDaysSince activityType="run" label="RUNNING" icon="🏃‍♂️" />
+  <MinimalDaysSince
+    activityType="run"
+    label="RUNNING"
+    icon="🏃‍♂️"
+    lastActivityInfo={activityData?.run}
+  />
 
-  <MinimalDaysSince activityType="ride" label="CYCLING" icon="🚴‍♂️" />
+  <MinimalDaysSince
+    activityType="ride"
+    label="CYCLING"
+    icon="🚴‍♂️"
+    lastActivityInfo={activityData?.ride}
+  />
 
-  <MinimalDaysSince activityType="swim" label="SWIMMING" icon="🏊‍♂️" />
+  <MinimalDaysSince
+    activityType="swim"
+    label="SWIMMING"
+    icon="🏊‍♂️"
+    lastActivityInfo={activityData?.swim}
+  />
 
-  <MinimalDaysSince activityType="walk" label="WALKING" icon="🚶‍♂️" />
+  <MinimalDaysSince
+    activityType="walk"
+    label="WALKING"
+    icon="🚶‍♂️"
+    lastActivityInfo={activityData?.walk}
+  />
 
   <!-- <MinimalDaysSince activityType="workout" label="WORKOUT" icon="💪" /> -->
 

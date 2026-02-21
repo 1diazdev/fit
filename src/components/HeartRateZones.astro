@@ -1,0 +1,442 @@
+---
+import type { HeartRateData } from "@/services/googleFitService";
+
+export interface Props {
+  heartRateData: HeartRateData;
+  daysToShow?: number;
+  userAge?: number;
+}
+
+const { heartRateData, daysToShow = 7, userAge = 30 } = Astro.props;
+
+// Get recent heart rate data (last N days)
+const recentHR = Object.entries(heartRateData)
+  .sort((a, b) => new Date(b[0]).getTime() - new Date(a[0]).getTime())
+  .slice(0, daysToShow)
+  .reverse();
+
+// Calculate average resting HR
+const avgRestingHR =
+  recentHR.length > 0
+    ? Math.round(
+        recentHR
+          .filter(([_, data]) => data.resting > 0)
+          .reduce((sum, [_, data]) => sum + data.resting, 0) /
+          recentHR.filter(([_, data]) => data.resting > 0).length,
+      )
+    : 0;
+
+// Calculate max HR (220 - age)
+const maxHR = 220 - userAge;
+
+// Heart rate zones based on max HR
+const zones = {
+  resting: { min: 0, max: maxHR * 0.5, color: "green", label: "RESTING" },
+  fatBurn: {
+    min: maxHR * 0.5,
+    max: maxHR * 0.7,
+    color: "yellow",
+    label: "FAT_BURN",
+  },
+  cardio: {
+    min: maxHR * 0.7,
+    max: maxHR * 0.85,
+    color: "orange",
+    label: "CARDIO",
+  },
+  peak: { min: maxHR * 0.85, max: maxHR, color: "red", label: "PEAK" },
+};
+
+// Determine zone from HR value
+function getZone(hr: number): string {
+  if (hr >= zones.peak.min) return "peak";
+  if (hr >= zones.cardio.min) return "cardio";
+  if (hr >= zones.fatBurn.min) return "fatBurn";
+  return "resting";
+}
+
+// Get color class for zone
+function getZoneColor(zone: string): string {
+  switch (zone) {
+    case "peak":
+      return "text-red-400";
+    case "cardio":
+      return "text-orange-400";
+    case "fatBurn":
+      return "text-yellow-400";
+    default:
+      return "text-green-400";
+  }
+}
+
+// Get bar color for zone
+function getBarColor(zone: string): string {
+  switch (zone) {
+    case "peak":
+      return "bg-gradient-to-r from-red-600 to-red-400";
+    case "cardio":
+      return "bg-gradient-to-r from-orange-600 to-orange-400";
+    case "fatBurn":
+      return "bg-gradient-to-r from-yellow-600 to-yellow-400";
+    default:
+      return "bg-gradient-to-r from-green-600 to-green-400";
+  }
+}
+---
+
+<div class="hr-zones-container">
+  <div class="hr-zones-wrapper">
+    <!-- Header with stats -->
+    <div class="hr-header">
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="stat-box">
+          <div class="text-green-400/60 text-xs font-mono mb-1">
+            AVG_RESTING:
+          </div>
+          <div class="text-green-300 text-2xl font-mono font-bold">
+            {avgRestingHR > 0 ? `${avgRestingHR} BPM` : "N/A"}
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="text-green-400/60 text-xs font-mono mb-1">MAX_HR:</div>
+          <div class="text-green-300 text-2xl font-mono font-bold">
+            {maxHR} BPM
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heart rate timeline -->
+    <div class="hr-timeline">
+      {
+        recentHR.length > 0 ? (
+          recentHR.map(([date, data]) => {
+            const avgZone = getZone(data.avg);
+            const maxZone = getZone(data.max);
+            const minPercent = (data.min / maxHR) * 100;
+            const avgPercent = (data.avg / maxHR) * 100;
+            const maxPercent = (data.max / maxHR) * 100;
+
+            return (
+              <div class="hr-day group">
+                <div class="hr-date">
+                  <span class="text-green-400/70 text-xs font-mono">
+                    {new Date(date).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
+
+                <div class="hr-bar-container">
+                  {/* HR range visualization */}
+                  <div class="hr-range-bar">
+                    {/* Background zones */}
+                    <div class="zone-bg resting-zone" style="width: 50%" />
+                    <div class="zone-bg fatburn-zone" style="width: 20%" />
+                    <div class="zone-bg cardio-zone" style="width: 15%" />
+                    <div class="zone-bg peak-zone" style="width: 15%" />
+
+                    {/* Min-Max range */}
+                    <div
+                      class="hr-range"
+                      style={`left: ${minPercent}%; width: ${maxPercent - minPercent}%`}
+                    >
+                      <div class={`hr-avg-marker ${getBarColor(avgZone)}`} />
+                    </div>
+                  </div>
+
+                  {/* Tooltip on hover */}
+                  <div class="hr-tooltip">
+                    <div class="tooltip-content">
+                      <div class="space-y-1 text-xs">
+                        <div class="flex justify-between">
+                          <span class="text-red-400">Max:</span>
+                          <span class={getZoneColor(maxZone)}>
+                            {data.max} BPM
+                          </span>
+                        </div>
+                        <div class="flex justify-between">
+                          <span class="text-yellow-400">Avg:</span>
+                          <span class={getZoneColor(avgZone)}>
+                            {data.avg} BPM
+                          </span>
+                        </div>
+                        <div class="flex justify-between">
+                          <span class="text-blue-400">Min:</span>
+                          <span class="text-green-400">{data.min} BPM</span>
+                        </div>
+                        {data.resting > 0 && (
+                          <div class="border-t border-green-500/30 pt-1 mt-1">
+                            <div class="flex justify-between">
+                              <span class="text-green-400">Resting:</span>
+                              <span class="text-green-300">
+                                {data.resting} BPM
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hr-info">
+                  <div class={`text-sm font-mono ${getZoneColor(avgZone)}`}>
+                    {data.avg} BPM
+                  </div>
+                  <div class="text-xs text-green-400/60 font-mono">
+                    {data.min}-{data.max}
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div class="no-data">
+            <div class="text-green-400/60 text-sm font-mono text-center py-8">
+              NO_HEART_RATE_DATA_AVAILABLE
+            </div>
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Zone legend -->
+    <div class="zone-legend mt-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs font-mono">
+        <div class="legend-item">
+          <div class="legend-color resting-color"></div>
+          <div>
+            <div class="text-green-300">RESTING</div>
+            <div class="text-green-400/60">
+              &lt;{Math.round(zones.resting.max)}
+            </div>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color fatburn-color"></div>
+          <div>
+            <div class="text-yellow-300">FAT_BURN</div>
+            <div class="text-yellow-400/60">
+              {Math.round(zones.fatBurn.min)}-{Math.round(zones.fatBurn.max)}
+            </div>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color cardio-color"></div>
+          <div>
+            <div class="text-orange-300">CARDIO</div>
+            <div class="text-orange-400/60">
+              {Math.round(zones.cardio.min)}-{Math.round(zones.cardio.max)}
+            </div>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color peak-color"></div>
+          <div>
+            <div class="text-red-300">PEAK</div>
+            <div class="text-red-400/60">
+              &gt;{Math.round(zones.peak.min)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hr-zones-container {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 20, 0, 0.7) 100%
+    );
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow:
+      0 0 25px rgba(0, 255, 0, 0.2),
+      inset 0 0 25px rgba(0, 255, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hr-zones-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-box {
+    background: rgba(0, 255, 0, 0.05);
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .hr-timeline {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 6px;
+    padding: 16px;
+    min-height: 200px;
+  }
+
+  .hr-day {
+    display: grid;
+    grid-template-columns: 60px 1fr 80px;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+    position: relative;
+  }
+
+  .hr-day:last-child {
+    border-bottom: none;
+  }
+
+  .hr-bar-container {
+    position: relative;
+    height: 32px;
+  }
+
+  .hr-range-bar {
+    display: flex;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    position: relative;
+  }
+
+  .zone-bg {
+    height: 100%;
+    opacity: 0.2;
+  }
+
+  .resting-zone {
+    background: linear-gradient(to right, #16a34a, #22c55e);
+  }
+
+  .fatburn-zone {
+    background: linear-gradient(to right, #ca8a04, #eab308);
+  }
+
+  .cardio-zone {
+    background: linear-gradient(to right, #ea580c, #f97316);
+  }
+
+  .peak-zone {
+    background: linear-gradient(to right, #dc2626, #ef4444);
+  }
+
+  .hr-range {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(34, 197, 94, 0.4),
+      rgba(239, 68, 68, 0.6)
+    );
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .group:hover .hr-range {
+    transform: scaleY(1.2);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+  }
+
+  .hr-avg-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 150%;
+    border-radius: 2px;
+    box-shadow: 0 0 10px currentColor;
+  }
+
+  .hr-tooltip {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+  }
+
+  .group:hover .hr-tooltip {
+    opacity: 1;
+  }
+
+  .tooltip-content {
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(0, 255, 0, 0.5);
+    border-radius: 6px;
+    padding: 12px;
+    min-width: 140px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  }
+
+  .hr-info {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .zone-legend {
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 255, 0, 0.2);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    flex-shrink: 0;
+  }
+
+  .resting-color {
+    background: linear-gradient(to right, #16a34a, #22c55e);
+  }
+
+  .fatburn-color {
+    background: linear-gradient(to right, #ca8a04, #eab308);
+  }
+
+  .cardio-color {
+    background: linear-gradient(to right, #ea580c, #f97316);
+  }
+
+  .peak-color {
+    background: linear-gradient(to right, #dc2626, #ef4444);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hr-day {
+      grid-template-columns: 50px 1fr 70px;
+      gap: 8px;
+    }
+
+    .hr-zones-container {
+      padding: 16px;
+    }
+  }
+</style>

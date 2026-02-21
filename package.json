@@ -11,7 +11,10 @@
     "clean": "rm -rf dist .astro node_modules package-lock.json bun.lockb && bun install",
     "lint": "bunx eslint . --ext .js,.ts,.astro",
     "test": "vitest",
-    "strava-script": "bun scripts/strava-script.ts"
+    "strava-script": "bun scripts/strava-script.ts",
+    "googlefit-setup": "bun scripts/googlefit-setup.ts",
+    "googlefit-script": "bun scripts/googlefit-script.ts",
+    "debug-googlefit": "bun scripts/debug-googlefit.ts"
   },
   "dependencies": {
     "@mapbox/polyline": "^1.2.1",
@@ -27,6 +30,7 @@
     "@astrojs/prefetch": "^0.4.1",
     "@astrojs/sitemap": "3.3.1",
     "@astrojs/tailwind": "^6.0.2",
+    "@netlify/functions": "^5.1.2",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.8",
     "@types/bun": "^1.1.3",

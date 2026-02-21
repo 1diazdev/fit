@@ -1,20 +1,26 @@
 ---
-import { getLastActivityInfo } from "@services/stravaService";
+import { getLastActivityInfo, type StravaActivity } from "@services/stravaService";
 
 export interface Props {
   activityType: string;
   label?: string;
   icon?: string;
+  // Optional pre-fetched data to avoid redundant API calls
+  lastActivityInfo?: {
+    date: Date | null;
+    activity: StravaActivity | null;
+  } | null;
 }
 
 const {
   activityType,
   label = activityType.toUpperCase(),
   icon = "🏃‍♂️",
+  lastActivityInfo: providedActivityInfo,
 } = Astro.props;
 
-// Get last activity info from Strava
-const lastActivityInfo = await getLastActivityInfo(activityType);
+// Get last activity info from Strava only if not provided
+const lastActivityInfo = providedActivityInfo ?? await getLastActivityInfo(activityType);
 const lastDate = lastActivityInfo?.date || new Date();
 const lastActivity = lastActivityInfo?.activity;
 

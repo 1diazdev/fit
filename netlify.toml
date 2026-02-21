@@ -1,9 +1,16 @@
 [build]
   command = "bun run build"
   publish = "dist"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18.17.1"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Note: Scheduled functions are configured directly in the function files
+# See netlify/functions/*.ts for schedule declarations
 
 [[redirects]]
   from = "/*"
