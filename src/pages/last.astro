@@ -35,45 +35,71 @@ const lastRunDate = findLastActivityByType("Run");
 const lastRideDate = findLastActivityByType("Ride");
 const lastSwimDate = findLastActivityByType("Swim");
 
-// Calculate weekly averages (mock data - replace with actual calculations)
-const calculateWeeklyAverage = (activityType: string) => {
-  // This would typically come from your Strava service
-  // For now, returning mock data based on activity type
-  const mockAverages: { [key: string]: number } = {
-    Run: 25.5,
-    Ride: 45.2,
-    Swim: 2.8,
-  };
-  return mockAverages[activityType] || 0;
+// Calculate REAL weekly averages from Strava API
+const calculateWeeklyStats = (activityType: string) => {
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+
+  const weekActivities = allActivities.filter(activity => {
+    const activityDate = new Date(activity.start_date);
+    const type = activity.type || activity.sport_type || "";
+    const matchesType = type.toLowerCase() === activityType.toLowerCase() ||
+                        activity.name.toLowerCase().includes(activityType.toLowerCase());
+    return matchesType && activityDate >= weekAgo;
+  });
+
+  const totalDistance = weekActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+  return totalDistance;
 };
 
-// Mock last activity details (replace with actual Strava data)
+// Get REAL last activity details from Strava
 const getLastActivityDetails = (activityType: string) => {
-  // This would come from your Strava service
-  const mockDetails: { [key: string]: any } = {
-    Run: {
-      distance: 8.5, // km
-      duration: 2580, // seconds (43 minutes)
-      stravaUrl: "https://www.strava.com/activities/12345678",
-    },
-    Ride: {
-      distance: 32.1, // km
-      duration: 4320, // seconds (1h 12m)
-      stravaUrl: "https://www.strava.com/activities/12345679",
-    },
-    Swim: {
-      distance: 1200, // meters
-      duration: 1800, // seconds (30 minutes)
-      stravaUrl: "https://www.strava.com/activities/12345680",
-    },
+  const activity = allActivities.find(a => {
+    const type = a.type || a.sport_type || "";
+    return type.toLowerCase() === activityType.toLowerCase() ||
+           a.name.toLowerCase().includes(activityType.toLowerCase());
+  });
+
+  if (!activity) {
+    return { distance: 0, duration: 0, stravaUrl: "" };
+  }
+
+  return {
+    distance: (activity.distance || 0) / 1000, // Convert to km
+    duration: activity.moving_time || 0, // seconds
+    stravaUrl: `https://www.strava.com/activities/${activity.id}`,
   };
-  return mockDetails[activityType] || {};
 };
 
 // Get activity details
 const runDetails = getLastActivityDetails("Run");
 const rideDetails = getLastActivityDetails("Ride");
 const swimDetails = getLastActivityDetails("Swim");
+
+// Calculate REAL weekly stats
+const weeklyRunDistance = calculateWeeklyStats("Run");
+const weeklyRideDistance = calculateWeeklyStats("Ride");
+const weeklySwimDistance = calculateWeeklyStats("Swim");
+
+// Calculate total weekly activities (last 7 days)
+const weekAgo = new Date();
+weekAgo.setDate(weekAgo.getDate() - 7);
+const weekActivities = allActivities.filter(activity => {
+  const activityDate = new Date(activity.start_date);
+  return activityDate >= weekAgo;
+});
+const totalWeeklyActivities = weekActivities.length;
+const totalWeeklyDistance = weekActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+const totalWeeklyTime = weekActivities.reduce((sum, a) => sum + (a.moving_time || 0), 0); // seconds
+
+// Calculate discipline count (how many types of activities)
+const disciplineTypes = new Set(
+  allActivities
+    .slice(0, 50)
+    .map(a => a.type || a.sport_type)
+    .filter(Boolean)
+);
+const totalDisciplines = disciplineTypes.size;
 const pageParam = Astro.url.searchParams.get("page");
 let currentPage = 1;
 if (pageParam) {
@@ -89,9 +115,9 @@ if (pageParam) {
   description={PAGE_METADATA.last.description}
   keywords={PAGE_METADATA.last.keywords}
   title="Activity Status Monitor"
-  windowTitle="LAST_ACTIVITY_TRACKER"
-  terminalCommand="./monitor_athlete_performance.exe"
-  systemMessage="[NEURAL_NETWORK] Analyzing training patterns and performance metrics..."
+  windowTitle="ACTIVITY_TRACKER"
+  terminalCommand="./view_activities.sh --last-7-days"
+  systemMessage={`[SYSTEM] Last ${totalWeeklyActivities} activities | Total: ${totalWeeklyDistance.toFixed(1)} km | Disciplines: ${totalDisciplines}`}
 >
   <!-- Header Section -->
   <section class="mb-8">
@@ -131,7 +157,7 @@ if (pageParam) {
       stravaUrl={runDetails.stravaUrl}
       lastDistance={runDetails.distance || 0}
       lastDuration={runDetails.duration || 0}
-      averageWeekly={calculateWeeklyAverage("Run")}
+      averageWeekly={weeklyRunDistance}
     />
   </SectionLayout>
 
@@ -154,7 +180,7 @@ if (pageParam) {
       stravaUrl={rideDetails.stravaUrl}
       lastDistance={rideDetails.distance || 0}
       lastDuration={rideDetails.duration || 0}
-      averageWeekly={calculateWeeklyAverage("Ride")}
+      averageWeekly={weeklyRideDistance}
     />
   </SectionLayout>
 
@@ -177,47 +203,62 @@ if (pageParam) {
       stravaUrl={swimDetails.stravaUrl}
       lastDistance={swimDetails.distance || 0}
       lastDuration={swimDetails.duration || 0}
-      averageWeekly={calculateWeeklyAverage("Swim")}
+      averageWeekly={weeklySwimDistance}
     />
   </SectionLayout>
 
-  <!-- Training Summary Section -->
+  <!-- Training Summary Section - REAL DATA -->
   <section class="mb-8">
     <div
       class="bg-black/60 border border-green-500/30 rounded-lg p-6 backdrop-blur-sm"
     >
       <div class="text-center space-y-4">
         <div class="text-green-400 font-mono text-lg mb-4">
-          [TRAINING_SUMMARY]
+          [WEEKLY_TRAINING_SUMMARY]
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
           <div class="space-y-2">
             <div class="text-green-400/60 text-xs">TOTAL_ACTIVITIES:</div>
-            <div class="text-green-300 font-mono text-xl">3</div>
-            <div class="text-green-400/80 text-xs">DISCIPLINES_TRACKED</div>
+            <div class="text-green-300 font-mono text-xl">{totalWeeklyActivities}</div>
+            <div class="text-green-400/80 text-xs">LAST_7_DAYS</div>
           </div>
 
           <div class="space-y-2">
-            <div class="text-green-400/60 text-xs">WEEKLY_TARGET:</div>
-            <div class="text-green-300 font-mono text-xl">5-7</div>
-            <div class="text-green-400/80 text-xs">SESSIONS_PER_WEEK</div>
+            <div class="text-green-400/60 text-xs">TOTAL_DISTANCE:</div>
+            <div class="text-green-300 font-mono text-xl">{totalWeeklyDistance.toFixed(1)} km</div>
+            <div class="text-green-400/80 text-xs">LAST_7_DAYS</div>
           </div>
 
           <div class="space-y-2">
-            <div class="text-green-400/60 text-xs">CONSISTENCY_RATING:</div>
-            <div class="text-yellow-400 font-mono text-xl">85%</div>
-            <div class="text-green-400/80 text-xs">ADHERENCE_TO_PLAN</div>
+            <div class="text-green-400/60 text-xs">TOTAL_TIME:</div>
+            <div class="text-green-300 font-mono text-xl">
+              {Math.floor(totalWeeklyTime / 3600)}h {Math.floor((totalWeeklyTime % 3600) / 60)}m
+            </div>
+            <div class="text-green-400/80 text-xs">MOVING_TIME</div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-green-400/60 text-xs">DISCIPLINES:</div>
+            <div class="text-green-300 font-mono text-xl">{totalDisciplines}</div>
+            <div class="text-green-400/80 text-xs">TYPES_TRACKED</div>
           </div>
         </div>
 
         <div class="mt-6 pt-4 border-t border-green-500/20">
-          <div class="text-green-400/80 text-xs mb-2">
-            SYSTEM_RECOMMENDATION:
-          </div>
-          <div class="text-green-300 text-sm italic">
-            "Maintain cross-training balance. Consider increasing swimming
-            frequency for optimal recovery."
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="space-y-1">
+              <div class="text-green-400/60">RUNNING:</div>
+              <div class="text-green-300 font-mono">{weeklyRunDistance.toFixed(1)} km/week</div>
+            </div>
+            <div class="space-y-1">
+              <div class="text-green-400/60">CYCLING:</div>
+              <div class="text-green-300 font-mono">{weeklyRideDistance.toFixed(1)} km/week</div>
+            </div>
+            <div class="space-y-1">
+              <div class="text-green-400/60">SWIMMING:</div>
+              <div class="text-green-300 font-mono">{weeklySwimDistance.toFixed(1)} km/week</div>
+            </div>
           </div>
         </div>
       </div>

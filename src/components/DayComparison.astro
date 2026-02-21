@@ -1,0 +1,227 @@
+---
+/**
+ * Day Comparison Component
+ *
+ * Table comparing selected day vs yesterday, 7-day avg, and 30-day avg.
+ * Color coded: green (better), red (worse), yellow (stable)
+ */
+
+import type { ComparisonData } from '@/services/dataAggregationService';
+
+export interface Props {
+  comparisons: ComparisonData;
+}
+
+const { comparisons } = Astro.props;
+
+// Helper to format difference with + or -
+function formatDiff(value: number, suffix: string = ''): string {
+  const sign = value > 0 ? '+' : '';
+  return `${sign}${Math.round(value).toLocaleString()}${suffix}`;
+}
+
+// Helper to get color class based on value
+function getColorClass(value: number): string {
+  if (value > 100) return 'good'; // Significant improvement
+  if (value > 0) return 'slight-good'; // Slight improvement
+  if (value < -100) return 'bad'; // Significant decline
+  if (value < 0) return 'slight-bad'; // Slight decline
+  return 'neutral'; // Stable
+}
+---
+
+<div class="comparison-container">
+  <!-- Yesterday Comparison -->
+  <div class="comparison-section">
+    <div class="section-title">VS YESTERDAY</div>
+    <div class="comparison-grid">
+      <div class="comparison-row">
+        <span class="metric-name">Steps</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vsYesterday.steps)}`}>
+          {formatDiff(comparisons.vsYesterday.steps)}
+        </span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Activities</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vsYesterday.activities * 100)}`}>
+          {formatDiff(comparisons.vsYesterday.activities)}
+        </span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Heart Minutes</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vsYesterday.heartMinutes * 10)}`}>
+          {formatDiff(comparisons.vsYesterday.heartMinutes, ' min')}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-Day Average Comparison -->
+  <div class="comparison-section">
+    <div class="section-title">VS 7-DAY AVG</div>
+    <div class="comparison-grid">
+      <div class="comparison-row">
+        <span class="metric-name">Steps</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.steps)}`}>
+          {formatDiff(comparisons.vs7DayAvg.steps)}
+        </span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Distance</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.distance)}`}>
+          {formatDiff(comparisons.vs7DayAvg.distance, ' m')}
+        </span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Heart Minutes</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.heartMinutes * 10)}`}>
+          {formatDiff(comparisons.vs7DayAvg.heartMinutes, ' min')}
+        </span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Workouts</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.workouts * 100)}`}>
+          {formatDiff(comparisons.vs7DayAvg.workouts)}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 30-Day Average Comparison -->
+  <div class="comparison-section">
+    <div class="section-title">VS 30-DAY AVG</div>
+    <div class="comparison-grid">
+      <div class="comparison-row">
+        <span class="metric-name">Steps</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.steps)}`}>
+          {formatDiff(comparisons.vs30DayAvg.steps)}
+        </span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Distance</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.distance)}`}>
+          {formatDiff(comparisons.vs30DayAvg.distance, ' m')}
+        </span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Calories</span>
+        <span class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.calories)}`}>
+          {formatDiff(comparisons.vs30DayAvg.calories, ' kcal')}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .comparison-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .comparison-section {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #00ff00;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  }
+
+  .comparison-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .comparison-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .comparison-row:hover {
+    background: rgba(0, 255, 0, 0.05);
+    border-color: rgba(0, 255, 0, 0.3);
+  }
+
+  .metric-name {
+    font-size: 0.8rem;
+    color: rgba(0, 255, 0, 0.8);
+  }
+
+  .metric-diff {
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  /* Color coding */
+  .metric-diff.good {
+    color: #00ff00;
+    background: rgba(0, 255, 0, 0.15);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+  }
+
+  .metric-diff.slight-good {
+    color: rgba(0, 255, 0, 0.9);
+    background: rgba(0, 255, 0, 0.08);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+  }
+
+  .metric-diff.bad {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.15);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+  }
+
+  .metric-diff.slight-bad {
+    color: rgba(255, 68, 68, 0.8);
+    background: rgba(255, 68, 68, 0.08);
+    border: 1px solid rgba(255, 68, 68, 0.2);
+  }
+
+  .metric-diff.neutral {
+    color: rgba(255, 255, 0, 0.8);
+    background: rgba(255, 255, 0, 0.08);
+    border: 1px solid rgba(255, 255, 0, 0.2);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .comparison-container {
+      gap: 1rem;
+    }
+
+    .comparison-section {
+      padding: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+    }
+
+    .metric-name,
+    .metric-diff {
+      font-size: 0.7rem;
+    }
+  }
+</style>

@@ -1,0 +1,193 @@
+---
+/**
+ * Real-Time Header Component
+ *
+ * Displays real-time metrics at the top of the navigation.
+ * Replaces decorative ".exe" junk with actual data.
+ *
+ * Shows:
+ * - Today's steps
+ * - Last activity (time ago)
+ * - Weekly workout count
+ * - Current streak
+ */
+
+import { fetchStepsData, fetchTodayStats } from '@/services/googleFitService';
+import { fetchActivities } from '@/services/stravaService';
+import { fetchHevyData } from '@/services/hevyService';
+import { calculateStreaks } from '@/services/dataAggregationService';
+
+// Fetch today's data
+const todayStr = new Date().toISOString().split('T')[0];
+let todaySteps = 0;
+let lastActivity = '';
+let weeklyWorkouts = 0;
+let currentStreak = 0;
+
+try {
+  // Get today's steps
+  const stepsData = await fetchStepsData(1);
+  todaySteps = stepsData[todayStr]?.steps || 0;
+
+  // Get last activity
+  const activities = await fetchActivities(1, 10);
+  if (activities.length > 0) {
+    const lastActivityDate = new Date(activities[0].start_date);
+    const now = new Date();
+    const diffMs = now.getTime() - lastActivityDate.getTime();
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffDays > 0) {
+      lastActivity = `${diffDays}D AGO`;
+    } else if (diffHours > 0) {
+      lastActivity = `${diffHours}H AGO`;
+    } else {
+      const diffMins = Math.floor(diffMs / (1000 * 60));
+      lastActivity = `${diffMins}M AGO`;
+    }
+  }
+
+  // Get weekly workout count
+  const workouts = await fetchHevyData();
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+
+  weeklyWorkouts = workouts.filter(w => {
+    const workoutDate = new Date(w.start_time);
+    return workoutDate >= weekAgo;
+  }).length;
+
+  // Get current step streak
+  const streaks = await calculateStreaks(todayStr);
+  currentStreak = streaks.steps.current;
+} catch (error) {
+  console.error('Error fetching real-time header data:', error);
+}
+---
+
+<div class="real-time-header">
+  {
+    todaySteps > 0 && (
+      <div class="metric">
+        <span class="metric-icon">🚶</span>
+        <span class="metric-value">{todaySteps.toLocaleString()} STEPS</span>
+      </div>
+    )
+  }
+
+  {
+    lastActivity && (
+      <div class="metric">
+        <span class="metric-icon">🏃</span>
+        <span class="metric-value">LAST: {lastActivity}</span>
+      </div>
+    )
+  }
+
+  {
+    weeklyWorkouts > 0 && (
+      <div class="metric">
+        <span class="metric-icon">💪</span>
+        <span class="metric-value">{weeklyWorkouts} WORKOUTS/WK</span>
+      </div>
+    )
+  }
+
+  {
+    currentStreak > 0 && (
+      <div class="metric streak">
+        <span class="metric-icon">🔥</span>
+        <span class="metric-value">{currentStreak}-DAY STREAK</span>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .real-time-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 30, 0, 0.6) 100%);
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 255, 0, 0.3) rgba(0, 0, 0, 0.5);
+  }
+
+  .metric {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+
+  .metric:hover {
+    background: rgba(0, 255, 0, 0.1);
+    border-color: rgba(0, 255, 0, 0.4);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+  }
+
+  .metric.streak {
+    border-color: rgba(255, 165, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
+  }
+
+  .metric-icon {
+    font-size: 1rem;
+  }
+
+  .metric-value {
+    font-size: 0.75rem;
+    color: #00ff00;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+
+  .metric.streak .metric-value {
+    color: #ffa500;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .real-time-header {
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .metric {
+      padding: 0.3rem 0.5rem;
+    }
+
+    .metric-icon {
+      font-size: 0.875rem;
+    }
+
+    .metric-value {
+      font-size: 0.65rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .real-time-header {
+      gap: 0.5rem;
+      padding: 0.4rem 0.5rem;
+    }
+
+    .metric {
+      padding: 0.25rem 0.4rem;
+    }
+
+    .metric-value {
+      font-size: 0.6rem;
+    }
+  }
+</style>

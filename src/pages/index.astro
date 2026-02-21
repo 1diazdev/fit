@@ -1,86 +1,170 @@
 ---
-import Base from "@layouts/Base.astro";
-import { PAGE_METADATA } from "@src/consts";
-import SectionLayout from "@components/SectionLayout.astro";
-// import DaysSinceLast from "@components/DaysSinceLast.astro";
-import HeatmapGrid from "@components/HeatmapGrid.astro";
-import HevyWorkoutCount from "@components/HevyWorkoutCount.astro";
-import { fetchWorkoutCount } from "@services/hevyService.ts";
-import {
-  fetchDistanceData,
-  processDistanceData,
-  fetchActivities,
-} from "@services/stravaService";
-import ActivityDashboard from "@components/ActivityDashboard.astro";
+import Base from '@layouts/Base.astro';
+import { PAGE_METADATA } from '@src/consts';
+import SectionLayout from '@components/SectionLayout.astro';
+import DayMetricsGrid from '@components/DayMetricsGrid.astro';
+import DayComparison from '@components/DayComparison.astro';
+import InsightsPanel from '@components/InsightsPanel.astro';
+import MoveMinutesChart from '@components/MoveMinutesChart.astro';
+import HeartRateZones from '@components/HeartRateZones.astro';
+import HeatmapGrid from '@components/HeatmapGrid.astro';
 
-// Fetch and process Strava data
+import { getDataForDate, getComparisons, calculateStreaks } from '@services/dataAggregationService';
+import { fetchDistanceData, processDistanceData, fetchActivities } from '@services/stravaService';
+import { fetchStepsData, fetchHeartRateData, fetchMoveMinutesData } from '@services/googleFitService';
+import { generateInsights, getPersonalRecords } from '@utils/statsUtils';
+import { fetchHevyData } from '@services/hevyService';
+
+// Get selected date from URL param or default to today
+const urlParams = new URL(Astro.url).searchParams;
+const today = new Date();
+const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+const selectedDate = urlParams.get('date') || todayStr;
+
+// Calculate previous and next day dates
+const selectedDateObj = new Date(selectedDate);
+const prevDay = new Date(selectedDateObj);
+prevDay.setDate(prevDay.getDate() - 1);
+const prevDayStr = `${prevDay.getFullYear()}-${String(prevDay.getMonth() + 1).padStart(2, '0')}-${String(prevDay.getDate()).padStart(2, '0')}`;
+
+const nextDay = new Date(selectedDateObj);
+nextDay.setDate(nextDay.getDate() + 1);
+const nextDayStr = `${nextDay.getFullYear()}-${String(nextDay.getMonth() + 1).padStart(2, '0')}-${String(nextDay.getDate()).padStart(2, '0')}`;
+
+// Format date for display
+const displayDate = selectedDateObj.toLocaleDateString('en-US', {
+  weekday: 'short',
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+});
+
+// Check if selected date is today
+const isToday = selectedDate === todayStr;
+
+console.log(`[index.astro] Loading dashboard for date: ${selectedDate}`);
+
+// Fetch all data for selected date
+const dayData = await getDataForDate(selectedDate);
+const comparisons = await getComparisons(selectedDate);
+const streaks = await calculateStreaks(selectedDate);
+
+// Fetch data for insights generation
+const [stepsData, allActivities, allWorkouts] = await Promise.all([
+  fetchStepsData(365).catch(() => ({})),
+  fetchActivities(1, 200).catch(() => []),
+  fetchHevyData().catch(() => []),
+]);
+
+const personalRecords = getPersonalRecords(stepsData, allActivities, allWorkouts);
+const insights = generateInsights(dayData, comparisons, streaks, personalRecords);
+
+// Fetch 365-day heatmap data
 const distanceMap = await fetchDistanceData();
 const distanceData = processDistanceData(distanceMap);
-
-// Fetch activities once for the dashboard (optimized - single API call)
-const allActivities = await fetchActivities(1, 50);
-
-// Helper function to find last activity by type
-const findLastActivityByType = (type: string) => {
-  const activity = allActivities.find(a => {
-    const activityType = a.type || a.sport_type || "";
-    return (
-      activityType.toLowerCase() === type.toLowerCase() ||
-      a.name.toLowerCase().includes(type.toLowerCase())
-    );
-  });
-
-  if (!activity) return null;
-
-  const activityDate = new Date(activity.start_date);
-  const newYorkDate = new Date(
-    activityDate.toLocaleString("en-US", { timeZone: "America/New_York" })
-  );
-
-  return { date: newYorkDate, activity };
-};
-
-// Pre-fetch activity data for the dashboard (replaces 4 separate API calls)
-const activityData = {
-  run: findLastActivityByType("run"),
-  ride: findLastActivityByType("ride"),
-  swim: findLastActivityByType("swim"),
-  walk: findLastActivityByType("walk"),
-};
-
 const minDistance = Math.min(...distanceData.map(data => data[1]));
 const maxDistance = Math.max(...distanceData.map(data => data[1]));
 
-// Fetch Hevy workout count with error handling
-let workoutCount = 0;
-try {
-  workoutCount = await fetchWorkoutCount();
-  console.log("Fetched workout count:", workoutCount);
-} catch (error) {
-  console.error("Error fetching workout count:", error);
-  workoutCount = 0; // Fallback to 0 if fetch fails
-}
+// Fetch move minutes for chart (last 7 days)
+const moveMinutesData = await fetchMoveMinutesData(30).catch(() => ({}));
+
+// Fetch heart rate data for zones component
+const heartRateData = await fetchHeartRateData(7).catch(() => ({}));
+
+// Generate terminal command with date
+const terminalCommand = `./view_metrics.sh ${selectedDate}`;
+
+// Generate system message with API status
+const hasSteps = dayData.steps.count > 0;
+const hasActivities = dayData.activities.length > 0;
+const hasWorkouts = dayData.workouts.length > 0;
+const systemMessage = `[SYSTEM] Loaded data for ${selectedDate} | Google Fit: ${hasSteps ? '✓' : '○'} | Strava: ${hasActivities ? '✓' : '○'} | Hevy: ${hasWorkouts ? '✓' : '○'}`;
 ---
 
 <Base
   title={PAGE_METADATA.index.title}
   description={PAGE_METADATA.index.description}
   keywords={PAGE_METADATA.index.keywords}
-  windowTitle="ROOT"
-  terminalCommand="./run_activity_monitor.exe"
-  systemMessage="[SYSTEM] Loading neural activity patterns... Strava API connected."
+  windowTitle="FITNESS_DASHBOARD"
+  terminalCommand={terminalCommand}
+  systemMessage={systemMessage}
 >
-  <SectionLayout title="[ACTIVITY_STATUS]">
-    <ActivityDashboard activityData={activityData} />
+  <!-- Date Navigator - Simple arrows -->
+  <div class="date-navigator">
+    <a href={`/?date=${prevDayStr}`} class="nav-arrow" title="Previous day">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </a>
+
+    <div class="date-display">
+      <div class="date-text">{displayDate}</div>
+      {!isToday && (
+        <a href="/" class="today-btn">[TODAY]</a>
+      )}
+    </div>
+
+    <a href={`/?date=${nextDayStr}`} class="nav-arrow" title="Next day">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </a>
+  </div>
+
+  <!-- Daily Metrics Grid -->
+  <SectionLayout title="[DAILY_METRICS]" rightHeaderText={`[${selectedDate}]`}>
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+    >
+    </div>
+    <DayMetricsGrid dayData={dayData} />
   </SectionLayout>
 
-  <!-- Days Since Last Activity Section -->
-  <!-- <SectionLayout title="[ACTIVITY_STATUS]">
-    <DaysSinceLast lastRunDate={lastRunDate || undefined} activityType="RUN" />
-  </SectionLayout> -->
+  <!-- Insights & Comparisons -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <SectionLayout title="[INSIGHTS]">
+      <div
+        slot="headerElements"
+        class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
+      >
+      </div>
+      <InsightsPanel insights={insights} />
+    </SectionLayout>
 
-  <!-- Heatmap Analysis Section -->
-  <SectionLayout title="[ANALYTICS]" rightHeaderText="[365_DAY_NEURAL_MAPPING]">
+    <SectionLayout title="[COMPARISONS]">
+      <div
+        slot="headerElements"
+        class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+      >
+      </div>
+      <DayComparison comparisons={comparisons} />
+    </SectionLayout>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <SectionLayout title="[MOVE_MINUTES]" rightHeaderText="[LAST_7_DAYS]">
+      <div
+        slot="headerElements"
+        class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
+      >
+      </div>
+      <MoveMinutesChart moveMinutesData={moveMinutesData} days={7} />
+    </SectionLayout>
+
+    <SectionLayout title="[HEART_RATE_ZONES]" rightHeaderText="[LAST_7_DAYS]">
+      <div
+        slot="headerElements"
+        class="w-2 h-2 bg-red-400 rounded-full animate-pulse"
+      >
+      </div>
+      <HeartRateZones heartRateData={heartRateData} daysToShow={7} />
+    </SectionLayout>
+  </div>
+
+  <!-- 365-Day Heatmap (Annual Overview) -->
+  <SectionLayout title="[ANNUAL_OVERVIEW]" rightHeaderText="[365_DAY_ACTIVITY_MAP]">
     <div
       slot="headerElements"
       class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
@@ -163,20 +247,51 @@ try {
     </div>
   </SectionLayout>
 
-  <!-- Hevy Workout Count Section -->
-  <SectionLayout title="[HEVY_WORKOUT]" rightHeaderText="[TOTAL_WORKOUT_COUNT]">
-    <div
-      slot="headerElements"
-      class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
-    >
+  <!-- Streaks Info (small footer section) -->
+  <SectionLayout title="[ACTIVE_STREAKS]">
+    <div class="streaks-grid">
+      {
+        streaks.steps.current > 0 && (
+          <div class="streak-card">
+            <span class="streak-icon">🔥</span>
+            <div class="streak-info">
+              <div class="streak-value">{streaks.steps.current} days</div>
+              <div class="streak-label">Step Goal Streak</div>
+              <div class="streak-record">Best: {streaks.steps.longest} days</div>
+            </div>
+          </div>
+        )
+      }
+      {
+        streaks.activities.current > 0 && (
+          <div class="streak-card">
+            <span class="streak-icon">⚡</span>
+            <div class="streak-info">
+              <div class="streak-value">{streaks.activities.current} days</div>
+              <div class="streak-label">Activity Streak</div>
+              <div class="streak-record">Best: {streaks.activities.longest} days</div>
+            </div>
+          </div>
+        )
+      }
+      {
+        streaks.workouts.current > 0 && (
+          <div class="streak-card">
+            <span class="streak-icon">💪</span>
+            <div class="streak-info">
+              <div class="streak-value">{streaks.workouts.current} days</div>
+              <div class="streak-label">Workout Streak</div>
+              <div class="streak-record">Best: {streaks.workouts.longest} days</div>
+            </div>
+          </div>
+        )
+      }
     </div>
-
-    <HevyWorkoutCount workoutCount={workoutCount} />
   </SectionLayout>
 </Base>
 
 <style>
-  /* Heatmap styles remain the same */
+  /* Heatmap styles */
   .heatmap-container {
     background: linear-gradient(
       135deg,
@@ -193,35 +308,6 @@ try {
     overflow: hidden;
   }
 
-  .heatmap-container::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: 9px;
-    padding: 1px;
-    background: linear-gradient(
-      45deg,
-      rgba(0, 255, 0, 0.4),
-      transparent,
-      rgba(0, 255, 0, 0.4)
-    );
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    animation: heatmapBorderGlow 4s ease-in-out infinite;
-  }
-
-  @keyframes heatmapBorderGlow {
-    0%,
-    100% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 0.8;
-    }
-  }
-
   .heatmap-wrapper {
     position: relative;
     z-index: 2;
@@ -235,7 +321,7 @@ try {
 
   .heatmap-info,
   .heatmap-footer {
-    font-family: "Courier New", monospace;
+    font-family: 'Courier New', monospace;
   }
 
   .info-block {
@@ -257,5 +343,181 @@ try {
     border-color: rgba(0, 255, 0, 0.6);
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
     transform: translateY(-1px);
+  }
+
+  /* Streaks Grid */
+  .streaks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .streak-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .streak-card:hover {
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .streak-icon {
+    font-size: 2rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .streak-info {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+  }
+
+  .streak-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ff00;
+    margin-bottom: 0.25rem;
+  }
+
+  .streak-label {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.7);
+    margin-bottom: 0.25rem;
+  }
+
+  .streak-record {
+    font-size: 0.65rem;
+    color: rgba(0, 255, 0, 0.5);
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* Date Navigator */
+  .date-navigator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 0, 0.6) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .nav-arrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 6px;
+    color: #00ff00;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .nav-arrow:hover {
+    background: rgba(0, 255, 0, 0.15);
+    border-color: rgba(0, 255, 0, 0.6);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    transform: scale(1.1);
+  }
+
+  .nav-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .date-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 280px;
+  }
+
+  .date-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #00ff00;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .today-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+    color: rgba(0, 255, 0, 0.8);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .today-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: rgba(0, 255, 0, 0.5);
+    color: #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .heatmap-container {
+      padding: 12px;
+    }
+
+    .streaks-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .streak-icon {
+      font-size: 1.5rem;
+    }
+
+    .streak-value {
+      font-size: 1.25rem;
+    }
+
+    .date-navigator {
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .nav-arrow {
+      width: 36px;
+      height: 36px;
+    }
+
+    .date-display {
+      min-width: 200px;
+    }
+
+    .date-text {
+      font-size: 1rem;
+    }
   }
 </style>

@@ -1,4 +1,6 @@
 ---
+import RealTimeHeader from "./RealTimeHeader.astro";
+
 export interface Props {
   currentPath?: string;
 }
@@ -6,15 +8,17 @@ export interface Props {
 const { currentPath = "/" } = Astro.props;
 
 const navItems = [
-  { path: "/", label: "root.exe", icon: "●" },
-  { path: "/last", label: "activity_monitor.exe", icon: "◐" },
-  { path: "/map", label: "map.exe", icon: "◑" },
-  { path: "/hevy", label: "workout.exe", icon: "◑" },
-  { path: "/health", label: "health_tracker.exe", icon: "◑" },
-  { path: "/about", label: "about.exe", icon: "◑" },
-  { path: "/404", label: "error_handler.exe", icon: "◑" },
+  { path: "/", label: "DASHBOARD", icon: "●" },
+  { path: "/last", label: "ACTIVITIES", icon: "◐" },
+  { path: "/map", label: "ROUTES", icon: "◑" },
+  { path: "/hevy", label: "WORKOUTS", icon: "◑" },
+  { path: "/health", label: "HEALTH", icon: "◑" },
+  { path: "/about", label: "RECORDS", icon: "◑" },
 ];
 ---
+
+<!-- Real-time metrics header -->
+<RealTimeHeader />
 
 <nav class="browser-tabs-nav">
   <div class="tabs-container">

@@ -1,0 +1,189 @@
+---
+/**
+ * Insights Panel Component
+ *
+ * Displays auto-generated motivational insights based on real data.
+ * Shows achievements, streaks, personal records, and actionable suggestions.
+ */
+
+export interface Props {
+  insights: string[];
+}
+
+const { insights } = Astro.props;
+
+// Helper to parse insights for special styling
+function parseInsight(insight: string) {
+  // Extract emoji if present
+  const emojiMatch = insight.match(/^(\p{Emoji})\s+(.+)$/u);
+  if (emojiMatch) {
+    return {
+      emoji: emojiMatch[1],
+      text: emojiMatch[2],
+    };
+  }
+  return {
+    emoji: null,
+    text: insight,
+  };
+}
+---
+
+<div class="insights-panel">
+  {
+    insights.length > 0 ? (
+      <div class="insights-list">
+        {insights.map(insight => {
+          const parsed = parseInsight(insight);
+          return (
+            <div class="insight-item">
+              {parsed.emoji && <span class="insight-emoji">{parsed.emoji}</span>}
+              <span class="insight-text">{parsed.text}</span>
+            </div>
+          );
+        })}
+      </div>
+    ) : (
+      <div class="no-insights">
+        <span class="no-insights-icon">💡</span>
+        <span class="no-insights-text">Start tracking to see insights!</span>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .insights-panel {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 0, 0.6) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow:
+      0 0 15px rgba(0, 255, 0, 0.15),
+      inset 0 0 15px rgba(0, 255, 0, 0.05);
+    font-family: 'Courier New', monospace;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .insights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .insight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-left: 3px solid rgba(0, 255, 0, 0.5);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease;
+  }
+
+  .insight-item:hover {
+    background: rgba(0, 255, 0, 0.08);
+    border-left-color: #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+    transform: translateX(4px);
+  }
+
+  .insight-emoji {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .insight-text {
+    font-size: 0.875rem;
+    color: rgba(0, 255, 0, 0.9);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .no-insights {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex: 1;
+    padding: 2rem;
+  }
+
+  .no-insights-icon {
+    font-size: 3rem;
+    opacity: 0.3;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .no-insights-text {
+    font-size: 0.875rem;
+    color: rgba(0, 255, 0, 0.5);
+    text-align: center;
+  }
+
+  /* Animations */
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* Stagger animation for list items */
+  .insight-item:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .insight-item:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .insight-item:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  .insight-item:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+  .insight-item:nth-child(5) {
+    animation-delay: 0.4s;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .insights-panel {
+      padding: 1rem;
+      min-height: 150px;
+    }
+
+    .insight-emoji {
+      font-size: 1rem;
+    }
+
+    .insight-text {
+      font-size: 0.75rem;
+    }
+
+    .no-insights-icon {
+      font-size: 2rem;
+    }
+  }
+</style>
