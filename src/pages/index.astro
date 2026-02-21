@@ -11,7 +11,13 @@ import HeatmapGrid from '@components/HeatmapGrid.astro';
 import ActivityDashboard from '@components/ActivityDashboard.astro';
 import HevyWorkoutCount from '@components/HevyWorkoutCount.astro';
 
-import { getDataForDate, getComparisons, calculateStreaks } from '@services/dataAggregationService';
+import {
+  getDataForDate,
+  getComparisons,
+  calculateStreaks,
+  isTestDataMode,
+  getTestModeSnapshot,
+} from '@services/dataAggregationService';
 import { fetchDistanceData, processDistanceData, fetchActivities } from '@services/stravaService';
 import { fetchStepsData, fetchHeartRateData, fetchMoveMinutesData } from '@services/googleFitService';
 import { generateInsights, getPersonalRecords } from '@utils/statsUtils';
@@ -21,7 +27,8 @@ import { fetchHevyData, fetchWorkoutCount } from '@services/hevyService';
 const urlParams = new URL(Astro.url).searchParams;
 const today = new Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-const selectedDate = urlParams.get('date') || todayStr;
+const requestedDate = urlParams.get('date') || todayStr;
+const selectedDate = /^\d{4}-\d{2}-\d{2}$/.test(requestedDate) ? requestedDate : todayStr;
 
 // Parse date string properly to avoid timezone issues
 // YYYY-MM-DD format should be interpreted as local date, not UTC
@@ -38,12 +45,13 @@ nextDay.setDate(nextDay.getDate() + 1);
 const nextDayStr = `${nextDay.getFullYear()}-${String(nextDay.getMonth() + 1).padStart(2, '0')}-${String(nextDay.getDate()).padStart(2, '0')}`;
 
 // Format date for display
-const displayDate = selectedDateObj.toLocaleDateString('en-US', {
+const displayDate = new Intl.DateTimeFormat('en-US', {
   weekday: 'short',
   year: 'numeric',
   month: 'short',
-  day: 'numeric'
-});
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(Date.UTC(year, month - 1, day, 12)));
 
 // Check if selected date is today
 const isToday = selectedDate === todayStr;
@@ -61,13 +69,17 @@ console.log(`[index.astro] DayData fetched:`, {
 
 const comparisons = await getComparisons(selectedDate);
 const streaks = await calculateStreaks(selectedDate);
+const testMode = isTestDataMode();
+const testSnapshot = testMode ? await getTestModeSnapshot() : null;
 
 // Fetch data for insights generation
-const [stepsData, allActivities, allWorkouts] = await Promise.all([
-  fetchStepsData(365).catch(() => ({})),
-  fetchActivities(1, 200).catch(() => []),
-  fetchHevyData().catch(() => []),
-]);
+const [stepsData, allActivities, allWorkouts] = testMode && testSnapshot
+  ? [testSnapshot.stepsData, testSnapshot.activities, testSnapshot.workouts]
+  : await Promise.all([
+    fetchStepsData(365).catch(() => ({})),
+    fetchActivities(1, 200).catch(() => []),
+    fetchHevyData().catch(() => []),
+  ]);
 
 const personalRecords = getPersonalRecords(stepsData, allActivities, allWorkouts);
 const insights = generateInsights(dayData, comparisons, streaks, personalRecords);
@@ -111,24 +123,35 @@ const selectedDateActivitiesByType = {
 };
 
 // Fetch 365-day heatmap data
-const distanceMap = await fetchDistanceData();
+const distanceMap = testMode && testSnapshot
+  ? testSnapshot.distanceMap
+  : await fetchDistanceData();
 const distanceData = processDistanceData(distanceMap);
-const minDistance = Math.min(...distanceData.map(data => data[1]));
-const maxDistance = Math.max(...distanceData.map(data => data[1]));
+const positiveDistances = distanceData.map(data => data[1]).filter(value => value > 0);
+const minDistance = positiveDistances.length > 0 ? Math.min(...positiveDistances) : 0;
+const maxDistance = positiveDistances.length > 0 ? Math.max(...positiveDistances) : 1;
 
 // Fetch move minutes for chart (last 7 days)
-const moveMinutesData = await fetchMoveMinutesData(30).catch(() => ({}));
+const moveMinutesData = testMode && testSnapshot
+  ? testSnapshot.moveMinutesData
+  : await fetchMoveMinutesData(30).catch(() => ({}));
 
 // Fetch heart rate data for zones component
-const heartRateData = await fetchHeartRateData(7).catch(() => ({}));
+const heartRateData = testMode && testSnapshot
+  ? testSnapshot.heartRateData
+  : await fetchHeartRateData(7).catch(() => ({}));
 
 // Fetch Hevy workout count
 let workoutCount = 0;
-try {
-  workoutCount = await fetchWorkoutCount();
-} catch (error) {
-  console.error('Error fetching workout count:', error);
-  workoutCount = 0;
+if (testMode && testSnapshot) {
+  workoutCount = testSnapshot.workoutCount;
+} else {
+  try {
+    workoutCount = await fetchWorkoutCount();
+  } catch (error) {
+    console.error('Error fetching workout count:', error);
+    workoutCount = 0;
+  }
 }
 
 // Generate terminal command with date
@@ -138,7 +161,8 @@ const terminalCommand = `./view_metrics.sh ${selectedDate}`;
 const hasSteps = dayData.steps.count > 0;
 const hasActivities = dayData.activities.length > 0;
 const hasWorkouts = dayData.workouts.length > 0;
-const systemMessage = `[SYSTEM] Loaded data for ${selectedDate} | Google Fit: ${hasSteps ? '✓' : '○'} | Strava: ${hasActivities ? '✓' : '○'} | Hevy: ${hasWorkouts ? '✓' : '○'}`;
+const modeLabel = testMode ? 'TEST' : 'LIVE';
+const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} | Google Fit: ${hasSteps ? '✓' : '○'} | Strava: ${hasActivities ? '✓' : '○'} | Hevy: ${hasWorkouts ? '✓' : '○'}`;
 ---
 
 <Base

@@ -14,6 +14,8 @@
  */
 
 import { memoize } from '@/lib/dataCache';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 
 // ============================================================================
 // INTERFACES
@@ -91,6 +93,8 @@ export interface HealthStats {
 
 const GOOGLE_FIT_API_BASE = 'https://www.googleapis.com/fitness/v1/users/me';
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
+const TEST_MODE = String(import.meta.env.USE_DUMMY_HEALTH_DATA || '').toLowerCase() === 'true';
+const DUMMY_DATA_FILE = String(import.meta.env.HEALTH_DATA_FILE || 'health-data-dummy.json');
 
 // Data source IDs
 const DATA_SOURCES = {
@@ -102,6 +106,13 @@ const DATA_SOURCES = {
   ACTIVE_MINUTES: 'derived:com.google.active_minutes:com.google.android.gms:merge_active_minutes',
   HEART_MINUTES: 'derived:com.google.heart_minutes:com.google.android.gms:merge_heart_minutes',
 };
+
+interface DummyHealthData {
+  steps?: Record<string, { steps: number; distance: number; calories: number }>;
+  heartRate?: Record<string, { resting: number; avg: number; max: number; zones?: { rest?: number; fat_burn?: number; cardio?: number; peak?: number } }>;
+  moveMinutes?: Record<string, { active: number; heart: number }>;
+  sleep?: Record<string, { duration: number; deep: number; light: number; rem: number }>;
+}
 
 // ============================================================================
 // AUTHENTICATION
@@ -220,6 +231,11 @@ function nanosToDateString(nanos: string): string {
  * Fetches in chunks to avoid "aggregate duration too large" error
  */
 export async function fetchStepsData(days: number = 365): Promise<StepsData> {
+  if (TEST_MODE) {
+    const dummy = await loadDummyHealthData();
+    return toStepsData(dummy, days);
+  }
+
   const today = new Date().toISOString().split('T')[0];
   return memoize(`googlefit-steps-${today}-${days}`, async () => {
     const accessToken = await getAccessToken();
@@ -309,6 +325,11 @@ export async function fetchStepsData(days: number = 365): Promise<StepsData> {
  * Reduced to 90 days max due to API limitations
  */
 export async function fetchSleepData(days: number = 90): Promise<SleepData> {
+  if (TEST_MODE) {
+    const dummy = await loadDummyHealthData();
+    return toSleepData(dummy, days);
+  }
+
   const today = new Date().toISOString().split('T')[0];
   // Limit sleep data to 90 days max
   const actualDays = Math.min(days, 90);
@@ -409,6 +430,11 @@ function calculateSleepScore(total: number, deep: number, rem: number): number {
  * Note: 30 days should work in single request, but we keep chunk logic for consistency
  */
 export async function fetchHeartRateData(days: number = 30): Promise<HeartRateData> {
+  if (TEST_MODE) {
+    const dummy = await loadDummyHealthData();
+    return toHeartRateData(dummy, days);
+  }
+
   const today = new Date().toISOString().split('T')[0];
   return memoize(`googlefit-heartrate-${today}-${days}`, async () => {
     const accessToken = await getAccessToken();
@@ -477,6 +503,11 @@ export async function fetchHeartRateData(days: number = 30): Promise<HeartRateDa
  * Includes active minutes (any activity) and heart minutes (moderate to vigorous)
  */
 export async function fetchMoveMinutesData(days: number = 30): Promise<MoveMinutesData> {
+  if (TEST_MODE) {
+    const dummy = await loadDummyHealthData();
+    return toMoveMinutesData(dummy, days);
+  }
+
   const today = new Date().toISOString().split('T')[0];
   return memoize(`googlefit-move-${today}-${days}`, async () => {
     const accessToken = await getAccessToken();
@@ -546,6 +577,11 @@ export async function fetchMoveMinutesData(days: number = 30): Promise<MoveMinut
  * individual max HR testing is recommended.
  */
 export async function fetchHeartRateZones(days: number = 30, age: number = 30): Promise<HeartRateZones> {
+  if (TEST_MODE) {
+    const dummy = await loadDummyHealthData();
+    return toHeartRateZonesData(dummy, days);
+  }
+
   const today = new Date().toISOString().split('T')[0];
   return memoize(`googlefit-hr-zones-${today}-${days}`, async () => {
     const accessToken = await getAccessToken();
@@ -630,6 +666,124 @@ export async function fetchHeartRateZones(days: number = 30, age: number = 30): 
 
     return zonesData;
   });
+}
+
+async function loadDummyHealthData(): Promise<DummyHealthData> {
+  return memoize(`googlefit-dummy-${DUMMY_DATA_FILE}`, async () => {
+    try {
+      const filePath = resolve(process.cwd(), 'public', DUMMY_DATA_FILE);
+      const raw = await readFile(filePath, 'utf-8');
+      return JSON.parse(raw) as DummyHealthData;
+    } catch {
+      return {};
+    }
+  });
+}
+
+function getRecentDates(data: Record<string, unknown>, days: number): string[] {
+  return Object.keys(data).sort().slice(-days);
+}
+
+function normalizeDistanceMeters(distance: number): number {
+  if (distance <= 0) return 0;
+  return distance <= 100 ? distance * 1000 : distance;
+}
+
+function toStepsData(dummy: DummyHealthData, days: number): StepsData {
+  const output: StepsData = {};
+  const source = dummy.steps || {};
+  const dates = getRecentDates(source, days);
+
+  for (const date of dates) {
+    const row = source[date];
+    output[date] = {
+      steps: row?.steps || 0,
+      distance: normalizeDistanceMeters(row?.distance || 0),
+      calories: row?.calories || 0,
+    };
+  }
+
+  return output;
+}
+
+function toSleepData(dummy: DummyHealthData, days: number): SleepData {
+  const output: SleepData = {};
+  const source = dummy.sleep || {};
+  const dates = getRecentDates(source, days);
+
+  for (const date of dates) {
+    const row = source[date];
+    const total = row?.duration || 0;
+    output[date] = {
+      totalMinutes: total,
+      deepMinutes: row?.deep || 0,
+      lightMinutes: row?.light || 0,
+      remMinutes: row?.rem || 0,
+      sleepScore: Math.min(100, Math.round((total / 480) * 100)),
+    };
+  }
+
+  return output;
+}
+
+function toHeartRateData(dummy: DummyHealthData, days: number): HeartRateData {
+  const output: HeartRateData = {};
+  const source = dummy.heartRate || {};
+  const dates = getRecentDates(source, days);
+
+  for (const date of dates) {
+    const row = source[date];
+    output[date] = {
+      min: row?.resting || 0,
+      max: row?.max || 0,
+      avg: row?.avg || 0,
+      resting: row?.resting || 0,
+    };
+  }
+
+  return output;
+}
+
+function toMoveMinutesData(dummy: DummyHealthData, days: number): MoveMinutesData {
+  const output: MoveMinutesData = {};
+  const source = dummy.moveMinutes || {};
+  const dates = getRecentDates(source, days);
+
+  for (const date of dates) {
+    const row = source[date];
+    output[date] = {
+      activeMinutes: row?.active || 0,
+      heartMinutes: row?.heart || 0,
+    };
+  }
+
+  return output;
+}
+
+function toHeartRateZonesData(dummy: DummyHealthData, days: number): HeartRateZones {
+  const output: HeartRateZones = {};
+  const source = dummy.heartRate || {};
+  const dates = getRecentDates(source, days);
+
+  for (const date of dates) {
+    const zones = source[date]?.zones || {};
+    const zone1 = zones.rest || 0;
+    const zone2 = zones.fat_burn || 0;
+    const zone3 = zones.cardio || 0;
+    const zone4 = zones.peak || 0;
+    const zone5 = 0;
+
+    output[date] = {
+      zone1Minutes: zone1,
+      zone2Minutes: zone2,
+      zone3Minutes: zone3,
+      zone4Minutes: zone4,
+      zone5Minutes: zone5,
+      totalActiveMinutes: zone1 + zone2 + zone3 + zone4 + zone5,
+    };
+  }
+
+  return output;
 }
 
 /**

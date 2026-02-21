@@ -1,4 +1,5 @@
 import { memoize } from '@/lib/dataCache';
+const TEST_MODE = String(import.meta.env.USE_DUMMY_HEALTH_DATA || '').toLowerCase() === 'true';
 
 // TypeScript interfaces for Hevy workout data
 interface Set {
@@ -62,6 +63,10 @@ const fetchHevyData = async (apiKey?: string): Promise<Workout[]> => {
   const key = apiKey || getApiKey();
 
   return memoize(`hevy-workouts-${today}`, async () => {
+    if (TEST_MODE) {
+      return [];
+    }
+
     if (!key) {
       console.error("API key is required to fetch Hevy data.");
       console.error(
@@ -176,6 +181,10 @@ const fetchWorkoutCount = async (apiKey?: string): Promise<number> => {
   const today = new Date().toISOString().split('T')[0];
 
   return memoize(`hevy-workout-count-${today}`, async () => {
+    if (TEST_MODE) {
+      return 0;
+    }
+
     if (!key) {
       throw new Error("Hevy API key not provided.");
     }

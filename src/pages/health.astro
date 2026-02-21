@@ -10,6 +10,8 @@ import type {
   SleepData,
   HeartRateData,
 } from "@/services/googleFitService";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
 // Load cached health data from JSON file (no API call during build!)
 let healthData: {
@@ -27,12 +29,13 @@ let healthData: {
 };
 
 try {
-  const response = await fetch(
-    new URL("/health-data.json", Astro.site || "http://localhost:4321"),
-  );
-  if (response.ok) {
-    healthData = await response.json();
-  }
+  const isTestMode = String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() === "true";
+  const sourceFile = isTestMode
+    ? String(import.meta.env.HEALTH_DATA_FILE || "health-data-dummy.json")
+    : "health-data.json";
+  const filePath = resolve(process.cwd(), "public", sourceFile);
+  const fileContents = await readFile(filePath, "utf-8");
+  healthData = await JSON.parse(fileContents);
 } catch (error) {
   console.warn("Could not load health data:", error);
 }

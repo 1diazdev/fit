@@ -12,10 +12,10 @@
  * - Current streak
  */
 
-import { fetchStepsData, fetchTodayStats } from '@/services/googleFitService';
+import { fetchStepsData } from '@/services/googleFitService';
 import { fetchActivities } from '@/services/stravaService';
 import { fetchHevyData } from '@/services/hevyService';
-import { calculateStreaks } from '@/services/dataAggregationService';
+import { calculateStreaks, isTestDataMode, getTestModeSnapshot } from '@/services/dataAggregationService';
 
 // Fetch today's data
 const todayStr = new Date().toISOString().split('T')[0];
@@ -25,38 +25,69 @@ let weeklyWorkouts = 0;
 let currentStreak = 0;
 
 try {
-  // Get today's steps
-  const stepsData = await fetchStepsData(1);
-  todaySteps = stepsData[todayStr]?.steps || 0;
+  const testMode = isTestDataMode();
+  if (testMode) {
+    const snapshot = await getTestModeSnapshot();
+    const stepsData = snapshot?.stepsData || {};
+    todaySteps = stepsData[todayStr]?.steps || 0;
 
-  // Get last activity
-  const activities = await fetchActivities(1, 10);
-  if (activities.length > 0) {
-    const lastActivityDate = new Date(activities[0].start_date);
-    const now = new Date();
-    const diffMs = now.getTime() - lastActivityDate.getTime();
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    const diffDays = Math.floor(diffHours / 24);
+    const lastActiveDate = Object.keys(stepsData)
+      .filter(date => (stepsData[date]?.steps || 0) > 0)
+      .sort()
+      .at(-1);
 
-    if (diffDays > 0) {
-      lastActivity = `${diffDays}D AGO`;
-    } else if (diffHours > 0) {
-      lastActivity = `${diffHours}H AGO`;
-    } else {
-      const diffMins = Math.floor(diffMs / (1000 * 60));
-      lastActivity = `${diffMins}M AGO`;
+    if (lastActiveDate) {
+      const lastActivityDate = new Date(`${lastActiveDate}T12:00:00`);
+      const now = new Date();
+      const diffMs = now.getTime() - lastActivityDate.getTime();
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffDays > 0) {
+        lastActivity = `${diffDays}D AGO`;
+      } else if (diffHours > 0) {
+        lastActivity = `${diffHours}H AGO`;
+      } else {
+        const diffMins = Math.floor(diffMs / (1000 * 60));
+        lastActivity = `${diffMins}M AGO`;
+      }
     }
+
+    weeklyWorkouts = snapshot?.workoutCount || 0;
+  } else {
+    // Get today's steps
+    const stepsData = await fetchStepsData(1);
+    todaySteps = stepsData[todayStr]?.steps || 0;
+
+    // Get last activity
+    const activities = await fetchActivities(1, 10);
+    if (activities.length > 0) {
+      const lastActivityDate = new Date(activities[0].start_date);
+      const now = new Date();
+      const diffMs = now.getTime() - lastActivityDate.getTime();
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffDays > 0) {
+        lastActivity = `${diffDays}D AGO`;
+      } else if (diffHours > 0) {
+        lastActivity = `${diffHours}H AGO`;
+      } else {
+        const diffMins = Math.floor(diffMs / (1000 * 60));
+        lastActivity = `${diffMins}M AGO`;
+      }
+    }
+
+    // Get weekly workout count
+    const workouts = await fetchHevyData();
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+
+    weeklyWorkouts = workouts.filter(w => {
+      const workoutDate = new Date(w.start_time);
+      return workoutDate >= weekAgo;
+    }).length;
   }
-
-  // Get weekly workout count
-  const workouts = await fetchHevyData();
-  const weekAgo = new Date();
-  weekAgo.setDate(weekAgo.getDate() - 7);
-
-  weeklyWorkouts = workouts.filter(w => {
-    const workoutDate = new Date(w.start_time);
-    return workoutDate >= weekAgo;
-  }).length;
 
   // Get current step streak
   const streaks = await calculateStreaks(todayStr);

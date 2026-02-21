@@ -6,6 +6,8 @@
  */
 
 import { memoize } from '@/lib/dataCache';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import type { StravaActivity } from './stravaService';
 import type { Workout as HevyWorkout } from './hevyService';
 import { fetchActivities } from './stravaService';
@@ -98,6 +100,26 @@ export interface StreakData {
   };
 }
 
+interface DummyHealthData {
+  steps?: Record<string, { steps: number; distance: number; calories: number }>;
+  heartRate?: Record<string, { resting: number; avg: number; max: number }>;
+  moveMinutes?: Record<string, { active: number; heart: number }>;
+  sleep?: Record<string, { duration: number; deep: number; light: number; rem: number }>;
+}
+
+const DUMMY_DATA_ENABLED = String(import.meta.env.USE_DUMMY_HEALTH_DATA || '').toLowerCase() === 'true';
+const DUMMY_DATA_FILE = String(import.meta.env.HEALTH_DATA_FILE || 'health-data-dummy.json');
+
+export interface TestModeSnapshot {
+  stepsData: StepsData;
+  moveMinutesData: MoveMinutesData;
+  heartRateData: HeartRateData;
+  distanceMap: Record<string, number>;
+  activities: StravaActivity[];
+  workouts: HevyWorkout[];
+  workoutCount: number;
+}
+
 // ============================================================================
 // CORE FUNCTIONS
 // ============================================================================
@@ -108,6 +130,47 @@ export interface StreakData {
 export async function getDataForDate(date: string): Promise<DayData> {
   return memoize(`day-data-${date}`, async () => {
     console.log(`[DataAggregation] Fetching data for ${date}...`);
+
+    const dummyData = await loadDummyHealthData();
+    if (dummyData) {
+      const rawSteps = dummyData.steps?.[date] || { steps: 0, distance: 0, calories: 0 };
+      const rawSleep = dummyData.sleep?.[date];
+      const rawHeartRate = dummyData.heartRate?.[date];
+      const rawMove = dummyData.moveMinutes?.[date] || { active: 0, heart: 0 };
+
+      return {
+        date,
+        steps: {
+          count: rawSteps.steps,
+          distance: normalizeDistanceMeters(rawSteps.distance),
+          calories: rawSteps.calories,
+        },
+        activities: [],
+        workouts: [],
+        sleep: rawSleep
+          ? {
+              totalMinutes: rawSleep.duration,
+              deepMinutes: rawSleep.deep,
+              lightMinutes: rawSleep.light,
+              remMinutes: rawSleep.rem,
+              sleepScore: Math.min(100, Math.round((rawSleep.duration / 480) * 100)),
+            }
+          : null,
+        heartRate: rawHeartRate
+          ? {
+              min: rawHeartRate.resting,
+              max: rawHeartRate.max,
+              avg: rawHeartRate.avg,
+              resting: rawHeartRate.resting,
+            }
+          : null,
+        moveMinutes: {
+          activeMinutes: rawMove.active,
+          heartMinutes: rawMove.heart,
+        },
+        heartRateZones: null,
+      };
+    }
 
     // Calculate how many days back from today
     const targetDate = new Date(date);
@@ -173,12 +236,45 @@ export async function getDataForDate(date: string): Promise<DayData> {
   });
 }
 
+export function isTestDataMode(): boolean {
+  return DUMMY_DATA_ENABLED;
+}
+
+export async function getTestModeSnapshot(): Promise<TestModeSnapshot | null> {
+  const dummyData = await loadDummyHealthData();
+  if (!dummyData) return null;
+
+  const stepsData = toStepsData(dummyData);
+  const moveMinutesData = toMoveMinutesData(dummyData);
+  const heartRateData = toHeartRateData(dummyData);
+
+  return {
+    stepsData,
+    moveMinutesData,
+    heartRateData,
+    distanceMap: Object.fromEntries(
+      Object.entries(stepsData).map(([date, stats]) => [date, stats.distance])
+    ),
+    activities: [],
+    workouts: [],
+    workoutCount: 0,
+  };
+}
+
 /**
  * Get comparison data (vs yesterday, 7-day avg, 30-day avg)
  */
 export async function getComparisons(date: string): Promise<ComparisonData> {
   return memoize(`comparisons-${date}`, async () => {
     console.log(`[DataAggregation] Calculating comparisons for ${date}...`);
+
+    const dummyData = await loadDummyHealthData();
+    if (dummyData) {
+      const stepsData = toStepsData(dummyData);
+      const moveData = toMoveMinutesData(dummyData);
+
+      return calculateComparisonMetrics(date, stepsData, moveData, [], []);
+    }
 
     const targetDate = new Date(date);
     const today = new Date();
@@ -194,68 +290,7 @@ export async function getComparisons(date: string): Promise<ComparisonData> {
       fetchHevyData().catch(() => [] as HevyWorkout[]),
     ]);
 
-    // Get yesterday's date
-    const yesterday = new Date(targetDate);
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = formatDate(yesterday);
-
-    // Calculate yesterday comparison
-    const todaySteps = stepsData[date]?.steps || 0;
-    const yesterdaySteps = stepsData[yesterdayStr]?.steps || 0;
-    const todayActivities = stravaActivities.filter(a => getActivityDate(a) === date).length;
-    const yesterdayActivities = stravaActivities.filter(a => getActivityDate(a) === yesterdayStr).length;
-    const todayHeartMinutes = moveData[date]?.heartMinutes || 0;
-    const yesterdayHeartMinutes = moveData[yesterdayStr]?.heartMinutes || 0;
-
-    // Calculate 7-day average
-    const last7Days = Array.from({ length: 7 }, (_, i) => {
-      const d = new Date(targetDate);
-      d.setDate(d.getDate() - i - 1); // -1 to exclude today
-      return formatDate(d);
-    });
-
-    const avg7Steps = calculateAverage(last7Days.map(d => stepsData[d]?.steps || 0));
-    const avg7HeartMinutes = calculateAverage(last7Days.map(d => moveData[d]?.heartMinutes || 0));
-    const avg7Distance = calculateAverage(last7Days.map(d => stepsData[d]?.distance || 0));
-    const avg7Workouts = hevyWorkouts.filter(w => {
-      const workoutDate = getWorkoutDate(w);
-      return last7Days.includes(workoutDate);
-    }).length / 7;
-
-    const todayDistance = stepsData[date]?.distance || 0;
-    const todayWorkouts = hevyWorkouts.filter(w => getWorkoutDate(w) === date).length;
-
-    // Calculate 30-day average
-    const last30Days = Array.from({ length: 30 }, (_, i) => {
-      const d = new Date(targetDate);
-      d.setDate(d.getDate() - i - 1);
-      return formatDate(d);
-    });
-
-    const avg30Steps = calculateAverage(last30Days.map(d => stepsData[d]?.steps || 0));
-    const avg30Distance = calculateAverage(last30Days.map(d => stepsData[d]?.distance || 0));
-    const avg30Calories = calculateAverage(last30Days.map(d => stepsData[d]?.calories || 0));
-    const todayCalories = stepsData[date]?.calories || 0;
-
-    return {
-      vsYesterday: {
-        steps: todaySteps - yesterdaySteps,
-        activities: todayActivities - yesterdayActivities,
-        sleepScore: 0, // TODO: Implement sleep score comparison
-        heartMinutes: todayHeartMinutes - yesterdayHeartMinutes,
-      },
-      vs7DayAvg: {
-        steps: Math.round(todaySteps - avg7Steps),
-        heartMinutes: Math.round(todayHeartMinutes - avg7HeartMinutes),
-        workouts: todayWorkouts - avg7Workouts,
-        distance: Math.round(todayDistance - avg7Distance),
-      },
-      vs30DayAvg: {
-        steps: Math.round(todaySteps - avg30Steps),
-        distance: Math.round(todayDistance - avg30Distance),
-        calories: Math.round(todayCalories - avg30Calories),
-      },
-    };
+    return calculateComparisonMetrics(date, stepsData, moveData, stravaActivities, hevyWorkouts);
   });
 }
 
@@ -265,6 +300,21 @@ export async function getComparisons(date: string): Promise<ComparisonData> {
 export async function calculateStreaks(dateStr: string): Promise<StreakData> {
   return memoize(`streaks-${dateStr}`, async () => {
     console.log(`[DataAggregation] Calculating streaks up to ${dateStr}...`);
+
+    const dummyData = await loadDummyHealthData();
+    if (dummyData) {
+      const stepsData = toStepsData(dummyData);
+      const last365Days = buildDayRange(dateStr, 365);
+
+      const stepSeries = last365Days.map(date => (stepsData[date]?.steps || 0) >= 10000);
+      const stepStreaks = calculateStreakFromSeries(stepSeries);
+
+      return {
+        steps: stepStreaks,
+        activities: { current: 0, longest: 0 },
+        workouts: { current: 0, longest: 0 },
+      };
+    }
 
     // Fetch historical data (365 days should be enough)
     const [stepsData, stravaActivities, hevyWorkouts] = await Promise.all([
@@ -276,73 +326,21 @@ export async function calculateStreaks(dateStr: string): Promise<StreakData> {
     const targetDate = new Date(dateStr);
 
     // Generate last 365 days
-    const last365Days = Array.from({ length: 365 }, (_, i) => {
-      const d = new Date(targetDate);
-      d.setDate(d.getDate() - i);
-      return formatDate(d);
-    }).reverse(); // Oldest to newest
+    const last365Days = buildDayRange(formatDate(targetDate), 365);
 
-    // Calculate step streaks (10k+ steps)
-    let currentStepsStreak = 0;
-    let longestStepsStreak = 0;
-    let tempStepsStreak = 0;
+    const stepSeries = last365Days.map(date => (stepsData[date]?.steps || 0) >= 10000);
+    const stepStreaks = calculateStreakFromSeries(stepSeries);
 
-    for (const date of last365Days) {
-      const steps = stepsData[date]?.steps || 0;
-      if (steps >= 10000) {
-        tempStepsStreak++;
-        longestStepsStreak = Math.max(longestStepsStreak, tempStepsStreak);
-      } else {
-        tempStepsStreak = 0;
-      }
-    }
-    currentStepsStreak = tempStepsStreak;
+    const activitySeries = last365Days.map(date => stravaActivities.some(a => getActivityDate(a) === date));
+    const activityStreaks = calculateStreakFromSeries(activitySeries);
 
-    // Calculate activity streaks (at least 1 activity per day)
-    let currentActivityStreak = 0;
-    let longestActivityStreak = 0;
-    let tempActivityStreak = 0;
-
-    for (const date of last365Days) {
-      const hasActivity = stravaActivities.some(a => getActivityDate(a) === date);
-      if (hasActivity) {
-        tempActivityStreak++;
-        longestActivityStreak = Math.max(longestActivityStreak, tempActivityStreak);
-      } else {
-        tempActivityStreak = 0;
-      }
-    }
-    currentActivityStreak = tempActivityStreak;
-
-    // Calculate workout streaks (at least 1 workout per day)
-    let currentWorkoutStreak = 0;
-    let longestWorkoutStreak = 0;
-    let tempWorkoutStreak = 0;
-
-    for (const date of last365Days) {
-      const hasWorkout = hevyWorkouts.some(w => getWorkoutDate(w) === date);
-      if (hasWorkout) {
-        tempWorkoutStreak++;
-        longestWorkoutStreak = Math.max(longestWorkoutStreak, tempWorkoutStreak);
-      } else {
-        tempWorkoutStreak = 0;
-      }
-    }
-    currentWorkoutStreak = tempWorkoutStreak;
+    const workoutSeries = last365Days.map(date => hevyWorkouts.some(w => getWorkoutDate(w) === date));
+    const workoutStreaks = calculateStreakFromSeries(workoutSeries);
 
     return {
-      steps: {
-        current: currentStepsStreak,
-        longest: longestStepsStreak,
-      },
-      activities: {
-        current: currentActivityStreak,
-        longest: longestActivityStreak,
-      },
-      workouts: {
-        current: currentWorkoutStreak,
-        longest: longestWorkoutStreak,
-      },
+      steps: stepStreaks,
+      activities: activityStreaks,
+      workouts: workoutStreaks,
     };
   });
 }
@@ -389,4 +387,162 @@ function getWorkoutDate(workout: HevyWorkout): string {
 function calculateAverage(numbers: number[]): number {
   if (numbers.length === 0) return 0;
   return numbers.reduce((sum, n) => sum + n, 0) / numbers.length;
+}
+
+function toStepsData(dummyData: DummyHealthData): StepsData {
+  const output: StepsData = {};
+  for (const [date, value] of Object.entries(dummyData.steps || {})) {
+    output[date] = {
+      steps: value.steps || 0,
+      distance: normalizeDistanceMeters(value.distance || 0),
+      calories: value.calories || 0,
+    };
+  }
+  return output;
+}
+
+function toMoveMinutesData(dummyData: DummyHealthData): MoveMinutesData {
+  const output: MoveMinutesData = {};
+  for (const [date, value] of Object.entries(dummyData.moveMinutes || {})) {
+    output[date] = {
+      activeMinutes: value.active || 0,
+      heartMinutes: value.heart || 0,
+    };
+  }
+  return output;
+}
+
+function toHeartRateData(dummyData: DummyHealthData): HeartRateData {
+  const output: HeartRateData = {};
+  for (const [date, value] of Object.entries(dummyData.heartRate || {})) {
+    output[date] = {
+      min: value.resting || 0,
+      max: value.max || 0,
+      avg: value.avg || 0,
+      resting: value.resting || 0,
+    };
+  }
+  return output;
+}
+
+function buildDayRange(dateStr: string, days: number): string[] {
+  const targetDate = new Date(dateStr);
+  return Array.from({ length: days }, (_, i) => {
+    const d = new Date(targetDate);
+    d.setDate(d.getDate() - i);
+    return formatDate(d);
+  }).reverse();
+}
+
+function calculateStreakFromSeries(series: boolean[]): { current: number; longest: number } {
+  let current = 0;
+  let longest = 0;
+  let temp = 0;
+
+  for (const hit of series) {
+    if (hit) {
+      temp++;
+      longest = Math.max(longest, temp);
+    } else {
+      temp = 0;
+    }
+  }
+
+  current = temp;
+  return { current, longest };
+}
+
+function calculateComparisonMetrics(
+  date: string,
+  stepsData: StepsData,
+  moveData: MoveMinutesData,
+  stravaActivities: StravaActivity[],
+  hevyWorkouts: HevyWorkout[]
+): ComparisonData {
+  const targetDate = new Date(date);
+
+  // Get yesterday's date
+  const yesterday = new Date(targetDate);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = formatDate(yesterday);
+
+  // Calculate yesterday comparison
+  const todaySteps = stepsData[date]?.steps || 0;
+  const yesterdaySteps = stepsData[yesterdayStr]?.steps || 0;
+  const todayActivities = stravaActivities.filter(a => getActivityDate(a) === date).length;
+  const yesterdayActivities = stravaActivities.filter(a => getActivityDate(a) === yesterdayStr).length;
+  const todayHeartMinutes = moveData[date]?.heartMinutes || 0;
+  const yesterdayHeartMinutes = moveData[yesterdayStr]?.heartMinutes || 0;
+
+  // Calculate 7-day average
+  const last7Days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(targetDate);
+    d.setDate(d.getDate() - i - 1); // -1 to exclude today
+    return formatDate(d);
+  });
+
+  const avg7Steps = calculateAverage(last7Days.map(d => stepsData[d]?.steps || 0));
+  const avg7HeartMinutes = calculateAverage(last7Days.map(d => moveData[d]?.heartMinutes || 0));
+  const avg7Distance = calculateAverage(last7Days.map(d => stepsData[d]?.distance || 0));
+  const avg7Workouts = hevyWorkouts.filter(w => {
+    const workoutDate = getWorkoutDate(w);
+    return last7Days.includes(workoutDate);
+  }).length / 7;
+
+  const todayDistance = stepsData[date]?.distance || 0;
+  const todayWorkouts = hevyWorkouts.filter(w => getWorkoutDate(w) === date).length;
+
+  // Calculate 30-day average
+  const last30Days = Array.from({ length: 30 }, (_, i) => {
+    const d = new Date(targetDate);
+    d.setDate(d.getDate() - i - 1);
+    return formatDate(d);
+  });
+
+  const avg30Steps = calculateAverage(last30Days.map(d => stepsData[d]?.steps || 0));
+  const avg30Distance = calculateAverage(last30Days.map(d => stepsData[d]?.distance || 0));
+  const avg30Calories = calculateAverage(last30Days.map(d => stepsData[d]?.calories || 0));
+  const todayCalories = stepsData[date]?.calories || 0;
+
+  return {
+    vsYesterday: {
+      steps: todaySteps - yesterdaySteps,
+      activities: todayActivities - yesterdayActivities,
+      sleepScore: 0, // TODO: Implement sleep score comparison
+      heartMinutes: todayHeartMinutes - yesterdayHeartMinutes,
+    },
+    vs7DayAvg: {
+      steps: Math.round(todaySteps - avg7Steps),
+      heartMinutes: Math.round(todayHeartMinutes - avg7HeartMinutes),
+      workouts: todayWorkouts - avg7Workouts,
+      distance: Math.round(todayDistance - avg7Distance),
+    },
+    vs30DayAvg: {
+      steps: Math.round(todaySteps - avg30Steps),
+      distance: Math.round(todayDistance - avg30Distance),
+      calories: Math.round(todayCalories - avg30Calories),
+    },
+  };
+}
+
+async function loadDummyHealthData(): Promise<DummyHealthData | null> {
+  if (!DUMMY_DATA_ENABLED) return null;
+
+  return memoize(`dummy-health-data-${DUMMY_DATA_FILE}`, async () => {
+    try {
+      const filePath = resolve(process.cwd(), 'public', DUMMY_DATA_FILE);
+      const raw = await readFile(filePath, 'utf-8');
+      console.log(`[DataAggregation] Using dummy data from ${DUMMY_DATA_FILE}`);
+      return JSON.parse(raw) as DummyHealthData;
+    } catch (error) {
+      console.warn(`[DataAggregation] Dummy data enabled but failed to load ${DUMMY_DATA_FILE}:`, error);
+      return null;
+    }
+  });
+}
+
+function normalizeDistanceMeters(distance: number): number {
+  if (distance <= 0) return 0;
+  // Dummy fixtures usually store kilometers; convert small values to meters.
+  return distance <= 100 ? distance * 1000 : distance;
 }

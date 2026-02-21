@@ -1,5 +1,7 @@
 import { memoize } from '@/lib/dataCache';
 
+const TEST_MODE = String(import.meta.env.USE_DUMMY_HEALTH_DATA || '').toLowerCase() === 'true';
+
 export interface DistanceData {
   [key: string]: number;
 }
@@ -69,6 +71,10 @@ export async function fetchActivities(
 ): Promise<StravaActivity[]> {
   // Memoize by page and perPage to avoid duplicate calls
   return memoize(`strava-activities-${page}-${perPage}`, async () => {
+    if (TEST_MODE) {
+      return [];
+    }
+
     try {
       const bearer = await getBearerToken();
       const url = `https://www.strava.com/api/v3/athlete/activities?page=${page}&per_page=${perPage}`;
@@ -319,6 +325,10 @@ export async function fetchDistanceData(): Promise<DistanceData> {
         "0",
       )}-${String(date.getDate()).padStart(2, "0")}`;
       distanceData[key] = 0;
+    }
+
+    if (TEST_MODE) {
+      return distanceData;
     }
 
     // Uncomment for development mode bypass
