@@ -1,555 +1,464 @@
 ---
-import Base from '@layouts/Base.astro';
-import { PAGE_METADATA } from '@src/consts';
-import SectionLayout from '@components/SectionLayout.astro';
-import { fetchStepsData, type StepsData } from '@services/googleFitService';
-import { fetchActivities, type StravaActivity } from '@services/stravaService';
-import { fetchHevyData } from '@services/hevyService';
-import type { Workout as HevyWorkout } from '@services/hevyService';
-import { getPersonalRecords } from '@utils/statsUtils';
-
-// Fetch all data for personal records
-const stepsData: StepsData = await fetchStepsData(365).catch(() => ({}));
-const allActivities: StravaActivity[] = await fetchActivities(1, 200).catch(() => []);
-const allWorkouts: HevyWorkout[] = await fetchHevyData().catch(() => []);
-
-// Get personal records
-const records = getPersonalRecords(stepsData, allActivities, allWorkouts);
-
-// Calculate yearly totals
-const currentYear = new Date().getFullYear();
-const lastYear = currentYear - 1;
-
-// Current year stats
-const currentYearActivities = allActivities.filter(a => {
-  const year = new Date(a.start_date).getFullYear();
-  return year === currentYear;
-});
-
-const currentYearDistance = currentYearActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
-const currentYearWorkouts = allWorkouts.filter(w => {
-  const year = new Date(w.start_time).getFullYear();
-  return year === currentYear;
-}).length;
-
-const currentYearSteps = Object.entries(stepsData)
-  .filter(([date]) => date.startsWith(currentYear.toString()))
-  .reduce((sum, [_, data]) => sum + (data.steps || 0), 0);
-
-// Last year stats
-const lastYearActivities = allActivities.filter(a => {
-  const year = new Date(a.start_date).getFullYear();
-  return year === lastYear;
-});
-
-const lastYearDistance = lastYearActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
-const lastYearWorkouts = allWorkouts.filter(w => {
-  const year = new Date(w.start_time).getFullYear();
-  return year === lastYear;
-}).length;
-
-const lastYearSteps = Object.entries(stepsData)
-  .filter(([date]) => date.startsWith(lastYear.toString()))
-  .reduce((sum, [_, data]) => sum + (data.steps || 0), 0);
-
-// Format large numbers
-const formatNumber = (num: number) => {
-  if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
-  if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
-  return num.toLocaleString();
-};
-
-// Calculate percentage change
-const percentChange = (current: number, previous: number) => {
-  if (previous === 0) return 0;
-  return ((current - previous) / previous) * 100;
-};
+import Base from "@layouts/Base.astro";
+import { PAGE_METADATA } from "@src/consts";
+import SectionLayout from "@components/SectionLayout.astro";
 ---
 
 <Base
   title={PAGE_METADATA.about.title}
   description={PAGE_METADATA.about.description}
   keywords={PAGE_METADATA.about.keywords}
-  windowTitle="PERSONAL_RECORDS"
-  terminalCommand="./view_records.sh --all-time"
-  systemMessage={`[SYSTEM] Loaded ${allActivities.length} activities | ${allWorkouts.length} workouts | ${Object.keys(stepsData).length} days tracked`}
+  windowTitle="ARCHITECT_PROFILE_LOADED"
+  terminalCommand="./about_creator.exe --profile=juan_diaz"
+  systemMessage="[INFO] Loading architect neural profile... Connection established."
 >
-  <!-- Header -->
-  <div class="text-center mb-8">
-    <div class="text-green-400 text-4xl md:text-5xl font-bold font-mono mb-4">
-      [PERSONAL_RECORDS]
+  <!-- Header Section -->
+  <div class="header-section text-center mb-12">
+    <div
+      class="text-green-400 text-4xl md:text-6xl font-bold font-mono mb-4 animate-pulse"
+    >
+      [THE_ARCHITECT]
     </div>
-    <div class="text-green-300/80 text-sm font-mono">
-      All-time achievements and milestones
+    <div class="text-green-300 text-lg md:text-xl font-mono">
+      Juan Pablo Diaz - Creator of the Fitness Matrix
+    </div>
+    <div class="text-green-400/60 text-sm font-mono mt-2 animate-pulse">
+      Reality: Technology Professional | Mission: Health Optimization
     </div>
   </div>
 
-  <!-- Personal Records Grid -->
-  <SectionLayout title="[ALL_TIME_RECORDS]" rightHeaderText="[BEST_PERFORMANCES]">
+  <!-- Profile Matrix Section -->
+  <SectionLayout
+    title="[NEURAL_PROFILE_SCAN]"
+    rightHeaderText="[ARCHITECT_STATUS]"
+  >
     <div
       slot="headerElements"
-      class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
-    ></div>
-
-    <div class="records-grid">
-      <!-- Max Steps -->
-      <div class="record-card">
-        <div class="record-icon">🚶</div>
-        <div class="record-content">
-          <div class="record-label">MAX STEPS</div>
-          <div class="record-value">{records.maxSteps.value.toLocaleString()}</div>
-          {records.maxSteps.date && (
-            <div class="record-date">{records.maxSteps.date}</div>
-          )}
-        </div>
-      </div>
-
-      <!-- Longest Run -->
-      {records.longestRun.distance > 0 && (
-        <div class="record-card">
-          <div class="record-icon">🏃</div>
-          <div class="record-content">
-            <div class="record-label">LONGEST RUN</div>
-            <div class="record-value">{records.longestRun.distance.toFixed(2)} km</div>
-            {records.longestRun.date && (
-              <>
-                <div class="record-date">{records.longestRun.date}</div>
-                <div class="record-name">{records.longestRun.name}</div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-
-      <!-- Fastest Pace -->
-      {records.fastestPace.pace > 0 && (
-        <div class="record-card">
-          <div class="record-icon">⚡</div>
-          <div class="record-content">
-            <div class="record-label">FASTEST PACE</div>
-            <div class="record-value">
-              {Math.floor(records.fastestPace.pace)}:{String(Math.round((records.fastestPace.pace % 1) * 60)).padStart(2, '0')}/km
-            </div>
-            {records.fastestPace.date && (
-              <>
-                <div class="record-date">{records.fastestPace.date}</div>
-                <div class="record-name">{records.fastestPace.name}</div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-
-      <!-- Most Workouts in a Day -->
-      {records.mostWorkouts.count > 0 && (
-        <div class="record-card">
-          <div class="record-icon">💪</div>
-          <div class="record-content">
-            <div class="record-label">MOST WORKOUTS</div>
-            <div class="record-value">{records.mostWorkouts.count} in 1 day</div>
-            {records.mostWorkouts.date && (
-              <div class="record-date">{records.mostWorkouts.date}</div>
-            )}
-          </div>
-        </div>
-      )}
-
-      <!-- Longest Workout -->
-      {records.longestWorkout.duration > 0 && (
-        <div class="record-card">
-          <div class="record-icon">⏱️</div>
-          <div class="record-content">
-            <div class="record-label">LONGEST WORKOUT</div>
-            <div class="record-value">
-              {Math.floor(records.longestWorkout.duration / 60)}h {Math.round(records.longestWorkout.duration % 60)}m
-            </div>
-            {records.longestWorkout.date && (
-              <>
-                <div class="record-date">{records.longestWorkout.date}</div>
-                <div class="record-name">{records.longestWorkout.title}</div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-
-      <!-- Total Volume -->
-      {records.totalVolume.weight > 0 && (
-        <div class="record-card">
-          <div class="record-icon">🏋️</div>
-          <div class="record-content">
-            <div class="record-label">MAX VOLUME</div>
-            <div class="record-value">{Math.round(records.totalVolume.weight).toLocaleString()} kg</div>
-            {records.totalVolume.date && (
-              <>
-                <div class="record-date">{records.totalVolume.date}</div>
-                <div class="record-name">{records.totalVolume.title}</div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+      class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+    >
     </div>
-  </SectionLayout>
 
-  <!-- Yearly Totals Comparison -->
-  <SectionLayout title="[YEARLY_TOTALS]" rightHeaderText={`[${lastYear}_vs_${currentYear}]`}>
-    <div
-      slot="headerElements"
-      class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
-    ></div>
-
-    <div class="yearly-grid">
-      <!-- Current Year -->
-      <div class="year-card current">
-        <div class="year-header">
-          <div class="year-label">{currentYear}</div>
-          <div class="year-badge">CURRENT</div>
-        </div>
-        <div class="year-stats">
-          <div class="year-stat">
-            <span class="stat-icon">🏃</span>
-            <div>
-              <div class="stat-value">{currentYearDistance.toFixed(1)} km</div>
-              <div class="stat-label">Distance</div>
-            </div>
+    <div class="profile-matrix">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-mono">
+        <div class="profile-stats space-y-3">
+          <div class="stat-line">
+            <span class="text-green-500">[NAME]</span>
+            <span class="text-green-300 ml-4">Juan Pablo Diaz</span>
           </div>
-          <div class="year-stat">
-            <span class="stat-icon">💪</span>
-            <div>
-              <div class="stat-value">{currentYearWorkouts}</div>
-              <div class="stat-label">Workouts</div>
-            </div>
+          <div class="stat-line">
+            <span class="text-green-500">[ROLE]</span>
+            <span class="text-green-300 ml-4">Full-Stack Developer</span>
           </div>
-          <div class="year-stat">
-            <span class="stat-icon">🚶</span>
-            <div>
-              <div class="stat-value">{formatNumber(currentYearSteps)}</div>
-              <div class="stat-label">Steps</div>
-            </div>
+          <div class="stat-line">
+            <span class="text-green-500">[SPECIALIZATION]</span>
+            <span class="text-green-300 ml-4"
+              >Data Visualization & Health Tech</span
+            >
           </div>
-          <div class="year-stat">
-            <span class="stat-icon">📊</span>
-            <div>
-              <div class="stat-value">{currentYearActivities.length}</div>
-              <div class="stat-label">Activities</div>
-            </div>
+          <div class="stat-line">
+            <span class="text-green-500">[WEBSITE]</span>
+            <span class="text-green-300 ml-4">
+              <a
+                href="https://jpdiaz.dev"
+                target="_blank"
+                class="hover:text-green-400 transition-colors"
+              >
+                jpdiaz.dev ↗
+              </a>
+            </span>
           </div>
         </div>
-      </div>
 
-      <!-- Last Year -->
-      <div class="year-card previous">
-        <div class="year-header">
-          <div class="year-label">{lastYear}</div>
-          <div class="year-badge">PREVIOUS</div>
-        </div>
-        <div class="year-stats">
-          <div class="year-stat">
-            <span class="stat-icon">🏃</span>
-            <div>
-              <div class="stat-value">{lastYearDistance.toFixed(1)} km</div>
-              <div class="stat-label">Distance</div>
-              {lastYearDistance > 0 && (
-                <div class={`stat-change ${percentChange(currentYearDistance, lastYearDistance) > 0 ? 'positive' : 'negative'}`}>
-                  {percentChange(currentYearDistance, lastYearDistance) > 0 ? '↗' : '↘'}
-                  {Math.abs(percentChange(currentYearDistance, lastYearDistance)).toFixed(1)}%
-                </div>
-              )}
-            </div>
+        <div class="mission-stats space-y-3">
+          <div class="stat-line">
+            <span class="text-yellow-500">[PROBLEM]</span>
+            <span class="text-yellow-300 ml-4">Sedentary tech lifestyle</span>
           </div>
-          <div class="year-stat">
-            <span class="stat-icon">💪</span>
-            <div>
-              <div class="stat-value">{lastYearWorkouts}</div>
-              <div class="stat-label">Workouts</div>
-              {lastYearWorkouts > 0 && (
-                <div class={`stat-change ${percentChange(currentYearWorkouts, lastYearWorkouts) > 0 ? 'positive' : 'negative'}`}>
-                  {percentChange(currentYearWorkouts, lastYearWorkouts) > 0 ? '↗' : '↘'}
-                  {Math.abs(percentChange(currentYearWorkouts, lastYearWorkouts)).toFixed(1)}%
-                </div>
-              )}
-            </div>
+          <div class="stat-line">
+            <span class="text-blue-500">[SOLUTION]</span>
+            <span class="text-blue-300 ml-4">Data-driven fitness tracking</span>
           </div>
-          <div class="year-stat">
-            <span class="stat-icon">🚶</span>
-            <div>
-              <div class="stat-value">{formatNumber(lastYearSteps)}</div>
-              <div class="stat-label">Steps</div>
-              {lastYearSteps > 0 && (
-                <div class={`stat-change ${percentChange(currentYearSteps, lastYearSteps) > 0 ? 'positive' : 'negative'}`}>
-                  {percentChange(currentYearSteps, lastYearSteps) > 0 ? '↗' : '↘'}
-                  {Math.abs(percentChange(currentYearSteps, lastYearSteps)).toFixed(1)}%
-                </div>
-              )}
-            </div>
+          <div class="stat-line">
+            <span class="text-red-500">[MOTIVATION]</span>
+            <span class="text-red-300 ml-4"
+              >Health optimization through tech</span
+            >
           </div>
-          <div class="year-stat">
-            <span class="stat-icon">📊</span>
-            <div>
-              <div class="stat-value">{lastYearActivities.length}</div>
-              <div class="stat-label">Activities</div>
-              {lastYearActivities.length > 0 && (
-                <div class={`stat-change ${percentChange(currentYearActivities.length, lastYearActivities.length) > 0 ? 'positive' : 'negative'}`}>
-                  {percentChange(currentYearActivities.length, lastYearActivities.length) > 0 ? '↗' : '↘'}
-                  {Math.abs(percentChange(currentYearActivities.length, lastYearActivities.length)).toFixed(1)}%
-                </div>
-              )}
-            </div>
+          <div class="stat-line">
+            <span class="text-purple-500">[STATUS]</span>
+            <span class="text-purple-300 ml-4 animate-pulse"
+              >ACTIVELY_IMPROVING</span
+            >
           </div>
         </div>
       </div>
     </div>
   </SectionLayout>
 
-  <!-- All-Time Stats -->
-  <SectionLayout title="[ALL_TIME_STATS]" rightHeaderText="[LIFETIME_TOTALS]">
+  <!-- Origin Story Section -->
+  <SectionLayout
+    title="[ORIGIN_STORY]"
+    rightHeaderText="[THE_PROBLEM_I_SOLVED]"
+  >
     <div
       slot="headerElements"
-      class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
-    ></div>
+      class="w-2 h-2 bg-red-500 rounded-full animate-pulse"
+    >
+    </div>
 
-    <div class="lifetime-grid">
-      <div class="lifetime-stat">
-        <div class="lifetime-icon">🏃</div>
-        <div class="lifetime-value">{(allActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000).toFixed(1)} km</div>
-        <div class="lifetime-label">Total Distance</div>
+    <div
+      class="story-content space-y-6 text-green-300 font-mono text-sm leading-relaxed"
+    >
+      <div class="story-block">
+        <span class="text-red-400">[PROBLEM_IDENTIFIED]</span>
+        <p class="mt-2 ml-4">
+          As a technology professional, I found myself trapped in the digital
+          matrix—spending countless hours in front of screens, building
+          software, solving complex problems, but neglecting the most important
+          system of all: my own body. The sedentary lifestyle was affecting my
+          health and energy.
+        </p>
       </div>
 
-      <div class="lifetime-stat">
-        <div class="lifetime-icon">📊</div>
-        <div class="lifetime-value">{allActivities.length}</div>
-        <div class="lifetime-label">Total Activities</div>
+      <div class="story-block">
+        <span class="text-yellow-400">[WAKE_UP_CALL]</span>
+        <p class="mt-2 ml-4">
+          I realized that my passion for data and technology could be part of
+          the solution, not just the problem. If I could visualize code
+          performance and system metrics with beautiful dashboards, why couldn't
+          I do the same with my fitness journey?
+        </p>
       </div>
 
-      <div class="lifetime-stat">
-        <div class="lifetime-icon">💪</div>
-        <div class="lifetime-value">{allWorkouts.length}</div>
-        <div class="lifetime-label">Total Workouts</div>
+      <div class="story-block">
+        <span class="text-green-400">[SOLUTION_MATRIX]</span>
+        <p class="mt-2 ml-4">
+          Thus, FIT was born—not just as another fitness app, but as a way to
+          gamify my health journey. By combining my love for the Matrix
+          aesthetic with real-world fitness data from Strava and Hevy, I created
+          something that would motivate me to stay active while satisfying my
+          inner data nerd.
+        </p>
       </div>
 
-      <div class="lifetime-stat">
-        <div class="lifetime-icon">🚶</div>
-        <div class="lifetime-value">
-          {formatNumber(Object.values(stepsData).reduce((sum, data) => sum + (data.steps || 0), 0))}
+      <div class="story-block">
+        <span class="text-blue-400">[MISSION_STATEMENT]</span>
+        <p class="mt-2 ml-4">
+          This project represents my commitment to breaking free from the
+          unhealthy patterns of tech life. Every line of code written here is a
+          step toward better health, and every workout tracked is a victory
+          against the sedentary matrix that tried to trap me.
+        </p>
+      </div>
+    </div>
+  </SectionLayout>
+
+  <!-- Philosophy Matrix Section -->
+  <SectionLayout
+    title="[ARCHITECT_PHILOSOPHY]"
+    rightHeaderText="[CORE_PRINCIPLES]"
+  >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"
+    >
+    </div>
+
+    <div
+      class="philosophy-grid grid grid-cols-1 md:grid-cols-3 gap-6 font-mono"
+    >
+      <div
+        class="philosophy-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-500 text-2xl mb-3">💻</div>
+        <div class="text-green-400 mb-2 font-bold text-sm">
+          CODE_WITH_PURPOSE
         </div>
-        <div class="lifetime-label">Total Steps</div>
+        <div class="text-green-300/80 text-xs">
+          Every project should solve a real problem, starting with your own
+        </div>
       </div>
+
+      <div
+        class="philosophy-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-500 text-2xl mb-3">📊</div>
+        <div class="text-green-400 mb-2 font-bold text-sm">
+          DATA_DRIVEN_LIFE
+        </div>
+        <div class="text-green-300/80 text-xs">
+          Visualize everything—from system metrics to personal health
+        </div>
+      </div>
+
+      <div
+        class="philosophy-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-500 text-2xl mb-3">🏃‍♂️</div>
+        <div class="text-green-400 mb-2 font-bold text-sm">
+          BREAK_THE_MATRIX
+        </div>
+        <div class="text-green-300/80 text-xs">
+          Don't let technology consume you—use it to improve yourself
+        </div>
+      </div>
+    </div>
+  </SectionLayout>
+
+  <!-- Technology Matrix Section -->
+  <SectionLayout
+    title="[TECHNOLOGY_MATRIX]"
+    rightHeaderText="[TOOLS_OF_CHOICE]"
+  >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"
+    >
+    </div>
+
+    <div class="tech-grid grid grid-cols-2 md:grid-cols-4 gap-4 font-mono">
+      <div
+        class="tech-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-400 font-bold text-sm">ASTRO</div>
+        <div class="text-green-300/60 text-xs mt-1">Static Generation</div>
+      </div>
+      <div
+        class="tech-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-400 font-bold text-sm">TYPESCRIPT</div>
+        <div class="text-green-300/60 text-xs mt-1">Type Safety</div>
+      </div>
+      <div
+        class="tech-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-400 font-bold text-sm">TAILWIND</div>
+        <div class="text-green-300/60 text-xs mt-1">Rapid Styling</div>
+      </div>
+      <div
+        class="tech-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-400 font-bold text-sm">BUN</div>
+        <div class="text-green-300/60 text-xs mt-1">Lightning Fast</div>
+      </div>
+      <div
+        class="tech-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-400 font-bold text-sm">STRAVA API</div>
+        <div class="text-green-300/60 text-xs mt-1">Activity Tracking</div>
+      </div>
+      <div
+        class="tech-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-400 font-bold text-sm">HEVY API</div>
+        <div class="text-green-300/60 text-xs mt-1">Workout Data</div>
+      </div>
+      <div
+        class="tech-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-400 font-bold text-sm">VITEST</div>
+        <div class="text-green-300/60 text-xs mt-1">Testing</div>
+      </div>
+      <div
+        class="tech-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
+      >
+        <div class="text-green-400 font-bold text-sm">VERCEL</div>
+        <div class="text-green-300/60 text-xs mt-1">Deployment</div>
+      </div>
+    </div>
+  </SectionLayout>
+
+  <!-- Project Impact Section -->
+  <SectionLayout
+    title="[PROJECT_IMPACT_ANALYSIS]"
+    rightHeaderText="[REAL_WORLD_RESULTS]"
+  >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"
+    >
+    </div>
+
+    <div
+      class="impact-grid grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-sm"
+    >
+      <div
+        class="impact-item flex items-center justify-between p-4 bg-black/40 rounded border border-green-500/20"
+      >
+        <span class="text-green-300">Personal Health Improvement:</span>
+        <span class="text-green-400 animate-pulse">ACTIVE</span>
+      </div>
+
+      <div
+        class="impact-item flex items-center justify-between p-4 bg-black/40 rounded border border-green-500/20"
+      >
+        <span class="text-green-300">Technology Skills Enhancement:</span>
+        <span class="text-green-400 animate-pulse">LEVELING_UP</span>
+      </div>
+
+      <div
+        class="impact-item flex items-center justify-between p-4 bg-black/40 rounded border border-green-500/20"
+      >
+        <span class="text-green-300">Work-Life Balance:</span>
+        <span class="text-green-400 animate-pulse">OPTIMIZING</span>
+      </div>
+
+      <div
+        class="impact-item flex items-center justify-between p-4 bg-black/40 rounded border border-green-500/20"
+      >
+        <span class="text-green-300">Open Source Contribution:</span>
+        <span class="text-green-400 animate-pulse">SHARING_KNOWLEDGE</span>
+      </div>
+    </div>
+  </SectionLayout>
+
+  <!-- Call to Action Section -->
+  <SectionLayout
+    title="[JOIN_THE_MOVEMENT]"
+    rightHeaderText="[BREAK_YOUR_MATRIX]"
+  >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-red-500 rounded-full animate-pulse"
+    >
+    </div>
+
+    <div class="cta-content text-center mb-8">
+      <div class="text-green-300 font-mono text-sm mb-4">
+        Ready to break free from your own digital matrix?
+      </div>
+      <div class="text-green-400/80 font-mono text-xs mb-6">
+        Transform your health journey with data-driven fitness tracking
+      </div>
+    </div>
+
+    <div class="cta-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+      <a
+        href="https://github.com/JuanPabloDiaz/fit"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cta-button group bg-black/60 border border-green-500/40 rounded-lg p-6 hover:border-green-400 hover:bg-green-500/10 transition-all duration-300 text-center"
+      >
+        <div class="text-green-400 font-mono text-sm font-bold mb-2">
+          [EXPLORE_CODE]
+        </div>
+        <div class="text-green-300/80 text-xs">
+          Fork, customize, and contribute to the project
+        </div>
+        <div class="text-green-500/60 text-xs mt-2">
+          github.com/JuanPabloDiaz/fit ↗
+        </div>
+      </a>
+
+      <a
+        href="https://jpdiaz.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cta-button group bg-black/60 border border-green-500/40 rounded-lg p-6 hover:border-green-400 hover:bg-green-500/10 transition-all duration-300 text-center"
+      >
+        <div class="text-green-400 font-mono text-sm font-bold mb-2">
+          [VISIT_PORTFOLIO]
+        </div>
+        <div class="text-green-300/80 text-xs">
+          Explore more projects and connect
+        </div>
+        <div class="text-green-500/60 text-xs mt-2">jpdiaz.dev ↗</div>
+      </a>
     </div>
   </SectionLayout>
 </Base>
 
 <style>
-  /* Records Grid */
-  .records-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
+  .story-block {
+    padding: 1rem;
+    border-left: 2px solid rgba(0, 255, 0, 0.3);
+    margin-left: 1rem;
+    transition: border-color 0.3s ease;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0 8px 8px 0;
   }
 
-  .record-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 8px;
+  .story-block:hover {
+    border-left-color: rgba(0, 255, 0, 0.6);
+    background: rgba(0, 255, 0, 0.05);
+  }
+
+  .philosophy-item,
+  .tech-item,
+  .impact-item {
     transition: all 0.3s ease;
   }
 
-  .record-card:hover {
-    border-color: rgba(0, 255, 0, 0.5);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+  .philosophy-item:hover,
+  .tech-item:hover,
+  .impact-item:hover {
     transform: translateY(-2px);
+    border-color: rgba(0, 255, 0, 0.6);
+    box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
   }
 
-  .record-icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-  }
-
-  .record-content {
-    flex: 1;
-    font-family: 'Courier New', monospace;
-  }
-
-  .record-label {
-    font-size: 0.7rem;
-    color: rgba(0, 255, 0, 0.6);
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.1em;
-  }
-
-  .record-value {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00ff00;
-    margin-bottom: 0.25rem;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-  }
-
-  .record-date {
-    font-size: 0.75rem;
-    color: rgba(0, 255, 0, 0.7);
-    margin-bottom: 0.25rem;
-  }
-
-  .record-name {
-    font-size: 0.7rem;
-    color: rgba(0, 255, 0, 0.5);
-    font-style: italic;
-    white-space: nowrap;
+  .cta-button {
+    position: relative;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-decoration: none;
   }
 
-  /* Yearly Grid */
-  .yearly-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1.5rem;
+  .cta-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(0, 255, 0, 0.1),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
   }
 
-  .year-card {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 0, 0.6) 100%);
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 8px;
-    padding: 1.5rem;
-    font-family: 'Courier New', monospace;
+  .cta-button:hover::before {
+    transform: translateX(100%);
   }
 
-  .year-card.current {
-    border-color: rgba(0, 255, 0, 0.5);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-  }
-
-  .year-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
-  }
-
-  .year-label {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00ff00;
-  }
-
-  .year-badge {
-    font-size: 0.65rem;
-    padding: 0.25rem 0.5rem;
-    background: rgba(0, 255, 0, 0.1);
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 4px;
-    color: rgba(0, 255, 0, 0.8);
-  }
-
-  .year-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .year-stat {
+  .stat-line {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 255, 0, 0.1);
-    border-radius: 6px;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
   }
 
-  .stat-icon {
-    font-size: 1.5rem;
+  .stat-line:last-child {
+    border-bottom: none;
   }
 
-  .stat-value {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #00ff00;
+  .header-section {
+    animation: matrixFadeIn 1.5s ease-out;
   }
 
-  .stat-label {
-    font-size: 0.7rem;
-    color: rgba(0, 255, 0, 0.6);
+  @keyframes matrixFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  .stat-change {
-    font-size: 0.65rem;
-    margin-top: 0.25rem;
-  }
-
-  .stat-change.positive {
-    color: #00ff00;
-  }
-
-  .stat-change.negative {
-    color: #ff4444;
-  }
-
-  /* Lifetime Stats */
-  .lifetime-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .lifetime-stat {
-    text-align: center;
-    padding: 2rem 1rem;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 8px;
-    font-family: 'Courier New', monospace;
-    transition: all 0.3s ease;
-  }
-
-  .lifetime-stat:hover {
-    border-color: rgba(0, 255, 0, 0.5);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-    transform: translateY(-2px);
-  }
-
-  .lifetime-icon {
-    font-size: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .lifetime-value {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #00ff00;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-  }
-
-  .lifetime-label {
-    font-size: 0.75rem;
-    color: rgba(0, 255, 0, 0.7);
-    letter-spacing: 0.1em;
-  }
-
-  /* Responsive */
   @media (max-width: 768px) {
-    .records-grid {
-      grid-template-columns: 1fr;
+    .story-block {
+      margin-left: 0.5rem;
+      padding: 0.75rem;
     }
 
-    .yearly-grid {
-      grid-template-columns: 1fr;
+    .cta-grid {
+      gap: 1rem;
     }
 
-    .year-stats {
-      grid-template-columns: 1fr;
-    }
-
-    .lifetime-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .header-section {
+      margin-bottom: 2rem;
     }
   }
 </style>

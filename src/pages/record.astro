@@ -1,0 +1,555 @@
+---
+import Base from '@layouts/Base.astro';
+import { PAGE_METADATA } from '@src/consts';
+import SectionLayout from '@components/SectionLayout.astro';
+import { fetchStepsData, type StepsData } from '@services/googleFitService';
+import { fetchActivities, type StravaActivity } from '@services/stravaService';
+import { fetchHevyData } from '@services/hevyService';
+import type { Workout as HevyWorkout } from '@services/hevyService';
+import { getPersonalRecords } from '@utils/statsUtils';
+
+// Fetch all data for personal records
+const stepsData: StepsData = await fetchStepsData(365).catch(() => ({}));
+const allActivities: StravaActivity[] = await fetchActivities(1, 200).catch(() => []);
+const allWorkouts: HevyWorkout[] = await fetchHevyData().catch(() => []);
+
+// Get personal records
+const records = getPersonalRecords(stepsData, allActivities, allWorkouts);
+
+// Calculate yearly totals
+const currentYear = new Date().getFullYear();
+const lastYear = currentYear - 1;
+
+// Current year stats
+const currentYearActivities = allActivities.filter(a => {
+  const year = new Date(a.start_date).getFullYear();
+  return year === currentYear;
+});
+
+const currentYearDistance = currentYearActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+const currentYearWorkouts = allWorkouts.filter(w => {
+  const year = new Date(w.start_time).getFullYear();
+  return year === currentYear;
+}).length;
+
+const currentYearSteps = Object.entries(stepsData)
+  .filter(([date]) => date.startsWith(currentYear.toString()))
+  .reduce((sum, [_, data]) => sum + (data.steps || 0), 0);
+
+// Last year stats
+const lastYearActivities = allActivities.filter(a => {
+  const year = new Date(a.start_date).getFullYear();
+  return year === lastYear;
+});
+
+const lastYearDistance = lastYearActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+const lastYearWorkouts = allWorkouts.filter(w => {
+  const year = new Date(w.start_time).getFullYear();
+  return year === lastYear;
+}).length;
+
+const lastYearSteps = Object.entries(stepsData)
+  .filter(([date]) => date.startsWith(lastYear.toString()))
+  .reduce((sum, [_, data]) => sum + (data.steps || 0), 0);
+
+// Format large numbers
+const formatNumber = (num: number) => {
+  if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
+  if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
+  return num.toLocaleString();
+};
+
+// Calculate percentage change
+const percentChange = (current: number, previous: number) => {
+  if (previous === 0) return 0;
+  return ((current - previous) / previous) * 100;
+};
+---
+
+<Base
+  title={PAGE_METADATA.about.title}
+  description={PAGE_METADATA.about.description}
+  keywords={PAGE_METADATA.about.keywords}
+  windowTitle="PERSONAL_RECORDS"
+  terminalCommand="./view_records.sh --all-time"
+  systemMessage={`[SYSTEM] Loaded ${allActivities.length} activities | ${allWorkouts.length} workouts | ${Object.keys(stepsData).length} days tracked`}
+>
+  <!-- Header -->
+  <div class="text-center mb-8">
+    <div class="text-green-400 text-4xl md:text-5xl font-bold font-mono mb-4">
+      [PERSONAL_RECORDS]
+    </div>
+    <div class="text-green-300/80 text-sm font-mono">
+      All-time achievements and milestones
+    </div>
+  </div>
+
+  <!-- Personal Records Grid -->
+  <SectionLayout title="[ALL_TIME_RECORDS]" rightHeaderText="[BEST_PERFORMANCES]">
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
+    ></div>
+
+    <div class="records-grid">
+      <!-- Max Steps -->
+      <div class="record-card">
+        <div class="record-icon">🚶</div>
+        <div class="record-content">
+          <div class="record-label">MAX STEPS</div>
+          <div class="record-value">{records.maxSteps.value.toLocaleString()}</div>
+          {records.maxSteps.date && (
+            <div class="record-date">{records.maxSteps.date}</div>
+          )}
+        </div>
+      </div>
+
+      <!-- Longest Run -->
+      {records.longestRun.distance > 0 && (
+        <div class="record-card">
+          <div class="record-icon">🏃</div>
+          <div class="record-content">
+            <div class="record-label">LONGEST RUN</div>
+            <div class="record-value">{records.longestRun.distance.toFixed(2)} km</div>
+            {records.longestRun.date && (
+              <>
+                <div class="record-date">{records.longestRun.date}</div>
+                <div class="record-name">{records.longestRun.name}</div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      <!-- Fastest Pace -->
+      {records.fastestPace.pace > 0 && (
+        <div class="record-card">
+          <div class="record-icon">⚡</div>
+          <div class="record-content">
+            <div class="record-label">FASTEST PACE</div>
+            <div class="record-value">
+              {Math.floor(records.fastestPace.pace)}:{String(Math.round((records.fastestPace.pace % 1) * 60)).padStart(2, '0')}/km
+            </div>
+            {records.fastestPace.date && (
+              <>
+                <div class="record-date">{records.fastestPace.date}</div>
+                <div class="record-name">{records.fastestPace.name}</div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      <!-- Most Workouts in a Day -->
+      {records.mostWorkouts.count > 0 && (
+        <div class="record-card">
+          <div class="record-icon">💪</div>
+          <div class="record-content">
+            <div class="record-label">MOST WORKOUTS</div>
+            <div class="record-value">{records.mostWorkouts.count} in 1 day</div>
+            {records.mostWorkouts.date && (
+              <div class="record-date">{records.mostWorkouts.date}</div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <!-- Longest Workout -->
+      {records.longestWorkout.duration > 0 && (
+        <div class="record-card">
+          <div class="record-icon">⏱️</div>
+          <div class="record-content">
+            <div class="record-label">LONGEST WORKOUT</div>
+            <div class="record-value">
+              {Math.floor(records.longestWorkout.duration / 60)}h {Math.round(records.longestWorkout.duration % 60)}m
+            </div>
+            {records.longestWorkout.date && (
+              <>
+                <div class="record-date">{records.longestWorkout.date}</div>
+                <div class="record-name">{records.longestWorkout.title}</div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      <!-- Total Volume -->
+      {records.totalVolume.weight > 0 && (
+        <div class="record-card">
+          <div class="record-icon">🏋️</div>
+          <div class="record-content">
+            <div class="record-label">MAX VOLUME</div>
+            <div class="record-value">{Math.round(records.totalVolume.weight).toLocaleString()} kg</div>
+            {records.totalVolume.date && (
+              <>
+                <div class="record-date">{records.totalVolume.date}</div>
+                <div class="record-name">{records.totalVolume.title}</div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  </SectionLayout>
+
+  <!-- Yearly Totals Comparison -->
+  <SectionLayout title="[YEARLY_TOTALS]" rightHeaderText={`[${lastYear}_vs_${currentYear}]`}>
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+    ></div>
+
+    <div class="yearly-grid">
+      <!-- Current Year -->
+      <div class="year-card current">
+        <div class="year-header">
+          <div class="year-label">{currentYear}</div>
+          <div class="year-badge">CURRENT</div>
+        </div>
+        <div class="year-stats">
+          <div class="year-stat">
+            <span class="stat-icon">🏃</span>
+            <div>
+              <div class="stat-value">{currentYearDistance.toFixed(1)} km</div>
+              <div class="stat-label">Distance</div>
+            </div>
+          </div>
+          <div class="year-stat">
+            <span class="stat-icon">💪</span>
+            <div>
+              <div class="stat-value">{currentYearWorkouts}</div>
+              <div class="stat-label">Workouts</div>
+            </div>
+          </div>
+          <div class="year-stat">
+            <span class="stat-icon">🚶</span>
+            <div>
+              <div class="stat-value">{formatNumber(currentYearSteps)}</div>
+              <div class="stat-label">Steps</div>
+            </div>
+          </div>
+          <div class="year-stat">
+            <span class="stat-icon">📊</span>
+            <div>
+              <div class="stat-value">{currentYearActivities.length}</div>
+              <div class="stat-label">Activities</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last Year -->
+      <div class="year-card previous">
+        <div class="year-header">
+          <div class="year-label">{lastYear}</div>
+          <div class="year-badge">PREVIOUS</div>
+        </div>
+        <div class="year-stats">
+          <div class="year-stat">
+            <span class="stat-icon">🏃</span>
+            <div>
+              <div class="stat-value">{lastYearDistance.toFixed(1)} km</div>
+              <div class="stat-label">Distance</div>
+              {lastYearDistance > 0 && (
+                <div class={`stat-change ${percentChange(currentYearDistance, lastYearDistance) > 0 ? 'positive' : 'negative'}`}>
+                  {percentChange(currentYearDistance, lastYearDistance) > 0 ? '↗' : '↘'}
+                  {Math.abs(percentChange(currentYearDistance, lastYearDistance)).toFixed(1)}%
+                </div>
+              )}
+            </div>
+          </div>
+          <div class="year-stat">
+            <span class="stat-icon">💪</span>
+            <div>
+              <div class="stat-value">{lastYearWorkouts}</div>
+              <div class="stat-label">Workouts</div>
+              {lastYearWorkouts > 0 && (
+                <div class={`stat-change ${percentChange(currentYearWorkouts, lastYearWorkouts) > 0 ? 'positive' : 'negative'}`}>
+                  {percentChange(currentYearWorkouts, lastYearWorkouts) > 0 ? '↗' : '↘'}
+                  {Math.abs(percentChange(currentYearWorkouts, lastYearWorkouts)).toFixed(1)}%
+                </div>
+              )}
+            </div>
+          </div>
+          <div class="year-stat">
+            <span class="stat-icon">🚶</span>
+            <div>
+              <div class="stat-value">{formatNumber(lastYearSteps)}</div>
+              <div class="stat-label">Steps</div>
+              {lastYearSteps > 0 && (
+                <div class={`stat-change ${percentChange(currentYearSteps, lastYearSteps) > 0 ? 'positive' : 'negative'}`}>
+                  {percentChange(currentYearSteps, lastYearSteps) > 0 ? '↗' : '↘'}
+                  {Math.abs(percentChange(currentYearSteps, lastYearSteps)).toFixed(1)}%
+                </div>
+              )}
+            </div>
+          </div>
+          <div class="year-stat">
+            <span class="stat-icon">📊</span>
+            <div>
+              <div class="stat-value">{lastYearActivities.length}</div>
+              <div class="stat-label">Activities</div>
+              {lastYearActivities.length > 0 && (
+                <div class={`stat-change ${percentChange(currentYearActivities.length, lastYearActivities.length) > 0 ? 'positive' : 'negative'}`}>
+                  {percentChange(currentYearActivities.length, lastYearActivities.length) > 0 ? '↗' : '↘'}
+                  {Math.abs(percentChange(currentYearActivities.length, lastYearActivities.length)).toFixed(1)}%
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </SectionLayout>
+
+  <!-- All-Time Stats -->
+  <SectionLayout title="[ALL_TIME_STATS]" rightHeaderText="[LIFETIME_TOTALS]">
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
+    ></div>
+
+    <div class="lifetime-grid">
+      <div class="lifetime-stat">
+        <div class="lifetime-icon">🏃</div>
+        <div class="lifetime-value">{(allActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000).toFixed(1)} km</div>
+        <div class="lifetime-label">Total Distance</div>
+      </div>
+
+      <div class="lifetime-stat">
+        <div class="lifetime-icon">📊</div>
+        <div class="lifetime-value">{allActivities.length}</div>
+        <div class="lifetime-label">Total Activities</div>
+      </div>
+
+      <div class="lifetime-stat">
+        <div class="lifetime-icon">💪</div>
+        <div class="lifetime-value">{allWorkouts.length}</div>
+        <div class="lifetime-label">Total Workouts</div>
+      </div>
+
+      <div class="lifetime-stat">
+        <div class="lifetime-icon">🚶</div>
+        <div class="lifetime-value">
+          {formatNumber(Object.values(stepsData).reduce((sum, data) => sum + (data.steps || 0), 0))}
+        </div>
+        <div class="lifetime-label">Total Steps</div>
+      </div>
+    </div>
+  </SectionLayout>
+</Base>
+
+<style>
+  /* Records Grid */
+  .records-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .record-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .record-card:hover {
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .record-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .record-content {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+  }
+
+  .record-label {
+    font-size: 0.7rem;
+    color: rgba(0, 255, 0, 0.6);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .record-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ff00;
+    margin-bottom: 0.25rem;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .record-date {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.7);
+    margin-bottom: 0.25rem;
+  }
+
+  .record-name {
+    font-size: 0.7rem;
+    color: rgba(0, 255, 0, 0.5);
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Yearly Grid */
+  .yearly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .year-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 0, 0.6) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .year-card.current {
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+  }
+
+  .year-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  }
+
+  .year-label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ff00;
+  }
+
+  .year-badge {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+    color: rgba(0, 255, 0, 0.8);
+  }
+
+  .year-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .year-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    border-radius: 6px;
+  }
+
+  .stat-icon {
+    font-size: 1.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #00ff00;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: rgba(0, 255, 0, 0.6);
+  }
+
+  .stat-change {
+    font-size: 0.65rem;
+    margin-top: 0.25rem;
+  }
+
+  .stat-change.positive {
+    color: #00ff00;
+  }
+
+  .stat-change.negative {
+    color: #ff4444;
+  }
+
+  /* Lifetime Stats */
+  .lifetime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .lifetime-stat {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+  }
+
+  .lifetime-stat:hover {
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .lifetime-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .lifetime-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #00ff00;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+  }
+
+  .lifetime-label {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.7);
+    letter-spacing: 0.1em;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .records-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .yearly-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .year-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .lifetime-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
