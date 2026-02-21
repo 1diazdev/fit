@@ -1,0 +1,193 @@
+---
+import Layout from "@/layouts/Base.astro";
+import SectionLayout from "@/components/SectionLayout.astro";
+import StepsCounter from "@/components/StepsCounter.astro";
+import HealthHeatmap from "@/components/HealthHeatmap.astro";
+import SleepTracker from "@/components/SleepTracker.astro";
+import HeartRateZones from "@/components/HeartRateZones.astro";
+import type {
+  StepsData,
+  SleepData,
+  HeartRateData,
+} from "@/services/googleFitService";
+
+// Load cached health data from JSON file (no API call during build!)
+let healthData: {
+  steps: StepsData;
+  sleep: SleepData;
+  heartRate: HeartRateData;
+  lastUpdated: string;
+  source: string;
+} = {
+  steps: {},
+  sleep: {},
+  heartRate: {},
+  lastUpdated: new Date().toISOString(),
+  source: "Google Fit",
+};
+
+try {
+  const response = await fetch(
+    new URL("/health-data.json", Astro.site || "http://localhost:4321"),
+  );
+  if (response.ok) {
+    healthData = await response.json();
+  }
+} catch (error) {
+  console.warn("Could not load health data:", error);
+}
+
+// Get today's data for StepsCounter
+const today = new Date().toISOString().split("T")[0];
+const todayData = healthData.steps[today] || { steps: 0, distance: 0, calories: 0 };
+
+// Calculate total days with data
+const totalStepDays = Object.keys(healthData.steps).filter(
+  (date) => healthData.steps[date].steps > 0,
+).length;
+const totalSleepNights = Object.keys(healthData.sleep).length;
+const totalHRDays = Object.keys(healthData.heartRate).length;
+
+// Format last updated
+const lastUpdated = new Date(healthData.lastUpdated);
+const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+});
+---
+
+<Layout
+  title="Health Matrix | Fitness Tracker"
+  windowTitle="HEALTH_MONITOR"
+  terminalCommand="./run_health_scan.exe"
+  systemMessage="[SYSTEM] Google Fit API connected. Biometric data streaming..."
+>
+  <!-- Today's Steps Counter -->
+  <SectionLayout title="[TODAY_METRICS]" rightHeaderText="[DAILY_TRACKING]">
+    <StepsCounter
+      steps={todayData.steps}
+      distance={todayData.distance}
+      calories={todayData.calories}
+    />
+  </SectionLayout>
+
+  <!-- Steps Heatmap (365 days) -->
+  <SectionLayout
+    title="[ACTIVITY_HEATMAP]"
+    rightHeaderText={`[${totalStepDays}_ACTIVE_DAYS]`}
+  >
+    <HealthHeatmap stepsData={healthData.steps} />
+  </SectionLayout>
+
+  <!-- Sleep Tracker -->
+  <SectionLayout
+    title="[SLEEP_ANALYSIS]"
+    rightHeaderText={`[${totalSleepNights}_NIGHTS_TRACKED]`}
+  >
+    {
+      totalSleepNights > 0 ? (
+        <SleepTracker sleepData={healthData.sleep} daysToShow={14} />
+      ) : (
+        <div class="no-data-message">
+          <div class="bg-black/60 border border-green-500/30 rounded-lg p-8 text-center">
+            <div class="text-green-400/60 font-mono text-sm mb-2">
+              NO_SLEEP_DATA_AVAILABLE
+            </div>
+            <div class="text-green-300/80 font-mono text-xs">
+              Sleep tracking will appear here once Google Fit syncs your Zepp data.
+            </div>
+            <div class="text-green-400/60 font-mono text-xs mt-4">
+              To sync: Open Zepp app → Profile → Third-party access → Google Fit → Sync
+            </div>
+          </div>
+        </div>
+      )
+    }
+  </SectionLayout>
+
+  <!-- Heart Rate Zones -->
+  <SectionLayout
+    title="[HEART_RATE_ZONES]"
+    rightHeaderText={`[${totalHRDays}_DAYS_MONITORED]`}
+  >
+    {
+      totalHRDays > 0 ? (
+        <HeartRateZones heartRateData={healthData.heartRate} daysToShow={14} />
+      ) : (
+        <div class="no-data-message">
+          <div class="bg-black/60 border border-green-500/30 rounded-lg p-8 text-center">
+            <div class="text-green-400/60 font-mono text-sm mb-2">
+              NO_HEART_RATE_DATA_AVAILABLE
+            </div>
+            <div class="text-green-300/80 font-mono text-xs">
+              Heart rate monitoring will appear here once Google Fit syncs your Zepp data.
+            </div>
+            <div class="text-green-400/60 font-mono text-xs mt-4">
+              To sync: Open Zepp app → Profile → Third-party access → Google Fit → Sync
+            </div>
+          </div>
+        </div>
+      )
+    }
+  </SectionLayout>
+
+  <!-- Data Source Info -->
+  <SectionLayout title="[DATA_SOURCE]" rightHeaderText="[SYNC_STATUS]">
+    <div
+      class="bg-black/60 border border-green-500/30 rounded-lg p-6 font-mono"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div class="flex flex-col">
+          <span class="text-green-400/60 text-xs mb-1">SOURCE:</span>
+          <span class="text-green-300 flex items-center">
+            <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse">
+            </div>
+            {healthData.source}
+          </span>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-green-400/60 text-xs mb-1">LAST_UPDATED:</span>
+          <span class="text-green-300">{lastUpdatedStr}</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-green-400/60 text-xs mb-1">DEVICE:</span>
+          <span class="text-green-300">Zepp/Amazfit via Google Fit</span>
+        </div>
+      </div>
+
+      <div
+        class="mt-6 pt-4 border-t border-green-500/20 text-xs text-green-400/60"
+      >
+        <div class="mb-2">DATA_SYNC_INFO:</div>
+        <ul class="list-disc list-inside space-y-1 text-green-300/70">
+          <li>
+            Google Fit aggregates health data from Zepp and other connected
+            apps
+          </li>
+          <li>Data updates automatically when you sync your Zepp app</li>
+          <li>Historical data may take time to populate from initial sync</li>
+        </ul>
+      </div>
+    </div>
+  </SectionLayout>
+</Layout>
+
+<style>
+  .no-data-message {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
