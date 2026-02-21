@@ -6,6 +6,13 @@
  * This script should be run daily (via Netlify/Vercel Cron or GitHub Actions)
  * to keep health data up-to-date.
  *
+ * Data fetched:
+ *   - Steps, distance, calories (365 days)
+ *   - Sleep data (90 days)
+ *   - Heart rate (30 days)
+ *   - Move minutes: active & heart minutes (30 days)
+ *   - Heart rate zones (30 days)
+ *
  * Usage:
  *   bun run googlefit-script
  *
@@ -19,18 +26,24 @@ import {
   fetchStepsData,
   fetchSleepData,
   fetchHeartRateData,
+  fetchMoveMinutesData,
+  fetchHeartRateZones,
 } from '../src/services/googleFitService';
 
 interface HealthData {
   steps: any;
   sleep: any;
   heartRate: any;
+  moveMinutes: any;
+  heartRateZones: any;
   lastUpdated: string;
   source: string;
   dataRange: {
     stepsDays: number;
     sleepDays: number;
     heartRateDays: number;
+    moveMinutesDays: number;
+    heartRateZonesDays: number;
   };
 }
 
@@ -55,14 +68,18 @@ const main = async (): Promise<void> => {
 
     console.log('  📈 Fetching steps data (365 days)...');
     console.log('  😴 Fetching sleep data (90 days - API limit)...');
-    console.log('  ❤️  Fetching heart rate data (30 days)...\n');
+    console.log('  ❤️  Fetching heart rate data (30 days)...');
+    console.log('  🏃 Fetching move minutes (30 days)...');
+    console.log('  🎯 Fetching heart rate zones (30 days)...\n');
 
     const startTime = Date.now();
 
-    const [stepsData, sleepData, heartRateData] = await Promise.all([
+    const [stepsData, sleepData, heartRateData, moveMinutesData, heartRateZonesData] = await Promise.all([
       fetchStepsData(365),
       fetchSleepData(90), // Limited to 90 days due to API constraints
       fetchHeartRateData(30),
+      fetchMoveMinutesData(30),
+      fetchHeartRateZones(30, 30), // 30 days, age 30 (adjust age as needed)
     ]);
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
@@ -73,11 +90,15 @@ const main = async (): Promise<void> => {
     const stepsDays = Object.keys(stepsData).length;
     const sleepDays = Object.keys(sleepData).length;
     const hrDays = Object.keys(heartRateData).length;
+    const moveDays = Object.keys(moveMinutesData).length;
+    const zonesDays = Object.keys(heartRateZonesData).length;
 
     console.log('📊 Data Summary:');
     console.log(`   Steps data: ${stepsDays} days`);
     console.log(`   Sleep data: ${sleepDays} days`);
-    console.log(`   Heart rate data: ${hrDays} days\n`);
+    console.log(`   Heart rate data: ${hrDays} days`);
+    console.log(`   Move minutes: ${moveDays} days`);
+    console.log(`   HR zones: ${zonesDays} days\n`);
 
     // Calculate some quick stats
     if (stepsDays > 0) {
@@ -106,17 +127,39 @@ const main = async (): Promise<void> => {
       }
     }
 
+    if (moveDays > 0) {
+      const totalActive = Object.values(moveMinutesData).reduce((sum, day: any) => sum + day.activeMinutes, 0);
+      const avgActive = Math.round(totalActive / moveDays);
+      console.log(`   Average active minutes: ${avgActive} min/day`);
+
+      const totalHeart = Object.values(moveMinutesData).reduce((sum, day: any) => sum + day.heartMinutes, 0);
+      const avgHeart = Math.round(totalHeart / moveDays);
+      console.log(`   Average heart minutes: ${avgHeart} min/day`);
+    }
+
+    if (zonesDays > 0) {
+      const totalZoneMinutes = Object.values(heartRateZonesData).reduce(
+        (sum, day: any) => sum + day.totalActiveMinutes, 0
+      );
+      const avgZoneMinutes = Math.round(totalZoneMinutes / zonesDays);
+      console.log(`   Average time in HR zones: ${avgZoneMinutes} min/day`);
+    }
+
     // Prepare data for JSON
     const healthData: HealthData = {
       steps: stepsData,
       sleep: sleepData,
       heartRate: heartRateData,
+      moveMinutes: moveMinutesData,
+      heartRateZones: heartRateZonesData,
       lastUpdated: new Date().toISOString(),
       source: 'Google Fit',
       dataRange: {
         stepsDays,
         sleepDays,
         heartRateDays: hrDays,
+        moveMinutesDays: moveDays,
+        heartRateZonesDays: zonesDays,
       },
     };
 

@@ -438,7 +438,7 @@
     "2026-02-18": {
       "steps": 0,
       "distance": 0,
-      "calories": 128.57130368068596
+      "calories": 589.3283625281089
     },
     "2026-02-19": {
       "steps": 0,
@@ -446,25 +446,399 @@
       "calories": 1812.749940276146
     },
     "2026-02-20": {
-      "steps": 5,
-      "distance": 3,
-      "calories": 1773.5572794840755
+      "steps": 102,
+      "distance": 70,
+      "calories": 1812.749940276146
     }
   },
   "sleep": {},
   "heartRate": {
     "2026-02-20": {
-      "min": 63.791666666666664,
-      "max": 63.791666666666664,
-      "avg": 64,
+      "min": 60.52613636363636,
+      "max": 60.52613636363636,
+      "avg": 61,
       "resting": 6
     }
   },
-  "lastUpdated": "2026-02-21T06:43:08.204Z",
+  "moveMinutes": {
+    "2026-01-22": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-23": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-24": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-25": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-26": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-27": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-28": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-29": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-30": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-01-31": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-01": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-02": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-03": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-04": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-05": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-06": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-07": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-08": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-09": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-10": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-11": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-12": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-13": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-14": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-15": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-16": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-17": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-18": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-19": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    },
+    "2026-02-20": {
+      "activeMinutes": 0,
+      "heartMinutes": 0
+    }
+  },
+  "heartRateZones": {
+    "2026-01-22": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-23": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-24": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-25": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-26": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-27": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-28": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-29": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-30": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-01-31": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-01": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-02": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-03": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-04": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-05": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-06": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-07": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-08": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-09": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-10": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-11": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-12": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-13": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-14": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-15": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-16": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-17": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-18": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-19": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-20": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    },
+    "2026-02-21": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
+    }
+  },
+  "lastUpdated": "2026-02-21T12:49:11.039Z",
   "source": "Google Fit",
   "dataRange": {
     "stepsDays": 90,
     "sleepDays": 0,
-    "heartRateDays": 1
+    "heartRateDays": 1,
+    "moveMinutesDays": 30,
+    "heartRateZonesDays": 31
   }
 }

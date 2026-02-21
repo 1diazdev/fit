@@ -54,6 +54,24 @@ export interface HeartRateData {
   };
 }
 
+export interface HeartRateZones {
+  [date: string]: {
+    zone1Minutes: number; // 50-60% max HR (very light)
+    zone2Minutes: number; // 60-70% max HR (light)
+    zone3Minutes: number; // 70-80% max HR (moderate)
+    zone4Minutes: number; // 80-90% max HR (hard)
+    zone5Minutes: number; // 90-100% max HR (maximum)
+    totalActiveMinutes: number;
+  };
+}
+
+export interface MoveMinutesData {
+  [date: string]: {
+    activeMinutes: number; // Any activity
+    heartMinutes: number; // Moderate to vigorous activity (heart points)
+  };
+}
+
 export interface HealthStats {
   steps: number;
   distance: number;
@@ -63,6 +81,8 @@ export interface HealthStats {
     resting: number;
   };
   sleepMinutes: number;
+  activeMinutes: number;
+  heartMinutes: number;
 }
 
 // ============================================================================
@@ -79,6 +99,8 @@ const DATA_SOURCES = {
   CALORIES: 'derived:com.google.calories.expended:com.google.android.gms:merge_calories_expended',
   HEART_RATE: 'derived:com.google.heart_rate.bpm:com.google.android.gms:merge_heart_rate_bpm',
   SLEEP: 'derived:com.google.sleep.segment:com.google.android.gms:merged',
+  ACTIVE_MINUTES: 'derived:com.google.active_minutes:com.google.android.gms:merge_active_minutes',
+  HEART_MINUTES: 'derived:com.google.heart_minutes:com.google.android.gms:merge_heart_minutes',
 };
 
 // ============================================================================
@@ -451,21 +473,183 @@ export async function fetchHeartRateData(days: number = 30): Promise<HeartRateDa
 }
 
 /**
+ * Fetch move minutes data from Google Fit
+ * Includes active minutes (any activity) and heart minutes (moderate to vigorous)
+ */
+export async function fetchMoveMinutesData(days: number = 30): Promise<MoveMinutesData> {
+  const today = new Date().toISOString().split('T')[0];
+  return memoize(`googlefit-move-${today}-${days}`, async () => {
+    const accessToken = await getAccessToken();
+    const { startTimeMillis, endTimeMillis } = getTimeRangeMillis(days);
+
+    const moveData: MoveMinutesData = {};
+
+    console.log(`   Fetching move minutes (${days} days)...`);
+
+    const moveUrl = `${GOOGLE_FIT_API_BASE}/dataset:aggregate`;
+    const moveResponse = await fetch(moveUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        aggregateBy: [{
+          dataTypeName: 'com.google.active_minutes',
+        }, {
+          dataTypeName: 'com.google.heart_minutes',
+        }],
+        bucketByTime: { durationMillis: 86400000 },
+        startTimeMillis,
+        endTimeMillis,
+      }),
+    });
+
+    if (!moveResponse.ok) {
+      const errorText = await moveResponse.text();
+      console.warn('Move Minutes API returned error (continuing without move data):', errorText);
+      return {};
+    }
+
+    const data = await moveResponse.json();
+
+    if (data.bucket) {
+      for (const bucket of data.bucket) {
+        const dateStr = nanosToDateString(bucket.startTimeMillis + '000000');
+
+        let activeMinutes = 0;
+        let heartMinutes = 0;
+
+        for (const dataset of bucket.dataset) {
+          for (const point of dataset.point) {
+            if (dataset.dataSourceId.includes('active_minutes')) {
+              activeMinutes += point.value[0]?.intVal || 0;
+            } else if (dataset.dataSourceId.includes('heart_minutes')) {
+              heartMinutes += point.value[0]?.fpVal || 0;
+            }
+          }
+        }
+
+        moveData[dateStr] = { activeMinutes, heartMinutes };
+      }
+    }
+
+    return moveData;
+  });
+}
+
+/**
+ * Calculate heart rate zones from heart rate data
+ * Uses standard 5-zone model based on max heart rate (220 - age)
+ *
+ * Note: This is a basic calculation. For more accurate zones,
+ * individual max HR testing is recommended.
+ */
+export async function fetchHeartRateZones(days: number = 30, age: number = 30): Promise<HeartRateZones> {
+  const today = new Date().toISOString().split('T')[0];
+  return memoize(`googlefit-hr-zones-${today}-${days}`, async () => {
+    const accessToken = await getAccessToken();
+    const { startTimeMillis, endTimeMillis } = getTimeRangeMillis(days);
+
+    const zonesData: HeartRateZones = {};
+    const maxHR = 220 - age;
+
+    // Zone thresholds
+    const zone1 = [maxHR * 0.50, maxHR * 0.60]; // Very light
+    const zone2 = [maxHR * 0.60, maxHR * 0.70]; // Light
+    const zone3 = [maxHR * 0.70, maxHR * 0.80]; // Moderate
+    const zone4 = [maxHR * 0.80, maxHR * 0.90]; // Hard
+    const zone5 = [maxHR * 0.90, maxHR * 1.00]; // Maximum
+
+    console.log(`   Fetching heart rate zones (${days} days, age ${age}, max HR ${maxHR})...`);
+
+    // Get detailed heart rate data (not aggregated by day)
+    const hrUrl = `${GOOGLE_FIT_API_BASE}/dataset:aggregate`;
+    const hrResponse = await fetch(hrUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        aggregateBy: [{
+          dataTypeName: 'com.google.heart_rate.bpm',
+        }],
+        bucketByTime: { durationMillis: 60000 }, // 1 minute buckets for zone calculation
+        startTimeMillis,
+        endTimeMillis,
+      }),
+    });
+
+    if (!hrResponse.ok) {
+      const errorText = await hrResponse.text();
+      console.warn('HR Zones API returned error (continuing without zone data):', errorText);
+      return {};
+    }
+
+    const data = await hrResponse.json();
+
+    if (data.bucket) {
+      // Group by date and calculate time in each zone
+      const dailyZones: { [date: string]: number[] } = {};
+
+      for (const bucket of data.bucket) {
+        const dateStr = nanosToDateString(bucket.startTimeMillis + '000000');
+
+        if (!dailyZones[dateStr]) {
+          dailyZones[dateStr] = [0, 0, 0, 0, 0]; // [zone1, zone2, zone3, zone4, zone5]
+        }
+
+        for (const dataset of bucket.dataset) {
+          for (const point of dataset.point) {
+            const hr = point.value[0]?.fpVal || 0;
+            if (hr > 0) {
+              // Determine which zone this HR belongs to
+              if (hr >= zone1[0] && hr < zone1[1]) dailyZones[dateStr][0]++;
+              else if (hr >= zone2[0] && hr < zone2[1]) dailyZones[dateStr][1]++;
+              else if (hr >= zone3[0] && hr < zone3[1]) dailyZones[dateStr][2]++;
+              else if (hr >= zone4[0] && hr < zone4[1]) dailyZones[dateStr][3]++;
+              else if (hr >= zone5[0]) dailyZones[dateStr][4]++;
+            }
+          }
+        }
+      }
+
+      // Convert counts to minutes and build final data structure
+      for (const [dateStr, zones] of Object.entries(dailyZones)) {
+        zonesData[dateStr] = {
+          zone1Minutes: zones[0],
+          zone2Minutes: zones[1],
+          zone3Minutes: zones[2],
+          zone4Minutes: zones[3],
+          zone5Minutes: zones[4],
+          totalActiveMinutes: zones.reduce((a, b) => a + b, 0),
+        };
+      }
+    }
+
+    return zonesData;
+  });
+}
+
+/**
  * Fetch today's health stats
  */
 export async function fetchTodayStats(): Promise<HealthStats> {
   const today = new Date().toISOString().split('T')[0];
   return memoize(`googlefit-today-${today}`, async () => {
-    const [steps, sleep, hr] = await Promise.all([
+    const [steps, sleep, hr, move] = await Promise.all([
       fetchStepsData(1),
       fetchSleepData(1),
       fetchHeartRateData(1),
+      fetchMoveMinutesData(1),
     ]);
 
     const todayNY = nanosToDateString(Date.now().toString() + '000000');
     const todaySteps = steps[todayNY] || { steps: 0, distance: 0, calories: 0 };
     const todaySleep = sleep[todayNY] || { totalMinutes: 0, deepMinutes: 0, lightMinutes: 0, remMinutes: 0, sleepScore: 0 };
     const todayHR = hr[todayNY] || { min: 0, max: 0, avg: 0, resting: 0 };
+    const todayMove = move[todayNY] || { activeMinutes: 0, heartMinutes: 0 };
 
     return {
       steps: todaySteps.steps,
@@ -476,6 +660,8 @@ export async function fetchTodayStats(): Promise<HealthStats> {
         resting: todayHR.resting,
       },
       sleepMinutes: todaySleep.totalMinutes,
+      activeMinutes: todayMove.activeMinutes,
+      heartMinutes: todayMove.heartMinutes,
     };
   });
 }
