@@ -23,8 +23,12 @@ const today = new Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 const selectedDate = urlParams.get('date') || todayStr;
 
+// Parse date string properly to avoid timezone issues
+// YYYY-MM-DD format should be interpreted as local date, not UTC
+const [year, month, day] = selectedDate.split('-').map(Number);
+const selectedDateObj = new Date(year, month - 1, day); // month is 0-indexed
+
 // Calculate previous and next day dates
-const selectedDateObj = new Date(selectedDate);
 const prevDay = new Date(selectedDateObj);
 prevDay.setDate(prevDay.getDate() - 1);
 const prevDayStr = `${prevDay.getFullYear()}-${String(prevDay.getMonth() + 1).padStart(2, '0')}-${String(prevDay.getDate()).padStart(2, '0')}`;
@@ -44,10 +48,17 @@ const displayDate = selectedDateObj.toLocaleDateString('en-US', {
 // Check if selected date is today
 const isToday = selectedDate === todayStr;
 
-console.log(`[index.astro] Loading dashboard for date: ${selectedDate}`);
+console.log(`[index.astro] ====== Loading dashboard for date: ${selectedDate} ======`);
+console.log(`[index.astro] Today: ${todayStr}, Selected: ${selectedDate}, Is Today: ${selectedDate === todayStr}`);
 
 // Fetch all data for selected date
 const dayData = await getDataForDate(selectedDate);
+console.log(`[index.astro] DayData fetched:`, {
+  steps: dayData.steps.count,
+  activities: dayData.activities.length,
+  workouts: dayData.workouts.length,
+});
+
 const comparisons = await getComparisons(selectedDate);
 const streaks = await calculateStreaks(selectedDate);
 
@@ -61,7 +72,9 @@ const [stepsData, allActivities, allWorkouts] = await Promise.all([
 const personalRecords = getPersonalRecords(stepsData, allActivities, allWorkouts);
 const insights = generateInsights(dayData, comparisons, streaks, personalRecords);
 
-// Pre-calculate activity data for the dashboard
+// Pre-calculate activity data for the dashboard (using selected date data)
+// Note: ActivityDashboard shows "days since last" globally, not for specific date
+// We'll use the dayData.activities for the selected date instead
 const findLastActivityByType = (type: string) => {
   const activity = allActivities.find(a => {
     const activityType = a.type || a.sport_type || "";
@@ -86,6 +99,15 @@ const activityData = {
   ride: findLastActivityByType("ride"),
   swim: findLastActivityByType("swim"),
   walk: findLastActivityByType("walk"),
+};
+
+// For the selected date, show if there were activities
+// This will make the activity cards update based on selected date
+const selectedDateActivitiesByType = {
+  run: dayData.activities.find(a => (a.type || a.sport_type || "").toLowerCase() === "run"),
+  ride: dayData.activities.find(a => (a.type || a.sport_type || "").toLowerCase() === "ride"),
+  swim: dayData.activities.find(a => (a.type || a.sport_type || "").toLowerCase() === "swim"),
+  walk: dayData.activities.find(a => (a.type || a.sport_type || "").toLowerCase().includes("walk")),
 };
 
 // Fetch 365-day heatmap data
@@ -129,7 +151,7 @@ const systemMessage = `[SYSTEM] Loaded data for ${selectedDate} | Google Fit: ${
 >
   <!-- Date Navigator - Simple arrows -->
   <div class="date-navigator">
-    <a href={`/?date=${prevDayStr}`} class="nav-arrow" title="Previous day">
+    <a href={`/?date=${prevDayStr}`} class="nav-arrow" title="Previous day" data-astro-reload>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
@@ -137,35 +159,20 @@ const systemMessage = `[SYSTEM] Loaded data for ${selectedDate} | Google Fit: ${
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
+      <div class="date-debug" style="font-size: 0.7rem; color: rgba(0,255,0,0.5);">
+        [{selectedDate}] - Steps: {dayData.steps.count} | Activities: {dayData.activities.length} | Workouts: {dayData.workouts.length}
+      </div>
       {!isToday && (
-        <a href="/" class="today-btn">[TODAY]</a>
+        <a href="/" class="today-btn" data-astro-reload>[TODAY]</a>
       )}
     </div>
 
-    <a href={`/?date=${nextDayStr}`} class="nav-arrow" title="Next day">
+    <a href={`/?date=${nextDayStr}`} class="nav-arrow" title="Next day" data-astro-reload>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
     </a>
   </div>
-
-  <!-- Activity Status Section -->
-  <SectionLayout title="[ACTIVITY_STATUS]" rightHeaderText="[DAYS_SINCE_LAST]">
-    <div
-      slot="headerElements"
-      class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
-    ></div>
-    <ActivityDashboard activityData={activityData} />
-  </SectionLayout>
-
-  <!-- Hevy Workout Count Section -->
-  <SectionLayout title="[HEVY_WORKOUT]" rightHeaderText="[TOTAL_WORKOUT_COUNT]">
-    <div
-      slot="headerElements"
-      class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
-    ></div>
-    <HevyWorkoutCount workoutCount={workoutCount} />
-  </SectionLayout>
 
   <!-- Daily Metrics Grid -->
   <SectionLayout title="[DAILY_METRICS]" rightHeaderText={`[${selectedDate}]`}>
@@ -218,6 +225,24 @@ const systemMessage = `[SYSTEM] Loaded data for ${selectedDate} | Google Fit: ${
       <HeartRateZones heartRateData={heartRateData} daysToShow={7} />
     </SectionLayout>
   </div>
+
+    <!-- Activity Status Section -->
+  <SectionLayout title="[ACTIVITY_STATUS]" rightHeaderText="[DAYS_SINCE_LAST]">
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+    ></div>
+    <ActivityDashboard activityData={activityData} />
+  </SectionLayout>
+
+  <!-- Hevy Workout Count Section -->
+  <SectionLayout title="[HEVY_WORKOUT]" rightHeaderText="[TOTAL_WORKOUT_COUNT]">
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+    ></div>
+    <HevyWorkoutCount workoutCount={workoutCount} />
+  </SectionLayout>
 
   <!-- 365-Day Heatmap (Annual Overview) -->
   <SectionLayout title="[ANNUAL_OVERVIEW]" rightHeaderText="[365_DAY_ACTIVITY_MAP]">
@@ -577,3 +602,20 @@ const systemMessage = `[SYSTEM] Loaded data for ${selectedDate} | Google Fit: ${
     }
   }
 </style>
+
+<script>
+  // Force full page reload on date navigation
+  document.addEventListener('DOMContentLoaded', () => {
+    const navArrows = document.querySelectorAll('.nav-arrow, .today-btn');
+    navArrows.forEach(arrow => {
+      arrow.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = arrow.getAttribute('href');
+        if (href) {
+          // Force full page reload, bypass cache
+          window.location.href = href;
+        }
+      });
+    });
+  });
+</script>
