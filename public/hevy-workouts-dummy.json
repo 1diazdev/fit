@@ -1,0 +1,426 @@
+{
+  "workouts": [
+    {
+      "id": "w001",
+      "title": "Push Day",
+      "description": "Chest, shoulders, triceps",
+      "start_time": "2026-02-21T08:00:00Z",
+      "end_time": "2026-02-21T09:00:00Z",
+      "created_at": "2026-02-21T09:00:00Z",
+      "updated_at": "2026-02-21T09:00:00Z",
+      "exercises": [
+        {
+          "exercise_id": "ex001",
+          "workout_id": "w001",
+          "exercise_order": 1,
+          "title": "Bench Press",
+          "exercise_type_id": "strength_chest",
+          "notes": null,
+          "created_at": "2026-02-21T08:00:00Z",
+          "updated_at": "2026-02-21T08:00:00Z",
+          "sets": [
+            {
+              "set_id": "s001",
+              "exercise_id": "ex001",
+              "workout_id": "w001",
+              "set_order": 1,
+              "weight_kg": 80,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-21T08:00:00Z",
+              "updated_at": "2026-02-21T08:00:00Z"
+            },
+            {
+              "set_id": "s002",
+              "exercise_id": "ex001",
+              "workout_id": "w001",
+              "set_order": 2,
+              "weight_kg": 80,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-21T08:01:00Z",
+              "updated_at": "2026-02-21T08:01:00Z"
+            },
+            {
+              "set_id": "s003",
+              "exercise_id": "ex001",
+              "workout_id": "w001",
+              "set_order": 3,
+              "weight_kg": 80,
+              "reps": 8,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 9,
+              "notes": null,
+              "created_at": "2026-02-21T08:02:00Z",
+              "updated_at": "2026-02-21T08:02:00Z"
+            }
+          ]
+        },
+        {
+          "exercise_id": "ex002",
+          "workout_id": "w001",
+          "exercise_order": 2,
+          "title": "Overhead Press",
+          "exercise_type_id": "strength_shoulders",
+          "notes": null,
+          "created_at": "2026-02-21T08:05:00Z",
+          "updated_at": "2026-02-21T08:05:00Z",
+          "sets": [
+            {
+              "set_id": "s004",
+              "exercise_id": "ex002",
+              "workout_id": "w001",
+              "set_order": 1,
+              "weight_kg": 50,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 7,
+              "notes": null,
+              "created_at": "2026-02-21T08:05:00Z",
+              "updated_at": "2026-02-21T08:05:00Z"
+            },
+            {
+              "set_id": "s005",
+              "exercise_id": "ex002",
+              "workout_id": "w001",
+              "set_order": 2,
+              "weight_kg": 50,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 7,
+              "notes": null,
+              "created_at": "2026-02-21T08:06:00Z",
+              "updated_at": "2026-02-21T08:06:00Z"
+            },
+            {
+              "set_id": "s006",
+              "exercise_id": "ex002",
+              "workout_id": "w001",
+              "set_order": 3,
+              "weight_kg": 50,
+              "reps": 8,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-21T08:07:00Z",
+              "updated_at": "2026-02-21T08:07:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "w002",
+      "title": "Pull Day",
+      "description": "Back and biceps",
+      "start_time": "2026-02-19T08:00:00Z",
+      "end_time": "2026-02-19T09:15:00Z",
+      "created_at": "2026-02-19T09:15:00Z",
+      "updated_at": "2026-02-19T09:15:00Z",
+      "exercises": [
+        {
+          "exercise_id": "ex003",
+          "workout_id": "w002",
+          "exercise_order": 1,
+          "title": "Pull-ups",
+          "exercise_type_id": "strength_back",
+          "notes": null,
+          "created_at": "2026-02-19T08:00:00Z",
+          "updated_at": "2026-02-19T08:00:00Z",
+          "sets": [
+            {
+              "set_id": "s007",
+              "exercise_id": "ex003",
+              "workout_id": "w002",
+              "set_order": 1,
+              "weight_kg": 0,
+              "reps": 12,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 7,
+              "notes": null,
+              "created_at": "2026-02-19T08:00:00Z",
+              "updated_at": "2026-02-19T08:00:00Z"
+            },
+            {
+              "set_id": "s008",
+              "exercise_id": "ex003",
+              "workout_id": "w002",
+              "set_order": 2,
+              "weight_kg": 0,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-19T08:01:00Z",
+              "updated_at": "2026-02-19T08:01:00Z"
+            },
+            {
+              "set_id": "s009",
+              "exercise_id": "ex003",
+              "workout_id": "w002",
+              "set_order": 3,
+              "weight_kg": 0,
+              "reps": 8,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 9,
+              "notes": null,
+              "created_at": "2026-02-19T08:02:00Z",
+              "updated_at": "2026-02-19T08:02:00Z"
+            }
+          ]
+        },
+        {
+          "exercise_id": "ex004",
+          "workout_id": "w002",
+          "exercise_order": 2,
+          "title": "Barbell Row",
+          "exercise_type_id": "strength_back",
+          "notes": null,
+          "created_at": "2026-02-19T08:05:00Z",
+          "updated_at": "2026-02-19T08:05:00Z",
+          "sets": [
+            {
+              "set_id": "s010",
+              "exercise_id": "ex004",
+              "workout_id": "w002",
+              "set_order": 1,
+              "weight_kg": 70,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-19T08:05:00Z",
+              "updated_at": "2026-02-19T08:05:00Z"
+            },
+            {
+              "set_id": "s011",
+              "exercise_id": "ex004",
+              "workout_id": "w002",
+              "set_order": 2,
+              "weight_kg": 70,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-19T08:06:00Z",
+              "updated_at": "2026-02-19T08:06:00Z"
+            },
+            {
+              "set_id": "s012",
+              "exercise_id": "ex004",
+              "workout_id": "w002",
+              "set_order": 3,
+              "weight_kg": 70,
+              "reps": 8,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 9,
+              "notes": null,
+              "created_at": "2026-02-19T08:07:00Z",
+              "updated_at": "2026-02-19T08:07:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "w003",
+      "title": "Leg Day",
+      "description": "Quads, hamstrings, calves",
+      "start_time": "2026-02-17T08:00:00Z",
+      "end_time": "2026-02-17T09:30:00Z",
+      "created_at": "2026-02-17T09:30:00Z",
+      "updated_at": "2026-02-17T09:30:00Z",
+      "exercises": [
+        {
+          "exercise_id": "ex005",
+          "workout_id": "w003",
+          "exercise_order": 1,
+          "title": "Squat",
+          "exercise_type_id": "strength_legs",
+          "notes": null,
+          "created_at": "2026-02-17T08:00:00Z",
+          "updated_at": "2026-02-17T08:00:00Z",
+          "sets": [
+            {
+              "set_id": "s013",
+              "exercise_id": "ex005",
+              "workout_id": "w003",
+              "set_order": 1,
+              "weight_kg": 100,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-17T08:00:00Z",
+              "updated_at": "2026-02-17T08:00:00Z"
+            },
+            {
+              "set_id": "s014",
+              "exercise_id": "ex005",
+              "workout_id": "w003",
+              "set_order": 2,
+              "weight_kg": 100,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-17T08:02:00Z",
+              "updated_at": "2026-02-17T08:02:00Z"
+            },
+            {
+              "set_id": "s015",
+              "exercise_id": "ex005",
+              "workout_id": "w003",
+              "set_order": 3,
+              "weight_kg": 100,
+              "reps": 8,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 9,
+              "notes": null,
+              "created_at": "2026-02-17T08:04:00Z",
+              "updated_at": "2026-02-17T08:04:00Z"
+            }
+          ]
+        },
+        {
+          "exercise_id": "ex006",
+          "workout_id": "w003",
+          "exercise_order": 2,
+          "title": "Romanian Deadlift",
+          "exercise_type_id": "strength_legs",
+          "notes": null,
+          "created_at": "2026-02-17T08:10:00Z",
+          "updated_at": "2026-02-17T08:10:00Z",
+          "sets": [
+            {
+              "set_id": "s016",
+              "exercise_id": "ex006",
+              "workout_id": "w003",
+              "set_order": 1,
+              "weight_kg": 80,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-17T08:10:00Z",
+              "updated_at": "2026-02-17T08:10:00Z"
+            },
+            {
+              "set_id": "s017",
+              "exercise_id": "ex006",
+              "workout_id": "w003",
+              "set_order": 2,
+              "weight_kg": 80,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-17T08:12:00Z",
+              "updated_at": "2026-02-17T08:12:00Z"
+            },
+            {
+              "set_id": "s018",
+              "exercise_id": "ex006",
+              "workout_id": "w003",
+              "set_order": 3,
+              "weight_kg": 80,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 9,
+              "notes": null,
+              "created_at": "2026-02-17T08:14:00Z",
+              "updated_at": "2026-02-17T08:14:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "w004",
+      "title": "Upper Body",
+      "description": "Mixed upper body workout",
+      "start_time": "2026-02-15T09:00:00Z",
+      "end_time": "2026-02-15T10:00:00Z",
+      "created_at": "2026-02-15T10:00:00Z",
+      "updated_at": "2026-02-15T10:00:00Z",
+      "exercises": [
+        {
+          "exercise_id": "ex007",
+          "workout_id": "w004",
+          "exercise_order": 1,
+          "title": "Incline Dumbbell Press",
+          "exercise_type_id": "strength_chest",
+          "notes": null,
+          "created_at": "2026-02-15T09:00:00Z",
+          "updated_at": "2026-02-15T09:00:00Z",
+          "sets": [
+            {
+              "set_id": "s019",
+              "exercise_id": "ex007",
+              "workout_id": "w004",
+              "set_order": 1,
+              "weight_kg": 35,
+              "reps": 12,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 7,
+              "notes": null,
+              "created_at": "2026-02-15T09:00:00Z",
+              "updated_at": "2026-02-15T09:00:00Z"
+            },
+            {
+              "set_id": "s020",
+              "exercise_id": "ex007",
+              "workout_id": "w004",
+              "set_order": 2,
+              "weight_kg": 35,
+              "reps": 12,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 7,
+              "notes": null,
+              "created_at": "2026-02-15T09:02:00Z",
+              "updated_at": "2026-02-15T09:02:00Z"
+            },
+            {
+              "set_id": "s021",
+              "exercise_id": "ex007",
+              "workout_id": "w004",
+              "set_order": 3,
+              "weight_kg": 35,
+              "reps": 10,
+              "distance_km": null,
+              "duration_seconds": null,
+              "rpe": 8,
+              "notes": null,
+              "created_at": "2026-02-15T09:04:00Z",
+              "updated_at": "2026-02-15T09:04:00Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

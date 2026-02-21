@@ -1,6 +1,10 @@
-import { memoize } from '@/lib/dataCache';
+import { memoize } from "@/lib/dataCache";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
-const TEST_MODE = String(import.meta.env.USE_DUMMY_HEALTH_DATA || '').toLowerCase() === 'true';
+const TEST_MODE =
+  String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() === "true";
+const DUMMY_DATA_FILE = "strava-activities-dummy.json";
 
 export interface DistanceData {
   [key: string]: number;
@@ -72,7 +76,7 @@ export async function fetchActivities(
   // Memoize by page and perPage to avoid duplicate calls
   return memoize(`strava-activities-${page}-${perPage}`, async () => {
     if (TEST_MODE) {
-      return [];
+      return loadDummyActivities();
     }
 
     try {
@@ -308,7 +312,7 @@ export async function getLastActivityInfo(activityType?: string): Promise<{
 
 export async function fetchDistanceData(): Promise<DistanceData> {
   // Memoize with date key to cache for the day
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   return memoize(`strava-distance-data-${today}`, async () => {
     let distanceData: DistanceData = {};
 
@@ -328,7 +332,7 @@ export async function fetchDistanceData(): Promise<DistanceData> {
     }
 
     if (TEST_MODE) {
-      return distanceData;
+      return loadDummyDistanceData();
     }
 
     // Uncomment for development mode bypass
@@ -432,4 +436,54 @@ export function processDistanceData(
   }
 
   return distanceArray;
+}
+
+async function loadDummyActivities(): Promise<StravaActivity[]> {
+  try {
+    const filePath = resolve(process.cwd(), "public", DUMMY_DATA_FILE);
+    const raw = await readFile(filePath, "utf-8");
+    const data = JSON.parse(raw);
+    console.log("[Strava] Using dummy activities from", DUMMY_DATA_FILE);
+    return data.activities || [];
+  } catch (error) {
+    console.warn("[Strava] Dummy data enabled but failed to load:", error);
+    return [];
+  }
+}
+
+async function loadDummyDistanceData(): Promise<DistanceData> {
+  const distanceData: DistanceData = {};
+
+  // Initialize all days in the last 365 days for 'America/New_York'
+  const todayInNewYork = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
+  );
+  for (let i = 0; i < 365; i++) {
+    const date = new Date(todayInNewYork);
+    date.setDate(todayInNewYork.getDate() - i);
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    distanceData[key] = 0;
+  }
+
+  try {
+    const filePath = resolve(process.cwd(), "public", DUMMY_DATA_FILE);
+    const raw = await readFile(filePath, "utf-8");
+    const data = JSON.parse(raw);
+    console.log("[Strava] Using dummy distance data from", DUMMY_DATA_FILE);
+
+    if (data.distance) {
+      for (const [date, distance] of Object.entries(data.distance)) {
+        if (date in distanceData) {
+          distanceData[date] = distance as number;
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(
+      "[Strava] Dummy distance data enabled but failed to load:",
+      error,
+    );
+  }
+
+  return distanceData;
 }

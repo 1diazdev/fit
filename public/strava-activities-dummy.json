@@ -1,0 +1,109 @@
+{
+  "activities": [
+    {
+      "id": 12345678901,
+      "name": "Morning Run",
+      "type": "Run",
+      "start_date": "2026-02-21T07:30:00Z",
+      "distance": 5230,
+      "moving_time": 1800,
+      "sport_type": "Run",
+      "start_latlng": [40.7128, -74.006],
+      "end_latlng": [40.758, -73.9855]
+    },
+    {
+      "id": 12345678902,
+      "name": "Afternoon Ride",
+      "type": "Ride",
+      "start_date": "2026-02-20T17:00:00Z",
+      "distance": 25400,
+      "moving_time": 3600,
+      "sport_type": "Ride",
+      "start_latlng": [40.7128, -74.006],
+      "end_latlng": [40.8448, -73.8648]
+    },
+    {
+      "id": 12345678903,
+      "name": "Evening Swim",
+      "type": "Swim",
+      "start_date": "2026-02-19T19:00:00Z",
+      "distance": 1500,
+      "moving_time": 2400,
+      "sport_type": "Swim"
+    },
+    {
+      "id": 12345678904,
+      "name": "Trail Run",
+      "type": "Trail Run",
+      "start_date": "2026-02-18T08:00:00Z",
+      "distance": 8200,
+      "moving_time": 2700,
+      "sport_type": "Trail Run",
+      "start_latlng": [40.785091, -73.968285],
+      "end_latlng": [40.78293, -73.965355]
+    },
+    {
+      "id": 12345678905,
+      "name": "Cycling Commute",
+      "type": "Ride",
+      "start_date": "2026-02-17T08:15:00Z",
+      "distance": 12000,
+      "moving_time": 2400,
+      "sport_type": "Ride"
+    },
+    {
+      "id": 12345678906,
+      "name": "Morning Run",
+      "type": "Run",
+      "start_date": "2026-02-16T07:00:00Z",
+      "distance": 5000,
+      "moving_time": 1500,
+      "sport_type": "Run"
+    },
+    {
+      "id": 12345678907,
+      "name": "Long Ride",
+      "type": "Ride",
+      "start_date": "2026-02-15T09:00:00Z",
+      "distance": 45000,
+      "moving_time": 7200,
+      "sport_type": "Ride"
+    },
+    {
+      "id": 12345678908,
+      "name": "Easy Run",
+      "type": "Run",
+      "start_date": "2026-02-14T07:30:00Z",
+      "distance": 3000,
+      "moving_time": 1200,
+      "sport_type": "Run"
+    },
+    {
+      "id": 12345678909,
+      "name": "Hill Repeats",
+      "type": "Run",
+      "start_date": "2026-02-13T17:30:00Z",
+      "distance": 6000,
+      "moving_time": 2100,
+      "sport_type": "Run"
+    },
+    {
+      "id": 12345678910,
+      "name": "Recovery Run",
+      "type": "Run",
+      "start_date": "2026-02-12T07:00:00Z",
+      "distance": 3500,
+      "moving_time": 1500,
+      "sport_type": "Run"
+    }
+  ],
+  "distance": {
+    "2026-02-15": 45000,
+    "2026-02-16": 5000,
+    "2026-02-17": 12000,
+    "2026-02-18": 8200,
+    "2026-02-19": 1500,
+    "2026-02-20": 25400,
+    "2026-02-21": 5230
+  }
+}
