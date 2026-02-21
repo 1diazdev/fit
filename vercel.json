@@ -1,0 +1,21 @@
+{
+  "buildCommand": "bun run build",
+  "framework": "astro",
+  "devCommand": "bun run dev",
+  "installCommand": "bun install",
+  "outputDirectory": "dist",
+  "crons": [
+    {
+      "path": "/api/update-strava",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/update-hevy",
+      "schedule": "15 6 * * *"
+    },
+    {
+      "path": "/api/update-zepp",
+      "schedule": "30 6 * * *"
+    }
+  ]
+}

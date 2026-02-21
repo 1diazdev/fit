@@ -5,7 +5,8 @@ import compress from "astro-compress";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://fun.jpdiaz.dev",
+  site: "https://fit.jpdiaz.dev",
+  output: "hybrid", // Enable hybrid rendering for static pages + API routes
   integrations: [
     sitemap(),
     compress({

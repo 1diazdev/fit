@@ -1,3 +1,5 @@
+import { memoize } from '@/lib/dataCache';
+
 export interface DistanceData {
   [key: string]: number;
 }
@@ -65,53 +67,56 @@ export async function fetchActivities(
   page: number = 1,
   perPage: number = 10,
 ): Promise<StravaActivity[]> {
-  try {
-    const bearer = await getBearerToken();
-    const url = `https://www.strava.com/api/v3/athlete/activities?page=${page}&per_page=${perPage}`;
-    const headers = { Authorization: bearer };
-    const response = await fetch(url, { method: "GET", headers: headers });
+  // Memoize by page and perPage to avoid duplicate calls
+  return memoize(`strava-activities-${page}-${perPage}`, async () => {
+    try {
+      const bearer = await getBearerToken();
+      const url = `https://www.strava.com/api/v3/athlete/activities?page=${page}&per_page=${perPage}`;
+      const headers = { Authorization: bearer };
+      const response = await fetch(url, { method: "GET", headers: headers });
 
-    if (!response.ok) {
-      throw new Error(`Strava API error: ${response.status}`);
-    }
-
-    const rawActivities: any[] = await response.json();
-    console.log(
-      "Raw Strava activities sample (first 2):",
-      JSON.stringify(rawActivities.slice(0, 2), null, 2),
-    );
-
-    const activities: StravaActivity[] = rawActivities.map(activity => {
-      const mappedActivity: StravaActivity = {
-        id: activity.id,
-        name: activity.name,
-        type: activity.type,
-        start_date: activity.start_date,
-        distance: activity.distance,
-        moving_time: activity.moving_time,
-        sport_type: activity.sport_type,
-        summary_polyline: activity.map?.summary_polyline,
-        start_latlng: activity.start_latlng,
-        end_latlng:
-          activity.end_latlng ||
-          (activity.end_latitude && activity.end_longitude
-            ? [activity.end_latitude, activity.end_longitude]
-            : undefined),
-      };
-      if (!mappedActivity.summary_polyline && activity.summary_polyline) {
-        mappedActivity.summary_polyline = activity.summary_polyline;
+      if (!response.ok) {
+        throw new Error(`Strava API error: ${response.status}`);
       }
-      return mappedActivity;
-    });
-    console.log(
-      "Processed activities with end_latlng (first 2):",
-      JSON.stringify(activities.slice(0, 2), null, 2),
-    );
-    return activities;
-  } catch (error) {
-    console.error("Error fetching recent activities:", error);
-    return [];
-  }
+
+      const rawActivities: any[] = await response.json();
+      console.log(
+        "Raw Strava activities sample (first 2):",
+        JSON.stringify(rawActivities.slice(0, 2), null, 2),
+      );
+
+      const activities: StravaActivity[] = rawActivities.map(activity => {
+        const mappedActivity: StravaActivity = {
+          id: activity.id,
+          name: activity.name,
+          type: activity.type,
+          start_date: activity.start_date,
+          distance: activity.distance,
+          moving_time: activity.moving_time,
+          sport_type: activity.sport_type,
+          summary_polyline: activity.map?.summary_polyline,
+          start_latlng: activity.start_latlng,
+          end_latlng:
+            activity.end_latlng ||
+            (activity.end_latitude && activity.end_longitude
+              ? [activity.end_latitude, activity.end_longitude]
+              : undefined),
+        };
+        if (!mappedActivity.summary_polyline && activity.summary_polyline) {
+          mappedActivity.summary_polyline = activity.summary_polyline;
+        }
+        return mappedActivity;
+      });
+      console.log(
+        "Processed activities with end_latlng (first 2):",
+        JSON.stringify(activities.slice(0, 2), null, 2),
+      );
+      return activities;
+    } catch (error) {
+      console.error("Error fetching recent activities:", error);
+      return [];
+    }
+  });
 }
 
 export interface ActivityTypeStats {
@@ -296,63 +301,67 @@ export async function getLastActivityInfo(activityType?: string): Promise<{
 }
 
 export async function fetchDistanceData(): Promise<DistanceData> {
-  let distanceData: DistanceData = {};
+  // Memoize with date key to cache for the day
+  const today = new Date().toISOString().split('T')[0];
+  return memoize(`strava-distance-data-${today}`, async () => {
+    let distanceData: DistanceData = {};
 
-  // Initialize all days in the last 365 days for 'America/New_York'
-  const todayInNewYork = new Date(
-    new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
-  );
-  for (let i = 0; i < 365; i++) {
-    const date = new Date(todayInNewYork);
-    date.setDate(todayInNewYork.getDate() - i);
-    // Use YYYY-MM-DD format for consistency and to avoid issues with single digit month/day
-    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-      2,
-      "0",
-    )}-${String(date.getDate()).padStart(2, "0")}`;
-    distanceData[key] = 0;
-  }
-
-  // Uncomment for development mode bypass
-  // if (import.meta.env.MODE !== "production") return distanceData;
-
-  try {
-    const bearer = await getBearerToken();
-    let i = 1;
-    let pagedActivities = await getPage(i, bearer); // Renamed for clarity, was pagedMileage
-
-    while (pagedActivities.length > 0) {
-      // Renamed for clarity
-      for (let activity of pagedActivities) {
-        // Renamed for clarity, was data
-        const activityDate = new Date(activity.start_date); // Was data.start_date
-        // Convert activity date to 'America/New_York' to get the correct day
-        const newYorkActivityDateStr = activityDate.toLocaleString("en-US", {
-          timeZone: "America/New_York",
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        });
-        // newYorkActivityDateStr will be in "MM/DD/YYYY" format, need to reformat for key
-        const parts = newYorkActivityDateStr.split("/"); // MM/DD/YYYY
-        const key = `${parts[2]}-${parts[0]}-${parts[1]}`; // YYYY-MM-DD
-
-        if (key in distanceData) {
-          distanceData[key] += activity.distance; // Was data.distance
-        } else {
-          // This case might happen if an activity's date falls outside the initialized 365-day window
-          // after timezone conversion. For simplicity, we can log it or initialize it.
-          // console.warn(`Activity date ${key} not found in initialized distanceData map. Activity time: ${activity.start_date}`);
-          distanceData[key] = activity.distance; // Initialize if not present, was data.distance
-        }
-      }
-      pagedActivities = await getPage(++i, bearer); // Renamed for clarity
+    // Initialize all days in the last 365 days for 'America/New_York'
+    const todayInNewYork = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
+    );
+    for (let i = 0; i < 365; i++) {
+      const date = new Date(todayInNewYork);
+      date.setDate(todayInNewYork.getDate() - i);
+      // Use YYYY-MM-DD format for consistency and to avoid issues with single digit month/day
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+        2,
+        "0",
+      )}-${String(date.getDate()).padStart(2, "0")}`;
+      distanceData[key] = 0;
     }
-  } catch (error) {
-    console.error("Error fetching Strava data:", error);
-  }
 
-  return distanceData;
+    // Uncomment for development mode bypass
+    // if (import.meta.env.MODE !== "production") return distanceData;
+
+    try {
+      const bearer = await getBearerToken();
+      let i = 1;
+      let pagedActivities = await getPage(i, bearer); // Renamed for clarity, was pagedMileage
+
+      while (pagedActivities.length > 0) {
+        // Renamed for clarity
+        for (let activity of pagedActivities) {
+          // Renamed for clarity, was data
+          const activityDate = new Date(activity.start_date); // Was data.start_date
+          // Convert activity date to 'America/New_York' to get the correct day
+          const newYorkActivityDateStr = activityDate.toLocaleString("en-US", {
+            timeZone: "America/New_York",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
+          // newYorkActivityDateStr will be in "MM/DD/YYYY" format, need to reformat for key
+          const parts = newYorkActivityDateStr.split("/"); // MM/DD/YYYY
+          const key = `${parts[2]}-${parts[0]}-${parts[1]}`; // YYYY-MM-DD
+
+          if (key in distanceData) {
+            distanceData[key] += activity.distance; // Was data.distance
+          } else {
+            // This case might happen if an activity's date falls outside the initialized 365-day window
+            // after timezone conversion. For simplicity, we can log it or initialize it.
+            // console.warn(`Activity date ${key} not found in initialized distanceData map. Activity time: ${activity.start_date}`);
+            distanceData[key] = activity.distance; // Initialize if not present, was data.distance
+          }
+        }
+        pagedActivities = await getPage(++i, bearer); // Renamed for clarity
+      }
+    } catch (error) {
+      console.error("Error fetching Strava data:", error);
+    }
+
+    return distanceData;
+  });
 }
 
 export function processDistanceData(

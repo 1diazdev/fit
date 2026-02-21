@@ -4,20 +4,36 @@ import DaysSinceLast from "@components/DaysSinceLast.astro";
 import Base from "@layouts/Base.astro";
 import { PAGE_METADATA } from "@src/consts";
 import {
-  fetchDistanceData,
-  processDistanceData,
-  getLastActivityDate,
   fetchActivities,
 } from "@services/stravaService";
 
-// Fetch and process data for each activity type
-const distanceMap = await fetchDistanceData();
-const distanceData = processDistanceData(distanceMap);
+// Fetch activities once (optimized - single API call instead of 3 separate calls)
+const allActivities = await fetchActivities(1, 50);
 
-// Get last activity dates and detailed info for each activity type
-const lastRunDate = await getLastActivityDate("Run");
-const lastRideDate = await getLastActivityDate("Ride");
-const lastSwimDate = await getLastActivityDate("Swim");
+// Helper function to find last activity by type
+const findLastActivityByType = (type: string) => {
+  const activity = allActivities.find(a => {
+    const activityType = a.type || a.sport_type || "";
+    return (
+      activityType.toLowerCase() === type.toLowerCase() ||
+      a.name.toLowerCase().includes(type.toLowerCase())
+    );
+  });
+
+  if (!activity) return null;
+
+  const activityDate = new Date(activity.start_date);
+  const newYorkDate = new Date(
+    activityDate.toLocaleString("en-US", { timeZone: "America/New_York" })
+  );
+
+  return newYorkDate;
+};
+
+// Get last activity dates using the optimized single fetch
+const lastRunDate = findLastActivityByType("Run");
+const lastRideDate = findLastActivityByType("Ride");
+const lastSwimDate = findLastActivityByType("Swim");
 
 // Calculate weekly averages (mock data - replace with actual calculations)
 const calculateWeeklyAverage = (activityType: string) => {

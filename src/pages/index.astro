@@ -9,14 +9,44 @@ import { fetchWorkoutCount } from "@services/hevyService.ts";
 import {
   fetchDistanceData,
   processDistanceData,
-  getLastActivityDate,
+  fetchActivities,
 } from "@services/stravaService";
 import ActivityDashboard from "@components/ActivityDashboard.astro";
 
 // Fetch and process Strava data
 const distanceMap = await fetchDistanceData();
 const distanceData = processDistanceData(distanceMap);
-const lastRunDate = await getLastActivityDate("Run");
+
+// Fetch activities once for the dashboard (optimized - single API call)
+const allActivities = await fetchActivities(1, 50);
+
+// Helper function to find last activity by type
+const findLastActivityByType = (type: string) => {
+  const activity = allActivities.find(a => {
+    const activityType = a.type || a.sport_type || "";
+    return (
+      activityType.toLowerCase() === type.toLowerCase() ||
+      a.name.toLowerCase().includes(type.toLowerCase())
+    );
+  });
+
+  if (!activity) return null;
+
+  const activityDate = new Date(activity.start_date);
+  const newYorkDate = new Date(
+    activityDate.toLocaleString("en-US", { timeZone: "America/New_York" })
+  );
+
+  return { date: newYorkDate, activity };
+};
+
+// Pre-fetch activity data for the dashboard (replaces 4 separate API calls)
+const activityData = {
+  run: findLastActivityByType("run"),
+  ride: findLastActivityByType("ride"),
+  swim: findLastActivityByType("swim"),
+  walk: findLastActivityByType("walk"),
+};
 
 const minDistance = Math.min(...distanceData.map(data => data[1]));
 const maxDistance = Math.max(...distanceData.map(data => data[1]));
@@ -41,7 +71,7 @@ try {
   systemMessage="[SYSTEM] Loading neural activity patterns... Strava API connected."
 >
   <SectionLayout title="[ACTIVITY_STATUS]">
-    <ActivityDashboard />
+    <ActivityDashboard activityData={activityData} />
   </SectionLayout>
 
   <!-- Days Since Last Activity Section -->
