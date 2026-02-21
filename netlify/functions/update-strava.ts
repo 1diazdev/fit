@@ -2,6 +2,9 @@ import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
+// Schedule: Run daily at 6:00 AM UTC (cron format)
+export const schedule = '0 6 * * *';
+
 interface StravaTokenResponse {
   access_token: string;
   refresh_token: string;

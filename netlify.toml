@@ -9,32 +9,8 @@
 [functions]
   node_bundler = "esbuild"
 
-# Scheduled Functions (Netlify Cron)
-# Update Strava data daily at 6:00 AM UTC
-[[plugins]]
-  package = "@netlify/plugin-scheduled-functions"
-
-[plugins.inputs]
-  # Scheduled function for Strava update
-  [plugins.inputs.update-strava]
-    schedule = "0 6 * * *"
-    endpoint = "/.netlify/functions/update-strava"
-
-  # Scheduled function for Hevy update
-  [plugins.inputs.update-hevy]
-    schedule = "15 6 * * *"
-    endpoint = "/.netlify/functions/update-hevy"
-
-  # Scheduled function for Zepp update
-  [plugins.inputs.update-zepp]
-    schedule = "30 6 * * *"
-    endpoint = "/.netlify/functions/update-zepp"
-
-# Hybrid rendering support (API routes)
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+# Note: Scheduled functions are configured directly in the function files
+# See netlify/functions/*.ts for schedule declarations
 
 [[redirects]]
   from = "/*"

@@ -6,7 +6,8 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
   site: "https://fit.jpdiaz.dev",
-  output: "hybrid", // Enable hybrid rendering for static pages + API routes
+  // output: "static" is the default - Netlify Functions are separate
+  // For Vercel with API routes, you would use: output: "server"
   integrations: [
     sitemap(),
     compress({

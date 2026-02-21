@@ -2,6 +2,9 @@ import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
+// Schedule: Run daily at 6:30 AM UTC (cron format)
+export const schedule = '30 6 * * *';
+
 // Note: This is a placeholder for Zepp integration
 // The actual implementation will use the zeppService once fully implemented
 

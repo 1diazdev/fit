@@ -5,12 +5,14 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@services/*": ["src/services/*"],
       "@utils/*": ["src/utils/*"],
+      "@lib/*": ["src/lib/*"],
       "@config/*": ["src/config/*"],
       "@styles/*": ["src/styles/*"],
       "@scripts/*": ["src/scripts/*"]

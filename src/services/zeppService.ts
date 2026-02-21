@@ -285,7 +285,7 @@ export async function fetchSleepData(days: number = 365): Promise<SleepData> {
           const sleepInfo = dayData as any;
 
           // Parse sleep stages if available in base64 format
-          let segments = [];
+          let segments: any[] = [];
           if (sleepInfo.sleep_data_base64) {
             segments = parseBase64Sleep(sleepInfo.sleep_data_base64);
           }

@@ -2,6 +2,9 @@ import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
+// Schedule: Run daily at 6:15 AM UTC (cron format)
+export const schedule = '15 6 * * *';
+
 interface Workout {
   id: string;
   user_id?: string;
