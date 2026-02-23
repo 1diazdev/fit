@@ -1,4 +1,6 @@
 ---
+import { Activity, Bike, Waves, ExternalLink, Search } from "lucide-astro";
+
 export interface Props {
   lastRunDate?: string | Date;
   activityType?: string;
@@ -27,7 +29,7 @@ const daysSince = Math.floor(timeDiff / (1000 * 3600 * 24));
 const getActivityConfig = (type: string) => {
   const configs = {
     RUN: {
-      icon: "🏃‍♂️",
+      iconName: "run",
       unit: "km",
       terminalCommand: "./analyze_running_metrics.exe",
       systemMessages: {
@@ -38,15 +40,15 @@ const getActivityConfig = (type: string) => {
         critical: "RUNNING_ROUTINE_RESTART_REQUIRED",
       },
       motivationalMessages: {
-        0: "Fresh legs, clear mind! 🚀",
-        1: "Recovery day complete ✅",
-        2: "Still in rhythm 🎵",
-        warning: "Time to lace up those shoes! 👟",
-        critical: "Your running streak is calling! 📞",
+        0: "Fresh legs, clear mind!",
+        1: "Recovery day complete",
+        2: "Still in rhythm",
+        warning: "Time to lace up those shoes!",
+        critical: "Your running streak is calling!",
       },
     },
     RIDE: {
-      icon: "🚴‍♂️",
+      iconName: "ride",
       unit: "km",
       terminalCommand: "./check_cycling_performance.exe",
       systemMessages: {
@@ -57,15 +59,15 @@ const getActivityConfig = (type: string) => {
         critical: "BIKE_MAINTENANCE_OVERDUE",
       },
       motivationalMessages: {
-        0: "Wheels spinning strong! 💪",
-        1: "Momentum maintained 🔄",
-        2: "Cruising speed achieved 🌟",
-        warning: "Time to hit the road! 🛣️",
-        critical: "Your bike misses you! 🚲",
+        0: "Wheels spinning strong!",
+        1: "Momentum maintained",
+        2: "Cruising speed achieved",
+        warning: "Time to hit the road!",
+        critical: "Your bike misses you!",
       },
     },
     SWIM: {
-      icon: "🏊‍♂️",
+      iconName: "swim",
       unit: "m",
       terminalCommand: "./evaluate_swim_technique.exe",
       systemMessages: {
@@ -76,16 +78,15 @@ const getActivityConfig = (type: string) => {
         critical: "POOL_ACCESS_REQUIRED",
       },
       motivationalMessages: {
-        0: "Making waves! 🌊",
-        1: "Stroke technique locked in 🔒",
-        2: "Water confidence high 📈",
-        warning: "Time to dive back in! 🏊",
-        critical: "The pool is waiting! 🏊‍♀️",
+        0: "Making waves!",
+        1: "Stroke technique locked in",
+        2: "Water confidence high",
+        warning: "Time to dive back in!",
+        critical: "The pool is waiting!",
       },
     },
     Swim: {
-      // Handle both cases
-      icon: "🏊‍♂️",
+      iconName: "swim",
       unit: "m",
       terminalCommand: "./evaluate_swim_technique.exe",
       systemMessages: {
@@ -96,16 +97,22 @@ const getActivityConfig = (type: string) => {
         critical: "POOL_ACCESS_REQUIRED",
       },
       motivationalMessages: {
-        0: "Making waves! 🌊",
-        1: "Stroke technique locked in 🔒",
-        2: "Water confidence high 📈",
-        warning: "Time to dive back in! 🏊",
-        critical: "The pool is waiting! 🏊‍♀️",
+        0: "Making waves!",
+        1: "Stroke technique locked in",
+        2: "Water confidence high",
+        warning: "Time to dive back in!",
+        critical: "The pool is waiting!",
       },
     },
   };
 
   return configs[type] || configs["RUN"];
+};
+
+const iconMap: Record<string, any> = {
+  run: Activity,
+  ride: Bike,
+  swim: Waves,
 };
 
 // Determine status color and message based on days
@@ -186,6 +193,8 @@ const formatDistance = (distance: number, unit: string) => {
   }
   return `${distance.toFixed(1)}${unit}`;
 };
+
+const ActivityIcon = iconMap[activityConfig.iconName] || Activity;
 ---
 
 <div class="relative z-10 mb-8 group">
@@ -227,7 +236,7 @@ const formatDistance = (distance: number, unit: string) => {
         <div
           class="flex items-center justify-center space-x-2 sm:space-x-4 mb-2"
         >
-          <span class="text-2xl sm:text-4xl">{activityConfig.icon}</span>
+          <span class="text-2xl sm:text-4xl text-green-400"><ActivityIcon size={32} /></span>
           <div
             class={`
             text-4xl sm:text-6xl md:text-8xl font-bold ${statusInfo.color}
@@ -348,7 +357,7 @@ const formatDistance = (distance: number, unit: string) => {
             `}
             >
               <span class="flex items-center justify-center space-x-2">
-                <span>📊</span>
+                <ExternalLink size={14} />
                 <span>VIEW_ON_STRAVA</span>
               </span>
             </a>
@@ -367,7 +376,7 @@ const formatDistance = (distance: number, unit: string) => {
           data-activity-type={activityType}
         >
           <span class="flex items-center justify-center space-x-2">
-            <span>🔍</span>
+            <Search size={14} />
             <span>DETAILED_ANALYSIS</span>
           </span>
         </button>

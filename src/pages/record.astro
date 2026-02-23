@@ -7,6 +7,7 @@ import { fetchActivities, type StravaActivity } from "@services/stravaService";
 import { fetchHevyData } from "@services/hevyService";
 import type { Workout as HevyWorkout } from "@services/hevyService";
 import { getPersonalRecords } from "@utils/statsUtils";
+import { Footprints, Activity, Dumbbell, Timer, Zap, TrendingUp } from "lucide-astro";
 
 // Fetch all data for personal records
 const stepsData: StepsData = await fetchStepsData(365).catch(() => ({}));
@@ -102,7 +103,7 @@ const percentChange = (current: number, previous: number) => {
     <div class="records-grid">
       <!-- Max Steps -->
       <div class="record-card">
-        <div class="record-icon">🚶</div>
+        <div class="record-icon"><Footprints size={20} /></div>
         <div class="record-content">
           <div class="record-label">MAX STEPS</div>
           <div class="record-value">
@@ -120,7 +121,7 @@ const percentChange = (current: number, previous: number) => {
       {
         records.longestRun.distance > 0 && (
           <div class="record-card">
-            <div class="record-icon">🏃</div>
+            <div class="record-icon"><Activity size={20} /></div>
             <div class="record-content">
               <div class="record-label">LONGEST RUN</div>
               <div class="record-value">
@@ -141,7 +142,7 @@ const percentChange = (current: number, previous: number) => {
       {
         records.fastestPace.pace > 0 && (
           <div class="record-card">
-            <div class="record-icon">⚡</div>
+            <div class="record-icon"><Zap size={20} /></div>
             <div class="record-content">
               <div class="record-label">FASTEST PACE</div>
               <div class="record-value">
@@ -166,7 +167,7 @@ const percentChange = (current: number, previous: number) => {
       {
         records.mostWorkouts.count > 0 && (
           <div class="record-card">
-            <div class="record-icon">💪</div>
+            <div class="record-icon"><Dumbbell size={20} /></div>
             <div class="record-content">
               <div class="record-label">MOST WORKOUTS</div>
               <div class="record-value">
@@ -184,7 +185,7 @@ const percentChange = (current: number, previous: number) => {
       {
         records.longestWorkout.duration > 0 && (
           <div class="record-card">
-            <div class="record-icon">⏱️</div>
+            <div class="record-icon"><Timer size={20} /></div>
             <div class="record-content">
               <div class="record-label">LONGEST WORKOUT</div>
               <div class="record-value">
@@ -206,7 +207,7 @@ const percentChange = (current: number, previous: number) => {
       {
         records.totalVolume.weight > 0 && (
           <div class="record-card">
-            <div class="record-icon">🏋️</div>
+            <div class="record-icon"><TrendingUp size={20} /></div>
             <div class="record-content">
               <div class="record-label">MAX VOLUME</div>
               <div class="record-value">
@@ -245,28 +246,28 @@ const percentChange = (current: number, previous: number) => {
         </div>
         <div class="year-stats">
           <div class="year-stat">
-            <span class="stat-icon">🏃</span>
+            <span class="stat-icon"><Activity size={16} /></span>
             <div>
               <div class="stat-value">{currentYearDistance.toFixed(1)} km</div>
               <div class="stat-label">Distance</div>
             </div>
           </div>
           <div class="year-stat">
-            <span class="stat-icon">💪</span>
+            <span class="stat-icon"><Dumbbell size={16} /></span>
             <div>
               <div class="stat-value">{currentYearWorkouts}</div>
               <div class="stat-label">Workouts</div>
             </div>
           </div>
           <div class="year-stat">
-            <span class="stat-icon">🚶</span>
+            <span class="stat-icon"><Footprints size={16} /></span>
             <div>
               <div class="stat-value">{formatNumber(currentYearSteps)}</div>
               <div class="stat-label">Steps</div>
             </div>
           </div>
           <div class="year-stat">
-            <span class="stat-icon">📊</span>
+            <span class="stat-icon"><TrendingUp size={16} /></span>
             <div>
               <div class="stat-value">{currentYearActivities.length}</div>
               <div class="stat-label">Activities</div>
@@ -283,7 +284,7 @@ const percentChange = (current: number, previous: number) => {
         </div>
         <div class="year-stats">
           <div class="year-stat">
-            <span class="stat-icon">🏃</span>
+            <span class="stat-icon"><Activity size={16} /></span>
             <div>
               <div class="stat-value">{lastYearDistance.toFixed(1)} km</div>
               <div class="stat-label">Distance</div>
@@ -305,7 +306,7 @@ const percentChange = (current: number, previous: number) => {
             </div>
           </div>
           <div class="year-stat">
-            <span class="stat-icon">💪</span>
+            <span class="stat-icon"><Dumbbell size={16} /></span>
             <div>
               <div class="stat-value">{lastYearWorkouts}</div>
               <div class="stat-label">Workouts</div>
@@ -327,7 +328,7 @@ const percentChange = (current: number, previous: number) => {
             </div>
           </div>
           <div class="year-stat">
-            <span class="stat-icon">🚶</span>
+            <span class="stat-icon"><Footprints size={16} /></span>
             <div>
               <div class="stat-value">{formatNumber(lastYearSteps)}</div>
               <div class="stat-label">Steps</div>
@@ -349,7 +350,7 @@ const percentChange = (current: number, previous: number) => {
             </div>
           </div>
           <div class="year-stat">
-            <span class="stat-icon">📊</span>
+            <span class="stat-icon"><TrendingUp size={16} /></span>
             <div>
               <div class="stat-value">{lastYearActivities.length}</div>
               <div class="stat-label">Activities</div>
@@ -391,7 +392,7 @@ const percentChange = (current: number, previous: number) => {
 
     <div class="lifetime-grid">
       <div class="lifetime-stat">
-        <div class="lifetime-icon">🏃</div>
+        <div class="lifetime-icon"><Activity size={20} /></div>
         <div class="lifetime-value">
           {
             (
@@ -404,19 +405,19 @@ const percentChange = (current: number, previous: number) => {
       </div>
 
       <div class="lifetime-stat">
-        <div class="lifetime-icon">📊</div>
+        <div class="lifetime-icon"><TrendingUp size={20} /></div>
         <div class="lifetime-value">{allActivities.length}</div>
         <div class="lifetime-label">Total Activities</div>
       </div>
 
       <div class="lifetime-stat">
-        <div class="lifetime-icon">💪</div>
+        <div class="lifetime-icon"><Dumbbell size={20} /></div>
         <div class="lifetime-value">{allWorkouts.length}</div>
         <div class="lifetime-label">Total Workouts</div>
       </div>
 
       <div class="lifetime-stat">
-        <div class="lifetime-icon">🚶</div>
+        <div class="lifetime-icon"><Footprints size={20} /></div>
         <div class="lifetime-value">
           {
             formatNumber(

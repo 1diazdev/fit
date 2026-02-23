@@ -3,13 +3,16 @@ import Base from "@layouts/Base.astro";
 import { PAGE_METADATA } from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
 import DayMetricsGrid from "@components/DayMetricsGrid.astro";
-import DayComparison from "@components/DayComparison.astro";
+import DaysSinceLast from "@components/DaysSinceLast.astro";
+import MinimalDaysSince from "@components/MinimalDaysSince.astro";
 import InsightsPanel from "@components/InsightsPanel.astro";
+import { Flame, Zap, Dumbbell } from "lucide-astro";
 import MoveMinutesChart from "@components/MoveMinutesChart.astro";
 import HeartRateZones from "@components/HeartRateZones.astro";
 import HeatmapGrid from "@components/HeatmapGrid.astro";
 import ActivityDashboard from "@components/ActivityDashboard.astro";
 import HevyWorkoutCount from "@components/HevyWorkoutCount.astro";
+import DayComparison from "@components/DayComparison.astro";
 
 import {
   getDataForDate,
@@ -424,7 +427,7 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
       {
         streaks.steps.current > 0 && (
           <div class="streak-card">
-            <span class="streak-icon">🔥</span>
+            <span class="streak-icon"><Flame size={16} /></span>
             <div class="streak-info">
               <div class="streak-value">{streaks.steps.current} days</div>
               <div class="streak-label">Step Goal Streak</div>
@@ -438,7 +441,7 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
       {
         streaks.activities.current > 0 && (
           <div class="streak-card">
-            <span class="streak-icon">⚡</span>
+            <span class="streak-icon"><Zap size={16} /></span>
             <div class="streak-info">
               <div class="streak-value">{streaks.activities.current} days</div>
               <div class="streak-label">Activity Streak</div>
@@ -452,7 +455,7 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
       {
         streaks.workouts.current > 0 && (
           <div class="streak-card">
-            <span class="streak-icon">💪</span>
+            <span class="streak-icon"><Dumbbell size={16} /></span>
             <div class="streak-info">
               <div class="streak-value">{streaks.workouts.current} days</div>
               <div class="streak-label">Workout Streak</div>

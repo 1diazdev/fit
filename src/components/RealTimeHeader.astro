@@ -20,6 +20,7 @@ import {
   isTestDataMode,
   getTestModeSnapshot,
 } from "@/services/dataAggregationService";
+import { Footprints, Activity, Dumbbell, Flame } from "lucide-astro";
 
 // Fetch today's data
 const todayStr = new Date().toISOString().split("T")[0];
@@ -105,7 +106,7 @@ try {
   {
     todaySteps > 0 && (
       <div class="metric">
-        <span class="metric-icon">🚶</span>
+        <span class="metric-icon"><Footprints size={14} /></span>
         <span class="metric-value">{todaySteps.toLocaleString()} STEPS</span>
       </div>
     )
@@ -114,7 +115,7 @@ try {
   {
     lastActivity && (
       <div class="metric">
-        <span class="metric-icon">🏃</span>
+        <span class="metric-icon"><Activity size={14} /></span>
         <span class="metric-value">LAST: {lastActivity}</span>
       </div>
     )
@@ -123,7 +124,7 @@ try {
   {
     weeklyWorkouts > 0 && (
       <div class="metric">
-        <span class="metric-icon">💪</span>
+        <span class="metric-icon"><Dumbbell size={14} /></span>
         <span class="metric-value">{weeklyWorkouts} WORKOUTS/WK</span>
       </div>
     )
@@ -132,7 +133,7 @@ try {
   {
     currentStreak > 0 && (
       <div class="metric streak">
-        <span class="metric-icon">🔥</span>
+        <span class="metric-icon"><Flame size={14} /></span>
         <span class="metric-value">{currentStreak}-DAY STREAK</span>
       </div>
     )
@@ -181,7 +182,8 @@ try {
   }
 
   .metric-icon {
-    font-size: 1rem;
+    display: flex;
+    align-items: center;
   }
 
   .metric-value {
