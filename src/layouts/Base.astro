@@ -70,12 +70,12 @@ const currentPath = Astro.url.pathname;
             <div class="control-button maximize"></div>
           </div>
           <div class="window-title">
-            <span class="text-green-400 text-sm font-bold">
+            <span class="text-green-400 text-xs font-bold">
               [{windowTitle}]
             </span>
           </div>
           <div class="system-info hidden sm:block">
-            <span class="text-green-500 text-xs"> MATRIX_OS v2.1 </span>
+            <span class="text-green-500 text-[10px]"> MATRIX_OS </span>
           </div>
         </div>
 
@@ -283,7 +283,7 @@ const currentPath = Astro.url.pathname;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 8px 16px;
+        padding: 4px 10px;
         background: linear-gradient(
           90deg,
           rgba(0, 255, 0, 0.1),
@@ -291,16 +291,19 @@ const currentPath = Astro.url.pathname;
         );
         border-bottom: 1px solid rgba(0, 255, 0, 0.3);
         backdrop-filter: blur(5px);
+        position: sticky;
+        top: 0;
+        z-index: 103;
       }
 
       .window-controls {
         display: flex;
-        gap: 8px;
+        gap: 6px;
       }
 
       .control-button {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
         animation: controlPulse 2s ease-in-out infinite;
       }
