@@ -154,22 +154,35 @@ This project leverages modern web technologies for optimal performance and user 
 
 Use this mode when you want the whole dashboard to run with local test data and avoid real API calls.
 
-1. Set these variables in your `.env`:
+1. **Generate fresh dummy data** (optional):
+
+   ```bash
+   bun generate-dummy-data
+   ```
+
+   This generates:
+
+   - `public/strava-activities-dummy.json` - 500 Strava activities
+   - `public/hevy-workouts-dummy.json` - 200 Hevy workouts
+   - `public/health-data-dummy.json` - 365 days of health data
+
+2. Set these variables in your `.env`:
 
    ```env
    USE_DUMMY_HEALTH_DATA=true
    HEALTH_DATA_FILE=health-data-dummy.json
    ```
 
-2. Start normally:
+3. Start normally:
 
    ```bash
    bun dev
    ```
 
-3. Open the dashboard and change dates with `?date=YYYY-MM-DD` or the arrows.
+4. Open the dashboard and change dates with `?date=YYYY-MM-DD` or the arrows.
 
 What this does:
+
 - Forces services to read data from `public/health-data-dummy.json` (or the file in `HEALTH_DATA_FILE`)
 - Disables live calls to Google Fit, Strava, and Hevy in the main dashboard flow
 - Keeps date navigation working against dummy dates
@@ -182,16 +195,17 @@ USE_DUMMY_HEALTH_DATA=false
 
 ## 📦 Available Scripts
 
-| Command             | Description                             |
-| ------------------- | --------------------------------------- |
-| `bun dev`           | Start development server                |
-| `bun build`         | Build production version                |
-| `bun preview`       | Preview production build locally        |
-| `bun format`        | Format code with Prettier               |
-| `bun clean`         | Remove build artifacts and dependencies |
-| `bun lint`          | Lint code with ESLint                   |
-| `bun test`          | Run tests with Vitest                   |
-| `bun strava-script` | Execute Strava-specific scripts         |
+| Command                   | Description                                      |
+| ------------------------- | ------------------------------------------------ |
+| `bun dev`                 | Start development server                         |
+| `bun build`               | Build production version                         |
+| `bun preview`             | Preview production build locally                 |
+| `bun format`              | Format code with Prettier                        |
+| `bun clean`               | Remove build artifacts and dependencies          |
+| `bun lint`                | Lint code with ESLint                            |
+| `bun test`                | Run tests with Vitest                            |
+| `bun strava-script`       | Execute Strava-specific scripts                  |
+| `bun generate-dummy-data` | Generate massive dummy test data for development |
 
 ## 📚 Documentation
 

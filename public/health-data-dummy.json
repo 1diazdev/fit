@@ -1,234 +1,10230 @@
 {
   "steps": {
-    "2026-02-15": {
-      "steps": 8543,
-      "distance": 6.2,
-      "calories": 320
-    },
-    "2026-02-16": {
-      "steps": 10234,
-      "distance": 7.8,
-      "calories": 410
-    },
-    "2026-02-17": {
-      "steps": 6789,
-      "distance": 5.1,
-      "calories": 280
-    },
-    "2026-02-18": {
-      "steps": 12456,
-      "distance": 9.3,
-      "calories": 485
-    },
-    "2026-02-19": {
-      "steps": 9876,
-      "distance": 7.2,
-      "calories": 390
-    },
-    "2026-02-20": {
-      "steps": 11234,
-      "distance": 8.5,
-      "calories": 445
-    },
-    "2026-02-21": {
-      "steps": 13567,
-      "distance": 10.2,
-      "calories": 520
+    "2026-02-23": {
+      "steps": 3647,
+      "distance": 13.7,
+      "calories": 255
     },
     "2026-02-22": {
-      "steps": 7890,
+      "steps": 4813,
+      "distance": 11.6,
+      "calories": 498
+    },
+    "2026-02-21": {
+      "steps": 8892,
+      "distance": 10.4,
+      "calories": 251
+    },
+    "2026-02-20": {
+      "steps": 16120,
+      "distance": 6.4,
+      "calories": 207
+    },
+    "2026-02-19": {
+      "steps": 18992,
+      "distance": 13.5,
+      "calories": 174
+    },
+    "2026-02-18": {
+      "steps": 17864,
+      "distance": 3.1,
+      "calories": 172
+    },
+    "2026-02-17": {
+      "steps": 12122,
+      "distance": 10.3,
+      "calories": 255
+    },
+    "2026-02-16": {
+      "steps": 4466,
+      "distance": 7.1,
+      "calories": 297
+    },
+    "2026-02-15": {
+      "steps": 14588,
+      "distance": 7.5,
+      "calories": 154
+    },
+    "2026-02-14": {
+      "steps": 18900,
+      "distance": 2.5,
+      "calories": 236
+    },
+    "2026-02-13": {
+      "steps": 11547,
+      "distance": 14.7,
+      "calories": 204
+    },
+    "2026-02-12": {
+      "steps": 6997,
+      "distance": 6.6,
+      "calories": 168
+    },
+    "2026-02-11": {
+      "steps": 8741,
+      "distance": 14.6,
+      "calories": 487
+    },
+    "2026-02-10": {
+      "steps": 5834,
+      "distance": 4.7,
+      "calories": 218
+    },
+    "2026-02-09": {
+      "steps": 8372,
+      "distance": 7.2,
+      "calories": 220
+    },
+    "2026-02-08": {
+      "steps": 9880,
+      "distance": 12.9,
+      "calories": 479
+    },
+    "2026-02-07": {
+      "steps": 7590,
+      "distance": 4.2,
+      "calories": 417
+    },
+    "2026-02-06": {
+      "steps": 7975,
+      "distance": 11.2,
+      "calories": 410
+    },
+    "2026-02-05": {
+      "steps": 19553,
+      "distance": 6.9,
+      "calories": 206
+    },
+    "2026-02-04": {
+      "steps": 13232,
+      "distance": 12.4,
+      "calories": 554
+    },
+    "2026-02-03": {
+      "steps": 5584,
+      "distance": 7,
+      "calories": 283
+    },
+    "2026-02-02": {
+      "steps": 5234,
+      "distance": 7.3,
+      "calories": 326
+    },
+    "2026-02-01": {
+      "steps": 6153,
+      "distance": 10.4,
+      "calories": 351
+    },
+    "2026-01-31": {
+      "steps": 19030,
+      "distance": 2.2,
+      "calories": 546
+    },
+    "2026-01-30": {
+      "steps": 9296,
+      "distance": 3.6,
+      "calories": 370
+    },
+    "2026-01-29": {
+      "steps": 10111,
+      "distance": 8.5,
+      "calories": 376
+    },
+    "2026-01-28": {
+      "steps": 5402,
+      "distance": 11.1,
+      "calories": 417
+    },
+    "2026-01-27": {
+      "steps": 17787,
+      "distance": 14.9,
+      "calories": 211
+    },
+    "2026-01-26": {
+      "steps": 3436,
+      "distance": 13.9,
+      "calories": 254
+    },
+    "2026-01-25": {
+      "steps": 19428,
+      "distance": 6.5,
+      "calories": 290
+    },
+    "2026-01-24": {
+      "steps": 5836,
+      "distance": 9.8,
+      "calories": 293
+    },
+    "2026-01-23": {
+      "steps": 3174,
+      "distance": 6.6,
+      "calories": 522
+    },
+    "2026-01-22": {
+      "steps": 9503,
+      "distance": 13.6,
+      "calories": 505
+    },
+    "2026-01-21": {
+      "steps": 13020,
+      "distance": 2,
+      "calories": 228
+    },
+    "2026-01-20": {
+      "steps": 14075,
+      "distance": 12.6,
+      "calories": 397
+    },
+    "2026-01-19": {
+      "steps": 14987,
+      "distance": 5.7,
+      "calories": 523
+    },
+    "2026-01-18": {
+      "steps": 11058,
+      "distance": 14.1,
+      "calories": 482
+    },
+    "2026-01-17": {
+      "steps": 4687,
+      "distance": 7.9,
+      "calories": 564
+    },
+    "2026-01-16": {
+      "steps": 12196,
+      "distance": 3.2,
+      "calories": 525
+    },
+    "2026-01-15": {
+      "steps": 4410,
+      "distance": 5.2,
+      "calories": 513
+    },
+    "2026-01-14": {
+      "steps": 4558,
+      "distance": 11.9,
+      "calories": 531
+    },
+    "2026-01-13": {
+      "steps": 19847,
+      "distance": 14.9,
+      "calories": 436
+    },
+    "2026-01-12": {
+      "steps": 10725,
+      "distance": 4.3,
+      "calories": 252
+    },
+    "2026-01-11": {
+      "steps": 12733,
+      "distance": 6,
+      "calories": 516
+    },
+    "2026-01-10": {
+      "steps": 13010,
+      "distance": 9.6,
+      "calories": 293
+    },
+    "2026-01-09": {
+      "steps": 12138,
+      "distance": 10.4,
+      "calories": 436
+    },
+    "2026-01-08": {
+      "steps": 6796,
+      "distance": 3.9,
+      "calories": 291
+    },
+    "2026-01-07": {
+      "steps": 5648,
+      "distance": 8.6,
+      "calories": 466
+    },
+    "2026-01-06": {
+      "steps": 4875,
+      "distance": 5.7,
+      "calories": 405
+    },
+    "2026-01-05": {
+      "steps": 5042,
+      "distance": 9,
+      "calories": 203
+    },
+    "2026-01-04": {
+      "steps": 17425,
+      "distance": 6.2,
+      "calories": 262
+    },
+    "2026-01-03": {
+      "steps": 4620,
+      "distance": 12.9,
+      "calories": 481
+    },
+    "2026-01-02": {
+      "steps": 13644,
+      "distance": 8.6,
+      "calories": 200
+    },
+    "2026-01-01": {
+      "steps": 7116,
+      "distance": 8.7,
+      "calories": 309
+    },
+    "2025-12-31": {
+      "steps": 14748,
+      "distance": 8,
+      "calories": 158
+    },
+    "2025-12-30": {
+      "steps": 8019,
+      "distance": 4.8,
+      "calories": 498
+    },
+    "2025-12-29": {
+      "steps": 9404,
+      "distance": 5.7,
+      "calories": 222
+    },
+    "2025-12-28": {
+      "steps": 3176,
+      "distance": 4.7,
+      "calories": 215
+    },
+    "2025-12-27": {
+      "steps": 7622,
+      "distance": 8.2,
+      "calories": 317
+    },
+    "2025-12-26": {
+      "steps": 5501,
+      "distance": 6.3,
+      "calories": 189
+    },
+    "2025-12-25": {
+      "steps": 16073,
+      "distance": 6.3,
+      "calories": 574
+    },
+    "2025-12-24": {
+      "steps": 18346,
+      "distance": 7.8,
+      "calories": 175
+    },
+    "2025-12-23": {
+      "steps": 16822,
+      "distance": 10,
+      "calories": 461
+    },
+    "2025-12-22": {
+      "steps": 8065,
+      "distance": 12.2,
+      "calories": 412
+    },
+    "2025-12-21": {
+      "steps": 9702,
+      "distance": 14.3,
+      "calories": 319
+    },
+    "2025-12-20": {
+      "steps": 7341,
+      "distance": 3.4,
+      "calories": 275
+    },
+    "2025-12-19": {
+      "steps": 13702,
+      "distance": 11.5,
+      "calories": 586
+    },
+    "2025-12-18": {
+      "steps": 13310,
+      "distance": 9.1,
+      "calories": 447
+    },
+    "2025-12-17": {
+      "steps": 4092,
+      "distance": 3.5,
+      "calories": 462
+    },
+    "2025-12-16": {
+      "steps": 14040,
+      "distance": 12.3,
+      "calories": 166
+    },
+    "2025-12-15": {
+      "steps": 7825,
+      "distance": 7.8,
+      "calories": 533
+    },
+    "2025-12-14": {
+      "steps": 9250,
+      "distance": 6.4,
+      "calories": 224
+    },
+    "2025-12-13": {
+      "steps": 13591,
+      "distance": 12.8,
+      "calories": 347
+    },
+    "2025-12-12": {
+      "steps": 16126,
       "distance": 5.9,
+      "calories": 225
+    },
+    "2025-12-11": {
+      "steps": 7346,
+      "distance": 13.3,
+      "calories": 283
+    },
+    "2025-12-10": {
+      "steps": 3136,
+      "distance": 5.6,
+      "calories": 563
+    },
+    "2025-12-09": {
+      "steps": 3307,
+      "distance": 5.8,
+      "calories": 427
+    },
+    "2025-12-08": {
+      "steps": 3772,
+      "distance": 6.4,
+      "calories": 211
+    },
+    "2025-12-07": {
+      "steps": 15121,
+      "distance": 8.7,
+      "calories": 438
+    },
+    "2025-12-06": {
+      "steps": 10830,
+      "distance": 10.7,
+      "calories": 180
+    },
+    "2025-12-05": {
+      "steps": 10141,
+      "distance": 9.8,
+      "calories": 312
+    },
+    "2025-12-04": {
+      "steps": 5917,
+      "distance": 12.4,
+      "calories": 502
+    },
+    "2025-12-03": {
+      "steps": 16913,
+      "distance": 7.9,
+      "calories": 240
+    },
+    "2025-12-02": {
+      "steps": 4404,
+      "distance": 6,
+      "calories": 415
+    },
+    "2025-12-01": {
+      "steps": 15425,
+      "distance": 3,
+      "calories": 482
+    },
+    "2025-11-30": {
+      "steps": 5663,
+      "distance": 8.7,
+      "calories": 454
+    },
+    "2025-11-29": {
+      "steps": 11242,
+      "distance": 9.4,
+      "calories": 257
+    },
+    "2025-11-28": {
+      "steps": 10910,
+      "distance": 5.7,
+      "calories": 334
+    },
+    "2025-11-27": {
+      "steps": 13038,
+      "distance": 13.8,
+      "calories": 260
+    },
+    "2025-11-26": {
+      "steps": 10241,
+      "distance": 13.5,
+      "calories": 197
+    },
+    "2025-11-25": {
+      "steps": 3285,
+      "distance": 3.7,
+      "calories": 459
+    },
+    "2025-11-24": {
+      "steps": 15338,
+      "distance": 2.9,
+      "calories": 161
+    },
+    "2025-11-23": {
+      "steps": 17626,
+      "distance": 6.5,
+      "calories": 541
+    },
+    "2025-11-22": {
+      "steps": 18323,
+      "distance": 7.9,
+      "calories": 186
+    },
+    "2025-11-21": {
+      "steps": 4249,
+      "distance": 12.1,
+      "calories": 434
+    },
+    "2025-11-20": {
+      "steps": 10041,
+      "distance": 6.7,
+      "calories": 471
+    },
+    "2025-11-19": {
+      "steps": 19172,
+      "distance": 5.1,
+      "calories": 419
+    },
+    "2025-11-18": {
+      "steps": 12506,
+      "distance": 11,
+      "calories": 250
+    },
+    "2025-11-17": {
+      "steps": 15061,
+      "distance": 6.2,
+      "calories": 536
+    },
+    "2025-11-16": {
+      "steps": 10221,
+      "distance": 5,
+      "calories": 395
+    },
+    "2025-11-15": {
+      "steps": 8816,
+      "distance": 12.2,
+      "calories": 319
+    },
+    "2025-11-14": {
+      "steps": 19035,
+      "distance": 4.4,
+      "calories": 535
+    },
+    "2025-11-13": {
+      "steps": 7258,
+      "distance": 6.4,
+      "calories": 277
+    },
+    "2025-11-12": {
+      "steps": 5961,
+      "distance": 7.2,
+      "calories": 415
+    },
+    "2025-11-11": {
+      "steps": 14866,
+      "distance": 13.5,
+      "calories": 327
+    },
+    "2025-11-10": {
+      "steps": 17565,
+      "distance": 14.5,
+      "calories": 394
+    },
+    "2025-11-09": {
+      "steps": 6611,
+      "distance": 9.3,
+      "calories": 339
+    },
+    "2025-11-08": {
+      "steps": 10805,
+      "distance": 5.3,
+      "calories": 265
+    },
+    "2025-11-07": {
+      "steps": 6373,
+      "distance": 9.2,
+      "calories": 370
+    },
+    "2025-11-06": {
+      "steps": 16621,
+      "distance": 12.5,
+      "calories": 197
+    },
+    "2025-11-05": {
+      "steps": 9592,
+      "distance": 2,
+      "calories": 448
+    },
+    "2025-11-04": {
+      "steps": 16139,
+      "distance": 13.9,
+      "calories": 371
+    },
+    "2025-11-03": {
+      "steps": 11523,
+      "distance": 8.9,
+      "calories": 154
+    },
+    "2025-11-02": {
+      "steps": 14733,
+      "distance": 3.7,
+      "calories": 249
+    },
+    "2025-11-01": {
+      "steps": 3221,
+      "distance": 6.2,
+      "calories": 460
+    },
+    "2025-10-31": {
+      "steps": 16104,
+      "distance": 13.4,
+      "calories": 208
+    },
+    "2025-10-30": {
+      "steps": 12888,
+      "distance": 10.2,
+      "calories": 183
+    },
+    "2025-10-29": {
+      "steps": 5674,
+      "distance": 10.8,
+      "calories": 578
+    },
+    "2025-10-28": {
+      "steps": 14778,
+      "distance": 9.5,
+      "calories": 181
+    },
+    "2025-10-27": {
+      "steps": 8705,
+      "distance": 12.8,
+      "calories": 390
+    },
+    "2025-10-26": {
+      "steps": 18488,
+      "distance": 12.2,
+      "calories": 189
+    },
+    "2025-10-25": {
+      "steps": 6234,
+      "distance": 8.3,
+      "calories": 529
+    },
+    "2025-10-24": {
+      "steps": 6756,
+      "distance": 14.9,
+      "calories": 365
+    },
+    "2025-10-23": {
+      "steps": 11493,
+      "distance": 8.4,
+      "calories": 246
+    },
+    "2025-10-22": {
+      "steps": 8201,
+      "distance": 3.7,
+      "calories": 552
+    },
+    "2025-10-21": {
+      "steps": 11651,
+      "distance": 5.4,
+      "calories": 234
+    },
+    "2025-10-20": {
+      "steps": 7437,
+      "distance": 3.6,
+      "calories": 553
+    },
+    "2025-10-19": {
+      "steps": 14565,
+      "distance": 10.2,
+      "calories": 385
+    },
+    "2025-10-18": {
+      "steps": 8849,
+      "distance": 14.2,
+      "calories": 340
+    },
+    "2025-10-17": {
+      "steps": 3435,
+      "distance": 12.1,
+      "calories": 299
+    },
+    "2025-10-16": {
+      "steps": 9074,
+      "distance": 6.3,
+      "calories": 207
+    },
+    "2025-10-15": {
+      "steps": 17832,
+      "distance": 10.9,
+      "calories": 301
+    },
+    "2025-10-14": {
+      "steps": 19705,
+      "distance": 2.5,
+      "calories": 178
+    },
+    "2025-10-13": {
+      "steps": 12991,
+      "distance": 3.9,
+      "calories": 234
+    },
+    "2025-10-12": {
+      "steps": 16425,
+      "distance": 7.2,
+      "calories": 291
+    },
+    "2025-10-11": {
+      "steps": 18566,
+      "distance": 14.7,
+      "calories": 357
+    },
+    "2025-10-10": {
+      "steps": 18709,
+      "distance": 8.7,
+      "calories": 173
+    },
+    "2025-10-09": {
+      "steps": 16169,
+      "distance": 9.4,
+      "calories": 373
+    },
+    "2025-10-08": {
+      "steps": 6533,
+      "distance": 13.4,
+      "calories": 327
+    },
+    "2025-10-07": {
+      "steps": 19255,
+      "distance": 2.9,
+      "calories": 253
+    },
+    "2025-10-06": {
+      "steps": 3038,
+      "distance": 6.6,
+      "calories": 254
+    },
+    "2025-10-05": {
+      "steps": 5321,
+      "distance": 12.7,
+      "calories": 442
+    },
+    "2025-10-04": {
+      "steps": 19994,
+      "distance": 5.9,
+      "calories": 242
+    },
+    "2025-10-03": {
+      "steps": 11235,
+      "distance": 5.9,
+      "calories": 478
+    },
+    "2025-10-02": {
+      "steps": 15095,
+      "distance": 2,
+      "calories": 227
+    },
+    "2025-10-01": {
+      "steps": 7087,
+      "distance": 12.4,
+      "calories": 410
+    },
+    "2025-09-30": {
+      "steps": 19571,
+      "distance": 5.5,
+      "calories": 286
+    },
+    "2025-09-29": {
+      "steps": 11009,
+      "distance": 10.2,
+      "calories": 352
+    },
+    "2025-09-28": {
+      "steps": 9017,
+      "distance": 10.1,
+      "calories": 599
+    },
+    "2025-09-27": {
+      "steps": 6799,
+      "distance": 12.7,
+      "calories": 372
+    },
+    "2025-09-26": {
+      "steps": 10192,
+      "distance": 12.7,
+      "calories": 275
+    },
+    "2025-09-25": {
+      "steps": 17744,
+      "distance": 2.2,
+      "calories": 452
+    },
+    "2025-09-24": {
+      "steps": 14056,
+      "distance": 5.3,
+      "calories": 302
+    },
+    "2025-09-23": {
+      "steps": 15689,
+      "distance": 11.4,
+      "calories": 551
+    },
+    "2025-09-22": {
+      "steps": 18454,
+      "distance": 10.2,
+      "calories": 339
+    },
+    "2025-09-21": {
+      "steps": 16622,
+      "distance": 12.4,
+      "calories": 336
+    },
+    "2025-09-20": {
+      "steps": 8718,
+      "distance": 12.1,
+      "calories": 381
+    },
+    "2025-09-19": {
+      "steps": 8168,
+      "distance": 7.8,
+      "calories": 197
+    },
+    "2025-09-18": {
+      "steps": 7194,
+      "distance": 13.7,
+      "calories": 324
+    },
+    "2025-09-17": {
+      "steps": 13164,
+      "distance": 8.5,
+      "calories": 288
+    },
+    "2025-09-16": {
+      "steps": 4699,
+      "distance": 5.3,
+      "calories": 241
+    },
+    "2025-09-15": {
+      "steps": 15937,
+      "distance": 4.2,
+      "calories": 325
+    },
+    "2025-09-14": {
+      "steps": 13181,
+      "distance": 5.2,
+      "calories": 394
+    },
+    "2025-09-13": {
+      "steps": 14156,
+      "distance": 8.5,
+      "calories": 597
+    },
+    "2025-09-12": {
+      "steps": 7672,
+      "distance": 4.7,
+      "calories": 281
+    },
+    "2025-09-11": {
+      "steps": 6479,
+      "distance": 5.2,
+      "calories": 467
+    },
+    "2025-09-10": {
+      "steps": 19472,
+      "distance": 5.1,
+      "calories": 306
+    },
+    "2025-09-09": {
+      "steps": 4300,
+      "distance": 12.1,
+      "calories": 546
+    },
+    "2025-09-08": {
+      "steps": 19412,
+      "distance": 13.1,
+      "calories": 163
+    },
+    "2025-09-07": {
+      "steps": 6730,
+      "distance": 5.6,
       "calories": 310
+    },
+    "2025-09-06": {
+      "steps": 8789,
+      "distance": 5.3,
+      "calories": 551
+    },
+    "2025-09-05": {
+      "steps": 8767,
+      "distance": 6.5,
+      "calories": 501
+    },
+    "2025-09-04": {
+      "steps": 11183,
+      "distance": 12.6,
+      "calories": 526
+    },
+    "2025-09-03": {
+      "steps": 18968,
+      "distance": 11.7,
+      "calories": 412
+    },
+    "2025-09-02": {
+      "steps": 7513,
+      "distance": 5,
+      "calories": 406
+    },
+    "2025-09-01": {
+      "steps": 16174,
+      "distance": 12.8,
+      "calories": 543
+    },
+    "2025-08-31": {
+      "steps": 4369,
+      "distance": 3.2,
+      "calories": 516
+    },
+    "2025-08-30": {
+      "steps": 4494,
+      "distance": 2.2,
+      "calories": 593
+    },
+    "2025-08-29": {
+      "steps": 16173,
+      "distance": 15,
+      "calories": 403
+    },
+    "2025-08-28": {
+      "steps": 18206,
+      "distance": 11.5,
+      "calories": 349
+    },
+    "2025-08-27": {
+      "steps": 6268,
+      "distance": 4.3,
+      "calories": 417
+    },
+    "2025-08-26": {
+      "steps": 8502,
+      "distance": 8.2,
+      "calories": 301
+    },
+    "2025-08-25": {
+      "steps": 5868,
+      "distance": 4.1,
+      "calories": 207
+    },
+    "2025-08-24": {
+      "steps": 4236,
+      "distance": 5,
+      "calories": 421
+    },
+    "2025-08-23": {
+      "steps": 10699,
+      "distance": 11.1,
+      "calories": 161
+    },
+    "2025-08-22": {
+      "steps": 11687,
+      "distance": 11.2,
+      "calories": 365
+    },
+    "2025-08-21": {
+      "steps": 6043,
+      "distance": 4.5,
+      "calories": 187
+    },
+    "2025-08-20": {
+      "steps": 4247,
+      "distance": 3.7,
+      "calories": 276
+    },
+    "2025-08-19": {
+      "steps": 10573,
+      "distance": 2.7,
+      "calories": 568
+    },
+    "2025-08-18": {
+      "steps": 11178,
+      "distance": 7.9,
+      "calories": 365
+    },
+    "2025-08-17": {
+      "steps": 4745,
+      "distance": 9.8,
+      "calories": 400
+    },
+    "2025-08-16": {
+      "steps": 16519,
+      "distance": 5.3,
+      "calories": 568
+    },
+    "2025-08-15": {
+      "steps": 11657,
+      "distance": 9.5,
+      "calories": 204
+    },
+    "2025-08-14": {
+      "steps": 4612,
+      "distance": 7.1,
+      "calories": 522
+    },
+    "2025-08-13": {
+      "steps": 13566,
+      "distance": 7.1,
+      "calories": 468
+    },
+    "2025-08-12": {
+      "steps": 19064,
+      "distance": 6.5,
+      "calories": 294
+    },
+    "2025-08-11": {
+      "steps": 14278,
+      "distance": 14.6,
+      "calories": 200
+    },
+    "2025-08-10": {
+      "steps": 16937,
+      "distance": 10.7,
+      "calories": 247
+    },
+    "2025-08-09": {
+      "steps": 15330,
+      "distance": 10.7,
+      "calories": 284
+    },
+    "2025-08-08": {
+      "steps": 11790,
+      "distance": 7.8,
+      "calories": 344
+    },
+    "2025-08-07": {
+      "steps": 11525,
+      "distance": 11.4,
+      "calories": 548
+    },
+    "2025-08-06": {
+      "steps": 12827,
+      "distance": 13.8,
+      "calories": 187
+    },
+    "2025-08-05": {
+      "steps": 18195,
+      "distance": 4.4,
+      "calories": 233
+    },
+    "2025-08-04": {
+      "steps": 16425,
+      "distance": 2.2,
+      "calories": 542
+    },
+    "2025-08-03": {
+      "steps": 3045,
+      "distance": 10,
+      "calories": 458
+    },
+    "2025-08-02": {
+      "steps": 9535,
+      "distance": 14.1,
+      "calories": 306
+    },
+    "2025-08-01": {
+      "steps": 16959,
+      "distance": 13.3,
+      "calories": 481
+    },
+    "2025-07-31": {
+      "steps": 10795,
+      "distance": 4.2,
+      "calories": 371
+    },
+    "2025-07-30": {
+      "steps": 14308,
+      "distance": 7.9,
+      "calories": 306
+    },
+    "2025-07-29": {
+      "steps": 11095,
+      "distance": 9.4,
+      "calories": 565
+    },
+    "2025-07-28": {
+      "steps": 14607,
+      "distance": 6.8,
+      "calories": 505
+    },
+    "2025-07-27": {
+      "steps": 14919,
+      "distance": 8.3,
+      "calories": 315
+    },
+    "2025-07-26": {
+      "steps": 7182,
+      "distance": 9.7,
+      "calories": 327
+    },
+    "2025-07-25": {
+      "steps": 11894,
+      "distance": 6.6,
+      "calories": 513
+    },
+    "2025-07-24": {
+      "steps": 3364,
+      "distance": 5,
+      "calories": 577
+    },
+    "2025-07-23": {
+      "steps": 6615,
+      "distance": 14.2,
+      "calories": 209
+    },
+    "2025-07-22": {
+      "steps": 11598,
+      "distance": 11.5,
+      "calories": 243
+    },
+    "2025-07-21": {
+      "steps": 13497,
+      "distance": 9.3,
+      "calories": 159
+    },
+    "2025-07-20": {
+      "steps": 19669,
+      "distance": 2.7,
+      "calories": 399
+    },
+    "2025-07-19": {
+      "steps": 11513,
+      "distance": 10.6,
+      "calories": 553
+    },
+    "2025-07-18": {
+      "steps": 11191,
+      "distance": 11.2,
+      "calories": 244
+    },
+    "2025-07-17": {
+      "steps": 16848,
+      "distance": 7.3,
+      "calories": 242
+    },
+    "2025-07-16": {
+      "steps": 12846,
+      "distance": 11.3,
+      "calories": 314
+    },
+    "2025-07-15": {
+      "steps": 15982,
+      "distance": 9.1,
+      "calories": 377
+    },
+    "2025-07-14": {
+      "steps": 13428,
+      "distance": 3.4,
+      "calories": 543
+    },
+    "2025-07-13": {
+      "steps": 9279,
+      "distance": 11.4,
+      "calories": 312
+    },
+    "2025-07-12": {
+      "steps": 15233,
+      "distance": 12.2,
+      "calories": 542
+    },
+    "2025-07-11": {
+      "steps": 8135,
+      "distance": 14.5,
+      "calories": 164
+    },
+    "2025-07-10": {
+      "steps": 5368,
+      "distance": 13.6,
+      "calories": 574
+    },
+    "2025-07-09": {
+      "steps": 5189,
+      "distance": 10.9,
+      "calories": 596
+    },
+    "2025-07-08": {
+      "steps": 8815,
+      "distance": 3.3,
+      "calories": 351
+    },
+    "2025-07-07": {
+      "steps": 12338,
+      "distance": 4,
+      "calories": 425
+    },
+    "2025-07-06": {
+      "steps": 18121,
+      "distance": 2.7,
+      "calories": 446
+    },
+    "2025-07-05": {
+      "steps": 14545,
+      "distance": 4.9,
+      "calories": 390
+    },
+    "2025-07-04": {
+      "steps": 14858,
+      "distance": 9.1,
+      "calories": 303
+    },
+    "2025-07-03": {
+      "steps": 11551,
+      "distance": 2.6,
+      "calories": 395
+    },
+    "2025-07-02": {
+      "steps": 12671,
+      "distance": 13.3,
+      "calories": 300
+    },
+    "2025-07-01": {
+      "steps": 17829,
+      "distance": 5.4,
+      "calories": 256
+    },
+    "2025-06-30": {
+      "steps": 17825,
+      "distance": 9.1,
+      "calories": 547
+    },
+    "2025-06-29": {
+      "steps": 3624,
+      "distance": 5.7,
+      "calories": 421
+    },
+    "2025-06-28": {
+      "steps": 12550,
+      "distance": 5.4,
+      "calories": 424
+    },
+    "2025-06-27": {
+      "steps": 19543,
+      "distance": 10.6,
+      "calories": 210
+    },
+    "2025-06-26": {
+      "steps": 13646,
+      "distance": 11.2,
+      "calories": 305
+    },
+    "2025-06-25": {
+      "steps": 13567,
+      "distance": 4.4,
+      "calories": 383
+    },
+    "2025-06-24": {
+      "steps": 7684,
+      "distance": 14.8,
+      "calories": 538
+    },
+    "2025-06-23": {
+      "steps": 11407,
+      "distance": 8.4,
+      "calories": 367
+    },
+    "2025-06-22": {
+      "steps": 19844,
+      "distance": 13.9,
+      "calories": 554
+    },
+    "2025-06-21": {
+      "steps": 9879,
+      "distance": 10.4,
+      "calories": 517
+    },
+    "2025-06-20": {
+      "steps": 6646,
+      "distance": 13.7,
+      "calories": 586
+    },
+    "2025-06-19": {
+      "steps": 3966,
+      "distance": 5.7,
+      "calories": 533
+    },
+    "2025-06-18": {
+      "steps": 10362,
+      "distance": 12.1,
+      "calories": 493
+    },
+    "2025-06-17": {
+      "steps": 12378,
+      "distance": 5.6,
+      "calories": 176
+    },
+    "2025-06-16": {
+      "steps": 9660,
+      "distance": 6.2,
+      "calories": 306
+    },
+    "2025-06-15": {
+      "steps": 16637,
+      "distance": 2.9,
+      "calories": 246
+    },
+    "2025-06-14": {
+      "steps": 17001,
+      "distance": 8.4,
+      "calories": 459
+    },
+    "2025-06-13": {
+      "steps": 8346,
+      "distance": 14.3,
+      "calories": 231
+    },
+    "2025-06-12": {
+      "steps": 16488,
+      "distance": 10.8,
+      "calories": 398
+    },
+    "2025-06-11": {
+      "steps": 11219,
+      "distance": 13.2,
+      "calories": 234
+    },
+    "2025-06-10": {
+      "steps": 8073,
+      "distance": 12.4,
+      "calories": 373
+    },
+    "2025-06-09": {
+      "steps": 14109,
+      "distance": 5,
+      "calories": 589
+    },
+    "2025-06-08": {
+      "steps": 17156,
+      "distance": 4.9,
+      "calories": 330
+    },
+    "2025-06-07": {
+      "steps": 16105,
+      "distance": 2.6,
+      "calories": 372
+    },
+    "2025-06-06": {
+      "steps": 15154,
+      "distance": 2.3,
+      "calories": 592
+    },
+    "2025-06-05": {
+      "steps": 9013,
+      "distance": 5.1,
+      "calories": 265
+    },
+    "2025-06-04": {
+      "steps": 6518,
+      "distance": 5.4,
+      "calories": 372
+    },
+    "2025-06-03": {
+      "steps": 5186,
+      "distance": 6.1,
+      "calories": 299
+    },
+    "2025-06-02": {
+      "steps": 14726,
+      "distance": 3.3,
+      "calories": 367
+    },
+    "2025-06-01": {
+      "steps": 10806,
+      "distance": 8.3,
+      "calories": 167
+    },
+    "2025-05-31": {
+      "steps": 9227,
+      "distance": 8.4,
+      "calories": 509
+    },
+    "2025-05-30": {
+      "steps": 8784,
+      "distance": 5.6,
+      "calories": 436
+    },
+    "2025-05-29": {
+      "steps": 4834,
+      "distance": 6.5,
+      "calories": 467
+    },
+    "2025-05-28": {
+      "steps": 7027,
+      "distance": 3.3,
+      "calories": 372
+    },
+    "2025-05-27": {
+      "steps": 3778,
+      "distance": 13.8,
+      "calories": 421
+    },
+    "2025-05-26": {
+      "steps": 3947,
+      "distance": 12.9,
+      "calories": 165
+    },
+    "2025-05-25": {
+      "steps": 12261,
+      "distance": 3.3,
+      "calories": 158
+    },
+    "2025-05-24": {
+      "steps": 9155,
+      "distance": 7.7,
+      "calories": 565
+    },
+    "2025-05-23": {
+      "steps": 12672,
+      "distance": 7.9,
+      "calories": 179
+    },
+    "2025-05-22": {
+      "steps": 13076,
+      "distance": 9.1,
+      "calories": 476
+    },
+    "2025-05-21": {
+      "steps": 13879,
+      "distance": 10,
+      "calories": 388
+    },
+    "2025-05-20": {
+      "steps": 13887,
+      "distance": 9.9,
+      "calories": 271
+    },
+    "2025-05-19": {
+      "steps": 14112,
+      "distance": 2.4,
+      "calories": 287
+    },
+    "2025-05-18": {
+      "steps": 19247,
+      "distance": 9.1,
+      "calories": 359
+    },
+    "2025-05-17": {
+      "steps": 9236,
+      "distance": 3.3,
+      "calories": 448
+    },
+    "2025-05-16": {
+      "steps": 11417,
+      "distance": 3.7,
+      "calories": 173
+    },
+    "2025-05-15": {
+      "steps": 16317,
+      "distance": 7.8,
+      "calories": 277
+    },
+    "2025-05-14": {
+      "steps": 17245,
+      "distance": 11.2,
+      "calories": 344
+    },
+    "2025-05-13": {
+      "steps": 19045,
+      "distance": 13.6,
+      "calories": 155
+    },
+    "2025-05-12": {
+      "steps": 11773,
+      "distance": 6.1,
+      "calories": 579
+    },
+    "2025-05-11": {
+      "steps": 15501,
+      "distance": 13.7,
+      "calories": 451
+    },
+    "2025-05-10": {
+      "steps": 16660,
+      "distance": 12.7,
+      "calories": 198
+    },
+    "2025-05-09": {
+      "steps": 3883,
+      "distance": 3.6,
+      "calories": 244
+    },
+    "2025-05-08": {
+      "steps": 10927,
+      "distance": 9.4,
+      "calories": 229
+    },
+    "2025-05-07": {
+      "steps": 14044,
+      "distance": 11.5,
+      "calories": 296
+    },
+    "2025-05-06": {
+      "steps": 18254,
+      "distance": 6.4,
+      "calories": 429
+    },
+    "2025-05-05": {
+      "steps": 9041,
+      "distance": 10.4,
+      "calories": 521
+    },
+    "2025-05-04": {
+      "steps": 16813,
+      "distance": 12.7,
+      "calories": 153
+    },
+    "2025-05-03": {
+      "steps": 7818,
+      "distance": 11.1,
+      "calories": 424
+    },
+    "2025-05-02": {
+      "steps": 10024,
+      "distance": 4.9,
+      "calories": 276
+    },
+    "2025-05-01": {
+      "steps": 16502,
+      "distance": 10.4,
+      "calories": 473
+    },
+    "2025-04-30": {
+      "steps": 18765,
+      "distance": 7,
+      "calories": 410
+    },
+    "2025-04-29": {
+      "steps": 13490,
+      "distance": 11.8,
+      "calories": 455
+    },
+    "2025-04-28": {
+      "steps": 6924,
+      "distance": 4.2,
+      "calories": 494
+    },
+    "2025-04-27": {
+      "steps": 16760,
+      "distance": 3.7,
+      "calories": 482
+    },
+    "2025-04-26": {
+      "steps": 5024,
+      "distance": 8.6,
+      "calories": 221
+    },
+    "2025-04-25": {
+      "steps": 5890,
+      "distance": 7.8,
+      "calories": 162
+    },
+    "2025-04-24": {
+      "steps": 9108,
+      "distance": 13.2,
+      "calories": 383
+    },
+    "2025-04-23": {
+      "steps": 11315,
+      "distance": 8.3,
+      "calories": 375
+    },
+    "2025-04-22": {
+      "steps": 15941,
+      "distance": 2.5,
+      "calories": 395
+    },
+    "2025-04-21": {
+      "steps": 3695,
+      "distance": 4.8,
+      "calories": 310
+    },
+    "2025-04-20": {
+      "steps": 10503,
+      "distance": 6.2,
+      "calories": 257
+    },
+    "2025-04-19": {
+      "steps": 15827,
+      "distance": 6.2,
+      "calories": 333
+    },
+    "2025-04-18": {
+      "steps": 13326,
+      "distance": 13.9,
+      "calories": 511
+    },
+    "2025-04-17": {
+      "steps": 15051,
+      "distance": 11.5,
+      "calories": 476
+    },
+    "2025-04-16": {
+      "steps": 14130,
+      "distance": 9.8,
+      "calories": 537
+    },
+    "2025-04-15": {
+      "steps": 7233,
+      "distance": 9.1,
+      "calories": 374
+    },
+    "2025-04-14": {
+      "steps": 15705,
+      "distance": 9.9,
+      "calories": 386
+    },
+    "2025-04-13": {
+      "steps": 3408,
+      "distance": 5.3,
+      "calories": 459
+    },
+    "2025-04-12": {
+      "steps": 15347,
+      "distance": 11.5,
+      "calories": 153
+    },
+    "2025-04-11": {
+      "steps": 15236,
+      "distance": 6.9,
+      "calories": 558
+    },
+    "2025-04-10": {
+      "steps": 10439,
+      "distance": 8,
+      "calories": 315
+    },
+    "2025-04-09": {
+      "steps": 18850,
+      "distance": 4.8,
+      "calories": 570
+    },
+    "2025-04-08": {
+      "steps": 11698,
+      "distance": 10,
+      "calories": 256
+    },
+    "2025-04-07": {
+      "steps": 8153,
+      "distance": 11.8,
+      "calories": 186
+    },
+    "2025-04-06": {
+      "steps": 5722,
+      "distance": 4.8,
+      "calories": 306
+    },
+    "2025-04-05": {
+      "steps": 6290,
+      "distance": 14.6,
+      "calories": 414
+    },
+    "2025-04-04": {
+      "steps": 11772,
+      "distance": 9.2,
+      "calories": 562
+    },
+    "2025-04-03": {
+      "steps": 17112,
+      "distance": 7.1,
+      "calories": 153
+    },
+    "2025-04-02": {
+      "steps": 4638,
+      "distance": 12.7,
+      "calories": 403
+    },
+    "2025-04-01": {
+      "steps": 11800,
+      "distance": 9.9,
+      "calories": 480
+    },
+    "2025-03-31": {
+      "steps": 14814,
+      "distance": 14.4,
+      "calories": 323
+    },
+    "2025-03-30": {
+      "steps": 19989,
+      "distance": 6.9,
+      "calories": 243
+    },
+    "2025-03-29": {
+      "steps": 4721,
+      "distance": 12.6,
+      "calories": 501
+    },
+    "2025-03-28": {
+      "steps": 8902,
+      "distance": 4.9,
+      "calories": 589
+    },
+    "2025-03-27": {
+      "steps": 8664,
+      "distance": 6.9,
+      "calories": 577
+    },
+    "2025-03-26": {
+      "steps": 19017,
+      "distance": 13.4,
+      "calories": 343
+    },
+    "2025-03-25": {
+      "steps": 11546,
+      "distance": 4.7,
+      "calories": 223
+    },
+    "2025-03-24": {
+      "steps": 12765,
+      "distance": 7.1,
+      "calories": 206
+    },
+    "2025-03-23": {
+      "steps": 11389,
+      "distance": 6.6,
+      "calories": 353
+    },
+    "2025-03-22": {
+      "steps": 6759,
+      "distance": 12,
+      "calories": 262
+    },
+    "2025-03-21": {
+      "steps": 15678,
+      "distance": 10.8,
+      "calories": 563
+    },
+    "2025-03-20": {
+      "steps": 10464,
+      "distance": 14.1,
+      "calories": 309
+    },
+    "2025-03-19": {
+      "steps": 13019,
+      "distance": 5.2,
+      "calories": 308
+    },
+    "2025-03-18": {
+      "steps": 8874,
+      "distance": 14.9,
+      "calories": 416
+    },
+    "2025-03-17": {
+      "steps": 15933,
+      "distance": 9.8,
+      "calories": 153
+    },
+    "2025-03-16": {
+      "steps": 19017,
+      "distance": 5.1,
+      "calories": 481
+    },
+    "2025-03-15": {
+      "steps": 18760,
+      "distance": 11,
+      "calories": 587
+    },
+    "2025-03-14": {
+      "steps": 12761,
+      "distance": 6.4,
+      "calories": 414
+    },
+    "2025-03-13": {
+      "steps": 14764,
+      "distance": 10.1,
+      "calories": 363
+    },
+    "2025-03-12": {
+      "steps": 19426,
+      "distance": 3,
+      "calories": 365
+    },
+    "2025-03-11": {
+      "steps": 6017,
+      "distance": 6,
+      "calories": 564
+    },
+    "2025-03-10": {
+      "steps": 12010,
+      "distance": 8.7,
+      "calories": 480
+    },
+    "2025-03-09": {
+      "steps": 3759,
+      "distance": 4,
+      "calories": 590
+    },
+    "2025-03-08": {
+      "steps": 17242,
+      "distance": 7,
+      "calories": 527
+    },
+    "2025-03-07": {
+      "steps": 19725,
+      "distance": 9,
+      "calories": 520
+    },
+    "2025-03-06": {
+      "steps": 6976,
+      "distance": 2.7,
+      "calories": 210
+    },
+    "2025-03-05": {
+      "steps": 18723,
+      "distance": 15,
+      "calories": 410
+    },
+    "2025-03-04": {
+      "steps": 6568,
+      "distance": 7.2,
+      "calories": 288
+    },
+    "2025-03-03": {
+      "steps": 8930,
+      "distance": 2.6,
+      "calories": 167
+    },
+    "2025-03-02": {
+      "steps": 17726,
+      "distance": 12.6,
+      "calories": 476
+    },
+    "2025-03-01": {
+      "steps": 16196,
+      "distance": 2.3,
+      "calories": 566
+    },
+    "2025-02-28": {
+      "steps": 3073,
+      "distance": 8,
+      "calories": 451
+    },
+    "2025-02-27": {
+      "steps": 18056,
+      "distance": 10,
+      "calories": 567
+    },
+    "2025-02-26": {
+      "steps": 7156,
+      "distance": 5.2,
+      "calories": 489
+    },
+    "2025-02-25": {
+      "steps": 7824,
+      "distance": 4.2,
+      "calories": 327
+    },
+    "2025-02-24": {
+      "steps": 14889,
+      "distance": 3,
+      "calories": 451
     }
   },
   "heartRate": {
-    "2026-02-15": {
-      "resting": 62,
-      "avg": 78,
-      "max": 145,
+    "2026-02-23": {
+      "resting": 57,
+      "avg": 75,
+      "max": 172,
       "zones": {
-        "rest": 680,
-        "fat_burn": 120,
-        "cardio": 45,
+        "rest": 688,
+        "fat_burn": 119,
+        "cardio": 100,
+        "peak": 19
+      }
+    },
+    "2026-02-22": {
+      "resting": 69,
+      "avg": 75,
+      "max": 177,
+      "zones": {
+        "rest": 566,
+        "fat_burn": 123,
+        "cardio": 91,
+        "peak": 2
+      }
+    },
+    "2026-02-21": {
+      "resting": 56,
+      "avg": 87,
+      "max": 139,
+      "zones": {
+        "rest": 722,
+        "fat_burn": 200,
+        "cardio": 46,
+        "peak": 6
+      }
+    },
+    "2026-02-20": {
+      "resting": 69,
+      "avg": 88,
+      "max": 144,
+      "zones": {
+        "rest": 792,
+        "fat_burn": 151,
+        "cardio": 24,
         "peak": 5
       }
     },
-    "2026-02-16": {
-      "resting": 61,
-      "avg": 82,
-      "max": 158,
+    "2026-02-19": {
+      "resting": 68,
+      "avg": 77,
+      "max": 150,
       "zones": {
-        "rest": 640,
-        "fat_burn": 150,
-        "cardio": 60,
-        "peak": 10
+        "rest": 517,
+        "fat_burn": 95,
+        "cardio": 39,
+        "peak": 11
+      }
+    },
+    "2026-02-18": {
+      "resting": 61,
+      "avg": 83,
+      "max": 154,
+      "zones": {
+        "rest": 791,
+        "fat_burn": 97,
+        "cardio": 35,
+        "peak": 29
       }
     },
     "2026-02-17": {
       "resting": 63,
-      "avg": 75,
+      "avg": 84,
       "max": 132,
       "zones": {
-        "rest": 720,
-        "fat_burn": 90,
-        "cardio": 30,
-        "peak": 0
+        "rest": 504,
+        "fat_burn": 195,
+        "cardio": 99,
+        "peak": 20
       }
     },
-    "2026-02-18": {
+    "2026-02-16": {
+      "resting": 67,
+      "avg": 91,
+      "max": 157,
+      "zones": {
+        "rest": 601,
+        "fat_burn": 88,
+        "cardio": 29,
+        "peak": 6
+      }
+    },
+    "2026-02-15": {
+      "resting": 69,
+      "avg": 70,
+      "max": 131,
+      "zones": {
+        "rest": 789,
+        "fat_burn": 109,
+        "cardio": 88,
+        "peak": 28
+      }
+    },
+    "2026-02-14": {
+      "resting": 58,
+      "avg": 88,
+      "max": 155,
+      "zones": {
+        "rest": 661,
+        "fat_burn": 168,
+        "cardio": 43,
+        "peak": 17
+      }
+    },
+    "2026-02-13": {
+      "resting": 59,
+      "avg": 83,
+      "max": 162,
+      "zones": {
+        "rest": 693,
+        "fat_burn": 160,
+        "cardio": 64,
+        "peak": 25
+      }
+    },
+    "2026-02-12": {
+      "resting": 65,
+      "avg": 85,
+      "max": 160,
+      "zones": {
+        "rest": 599,
+        "fat_burn": 177,
+        "cardio": 64,
+        "peak": 3
+      }
+    },
+    "2026-02-11": {
+      "resting": 57,
+      "avg": 89,
+      "max": 162,
+      "zones": {
+        "rest": 573,
+        "fat_burn": 133,
+        "cardio": 48,
+        "peak": 1
+      }
+    },
+    "2026-02-10": {
+      "resting": 56,
+      "avg": 74,
+      "max": 134,
+      "zones": {
+        "rest": 782,
+        "fat_burn": 168,
+        "cardio": 88,
+        "peak": 16
+      }
+    },
+    "2026-02-09": {
+      "resting": 65,
+      "avg": 74,
+      "max": 173,
+      "zones": {
+        "rest": 506,
+        "fat_burn": 141,
+        "cardio": 50,
+        "peak": 19
+      }
+    },
+    "2026-02-08": {
+      "resting": 62,
+      "avg": 90,
+      "max": 155,
+      "zones": {
+        "rest": 620,
+        "fat_burn": 173,
+        "cardio": 80,
+        "peak": 19
+      }
+    },
+    "2026-02-07": {
+      "resting": 65,
+      "avg": 76,
+      "max": 157,
+      "zones": {
+        "rest": 533,
+        "fat_burn": 111,
+        "cardio": 31,
+        "peak": 10
+      }
+    },
+    "2026-02-06": {
+      "resting": 62,
+      "avg": 83,
+      "max": 180,
+      "zones": {
+        "rest": 753,
+        "fat_burn": 88,
+        "cardio": 71,
+        "peak": 20
+      }
+    },
+    "2026-02-05": {
       "resting": 60,
       "avg": 85,
-      "max": 165,
+      "max": 142,
       "zones": {
-        "rest": 600,
-        "fat_burn": 180,
-        "cardio": 75,
-        "peak": 15
+        "rest": 690,
+        "fat_burn": 183,
+        "cardio": 54,
+        "peak": 10
       }
     },
-    "2026-02-19": {
-      "resting": 62,
-      "avg": 80,
-      "max": 152,
+    "2026-02-04": {
+      "resting": 60,
+      "avg": 88,
+      "max": 175,
       "zones": {
-        "rest": 660,
-        "fat_burn": 140,
-        "cardio": 50,
+        "rest": 688,
+        "fat_burn": 128,
+        "cardio": 93,
+        "peak": 13
+      }
+    },
+    "2026-02-03": {
+      "resting": 59,
+      "avg": 76,
+      "max": 141,
+      "zones": {
+        "rest": 601,
+        "fat_burn": 109,
+        "cardio": 80,
         "peak": 8
       }
     },
-    "2026-02-20": {
+    "2026-02-02": {
+      "resting": 58,
+      "avg": 92,
+      "max": 180,
+      "zones": {
+        "rest": 674,
+        "fat_burn": 120,
+        "cardio": 78,
+        "peak": 4
+      }
+    },
+    "2026-02-01": {
+      "resting": 67,
+      "avg": 83,
+      "max": 157,
+      "zones": {
+        "rest": 596,
+        "fat_burn": 86,
+        "cardio": 45,
+        "peak": 27
+      }
+    },
+    "2026-01-31": {
+      "resting": 64,
+      "avg": 94,
+      "max": 162,
+      "zones": {
+        "rest": 759,
+        "fat_burn": 141,
+        "cardio": 58,
+        "peak": 11
+      }
+    },
+    "2026-01-30": {
+      "resting": 62,
+      "avg": 90,
+      "max": 140,
+      "zones": {
+        "rest": 726,
+        "fat_burn": 107,
+        "cardio": 41,
+        "peak": 17
+      }
+    },
+    "2026-01-29": {
+      "resting": 58,
+      "avg": 89,
+      "max": 142,
+      "zones": {
+        "rest": 612,
+        "fat_burn": 172,
+        "cardio": 79,
+        "peak": 14
+      }
+    },
+    "2026-01-28": {
+      "resting": 61,
+      "avg": 79,
+      "max": 141,
+      "zones": {
+        "rest": 774,
+        "fat_burn": 168,
+        "cardio": 41,
+        "peak": 21
+      }
+    },
+    "2026-01-27": {
+      "resting": 66,
+      "avg": 82,
+      "max": 140,
+      "zones": {
+        "rest": 681,
+        "fat_burn": 123,
+        "cardio": 63,
+        "peak": 29
+      }
+    },
+    "2026-01-26": {
+      "resting": 67,
+      "avg": 92,
+      "max": 173,
+      "zones": {
+        "rest": 687,
+        "fat_burn": 99,
+        "cardio": 26,
+        "peak": 2
+      }
+    },
+    "2026-01-25": {
+      "resting": 61,
+      "avg": 87,
+      "max": 178,
+      "zones": {
+        "rest": 707,
+        "fat_burn": 129,
+        "cardio": 62,
+        "peak": 23
+      }
+    },
+    "2026-01-24": {
+      "resting": 65,
+      "avg": 93,
+      "max": 176,
+      "zones": {
+        "rest": 702,
+        "fat_burn": 93,
+        "cardio": 57,
+        "peak": 26
+      }
+    },
+    "2026-01-23": {
+      "resting": 64,
+      "avg": 85,
+      "max": 133,
+      "zones": {
+        "rest": 628,
+        "fat_burn": 149,
+        "cardio": 88,
+        "peak": 10
+      }
+    },
+    "2026-01-22": {
+      "resting": 63,
+      "avg": 82,
+      "max": 151,
+      "zones": {
+        "rest": 661,
+        "fat_burn": 186,
+        "cardio": 70,
+        "peak": 9
+      }
+    },
+    "2026-01-21": {
       "resting": 61,
       "avg": 83,
+      "max": 134,
+      "zones": {
+        "rest": 544,
+        "fat_burn": 143,
+        "cardio": 51,
+        "peak": 13
+      }
+    },
+    "2026-01-20": {
+      "resting": 65,
+      "avg": 92,
+      "max": 173,
+      "zones": {
+        "rest": 674,
+        "fat_burn": 135,
+        "cardio": 36,
+        "peak": 7
+      }
+    },
+    "2026-01-19": {
+      "resting": 64,
+      "avg": 86,
+      "max": 152,
+      "zones": {
+        "rest": 593,
+        "fat_burn": 194,
+        "cardio": 77,
+        "peak": 22
+      }
+    },
+    "2026-01-18": {
+      "resting": 70,
+      "avg": 82,
+      "max": 164,
+      "zones": {
+        "rest": 598,
+        "fat_burn": 152,
+        "cardio": 34,
+        "peak": 25
+      }
+    },
+    "2026-01-17": {
+      "resting": 60,
+      "avg": 71,
+      "max": 133,
+      "zones": {
+        "rest": 715,
+        "fat_burn": 127,
+        "cardio": 31,
+        "peak": 2
+      }
+    },
+    "2026-01-16": {
+      "resting": 55,
+      "avg": 93,
+      "max": 147,
+      "zones": {
+        "rest": 767,
+        "fat_burn": 169,
+        "cardio": 56,
+        "peak": 5
+      }
+    },
+    "2026-01-15": {
+      "resting": 70,
+      "avg": 82,
       "max": 160,
       "zones": {
-        "rest": 620,
-        "fat_burn": 165,
-        "cardio": 68,
+        "rest": 538,
+        "fat_burn": 120,
+        "cardio": 66,
+        "peak": 19
+      }
+    },
+    "2026-01-14": {
+      "resting": 69,
+      "avg": 79,
+      "max": 144,
+      "zones": {
+        "rest": 779,
+        "fat_burn": 147,
+        "cardio": 58,
+        "peak": 28
+      }
+    },
+    "2026-01-13": {
+      "resting": 62,
+      "avg": 94,
+      "max": 156,
+      "zones": {
+        "rest": 733,
+        "fat_burn": 151,
+        "cardio": 80,
+        "peak": 22
+      }
+    },
+    "2026-01-12": {
+      "resting": 59,
+      "avg": 74,
+      "max": 139,
+      "zones": {
+        "rest": 660,
+        "fat_burn": 128,
+        "cardio": 82,
+        "peak": 25
+      }
+    },
+    "2026-01-11": {
+      "resting": 64,
+      "avg": 92,
+      "max": 153,
+      "zones": {
+        "rest": 688,
+        "fat_burn": 88,
+        "cardio": 37,
+        "peak": 17
+      }
+    },
+    "2026-01-10": {
+      "resting": 65,
+      "avg": 80,
+      "max": 135,
+      "zones": {
+        "rest": 741,
+        "fat_burn": 82,
+        "cardio": 43,
+        "peak": 20
+      }
+    },
+    "2026-01-09": {
+      "resting": 68,
+      "avg": 90,
+      "max": 177,
+      "zones": {
+        "rest": 549,
+        "fat_burn": 168,
+        "cardio": 79,
+        "peak": 6
+      }
+    },
+    "2026-01-08": {
+      "resting": 58,
+      "avg": 76,
+      "max": 154,
+      "zones": {
+        "rest": 515,
+        "fat_burn": 184,
+        "cardio": 65,
+        "peak": 1
+      }
+    },
+    "2026-01-07": {
+      "resting": 63,
+      "avg": 95,
+      "max": 179,
+      "zones": {
+        "rest": 523,
+        "fat_burn": 88,
+        "cardio": 41,
+        "peak": 15
+      }
+    },
+    "2026-01-06": {
+      "resting": 62,
+      "avg": 76,
+      "max": 157,
+      "zones": {
+        "rest": 669,
+        "fat_burn": 142,
+        "cardio": 41,
+        "peak": 8
+      }
+    },
+    "2026-01-05": {
+      "resting": 70,
+      "avg": 92,
+      "max": 172,
+      "zones": {
+        "rest": 610,
+        "fat_burn": 105,
+        "cardio": 95,
         "peak": 12
       }
     },
-    "2026-02-21": {
+    "2026-01-04": {
+      "resting": 59,
+      "avg": 82,
+      "max": 167,
+      "zones": {
+        "rest": 687,
+        "fat_burn": 112,
+        "cardio": 65,
+        "peak": 2
+      }
+    },
+    "2026-01-03": {
+      "resting": 70,
+      "avg": 77,
+      "max": 163,
+      "zones": {
+        "rest": 714,
+        "fat_burn": 126,
+        "cardio": 69,
+        "peak": 2
+      }
+    },
+    "2026-01-02": {
+      "resting": 69,
+      "avg": 94,
+      "max": 178,
+      "zones": {
+        "rest": 735,
+        "fat_burn": 82,
+        "cardio": 72,
+        "peak": 10
+      }
+    },
+    "2026-01-01": {
+      "resting": 64,
+      "avg": 85,
+      "max": 153,
+      "zones": {
+        "rest": 659,
+        "fat_burn": 140,
+        "cardio": 24,
+        "peak": 23
+      }
+    },
+    "2025-12-31": {
+      "resting": 59,
+      "avg": 74,
+      "max": 146,
+      "zones": {
+        "rest": 719,
+        "fat_burn": 195,
+        "cardio": 40,
+        "peak": 28
+      }
+    },
+    "2025-12-30": {
+      "resting": 58,
+      "avg": 71,
+      "max": 144,
+      "zones": {
+        "rest": 617,
+        "fat_burn": 162,
+        "cardio": 50,
+        "peak": 11
+      }
+    },
+    "2025-12-29": {
+      "resting": 64,
+      "avg": 90,
+      "max": 140,
+      "zones": {
+        "rest": 737,
+        "fat_burn": 147,
+        "cardio": 85,
+        "peak": 8
+      }
+    },
+    "2025-12-28": {
+      "resting": 62,
+      "avg": 94,
+      "max": 145,
+      "zones": {
+        "rest": 710,
+        "fat_burn": 83,
+        "cardio": 76,
+        "peak": 29
+      }
+    },
+    "2025-12-27": {
+      "resting": 61,
+      "avg": 91,
+      "max": 154,
+      "zones": {
+        "rest": 635,
+        "fat_burn": 145,
+        "cardio": 63,
+        "peak": 11
+      }
+    },
+    "2025-12-26": {
+      "resting": 70,
+      "avg": 71,
+      "max": 167,
+      "zones": {
+        "rest": 724,
+        "fat_burn": 183,
+        "cardio": 63,
+        "peak": 17
+      }
+    },
+    "2025-12-25": {
+      "resting": 62,
+      "avg": 93,
+      "max": 141,
+      "zones": {
+        "rest": 605,
+        "fat_burn": 103,
+        "cardio": 22,
+        "peak": 3
+      }
+    },
+    "2025-12-24": {
+      "resting": 60,
+      "avg": 79,
+      "max": 134,
+      "zones": {
+        "rest": 695,
+        "fat_burn": 120,
+        "cardio": 65,
+        "peak": 13
+      }
+    },
+    "2025-12-23": {
+      "resting": 69,
+      "avg": 85,
+      "max": 133,
+      "zones": {
+        "rest": 524,
+        "fat_burn": 109,
+        "cardio": 51,
+        "peak": 13
+      }
+    },
+    "2025-12-22": {
+      "resting": 58,
+      "avg": 77,
+      "max": 130,
+      "zones": {
+        "rest": 616,
+        "fat_burn": 87,
+        "cardio": 77,
+        "peak": 14
+      }
+    },
+    "2025-12-21": {
+      "resting": 64,
+      "avg": 90,
+      "max": 153,
+      "zones": {
+        "rest": 547,
+        "fat_burn": 93,
+        "cardio": 40,
+        "peak": 0
+      }
+    },
+    "2025-12-20": {
+      "resting": 59,
+      "avg": 90,
+      "max": 156,
+      "zones": {
+        "rest": 614,
+        "fat_burn": 89,
+        "cardio": 38,
+        "peak": 20
+      }
+    },
+    "2025-12-19": {
+      "resting": 67,
+      "avg": 81,
+      "max": 156,
+      "zones": {
+        "rest": 586,
+        "fat_burn": 178,
+        "cardio": 57,
+        "peak": 16
+      }
+    },
+    "2025-12-18": {
+      "resting": 59,
+      "avg": 83,
+      "max": 154,
+      "zones": {
+        "rest": 512,
+        "fat_burn": 103,
+        "cardio": 100,
+        "peak": 24
+      }
+    },
+    "2025-12-17": {
+      "resting": 58,
+      "avg": 92,
+      "max": 136,
+      "zones": {
+        "rest": 583,
+        "fat_burn": 134,
+        "cardio": 49,
+        "peak": 1
+      }
+    },
+    "2025-12-16": {
+      "resting": 70,
+      "avg": 78,
+      "max": 160,
+      "zones": {
+        "rest": 642,
+        "fat_burn": 172,
+        "cardio": 82,
+        "peak": 11
+      }
+    },
+    "2025-12-15": {
+      "resting": 64,
+      "avg": 87,
+      "max": 133,
+      "zones": {
+        "rest": 771,
+        "fat_burn": 131,
+        "cardio": 23,
+        "peak": 8
+      }
+    },
+    "2025-12-14": {
+      "resting": 56,
+      "avg": 85,
+      "max": 171,
+      "zones": {
+        "rest": 752,
+        "fat_burn": 92,
+        "cardio": 72,
+        "peak": 18
+      }
+    },
+    "2025-12-13": {
+      "resting": 62,
+      "avg": 88,
+      "max": 135,
+      "zones": {
+        "rest": 702,
+        "fat_burn": 176,
+        "cardio": 60,
+        "peak": 24
+      }
+    },
+    "2025-12-12": {
+      "resting": 57,
+      "avg": 92,
+      "max": 144,
+      "zones": {
+        "rest": 718,
+        "fat_burn": 90,
+        "cardio": 32,
+        "peak": 11
+      }
+    },
+    "2025-12-11": {
+      "resting": 65,
+      "avg": 88,
+      "max": 171,
+      "zones": {
+        "rest": 635,
+        "fat_burn": 91,
+        "cardio": 51,
+        "peak": 16
+      }
+    },
+    "2025-12-10": {
       "resting": 59,
       "avg": 88,
-      "max": 172,
+      "max": 147,
+      "zones": {
+        "rest": 599,
+        "fat_burn": 160,
+        "cardio": 64,
+        "peak": 24
+      }
+    },
+    "2025-12-09": {
+      "resting": 58,
+      "avg": 89,
+      "max": 156,
+      "zones": {
+        "rest": 784,
+        "fat_burn": 162,
+        "cardio": 53,
+        "peak": 1
+      }
+    },
+    "2025-12-08": {
+      "resting": 64,
+      "avg": 75,
+      "max": 165,
+      "zones": {
+        "rest": 635,
+        "fat_burn": 103,
+        "cardio": 35,
+        "peak": 17
+      }
+    },
+    "2025-12-07": {
+      "resting": 68,
+      "avg": 85,
+      "max": 136,
+      "zones": {
+        "rest": 607,
+        "fat_burn": 158,
+        "cardio": 37,
+        "peak": 14
+      }
+    },
+    "2025-12-06": {
+      "resting": 70,
+      "avg": 79,
+      "max": 150,
+      "zones": {
+        "rest": 629,
+        "fat_burn": 119,
+        "cardio": 97,
+        "peak": 11
+      }
+    },
+    "2025-12-05": {
+      "resting": 55,
+      "avg": 76,
+      "max": 134,
+      "zones": {
+        "rest": 618,
+        "fat_burn": 95,
+        "cardio": 34,
+        "peak": 11
+      }
+    },
+    "2025-12-04": {
+      "resting": 61,
+      "avg": 85,
+      "max": 163,
       "zones": {
         "rest": 580,
+        "fat_burn": 176,
+        "cardio": 93,
+        "peak": 16
+      }
+    },
+    "2025-12-03": {
+      "resting": 64,
+      "avg": 76,
+      "max": 171,
+      "zones": {
+        "rest": 798,
+        "fat_burn": 128,
+        "cardio": 58,
+        "peak": 15
+      }
+    },
+    "2025-12-02": {
+      "resting": 55,
+      "avg": 78,
+      "max": 164,
+      "zones": {
+        "rest": 723,
+        "fat_burn": 169,
+        "cardio": 65,
+        "peak": 11
+      }
+    },
+    "2025-12-01": {
+      "resting": 60,
+      "avg": 80,
+      "max": 142,
+      "zones": {
+        "rest": 766,
+        "fat_burn": 158,
+        "cardio": 80,
+        "peak": 15
+      }
+    },
+    "2025-11-30": {
+      "resting": 65,
+      "avg": 90,
+      "max": 173,
+      "zones": {
+        "rest": 684,
+        "fat_burn": 124,
+        "cardio": 43,
+        "peak": 21
+      }
+    },
+    "2025-11-29": {
+      "resting": 67,
+      "avg": 78,
+      "max": 166,
+      "zones": {
+        "rest": 723,
+        "fat_burn": 169,
+        "cardio": 44,
+        "peak": 11
+      }
+    },
+    "2025-11-28": {
+      "resting": 55,
+      "avg": 83,
+      "max": 165,
+      "zones": {
+        "rest": 661,
+        "fat_burn": 155,
+        "cardio": 41,
+        "peak": 4
+      }
+    },
+    "2025-11-27": {
+      "resting": 60,
+      "avg": 76,
+      "max": 177,
+      "zones": {
+        "rest": 647,
+        "fat_burn": 182,
+        "cardio": 64,
+        "peak": 12
+      }
+    },
+    "2025-11-26": {
+      "resting": 62,
+      "avg": 90,
+      "max": 168,
+      "zones": {
+        "rest": 663,
+        "fat_burn": 185,
+        "cardio": 39,
+        "peak": 16
+      }
+    },
+    "2025-11-25": {
+      "resting": 67,
+      "avg": 92,
+      "max": 144,
+      "zones": {
+        "rest": 647,
+        "fat_burn": 179,
+        "cardio": 32,
+        "peak": 15
+      }
+    },
+    "2025-11-24": {
+      "resting": 62,
+      "avg": 70,
+      "max": 154,
+      "zones": {
+        "rest": 752,
+        "fat_burn": 150,
+        "cardio": 49,
+        "peak": 5
+      }
+    },
+    "2025-11-23": {
+      "resting": 61,
+      "avg": 78,
+      "max": 138,
+      "zones": {
+        "rest": 529,
+        "fat_burn": 177,
+        "cardio": 22,
+        "peak": 20
+      }
+    },
+    "2025-11-22": {
+      "resting": 67,
+      "avg": 76,
+      "max": 166,
+      "zones": {
+        "rest": 581,
+        "fat_burn": 145,
+        "cardio": 60,
+        "peak": 0
+      }
+    },
+    "2025-11-21": {
+      "resting": 64,
+      "avg": 71,
+      "max": 154,
+      "zones": {
+        "rest": 781,
+        "fat_burn": 100,
+        "cardio": 93,
+        "peak": 14
+      }
+    },
+    "2025-11-20": {
+      "resting": 64,
+      "avg": 81,
+      "max": 145,
+      "zones": {
+        "rest": 666,
+        "fat_burn": 191,
+        "cardio": 26,
+        "peak": 6
+      }
+    },
+    "2025-11-19": {
+      "resting": 63,
+      "avg": 86,
+      "max": 160,
+      "zones": {
+        "rest": 591,
+        "fat_burn": 104,
+        "cardio": 37,
+        "peak": 1
+      }
+    },
+    "2025-11-18": {
+      "resting": 67,
+      "avg": 84,
+      "max": 174,
+      "zones": {
+        "rest": 538,
+        "fat_burn": 90,
+        "cardio": 61,
+        "peak": 26
+      }
+    },
+    "2025-11-17": {
+      "resting": 57,
+      "avg": 90,
+      "max": 163,
+      "zones": {
+        "rest": 525,
+        "fat_burn": 141,
+        "cardio": 73,
+        "peak": 3
+      }
+    },
+    "2025-11-16": {
+      "resting": 64,
+      "avg": 80,
+      "max": 148,
+      "zones": {
+        "rest": 583,
+        "fat_burn": 172,
+        "cardio": 76,
+        "peak": 20
+      }
+    },
+    "2025-11-15": {
+      "resting": 55,
+      "avg": 79,
+      "max": 151,
+      "zones": {
+        "rest": 760,
+        "fat_burn": 197,
+        "cardio": 96,
+        "peak": 9
+      }
+    },
+    "2025-11-14": {
+      "resting": 66,
+      "avg": 79,
+      "max": 141,
+      "zones": {
+        "rest": 642,
+        "fat_burn": 150,
+        "cardio": 99,
+        "peak": 28
+      }
+    },
+    "2025-11-13": {
+      "resting": 59,
+      "avg": 78,
+      "max": 177,
+      "zones": {
+        "rest": 517,
+        "fat_burn": 164,
+        "cardio": 34,
+        "peak": 25
+      }
+    },
+    "2025-11-12": {
+      "resting": 61,
+      "avg": 89,
+      "max": 141,
+      "zones": {
+        "rest": 712,
+        "fat_burn": 184,
+        "cardio": 45,
+        "peak": 0
+      }
+    },
+    "2025-11-11": {
+      "resting": 70,
+      "avg": 80,
+      "max": 172,
+      "zones": {
+        "rest": 745,
+        "fat_burn": 179,
+        "cardio": 49,
+        "peak": 4
+      }
+    },
+    "2025-11-10": {
+      "resting": 57,
+      "avg": 74,
+      "max": 142,
+      "zones": {
+        "rest": 667,
+        "fat_burn": 153,
+        "cardio": 63,
+        "peak": 26
+      }
+    },
+    "2025-11-09": {
+      "resting": 57,
+      "avg": 78,
+      "max": 177,
+      "zones": {
+        "rest": 572,
+        "fat_burn": 142,
+        "cardio": 26,
+        "peak": 11
+      }
+    },
+    "2025-11-08": {
+      "resting": 66,
+      "avg": 78,
+      "max": 140,
+      "zones": {
+        "rest": 571,
+        "fat_burn": 178,
+        "cardio": 38,
+        "peak": 2
+      }
+    },
+    "2025-11-07": {
+      "resting": 55,
+      "avg": 95,
+      "max": 149,
+      "zones": {
+        "rest": 652,
+        "fat_burn": 151,
+        "cardio": 78,
+        "peak": 23
+      }
+    },
+    "2025-11-06": {
+      "resting": 56,
+      "avg": 95,
+      "max": 171,
+      "zones": {
+        "rest": 794,
+        "fat_burn": 179,
+        "cardio": 28,
+        "peak": 17
+      }
+    },
+    "2025-11-05": {
+      "resting": 67,
+      "avg": 89,
+      "max": 172,
+      "zones": {
+        "rest": 708,
+        "fat_burn": 132,
+        "cardio": 31,
+        "peak": 17
+      }
+    },
+    "2025-11-04": {
+      "resting": 66,
+      "avg": 81,
+      "max": 169,
+      "zones": {
+        "rest": 578,
+        "fat_burn": 166,
+        "cardio": 24,
+        "peak": 24
+      }
+    },
+    "2025-11-03": {
+      "resting": 67,
+      "avg": 82,
+      "max": 174,
+      "zones": {
+        "rest": 640,
+        "fat_burn": 167,
+        "cardio": 99,
+        "peak": 3
+      }
+    },
+    "2025-11-02": {
+      "resting": 65,
+      "avg": 74,
+      "max": 150,
+      "zones": {
+        "rest": 647,
+        "fat_burn": 173,
+        "cardio": 72,
+        "peak": 16
+      }
+    },
+    "2025-11-01": {
+      "resting": 57,
+      "avg": 81,
+      "max": 171,
+      "zones": {
+        "rest": 769,
+        "fat_burn": 115,
+        "cardio": 35,
+        "peak": 12
+      }
+    },
+    "2025-10-31": {
+      "resting": 61,
+      "avg": 75,
+      "max": 143,
+      "zones": {
+        "rest": 578,
+        "fat_burn": 168,
+        "cardio": 90,
+        "peak": 11
+      }
+    },
+    "2025-10-30": {
+      "resting": 58,
+      "avg": 77,
+      "max": 162,
+      "zones": {
+        "rest": 518,
         "fat_burn": 200,
+        "cardio": 68,
+        "peak": 17
+      }
+    },
+    "2025-10-29": {
+      "resting": 65,
+      "avg": 71,
+      "max": 137,
+      "zones": {
+        "rest": 537,
+        "fat_burn": 110,
+        "cardio": 80,
+        "peak": 8
+      }
+    },
+    "2025-10-28": {
+      "resting": 63,
+      "avg": 71,
+      "max": 132,
+      "zones": {
+        "rest": 787,
+        "fat_burn": 102,
+        "cardio": 38,
+        "peak": 28
+      }
+    },
+    "2025-10-27": {
+      "resting": 59,
+      "avg": 80,
+      "max": 130,
+      "zones": {
+        "rest": 678,
+        "fat_burn": 125,
+        "cardio": 78,
+        "peak": 1
+      }
+    },
+    "2025-10-26": {
+      "resting": 58,
+      "avg": 72,
+      "max": 135,
+      "zones": {
+        "rest": 758,
+        "fat_burn": 126,
+        "cardio": 67,
+        "peak": 26
+      }
+    },
+    "2025-10-25": {
+      "resting": 63,
+      "avg": 84,
+      "max": 153,
+      "zones": {
+        "rest": 562,
+        "fat_burn": 174,
+        "cardio": 54,
+        "peak": 16
+      }
+    },
+    "2025-10-24": {
+      "resting": 60,
+      "avg": 92,
+      "max": 135,
+      "zones": {
+        "rest": 573,
+        "fat_burn": 114,
+        "cardio": 93,
+        "peak": 5
+      }
+    },
+    "2025-10-23": {
+      "resting": 65,
+      "avg": 84,
+      "max": 161,
+      "zones": {
+        "rest": 578,
+        "fat_burn": 92,
+        "cardio": 24,
+        "peak": 14
+      }
+    },
+    "2025-10-22": {
+      "resting": 56,
+      "avg": 76,
+      "max": 179,
+      "zones": {
+        "rest": 773,
+        "fat_burn": 148,
+        "cardio": 63,
+        "peak": 24
+      }
+    },
+    "2025-10-21": {
+      "resting": 59,
+      "avg": 82,
+      "max": 172,
+      "zones": {
+        "rest": 534,
+        "fat_burn": 97,
+        "cardio": 76,
+        "peak": 8
+      }
+    },
+    "2025-10-20": {
+      "resting": 67,
+      "avg": 71,
+      "max": 170,
+      "zones": {
+        "rest": 727,
+        "fat_burn": 102,
+        "cardio": 84,
+        "peak": 2
+      }
+    },
+    "2025-10-19": {
+      "resting": 56,
+      "avg": 80,
+      "max": 164,
+      "zones": {
+        "rest": 720,
+        "fat_burn": 155,
+        "cardio": 64,
+        "peak": 15
+      }
+    },
+    "2025-10-18": {
+      "resting": 58,
+      "avg": 82,
+      "max": 171,
+      "zones": {
+        "rest": 619,
+        "fat_burn": 123,
+        "cardio": 33,
+        "peak": 24
+      }
+    },
+    "2025-10-17": {
+      "resting": 57,
+      "avg": 93,
+      "max": 165,
+      "zones": {
+        "rest": 765,
+        "fat_burn": 135,
+        "cardio": 37,
+        "peak": 20
+      }
+    },
+    "2025-10-16": {
+      "resting": 59,
+      "avg": 80,
+      "max": 139,
+      "zones": {
+        "rest": 563,
+        "fat_burn": 97,
+        "cardio": 53,
+        "peak": 6
+      }
+    },
+    "2025-10-15": {
+      "resting": 64,
+      "avg": 94,
+      "max": 137,
+      "zones": {
+        "rest": 518,
+        "fat_burn": 179,
+        "cardio": 57,
+        "peak": 10
+      }
+    },
+    "2025-10-14": {
+      "resting": 60,
+      "avg": 86,
+      "max": 152,
+      "zones": {
+        "rest": 784,
+        "fat_burn": 185,
+        "cardio": 26,
+        "peak": 25
+      }
+    },
+    "2025-10-13": {
+      "resting": 55,
+      "avg": 73,
+      "max": 149,
+      "zones": {
+        "rest": 533,
+        "fat_burn": 149,
+        "cardio": 96,
+        "peak": 17
+      }
+    },
+    "2025-10-12": {
+      "resting": 56,
+      "avg": 92,
+      "max": 139,
+      "zones": {
+        "rest": 616,
+        "fat_burn": 187,
+        "cardio": 51,
+        "peak": 8
+      }
+    },
+    "2025-10-11": {
+      "resting": 57,
+      "avg": 81,
+      "max": 165,
+      "zones": {
+        "rest": 756,
+        "fat_burn": 130,
+        "cardio": 86,
+        "peak": 5
+      }
+    },
+    "2025-10-10": {
+      "resting": 66,
+      "avg": 85,
+      "max": 174,
+      "zones": {
+        "rest": 680,
+        "fat_burn": 173,
+        "cardio": 60,
+        "peak": 18
+      }
+    },
+    "2025-10-09": {
+      "resting": 60,
+      "avg": 91,
+      "max": 152,
+      "zones": {
+        "rest": 564,
+        "fat_burn": 112,
+        "cardio": 67,
+        "peak": 5
+      }
+    },
+    "2025-10-08": {
+      "resting": 67,
+      "avg": 76,
+      "max": 169,
+      "zones": {
+        "rest": 525,
+        "fat_burn": 101,
+        "cardio": 66,
+        "peak": 24
+      }
+    },
+    "2025-10-07": {
+      "resting": 60,
+      "avg": 94,
+      "max": 180,
+      "zones": {
+        "rest": 597,
+        "fat_burn": 104,
+        "cardio": 84,
+        "peak": 12
+      }
+    },
+    "2025-10-06": {
+      "resting": 69,
+      "avg": 76,
+      "max": 147,
+      "zones": {
+        "rest": 669,
+        "fat_burn": 98,
+        "cardio": 26,
+        "peak": 5
+      }
+    },
+    "2025-10-05": {
+      "resting": 56,
+      "avg": 72,
+      "max": 176,
+      "zones": {
+        "rest": 535,
+        "fat_burn": 137,
+        "cardio": 91,
+        "peak": 16
+      }
+    },
+    "2025-10-04": {
+      "resting": 56,
+      "avg": 74,
+      "max": 133,
+      "zones": {
+        "rest": 695,
+        "fat_burn": 81,
+        "cardio": 87,
+        "peak": 0
+      }
+    },
+    "2025-10-03": {
+      "resting": 58,
+      "avg": 82,
+      "max": 148,
+      "zones": {
+        "rest": 662,
+        "fat_burn": 106,
+        "cardio": 27,
+        "peak": 11
+      }
+    },
+    "2025-10-02": {
+      "resting": 63,
+      "avg": 78,
+      "max": 166,
+      "zones": {
+        "rest": 774,
+        "fat_burn": 150,
+        "cardio": 57,
+        "peak": 18
+      }
+    },
+    "2025-10-01": {
+      "resting": 55,
+      "avg": 71,
+      "max": 178,
+      "zones": {
+        "rest": 682,
+        "fat_burn": 178,
+        "cardio": 74,
+        "peak": 0
+      }
+    },
+    "2025-09-30": {
+      "resting": 58,
+      "avg": 92,
+      "max": 179,
+      "zones": {
+        "rest": 571,
+        "fat_burn": 86,
+        "cardio": 41,
+        "peak": 5
+      }
+    },
+    "2025-09-29": {
+      "resting": 62,
+      "avg": 86,
+      "max": 149,
+      "zones": {
+        "rest": 678,
+        "fat_burn": 90,
+        "cardio": 26,
+        "peak": 4
+      }
+    },
+    "2025-09-28": {
+      "resting": 69,
+      "avg": 79,
+      "max": 138,
+      "zones": {
+        "rest": 695,
+        "fat_burn": 181,
+        "cardio": 89,
+        "peak": 10
+      }
+    },
+    "2025-09-27": {
+      "resting": 57,
+      "avg": 76,
+      "max": 163,
+      "zones": {
+        "rest": 751,
+        "fat_burn": 167,
+        "cardio": 35,
+        "peak": 0
+      }
+    },
+    "2025-09-26": {
+      "resting": 61,
+      "avg": 71,
+      "max": 139,
+      "zones": {
+        "rest": 775,
+        "fat_burn": 158,
+        "cardio": 40,
+        "peak": 30
+      }
+    },
+    "2025-09-25": {
+      "resting": 58,
+      "avg": 94,
+      "max": 163,
+      "zones": {
+        "rest": 713,
+        "fat_burn": 139,
+        "cardio": 67,
+        "peak": 0
+      }
+    },
+    "2025-09-24": {
+      "resting": 70,
+      "avg": 71,
+      "max": 174,
+      "zones": {
+        "rest": 603,
+        "fat_burn": 198,
+        "cardio": 83,
+        "peak": 29
+      }
+    },
+    "2025-09-23": {
+      "resting": 62,
+      "avg": 95,
+      "max": 131,
+      "zones": {
+        "rest": 569,
+        "fat_burn": 150,
+        "cardio": 65,
+        "peak": 26
+      }
+    },
+    "2025-09-22": {
+      "resting": 61,
+      "avg": 84,
+      "max": 172,
+      "zones": {
+        "rest": 744,
+        "fat_burn": 157,
+        "cardio": 92,
+        "peak": 13
+      }
+    },
+    "2025-09-21": {
+      "resting": 63,
+      "avg": 78,
+      "max": 137,
+      "zones": {
+        "rest": 527,
+        "fat_burn": 193,
+        "cardio": 80,
+        "peak": 26
+      }
+    },
+    "2025-09-20": {
+      "resting": 62,
+      "avg": 76,
+      "max": 166,
+      "zones": {
+        "rest": 730,
+        "fat_burn": 103,
+        "cardio": 48,
+        "peak": 12
+      }
+    },
+    "2025-09-19": {
+      "resting": 68,
+      "avg": 75,
+      "max": 143,
+      "zones": {
+        "rest": 561,
+        "fat_burn": 85,
+        "cardio": 41,
+        "peak": 2
+      }
+    },
+    "2025-09-18": {
+      "resting": 58,
+      "avg": 77,
+      "max": 173,
+      "zones": {
+        "rest": 586,
+        "fat_burn": 118,
+        "cardio": 78,
+        "peak": 25
+      }
+    },
+    "2025-09-17": {
+      "resting": 67,
+      "avg": 90,
+      "max": 132,
+      "zones": {
+        "rest": 554,
+        "fat_burn": 142,
+        "cardio": 91,
+        "peak": 25
+      }
+    },
+    "2025-09-16": {
+      "resting": 57,
+      "avg": 90,
+      "max": 167,
+      "zones": {
+        "rest": 735,
+        "fat_burn": 101,
+        "cardio": 35,
+        "peak": 8
+      }
+    },
+    "2025-09-15": {
+      "resting": 57,
+      "avg": 90,
+      "max": 168,
+      "zones": {
+        "rest": 777,
+        "fat_burn": 186,
+        "cardio": 29,
+        "peak": 18
+      }
+    },
+    "2025-09-14": {
+      "resting": 61,
+      "avg": 79,
+      "max": 174,
+      "zones": {
+        "rest": 549,
+        "fat_burn": 89,
+        "cardio": 61,
+        "peak": 13
+      }
+    },
+    "2025-09-13": {
+      "resting": 58,
+      "avg": 84,
+      "max": 178,
+      "zones": {
+        "rest": 583,
+        "fat_burn": 159,
+        "cardio": 81,
+        "peak": 17
+      }
+    },
+    "2025-09-12": {
+      "resting": 57,
+      "avg": 73,
+      "max": 139,
+      "zones": {
+        "rest": 737,
+        "fat_burn": 159,
+        "cardio": 28,
+        "peak": 28
+      }
+    },
+    "2025-09-11": {
+      "resting": 60,
+      "avg": 84,
+      "max": 134,
+      "zones": {
+        "rest": 633,
+        "fat_burn": 117,
+        "cardio": 85,
+        "peak": 22
+      }
+    },
+    "2025-09-10": {
+      "resting": 56,
+      "avg": 77,
+      "max": 130,
+      "zones": {
+        "rest": 600,
+        "fat_burn": 158,
+        "cardio": 62,
+        "peak": 19
+      }
+    },
+    "2025-09-09": {
+      "resting": 69,
+      "avg": 71,
+      "max": 168,
+      "zones": {
+        "rest": 561,
+        "fat_burn": 99,
+        "cardio": 68,
+        "peak": 28
+      }
+    },
+    "2025-09-08": {
+      "resting": 65,
+      "avg": 92,
+      "max": 146,
+      "zones": {
+        "rest": 591,
+        "fat_burn": 129,
+        "cardio": 33,
+        "peak": 1
+      }
+    },
+    "2025-09-07": {
+      "resting": 66,
+      "avg": 92,
+      "max": 169,
+      "zones": {
+        "rest": 683,
+        "fat_burn": 106,
+        "cardio": 33,
+        "peak": 28
+      }
+    },
+    "2025-09-06": {
+      "resting": 59,
+      "avg": 84,
+      "max": 147,
+      "zones": {
+        "rest": 575,
+        "fat_burn": 147,
+        "cardio": 54,
+        "peak": 21
+      }
+    },
+    "2025-09-05": {
+      "resting": 67,
+      "avg": 70,
+      "max": 148,
+      "zones": {
+        "rest": 756,
+        "fat_burn": 146,
+        "cardio": 20,
+        "peak": 18
+      }
+    },
+    "2025-09-04": {
+      "resting": 58,
+      "avg": 91,
+      "max": 160,
+      "zones": {
+        "rest": 530,
+        "fat_burn": 161,
+        "cardio": 24,
+        "peak": 30
+      }
+    },
+    "2025-09-03": {
+      "resting": 65,
+      "avg": 92,
+      "max": 133,
+      "zones": {
+        "rest": 667,
+        "fat_burn": 189,
+        "cardio": 49,
+        "peak": 28
+      }
+    },
+    "2025-09-02": {
+      "resting": 69,
+      "avg": 95,
+      "max": 176,
+      "zones": {
+        "rest": 607,
+        "fat_burn": 111,
+        "cardio": 41,
+        "peak": 27
+      }
+    },
+    "2025-09-01": {
+      "resting": 70,
+      "avg": 89,
+      "max": 130,
+      "zones": {
+        "rest": 687,
+        "fat_burn": 96,
+        "cardio": 82,
+        "peak": 6
+      }
+    },
+    "2025-08-31": {
+      "resting": 67,
+      "avg": 72,
+      "max": 174,
+      "zones": {
+        "rest": 664,
+        "fat_burn": 96,
+        "cardio": 45,
+        "peak": 2
+      }
+    },
+    "2025-08-30": {
+      "resting": 70,
+      "avg": 78,
+      "max": 136,
+      "zones": {
+        "rest": 647,
+        "fat_burn": 118,
+        "cardio": 82,
+        "peak": 17
+      }
+    },
+    "2025-08-29": {
+      "resting": 68,
+      "avg": 70,
+      "max": 138,
+      "zones": {
+        "rest": 636,
+        "fat_burn": 126,
+        "cardio": 66,
+        "peak": 18
+      }
+    },
+    "2025-08-28": {
+      "resting": 56,
+      "avg": 92,
+      "max": 151,
+      "zones": {
+        "rest": 796,
+        "fat_burn": 94,
+        "cardio": 27,
+        "peak": 4
+      }
+    },
+    "2025-08-27": {
+      "resting": 57,
+      "avg": 93,
+      "max": 144,
+      "zones": {
+        "rest": 679,
+        "fat_burn": 147,
+        "cardio": 50,
+        "peak": 30
+      }
+    },
+    "2025-08-26": {
+      "resting": 58,
+      "avg": 81,
+      "max": 175,
+      "zones": {
+        "rest": 776,
+        "fat_burn": 82,
+        "cardio": 85,
+        "peak": 4
+      }
+    },
+    "2025-08-25": {
+      "resting": 59,
+      "avg": 87,
+      "max": 149,
+      "zones": {
+        "rest": 546,
+        "fat_burn": 159,
+        "cardio": 89,
+        "peak": 26
+      }
+    },
+    "2025-08-24": {
+      "resting": 58,
+      "avg": 76,
+      "max": 141,
+      "zones": {
+        "rest": 708,
+        "fat_burn": 99,
+        "cardio": 73,
+        "peak": 15
+      }
+    },
+    "2025-08-23": {
+      "resting": 58,
+      "avg": 70,
+      "max": 136,
+      "zones": {
+        "rest": 794,
+        "fat_burn": 156,
+        "cardio": 25,
+        "peak": 5
+      }
+    },
+    "2025-08-22": {
+      "resting": 58,
+      "avg": 88,
+      "max": 146,
+      "zones": {
+        "rest": 526,
+        "fat_burn": 81,
+        "cardio": 85,
+        "peak": 9
+      }
+    },
+    "2025-08-21": {
+      "resting": 57,
+      "avg": 79,
+      "max": 140,
+      "zones": {
+        "rest": 618,
+        "fat_burn": 149,
+        "cardio": 98,
+        "peak": 15
+      }
+    },
+    "2025-08-20": {
+      "resting": 61,
+      "avg": 91,
+      "max": 175,
+      "zones": {
+        "rest": 741,
+        "fat_burn": 176,
+        "cardio": 66,
+        "peak": 30
+      }
+    },
+    "2025-08-19": {
+      "resting": 58,
+      "avg": 70,
+      "max": 145,
+      "zones": {
+        "rest": 741,
+        "fat_burn": 154,
+        "cardio": 63,
+        "peak": 10
+      }
+    },
+    "2025-08-18": {
+      "resting": 62,
+      "avg": 93,
+      "max": 176,
+      "zones": {
+        "rest": 599,
+        "fat_burn": 138,
+        "cardio": 23,
+        "peak": 26
+      }
+    },
+    "2025-08-17": {
+      "resting": 67,
+      "avg": 74,
+      "max": 147,
+      "zones": {
+        "rest": 792,
+        "fat_burn": 113,
+        "cardio": 39,
+        "peak": 22
+      }
+    },
+    "2025-08-16": {
+      "resting": 59,
+      "avg": 73,
+      "max": 169,
+      "zones": {
+        "rest": 782,
+        "fat_burn": 127,
+        "cardio": 27,
+        "peak": 29
+      }
+    },
+    "2025-08-15": {
+      "resting": 61,
+      "avg": 83,
+      "max": 170,
+      "zones": {
+        "rest": 643,
+        "fat_burn": 187,
+        "cardio": 40,
+        "peak": 7
+      }
+    },
+    "2025-08-14": {
+      "resting": 58,
+      "avg": 90,
+      "max": 139,
+      "zones": {
+        "rest": 771,
+        "fat_burn": 140,
+        "cardio": 60,
+        "peak": 21
+      }
+    },
+    "2025-08-13": {
+      "resting": 61,
+      "avg": 83,
+      "max": 142,
+      "zones": {
+        "rest": 559,
+        "fat_burn": 150,
+        "cardio": 61,
+        "peak": 8
+      }
+    },
+    "2025-08-12": {
+      "resting": 63,
+      "avg": 90,
+      "max": 138,
+      "zones": {
+        "rest": 797,
+        "fat_burn": 82,
+        "cardio": 59,
+        "peak": 2
+      }
+    },
+    "2025-08-11": {
+      "resting": 70,
+      "avg": 70,
+      "max": 148,
+      "zones": {
+        "rest": 666,
+        "fat_burn": 86,
+        "cardio": 89,
+        "peak": 17
+      }
+    },
+    "2025-08-10": {
+      "resting": 58,
+      "avg": 77,
+      "max": 130,
+      "zones": {
+        "rest": 602,
+        "fat_burn": 116,
+        "cardio": 28,
+        "peak": 24
+      }
+    },
+    "2025-08-09": {
+      "resting": 63,
+      "avg": 90,
+      "max": 176,
+      "zones": {
+        "rest": 739,
+        "fat_burn": 190,
+        "cardio": 73,
+        "peak": 0
+      }
+    },
+    "2025-08-08": {
+      "resting": 64,
+      "avg": 84,
+      "max": 134,
+      "zones": {
+        "rest": 611,
+        "fat_burn": 145,
+        "cardio": 32,
+        "peak": 1
+      }
+    },
+    "2025-08-07": {
+      "resting": 64,
+      "avg": 71,
+      "max": 154,
+      "zones": {
+        "rest": 725,
+        "fat_burn": 200,
+        "cardio": 33,
+        "peak": 10
+      }
+    },
+    "2025-08-06": {
+      "resting": 62,
+      "avg": 93,
+      "max": 141,
+      "zones": {
+        "rest": 527,
+        "fat_burn": 192,
+        "cardio": 69,
+        "peak": 6
+      }
+    },
+    "2025-08-05": {
+      "resting": 57,
+      "avg": 94,
+      "max": 132,
+      "zones": {
+        "rest": 559,
+        "fat_burn": 91,
+        "cardio": 65,
+        "peak": 0
+      }
+    },
+    "2025-08-04": {
+      "resting": 56,
+      "avg": 72,
+      "max": 180,
+      "zones": {
+        "rest": 554,
+        "fat_burn": 101,
+        "cardio": 88,
+        "peak": 21
+      }
+    },
+    "2025-08-03": {
+      "resting": 67,
+      "avg": 75,
+      "max": 149,
+      "zones": {
+        "rest": 658,
+        "fat_burn": 130,
+        "cardio": 81,
+        "peak": 11
+      }
+    },
+    "2025-08-02": {
+      "resting": 61,
+      "avg": 90,
+      "max": 180,
+      "zones": {
+        "rest": 574,
+        "fat_burn": 181,
+        "cardio": 42,
+        "peak": 28
+      }
+    },
+    "2025-08-01": {
+      "resting": 62,
+      "avg": 88,
+      "max": 146,
+      "zones": {
+        "rest": 700,
+        "fat_burn": 109,
+        "cardio": 51,
+        "peak": 15
+      }
+    },
+    "2025-07-31": {
+      "resting": 64,
+      "avg": 91,
+      "max": 141,
+      "zones": {
+        "rest": 592,
+        "fat_burn": 87,
+        "cardio": 50,
+        "peak": 10
+      }
+    },
+    "2025-07-30": {
+      "resting": 66,
+      "avg": 93,
+      "max": 155,
+      "zones": {
+        "rest": 699,
+        "fat_burn": 174,
+        "cardio": 64,
+        "peak": 21
+      }
+    },
+    "2025-07-29": {
+      "resting": 66,
+      "avg": 94,
+      "max": 135,
+      "zones": {
+        "rest": 728,
+        "fat_burn": 151,
+        "cardio": 79,
+        "peak": 8
+      }
+    },
+    "2025-07-28": {
+      "resting": 62,
+      "avg": 87,
+      "max": 147,
+      "zones": {
+        "rest": 701,
+        "fat_burn": 111,
+        "cardio": 40,
+        "peak": 0
+      }
+    },
+    "2025-07-27": {
+      "resting": 61,
+      "avg": 88,
+      "max": 137,
+      "zones": {
+        "rest": 600,
+        "fat_burn": 125,
+        "cardio": 35,
+        "peak": 12
+      }
+    },
+    "2025-07-26": {
+      "resting": 62,
+      "avg": 70,
+      "max": 131,
+      "zones": {
+        "rest": 714,
+        "fat_burn": 195,
+        "cardio": 61,
+        "peak": 19
+      }
+    },
+    "2025-07-25": {
+      "resting": 58,
+      "avg": 83,
+      "max": 170,
+      "zones": {
+        "rest": 633,
+        "fat_burn": 186,
+        "cardio": 25,
+        "peak": 22
+      }
+    },
+    "2025-07-24": {
+      "resting": 57,
+      "avg": 76,
+      "max": 134,
+      "zones": {
+        "rest": 509,
+        "fat_burn": 90,
+        "cardio": 30,
+        "peak": 21
+      }
+    },
+    "2025-07-23": {
+      "resting": 69,
+      "avg": 92,
+      "max": 132,
+      "zones": {
+        "rest": 612,
+        "fat_burn": 174,
+        "cardio": 44,
+        "peak": 20
+      }
+    },
+    "2025-07-22": {
+      "resting": 59,
+      "avg": 94,
+      "max": 166,
+      "zones": {
+        "rest": 776,
+        "fat_burn": 122,
+        "cardio": 56,
+        "peak": 0
+      }
+    },
+    "2025-07-21": {
+      "resting": 66,
+      "avg": 78,
+      "max": 131,
+      "zones": {
+        "rest": 610,
+        "fat_burn": 153,
+        "cardio": 32,
+        "peak": 10
+      }
+    },
+    "2025-07-20": {
+      "resting": 64,
+      "avg": 70,
+      "max": 142,
+      "zones": {
+        "rest": 744,
+        "fat_burn": 87,
+        "cardio": 57,
+        "peak": 28
+      }
+    },
+    "2025-07-19": {
+      "resting": 68,
+      "avg": 74,
+      "max": 141,
+      "zones": {
+        "rest": 674,
+        "fat_burn": 139,
+        "cardio": 83,
+        "peak": 13
+      }
+    },
+    "2025-07-18": {
+      "resting": 67,
+      "avg": 77,
+      "max": 177,
+      "zones": {
+        "rest": 640,
+        "fat_burn": 132,
+        "cardio": 87,
+        "peak": 18
+      }
+    },
+    "2025-07-17": {
+      "resting": 67,
+      "avg": 76,
+      "max": 178,
+      "zones": {
+        "rest": 638,
+        "fat_burn": 156,
+        "cardio": 82,
+        "peak": 5
+      }
+    },
+    "2025-07-16": {
+      "resting": 59,
+      "avg": 91,
+      "max": 177,
+      "zones": {
+        "rest": 739,
+        "fat_burn": 125,
+        "cardio": 68,
+        "peak": 21
+      }
+    },
+    "2025-07-15": {
+      "resting": 58,
+      "avg": 93,
+      "max": 147,
+      "zones": {
+        "rest": 680,
+        "fat_burn": 125,
+        "cardio": 82,
+        "peak": 19
+      }
+    },
+    "2025-07-14": {
+      "resting": 67,
+      "avg": 88,
+      "max": 162,
+      "zones": {
+        "rest": 563,
+        "fat_burn": 191,
+        "cardio": 27,
+        "peak": 16
+      }
+    },
+    "2025-07-13": {
+      "resting": 67,
+      "avg": 76,
+      "max": 141,
+      "zones": {
+        "rest": 632,
+        "fat_burn": 142,
+        "cardio": 52,
+        "peak": 2
+      }
+    },
+    "2025-07-12": {
+      "resting": 60,
+      "avg": 90,
+      "max": 140,
+      "zones": {
+        "rest": 758,
+        "fat_burn": 161,
+        "cardio": 32,
+        "peak": 4
+      }
+    },
+    "2025-07-11": {
+      "resting": 63,
+      "avg": 81,
+      "max": 180,
+      "zones": {
+        "rest": 747,
+        "fat_burn": 136,
+        "cardio": 80,
+        "peak": 23
+      }
+    },
+    "2025-07-10": {
+      "resting": 57,
+      "avg": 77,
+      "max": 151,
+      "zones": {
+        "rest": 609,
+        "fat_burn": 146,
+        "cardio": 59,
+        "peak": 6
+      }
+    },
+    "2025-07-09": {
+      "resting": 66,
+      "avg": 88,
+      "max": 156,
+      "zones": {
+        "rest": 555,
+        "fat_burn": 148,
+        "cardio": 75,
+        "peak": 25
+      }
+    },
+    "2025-07-08": {
+      "resting": 64,
+      "avg": 80,
+      "max": 156,
+      "zones": {
+        "rest": 576,
+        "fat_burn": 148,
+        "cardio": 29,
+        "peak": 23
+      }
+    },
+    "2025-07-07": {
+      "resting": 60,
+      "avg": 70,
+      "max": 167,
+      "zones": {
+        "rest": 623,
+        "fat_burn": 112,
+        "cardio": 64,
+        "peak": 23
+      }
+    },
+    "2025-07-06": {
+      "resting": 64,
+      "avg": 79,
+      "max": 150,
+      "zones": {
+        "rest": 712,
+        "fat_burn": 147,
+        "cardio": 75,
+        "peak": 9
+      }
+    },
+    "2025-07-05": {
+      "resting": 67,
+      "avg": 79,
+      "max": 152,
+      "zones": {
+        "rest": 659,
+        "fat_burn": 83,
+        "cardio": 56,
+        "peak": 21
+      }
+    },
+    "2025-07-04": {
+      "resting": 58,
+      "avg": 90,
+      "max": 161,
+      "zones": {
+        "rest": 606,
+        "fat_burn": 176,
+        "cardio": 62,
+        "peak": 7
+      }
+    },
+    "2025-07-03": {
+      "resting": 60,
+      "avg": 82,
+      "max": 157,
+      "zones": {
+        "rest": 757,
+        "fat_burn": 95,
+        "cardio": 58,
+        "peak": 18
+      }
+    },
+    "2025-07-02": {
+      "resting": 55,
+      "avg": 83,
+      "max": 151,
+      "zones": {
+        "rest": 747,
+        "fat_burn": 110,
+        "cardio": 53,
+        "peak": 28
+      }
+    },
+    "2025-07-01": {
+      "resting": 57,
+      "avg": 85,
+      "max": 144,
+      "zones": {
+        "rest": 644,
+        "fat_burn": 148,
+        "cardio": 94,
+        "peak": 12
+      }
+    },
+    "2025-06-30": {
+      "resting": 60,
+      "avg": 79,
+      "max": 178,
+      "zones": {
+        "rest": 790,
+        "fat_burn": 82,
+        "cardio": 93,
+        "peak": 28
+      }
+    },
+    "2025-06-29": {
+      "resting": 64,
+      "avg": 89,
+      "max": 141,
+      "zones": {
+        "rest": 739,
+        "fat_burn": 184,
+        "cardio": 68,
+        "peak": 3
+      }
+    },
+    "2025-06-28": {
+      "resting": 66,
+      "avg": 94,
+      "max": 141,
+      "zones": {
+        "rest": 618,
+        "fat_burn": 192,
+        "cardio": 89,
+        "peak": 12
+      }
+    },
+    "2025-06-27": {
+      "resting": 66,
+      "avg": 92,
+      "max": 160,
+      "zones": {
+        "rest": 665,
+        "fat_burn": 162,
+        "cardio": 79,
+        "peak": 8
+      }
+    },
+    "2025-06-26": {
+      "resting": 69,
+      "avg": 91,
+      "max": 177,
+      "zones": {
+        "rest": 596,
+        "fat_burn": 158,
+        "cardio": 61,
+        "peak": 28
+      }
+    },
+    "2025-06-25": {
+      "resting": 67,
+      "avg": 74,
+      "max": 172,
+      "zones": {
+        "rest": 533,
+        "fat_burn": 200,
+        "cardio": 68,
+        "peak": 14
+      }
+    },
+    "2025-06-24": {
+      "resting": 69,
+      "avg": 81,
+      "max": 172,
+      "zones": {
+        "rest": 667,
+        "fat_burn": 146,
         "cardio": 85,
         "peak": 20
       }
     },
-    "2026-02-22": {
+    "2025-06-23": {
+      "resting": 69,
+      "avg": 93,
+      "max": 144,
+      "zones": {
+        "rest": 625,
+        "fat_burn": 146,
+        "cardio": 58,
+        "peak": 15
+      }
+    },
+    "2025-06-22": {
+      "resting": 58,
+      "avg": 80,
+      "max": 139,
+      "zones": {
+        "rest": 563,
+        "fat_burn": 188,
+        "cardio": 25,
+        "peak": 20
+      }
+    },
+    "2025-06-21": {
+      "resting": 60,
+      "avg": 93,
+      "max": 142,
+      "zones": {
+        "rest": 780,
+        "fat_burn": 137,
+        "cardio": 69,
+        "peak": 24
+      }
+    },
+    "2025-06-20": {
+      "resting": 66,
+      "avg": 79,
+      "max": 137,
+      "zones": {
+        "rest": 720,
+        "fat_burn": 127,
+        "cardio": 100,
+        "peak": 26
+      }
+    },
+    "2025-06-19": {
       "resting": 63,
-      "avg": 76,
+      "avg": 84,
+      "max": 147,
+      "zones": {
+        "rest": 660,
+        "fat_burn": 184,
+        "cardio": 75,
+        "peak": 28
+      }
+    },
+    "2025-06-18": {
+      "resting": 55,
+      "avg": 77,
+      "max": 157,
+      "zones": {
+        "rest": 748,
+        "fat_burn": 145,
+        "cardio": 82,
+        "peak": 26
+      }
+    },
+    "2025-06-17": {
+      "resting": 67,
+      "avg": 81,
+      "max": 175,
+      "zones": {
+        "rest": 608,
+        "fat_burn": 172,
+        "cardio": 39,
+        "peak": 20
+      }
+    },
+    "2025-06-16": {
+      "resting": 57,
+      "avg": 80,
+      "max": 132,
+      "zones": {
+        "rest": 766,
+        "fat_burn": 86,
+        "cardio": 40,
+        "peak": 12
+      }
+    },
+    "2025-06-15": {
+      "resting": 56,
+      "avg": 77,
       "max": 140,
       "zones": {
-        "rest": 700,
-        "fat_burn": 100,
-        "cardio": 38,
+        "rest": 699,
+        "fat_burn": 135,
+        "cardio": 92,
+        "peak": 13
+      }
+    },
+    "2025-06-14": {
+      "resting": 57,
+      "avg": 80,
+      "max": 155,
+      "zones": {
+        "rest": 795,
+        "fat_burn": 163,
+        "cardio": 95,
+        "peak": 30
+      }
+    },
+    "2025-06-13": {
+      "resting": 55,
+      "avg": 93,
+      "max": 178,
+      "zones": {
+        "rest": 682,
+        "fat_burn": 193,
+        "cardio": 36,
+        "peak": 23
+      }
+    },
+    "2025-06-12": {
+      "resting": 70,
+      "avg": 91,
+      "max": 178,
+      "zones": {
+        "rest": 701,
+        "fat_burn": 114,
+        "cardio": 35,
+        "peak": 25
+      }
+    },
+    "2025-06-11": {
+      "resting": 56,
+      "avg": 88,
+      "max": 142,
+      "zones": {
+        "rest": 701,
+        "fat_burn": 176,
+        "cardio": 85,
+        "peak": 9
+      }
+    },
+    "2025-06-10": {
+      "resting": 65,
+      "avg": 81,
+      "max": 162,
+      "zones": {
+        "rest": 572,
+        "fat_burn": 137,
+        "cardio": 67,
+        "peak": 25
+      }
+    },
+    "2025-06-09": {
+      "resting": 60,
+      "avg": 87,
+      "max": 176,
+      "zones": {
+        "rest": 602,
+        "fat_burn": 103,
+        "cardio": 26,
+        "peak": 0
+      }
+    },
+    "2025-06-08": {
+      "resting": 59,
+      "avg": 74,
+      "max": 162,
+      "zones": {
+        "rest": 582,
+        "fat_burn": 101,
+        "cardio": 39,
+        "peak": 8
+      }
+    },
+    "2025-06-07": {
+      "resting": 59,
+      "avg": 88,
+      "max": 178,
+      "zones": {
+        "rest": 761,
+        "fat_burn": 197,
+        "cardio": 51,
+        "peak": 12
+      }
+    },
+    "2025-06-06": {
+      "resting": 65,
+      "avg": 79,
+      "max": 164,
+      "zones": {
+        "rest": 712,
+        "fat_burn": 84,
+        "cardio": 60,
+        "peak": 10
+      }
+    },
+    "2025-06-05": {
+      "resting": 60,
+      "avg": 94,
+      "max": 136,
+      "zones": {
+        "rest": 671,
+        "fat_burn": 190,
+        "cardio": 89,
+        "peak": 15
+      }
+    },
+    "2025-06-04": {
+      "resting": 66,
+      "avg": 72,
+      "max": 155,
+      "zones": {
+        "rest": 542,
+        "fat_burn": 132,
+        "cardio": 47,
+        "peak": 16
+      }
+    },
+    "2025-06-03": {
+      "resting": 63,
+      "avg": 71,
+      "max": 160,
+      "zones": {
+        "rest": 734,
+        "fat_burn": 148,
+        "cardio": 47,
+        "peak": 0
+      }
+    },
+    "2025-06-02": {
+      "resting": 60,
+      "avg": 72,
+      "max": 152,
+      "zones": {
+        "rest": 674,
+        "fat_burn": 122,
+        "cardio": 91,
+        "peak": 24
+      }
+    },
+    "2025-06-01": {
+      "resting": 56,
+      "avg": 76,
+      "max": 162,
+      "zones": {
+        "rest": 778,
+        "fat_burn": 175,
+        "cardio": 60,
+        "peak": 9
+      }
+    },
+    "2025-05-31": {
+      "resting": 57,
+      "avg": 89,
+      "max": 159,
+      "zones": {
+        "rest": 793,
+        "fat_burn": 171,
+        "cardio": 92,
+        "peak": 24
+      }
+    },
+    "2025-05-30": {
+      "resting": 66,
+      "avg": 87,
+      "max": 144,
+      "zones": {
+        "rest": 587,
+        "fat_burn": 104,
+        "cardio": 48,
+        "peak": 3
+      }
+    },
+    "2025-05-29": {
+      "resting": 57,
+      "avg": 85,
+      "max": 161,
+      "zones": {
+        "rest": 768,
+        "fat_burn": 135,
+        "cardio": 85,
+        "peak": 14
+      }
+    },
+    "2025-05-28": {
+      "resting": 59,
+      "avg": 82,
+      "max": 162,
+      "zones": {
+        "rest": 695,
+        "fat_burn": 189,
+        "cardio": 58,
+        "peak": 25
+      }
+    },
+    "2025-05-27": {
+      "resting": 60,
+      "avg": 88,
+      "max": 154,
+      "zones": {
+        "rest": 616,
+        "fat_burn": 103,
+        "cardio": 58,
         "peak": 2
+      }
+    },
+    "2025-05-26": {
+      "resting": 57,
+      "avg": 72,
+      "max": 180,
+      "zones": {
+        "rest": 557,
+        "fat_burn": 197,
+        "cardio": 68,
+        "peak": 14
+      }
+    },
+    "2025-05-25": {
+      "resting": 66,
+      "avg": 80,
+      "max": 155,
+      "zones": {
+        "rest": 772,
+        "fat_burn": 129,
+        "cardio": 84,
+        "peak": 12
+      }
+    },
+    "2025-05-24": {
+      "resting": 70,
+      "avg": 89,
+      "max": 138,
+      "zones": {
+        "rest": 660,
+        "fat_burn": 182,
+        "cardio": 32,
+        "peak": 11
+      }
+    },
+    "2025-05-23": {
+      "resting": 70,
+      "avg": 95,
+      "max": 175,
+      "zones": {
+        "rest": 708,
+        "fat_burn": 162,
+        "cardio": 81,
+        "peak": 13
+      }
+    },
+    "2025-05-22": {
+      "resting": 63,
+      "avg": 75,
+      "max": 145,
+      "zones": {
+        "rest": 637,
+        "fat_burn": 81,
+        "cardio": 65,
+        "peak": 15
+      }
+    },
+    "2025-05-21": {
+      "resting": 69,
+      "avg": 77,
+      "max": 155,
+      "zones": {
+        "rest": 678,
+        "fat_burn": 133,
+        "cardio": 40,
+        "peak": 7
+      }
+    },
+    "2025-05-20": {
+      "resting": 62,
+      "avg": 86,
+      "max": 151,
+      "zones": {
+        "rest": 501,
+        "fat_burn": 158,
+        "cardio": 72,
+        "peak": 14
+      }
+    },
+    "2025-05-19": {
+      "resting": 67,
+      "avg": 74,
+      "max": 175,
+      "zones": {
+        "rest": 626,
+        "fat_burn": 84,
+        "cardio": 100,
+        "peak": 15
+      }
+    },
+    "2025-05-18": {
+      "resting": 69,
+      "avg": 89,
+      "max": 177,
+      "zones": {
+        "rest": 793,
+        "fat_burn": 139,
+        "cardio": 33,
+        "peak": 9
+      }
+    },
+    "2025-05-17": {
+      "resting": 65,
+      "avg": 80,
+      "max": 134,
+      "zones": {
+        "rest": 750,
+        "fat_burn": 95,
+        "cardio": 49,
+        "peak": 2
+      }
+    },
+    "2025-05-16": {
+      "resting": 63,
+      "avg": 83,
+      "max": 146,
+      "zones": {
+        "rest": 669,
+        "fat_burn": 130,
+        "cardio": 88,
+        "peak": 22
+      }
+    },
+    "2025-05-15": {
+      "resting": 65,
+      "avg": 79,
+      "max": 158,
+      "zones": {
+        "rest": 675,
+        "fat_burn": 182,
+        "cardio": 29,
+        "peak": 4
+      }
+    },
+    "2025-05-14": {
+      "resting": 64,
+      "avg": 82,
+      "max": 134,
+      "zones": {
+        "rest": 580,
+        "fat_burn": 130,
+        "cardio": 61,
+        "peak": 24
+      }
+    },
+    "2025-05-13": {
+      "resting": 57,
+      "avg": 78,
+      "max": 140,
+      "zones": {
+        "rest": 685,
+        "fat_burn": 200,
+        "cardio": 64,
+        "peak": 20
+      }
+    },
+    "2025-05-12": {
+      "resting": 69,
+      "avg": 79,
+      "max": 151,
+      "zones": {
+        "rest": 568,
+        "fat_burn": 186,
+        "cardio": 26,
+        "peak": 20
+      }
+    },
+    "2025-05-11": {
+      "resting": 59,
+      "avg": 84,
+      "max": 134,
+      "zones": {
+        "rest": 529,
+        "fat_burn": 168,
+        "cardio": 96,
+        "peak": 14
+      }
+    },
+    "2025-05-10": {
+      "resting": 63,
+      "avg": 79,
+      "max": 176,
+      "zones": {
+        "rest": 664,
+        "fat_burn": 123,
+        "cardio": 28,
+        "peak": 7
+      }
+    },
+    "2025-05-09": {
+      "resting": 59,
+      "avg": 70,
+      "max": 157,
+      "zones": {
+        "rest": 702,
+        "fat_burn": 135,
+        "cardio": 63,
+        "peak": 18
+      }
+    },
+    "2025-05-08": {
+      "resting": 68,
+      "avg": 85,
+      "max": 148,
+      "zones": {
+        "rest": 601,
+        "fat_burn": 93,
+        "cardio": 66,
+        "peak": 24
+      }
+    },
+    "2025-05-07": {
+      "resting": 63,
+      "avg": 74,
+      "max": 157,
+      "zones": {
+        "rest": 791,
+        "fat_burn": 146,
+        "cardio": 46,
+        "peak": 5
+      }
+    },
+    "2025-05-06": {
+      "resting": 58,
+      "avg": 84,
+      "max": 141,
+      "zones": {
+        "rest": 683,
+        "fat_burn": 114,
+        "cardio": 52,
+        "peak": 6
+      }
+    },
+    "2025-05-05": {
+      "resting": 56,
+      "avg": 90,
+      "max": 147,
+      "zones": {
+        "rest": 593,
+        "fat_burn": 104,
+        "cardio": 83,
+        "peak": 23
+      }
+    },
+    "2025-05-04": {
+      "resting": 55,
+      "avg": 79,
+      "max": 167,
+      "zones": {
+        "rest": 596,
+        "fat_burn": 83,
+        "cardio": 55,
+        "peak": 21
+      }
+    },
+    "2025-05-03": {
+      "resting": 66,
+      "avg": 78,
+      "max": 143,
+      "zones": {
+        "rest": 752,
+        "fat_burn": 91,
+        "cardio": 37,
+        "peak": 25
+      }
+    },
+    "2025-05-02": {
+      "resting": 63,
+      "avg": 73,
+      "max": 169,
+      "zones": {
+        "rest": 600,
+        "fat_burn": 154,
+        "cardio": 88,
+        "peak": 6
+      }
+    },
+    "2025-05-01": {
+      "resting": 62,
+      "avg": 95,
+      "max": 177,
+      "zones": {
+        "rest": 600,
+        "fat_burn": 131,
+        "cardio": 23,
+        "peak": 24
+      }
+    },
+    "2025-04-30": {
+      "resting": 65,
+      "avg": 91,
+      "max": 161,
+      "zones": {
+        "rest": 616,
+        "fat_burn": 117,
+        "cardio": 30,
+        "peak": 26
+      }
+    },
+    "2025-04-29": {
+      "resting": 70,
+      "avg": 77,
+      "max": 142,
+      "zones": {
+        "rest": 642,
+        "fat_burn": 81,
+        "cardio": 46,
+        "peak": 16
+      }
+    },
+    "2025-04-28": {
+      "resting": 60,
+      "avg": 90,
+      "max": 153,
+      "zones": {
+        "rest": 646,
+        "fat_burn": 194,
+        "cardio": 47,
+        "peak": 17
+      }
+    },
+    "2025-04-27": {
+      "resting": 66,
+      "avg": 90,
+      "max": 137,
+      "zones": {
+        "rest": 650,
+        "fat_burn": 185,
+        "cardio": 97,
+        "peak": 5
+      }
+    },
+    "2025-04-26": {
+      "resting": 63,
+      "avg": 81,
+      "max": 164,
+      "zones": {
+        "rest": 746,
+        "fat_burn": 184,
+        "cardio": 25,
+        "peak": 17
+      }
+    },
+    "2025-04-25": {
+      "resting": 69,
+      "avg": 70,
+      "max": 179,
+      "zones": {
+        "rest": 527,
+        "fat_burn": 195,
+        "cardio": 77,
+        "peak": 29
+      }
+    },
+    "2025-04-24": {
+      "resting": 68,
+      "avg": 91,
+      "max": 138,
+      "zones": {
+        "rest": 698,
+        "fat_burn": 82,
+        "cardio": 75,
+        "peak": 22
+      }
+    },
+    "2025-04-23": {
+      "resting": 60,
+      "avg": 90,
+      "max": 145,
+      "zones": {
+        "rest": 634,
+        "fat_burn": 162,
+        "cardio": 64,
+        "peak": 21
+      }
+    },
+    "2025-04-22": {
+      "resting": 59,
+      "avg": 71,
+      "max": 160,
+      "zones": {
+        "rest": 557,
+        "fat_burn": 162,
+        "cardio": 59,
+        "peak": 8
+      }
+    },
+    "2025-04-21": {
+      "resting": 68,
+      "avg": 82,
+      "max": 142,
+      "zones": {
+        "rest": 761,
+        "fat_burn": 146,
+        "cardio": 38,
+        "peak": 22
+      }
+    },
+    "2025-04-20": {
+      "resting": 64,
+      "avg": 77,
+      "max": 149,
+      "zones": {
+        "rest": 689,
+        "fat_burn": 157,
+        "cardio": 75,
+        "peak": 6
+      }
+    },
+    "2025-04-19": {
+      "resting": 64,
+      "avg": 70,
+      "max": 131,
+      "zones": {
+        "rest": 745,
+        "fat_burn": 152,
+        "cardio": 85,
+        "peak": 7
+      }
+    },
+    "2025-04-18": {
+      "resting": 61,
+      "avg": 82,
+      "max": 143,
+      "zones": {
+        "rest": 658,
+        "fat_burn": 80,
+        "cardio": 47,
+        "peak": 20
+      }
+    },
+    "2025-04-17": {
+      "resting": 67,
+      "avg": 95,
+      "max": 133,
+      "zones": {
+        "rest": 527,
+        "fat_burn": 140,
+        "cardio": 69,
+        "peak": 27
+      }
+    },
+    "2025-04-16": {
+      "resting": 59,
+      "avg": 70,
+      "max": 166,
+      "zones": {
+        "rest": 741,
+        "fat_burn": 185,
+        "cardio": 85,
+        "peak": 14
+      }
+    },
+    "2025-04-15": {
+      "resting": 59,
+      "avg": 90,
+      "max": 172,
+      "zones": {
+        "rest": 691,
+        "fat_burn": 118,
+        "cardio": 38,
+        "peak": 26
+      }
+    },
+    "2025-04-14": {
+      "resting": 57,
+      "avg": 87,
+      "max": 170,
+      "zones": {
+        "rest": 760,
+        "fat_burn": 165,
+        "cardio": 71,
+        "peak": 21
+      }
+    },
+    "2025-04-13": {
+      "resting": 61,
+      "avg": 74,
+      "max": 162,
+      "zones": {
+        "rest": 740,
+        "fat_burn": 91,
+        "cardio": 59,
+        "peak": 18
+      }
+    },
+    "2025-04-12": {
+      "resting": 62,
+      "avg": 80,
+      "max": 177,
+      "zones": {
+        "rest": 667,
+        "fat_burn": 200,
+        "cardio": 62,
+        "peak": 13
+      }
+    },
+    "2025-04-11": {
+      "resting": 55,
+      "avg": 94,
+      "max": 147,
+      "zones": {
+        "rest": 767,
+        "fat_burn": 101,
+        "cardio": 54,
+        "peak": 29
+      }
+    },
+    "2025-04-10": {
+      "resting": 57,
+      "avg": 83,
+      "max": 138,
+      "zones": {
+        "rest": 550,
+        "fat_burn": 113,
+        "cardio": 48,
+        "peak": 5
+      }
+    },
+    "2025-04-09": {
+      "resting": 59,
+      "avg": 86,
+      "max": 155,
+      "zones": {
+        "rest": 560,
+        "fat_burn": 144,
+        "cardio": 89,
+        "peak": 7
+      }
+    },
+    "2025-04-08": {
+      "resting": 55,
+      "avg": 84,
+      "max": 152,
+      "zones": {
+        "rest": 534,
+        "fat_burn": 122,
+        "cardio": 34,
+        "peak": 29
+      }
+    },
+    "2025-04-07": {
+      "resting": 69,
+      "avg": 77,
+      "max": 148,
+      "zones": {
+        "rest": 718,
+        "fat_burn": 186,
+        "cardio": 55,
+        "peak": 27
+      }
+    },
+    "2025-04-06": {
+      "resting": 61,
+      "avg": 88,
+      "max": 132,
+      "zones": {
+        "rest": 718,
+        "fat_burn": 199,
+        "cardio": 47,
+        "peak": 18
+      }
+    },
+    "2025-04-05": {
+      "resting": 62,
+      "avg": 86,
+      "max": 147,
+      "zones": {
+        "rest": 785,
+        "fat_burn": 158,
+        "cardio": 39,
+        "peak": 22
+      }
+    },
+    "2025-04-04": {
+      "resting": 58,
+      "avg": 83,
+      "max": 153,
+      "zones": {
+        "rest": 726,
+        "fat_burn": 150,
+        "cardio": 72,
+        "peak": 30
+      }
+    },
+    "2025-04-03": {
+      "resting": 60,
+      "avg": 87,
+      "max": 130,
+      "zones": {
+        "rest": 675,
+        "fat_burn": 173,
+        "cardio": 65,
+        "peak": 16
+      }
+    },
+    "2025-04-02": {
+      "resting": 65,
+      "avg": 79,
+      "max": 156,
+      "zones": {
+        "rest": 682,
+        "fat_burn": 143,
+        "cardio": 77,
+        "peak": 20
+      }
+    },
+    "2025-04-01": {
+      "resting": 60,
+      "avg": 94,
+      "max": 173,
+      "zones": {
+        "rest": 619,
+        "fat_burn": 158,
+        "cardio": 60,
+        "peak": 26
+      }
+    },
+    "2025-03-31": {
+      "resting": 70,
+      "avg": 73,
+      "max": 144,
+      "zones": {
+        "rest": 556,
+        "fat_burn": 164,
+        "cardio": 78,
+        "peak": 8
+      }
+    },
+    "2025-03-30": {
+      "resting": 67,
+      "avg": 84,
+      "max": 180,
+      "zones": {
+        "rest": 502,
+        "fat_burn": 155,
+        "cardio": 52,
+        "peak": 19
+      }
+    },
+    "2025-03-29": {
+      "resting": 63,
+      "avg": 94,
+      "max": 134,
+      "zones": {
+        "rest": 694,
+        "fat_burn": 116,
+        "cardio": 25,
+        "peak": 9
+      }
+    },
+    "2025-03-28": {
+      "resting": 66,
+      "avg": 88,
+      "max": 134,
+      "zones": {
+        "rest": 546,
+        "fat_burn": 150,
+        "cardio": 98,
+        "peak": 30
+      }
+    },
+    "2025-03-27": {
+      "resting": 58,
+      "avg": 94,
+      "max": 159,
+      "zones": {
+        "rest": 563,
+        "fat_burn": 182,
+        "cardio": 92,
+        "peak": 7
+      }
+    },
+    "2025-03-26": {
+      "resting": 57,
+      "avg": 74,
+      "max": 141,
+      "zones": {
+        "rest": 500,
+        "fat_burn": 136,
+        "cardio": 47,
+        "peak": 15
+      }
+    },
+    "2025-03-25": {
+      "resting": 55,
+      "avg": 70,
+      "max": 147,
+      "zones": {
+        "rest": 765,
+        "fat_burn": 156,
+        "cardio": 50,
+        "peak": 6
+      }
+    },
+    "2025-03-24": {
+      "resting": 62,
+      "avg": 79,
+      "max": 145,
+      "zones": {
+        "rest": 648,
+        "fat_burn": 160,
+        "cardio": 44,
+        "peak": 8
+      }
+    },
+    "2025-03-23": {
+      "resting": 66,
+      "avg": 88,
+      "max": 138,
+      "zones": {
+        "rest": 605,
+        "fat_burn": 164,
+        "cardio": 47,
+        "peak": 5
+      }
+    },
+    "2025-03-22": {
+      "resting": 69,
+      "avg": 74,
+      "max": 132,
+      "zones": {
+        "rest": 637,
+        "fat_burn": 194,
+        "cardio": 69,
+        "peak": 5
+      }
+    },
+    "2025-03-21": {
+      "resting": 66,
+      "avg": 75,
+      "max": 155,
+      "zones": {
+        "rest": 685,
+        "fat_burn": 126,
+        "cardio": 49,
+        "peak": 3
+      }
+    },
+    "2025-03-20": {
+      "resting": 59,
+      "avg": 91,
+      "max": 175,
+      "zones": {
+        "rest": 612,
+        "fat_burn": 122,
+        "cardio": 70,
+        "peak": 3
+      }
+    },
+    "2025-03-19": {
+      "resting": 60,
+      "avg": 70,
+      "max": 158,
+      "zones": {
+        "rest": 508,
+        "fat_burn": 82,
+        "cardio": 98,
+        "peak": 3
+      }
+    },
+    "2025-03-18": {
+      "resting": 58,
+      "avg": 84,
+      "max": 133,
+      "zones": {
+        "rest": 593,
+        "fat_burn": 97,
+        "cardio": 24,
+        "peak": 0
+      }
+    },
+    "2025-03-17": {
+      "resting": 68,
+      "avg": 81,
+      "max": 174,
+      "zones": {
+        "rest": 577,
+        "fat_burn": 181,
+        "cardio": 36,
+        "peak": 13
+      }
+    },
+    "2025-03-16": {
+      "resting": 55,
+      "avg": 73,
+      "max": 166,
+      "zones": {
+        "rest": 532,
+        "fat_burn": 82,
+        "cardio": 39,
+        "peak": 4
+      }
+    },
+    "2025-03-15": {
+      "resting": 67,
+      "avg": 72,
+      "max": 155,
+      "zones": {
+        "rest": 538,
+        "fat_burn": 193,
+        "cardio": 58,
+        "peak": 1
+      }
+    },
+    "2025-03-14": {
+      "resting": 68,
+      "avg": 85,
+      "max": 134,
+      "zones": {
+        "rest": 796,
+        "fat_burn": 163,
+        "cardio": 89,
+        "peak": 30
+      }
+    },
+    "2025-03-13": {
+      "resting": 62,
+      "avg": 74,
+      "max": 152,
+      "zones": {
+        "rest": 693,
+        "fat_burn": 101,
+        "cardio": 68,
+        "peak": 0
+      }
+    },
+    "2025-03-12": {
+      "resting": 57,
+      "avg": 89,
+      "max": 146,
+      "zones": {
+        "rest": 644,
+        "fat_burn": 141,
+        "cardio": 97,
+        "peak": 12
+      }
+    },
+    "2025-03-11": {
+      "resting": 58,
+      "avg": 94,
+      "max": 135,
+      "zones": {
+        "rest": 709,
+        "fat_burn": 168,
+        "cardio": 75,
+        "peak": 29
+      }
+    },
+    "2025-03-10": {
+      "resting": 68,
+      "avg": 89,
+      "max": 176,
+      "zones": {
+        "rest": 777,
+        "fat_burn": 96,
+        "cardio": 81,
+        "peak": 18
+      }
+    },
+    "2025-03-09": {
+      "resting": 67,
+      "avg": 70,
+      "max": 177,
+      "zones": {
+        "rest": 593,
+        "fat_burn": 164,
+        "cardio": 37,
+        "peak": 27
+      }
+    },
+    "2025-03-08": {
+      "resting": 59,
+      "avg": 86,
+      "max": 146,
+      "zones": {
+        "rest": 558,
+        "fat_burn": 159,
+        "cardio": 79,
+        "peak": 16
+      }
+    },
+    "2025-03-07": {
+      "resting": 66,
+      "avg": 74,
+      "max": 152,
+      "zones": {
+        "rest": 608,
+        "fat_burn": 150,
+        "cardio": 91,
+        "peak": 18
+      }
+    },
+    "2025-03-06": {
+      "resting": 63,
+      "avg": 80,
+      "max": 142,
+      "zones": {
+        "rest": 639,
+        "fat_burn": 97,
+        "cardio": 63,
+        "peak": 28
+      }
+    },
+    "2025-03-05": {
+      "resting": 57,
+      "avg": 78,
+      "max": 158,
+      "zones": {
+        "rest": 782,
+        "fat_burn": 92,
+        "cardio": 38,
+        "peak": 22
+      }
+    },
+    "2025-03-04": {
+      "resting": 59,
+      "avg": 93,
+      "max": 161,
+      "zones": {
+        "rest": 709,
+        "fat_burn": 134,
+        "cardio": 62,
+        "peak": 15
+      }
+    },
+    "2025-03-03": {
+      "resting": 68,
+      "avg": 84,
+      "max": 148,
+      "zones": {
+        "rest": 558,
+        "fat_burn": 125,
+        "cardio": 26,
+        "peak": 2
+      }
+    },
+    "2025-03-02": {
+      "resting": 61,
+      "avg": 85,
+      "max": 175,
+      "zones": {
+        "rest": 744,
+        "fat_burn": 174,
+        "cardio": 39,
+        "peak": 30
+      }
+    },
+    "2025-03-01": {
+      "resting": 57,
+      "avg": 81,
+      "max": 169,
+      "zones": {
+        "rest": 582,
+        "fat_burn": 149,
+        "cardio": 22,
+        "peak": 25
+      }
+    },
+    "2025-02-28": {
+      "resting": 56,
+      "avg": 90,
+      "max": 162,
+      "zones": {
+        "rest": 761,
+        "fat_burn": 194,
+        "cardio": 66,
+        "peak": 3
+      }
+    },
+    "2025-02-27": {
+      "resting": 70,
+      "avg": 80,
+      "max": 164,
+      "zones": {
+        "rest": 533,
+        "fat_burn": 181,
+        "cardio": 36,
+        "peak": 13
+      }
+    },
+    "2025-02-26": {
+      "resting": 61,
+      "avg": 86,
+      "max": 145,
+      "zones": {
+        "rest": 503,
+        "fat_burn": 151,
+        "cardio": 42,
+        "peak": 0
+      }
+    },
+    "2025-02-25": {
+      "resting": 59,
+      "avg": 72,
+      "max": 135,
+      "zones": {
+        "rest": 599,
+        "fat_burn": 163,
+        "cardio": 36,
+        "peak": 15
+      }
+    },
+    "2025-02-24": {
+      "resting": 61,
+      "avg": 89,
+      "max": 153,
+      "zones": {
+        "rest": 522,
+        "fat_burn": 85,
+        "cardio": 53,
+        "peak": 6
       }
     }
   },
   "moveMinutes": {
-    "2026-02-15": {
-      "total": 45,
-      "active": 28,
-      "heart": 17
+    "2026-02-23": {
+      "total": 28,
+      "active": 42,
+      "heart": 35
     },
-    "2026-02-16": {
-      "total": 62,
-      "active": 38,
+    "2026-02-22": {
+      "total": 118,
+      "active": 11,
+      "heart": 35
+    },
+    "2026-02-21": {
+      "total": 92,
+      "active": 65,
+      "heart": 36
+    },
+    "2026-02-20": {
+      "total": 109,
+      "active": 69,
+      "heart": 38
+    },
+    "2026-02-19": {
+      "total": 96,
+      "active": 69,
+      "heart": 37
+    },
+    "2026-02-18": {
+      "total": 27,
+      "active": 70,
       "heart": 24
     },
     "2026-02-17": {
+      "total": 67,
+      "active": 56,
+      "heart": 13
+    },
+    "2026-02-16": {
+      "total": 102,
+      "active": 74,
+      "heart": 11
+    },
+    "2026-02-15": {
       "total": 38,
+      "active": 13,
+      "heart": 16
+    },
+    "2026-02-14": {
+      "total": 23,
+      "active": 60,
+      "heart": 28
+    },
+    "2026-02-13": {
+      "total": 118,
+      "active": 44,
+      "heart": 37
+    },
+    "2026-02-12": {
+      "total": 82,
+      "active": 24,
+      "heart": 19
+    },
+    "2026-02-11": {
+      "total": 104,
+      "active": 64,
+      "heart": 25
+    },
+    "2026-02-10": {
+      "total": 102,
+      "active": 69,
+      "heart": 37
+    },
+    "2026-02-09": {
+      "total": 48,
+      "active": 42,
+      "heart": 38
+    },
+    "2026-02-08": {
+      "total": 71,
+      "active": 65,
+      "heart": 36
+    },
+    "2026-02-07": {
+      "total": 82,
+      "active": 64,
+      "heart": 37
+    },
+    "2026-02-06": {
+      "total": 62,
+      "active": 20,
+      "heart": 19
+    },
+    "2026-02-05": {
+      "total": 60,
+      "active": 72,
+      "heart": 13
+    },
+    "2026-02-04": {
+      "total": 95,
+      "active": 25,
+      "heart": 25
+    },
+    "2026-02-03": {
+      "total": 87,
+      "active": 45,
+      "heart": 39
+    },
+    "2026-02-02": {
+      "total": 36,
+      "active": 64,
+      "heart": 14
+    },
+    "2026-02-01": {
+      "total": 113,
+      "active": 60,
+      "heart": 37
+    },
+    "2026-01-31": {
+      "total": 106,
+      "active": 75,
+      "heart": 20
+    },
+    "2026-01-30": {
+      "total": 39,
+      "active": 46,
+      "heart": 17
+    },
+    "2026-01-29": {
+      "total": 116,
+      "active": 23,
+      "heart": 12
+    },
+    "2026-01-28": {
+      "total": 93,
+      "active": 69,
+      "heart": 40
+    },
+    "2026-01-27": {
+      "total": 87,
+      "active": 11,
+      "heart": 28
+    },
+    "2026-01-26": {
+      "total": 113,
+      "active": 51,
+      "heart": 10
+    },
+    "2026-01-25": {
+      "total": 99,
+      "active": 34,
+      "heart": 32
+    },
+    "2026-01-24": {
+      "total": 69,
+      "active": 54,
+      "heart": 37
+    },
+    "2026-01-23": {
+      "total": 101,
+      "active": 21,
+      "heart": 23
+    },
+    "2026-01-22": {
+      "total": 31,
+      "active": 51,
+      "heart": 38
+    },
+    "2026-01-21": {
+      "total": 95,
+      "active": 47,
+      "heart": 37
+    },
+    "2026-01-20": {
+      "total": 55,
+      "active": 52,
+      "heart": 18
+    },
+    "2026-01-19": {
+      "total": 52,
+      "active": 15,
+      "heart": 10
+    },
+    "2026-01-18": {
+      "total": 83,
+      "active": 60,
+      "heart": 33
+    },
+    "2026-01-17": {
+      "total": 56,
+      "active": 18,
+      "heart": 16
+    },
+    "2026-01-16": {
+      "total": 72,
+      "active": 38,
+      "heart": 26
+    },
+    "2026-01-15": {
+      "total": 22,
+      "active": 57,
+      "heart": 39
+    },
+    "2026-01-14": {
+      "total": 115,
+      "active": 55,
+      "heart": 35
+    },
+    "2026-01-13": {
+      "total": 84,
+      "active": 20,
+      "heart": 16
+    },
+    "2026-01-12": {
+      "total": 28,
+      "active": 41,
+      "heart": 24
+    },
+    "2026-01-11": {
+      "total": 45,
+      "active": 33,
+      "heart": 15
+    },
+    "2026-01-10": {
+      "total": 73,
+      "active": 75,
+      "heart": 34
+    },
+    "2026-01-09": {
+      "total": 75,
+      "active": 22,
+      "heart": 24
+    },
+    "2026-01-08": {
+      "total": 58,
+      "active": 72,
+      "heart": 28
+    },
+    "2026-01-07": {
+      "total": 96,
+      "active": 35,
+      "heart": 39
+    },
+    "2026-01-06": {
+      "total": 80,
+      "active": 77,
+      "heart": 21
+    },
+    "2026-01-05": {
+      "total": 84,
+      "active": 80,
+      "heart": 27
+    },
+    "2026-01-04": {
+      "total": 117,
+      "active": 13,
+      "heart": 14
+    },
+    "2026-01-03": {
+      "total": 98,
+      "active": 59,
+      "heart": 17
+    },
+    "2026-01-02": {
+      "total": 65,
+      "active": 15,
+      "heart": 40
+    },
+    "2026-01-01": {
+      "total": 46,
+      "active": 15,
+      "heart": 11
+    },
+    "2025-12-31": {
+      "total": 109,
+      "active": 26,
+      "heart": 28
+    },
+    "2025-12-30": {
+      "total": 97,
+      "active": 45,
+      "heart": 39
+    },
+    "2025-12-29": {
+      "total": 82,
+      "active": 62,
+      "heart": 22
+    },
+    "2025-12-28": {
+      "total": 60,
+      "active": 26,
+      "heart": 22
+    },
+    "2025-12-27": {
+      "total": 38,
+      "active": 31,
+      "heart": 14
+    },
+    "2025-12-26": {
+      "total": 82,
+      "active": 13,
+      "heart": 40
+    },
+    "2025-12-25": {
+      "total": 115,
+      "active": 47,
+      "heart": 10
+    },
+    "2025-12-24": {
+      "total": 90,
+      "active": 69,
+      "heart": 16
+    },
+    "2025-12-23": {
+      "total": 79,
+      "active": 32,
+      "heart": 15
+    },
+    "2025-12-22": {
+      "total": 63,
+      "active": 23,
+      "heart": 33
+    },
+    "2025-12-21": {
+      "total": 106,
+      "active": 32,
+      "heart": 19
+    },
+    "2025-12-20": {
+      "total": 24,
+      "active": 46,
+      "heart": 31
+    },
+    "2025-12-19": {
+      "total": 20,
+      "active": 37,
+      "heart": 33
+    },
+    "2025-12-18": {
+      "total": 109,
+      "active": 20,
+      "heart": 38
+    },
+    "2025-12-17": {
+      "total": 103,
+      "active": 24,
+      "heart": 10
+    },
+    "2025-12-16": {
+      "total": 45,
+      "active": 24,
+      "heart": 31
+    },
+    "2025-12-15": {
+      "total": 46,
+      "active": 80,
+      "heart": 33
+    },
+    "2025-12-14": {
+      "total": 112,
+      "active": 11,
+      "heart": 20
+    },
+    "2025-12-13": {
+      "total": 39,
+      "active": 44,
+      "heart": 19
+    },
+    "2025-12-12": {
+      "total": 72,
+      "active": 26,
+      "heart": 36
+    },
+    "2025-12-11": {
+      "total": 111,
+      "active": 69,
+      "heart": 12
+    },
+    "2025-12-10": {
+      "total": 94,
+      "active": 20,
+      "heart": 17
+    },
+    "2025-12-09": {
+      "total": 101,
+      "active": 68,
+      "heart": 19
+    },
+    "2025-12-08": {
+      "total": 112,
+      "active": 71,
+      "heart": 38
+    },
+    "2025-12-07": {
+      "total": 84,
+      "active": 77,
+      "heart": 22
+    },
+    "2025-12-06": {
+      "total": 34,
+      "active": 27,
+      "heart": 26
+    },
+    "2025-12-05": {
+      "total": 31,
+      "active": 40,
+      "heart": 26
+    },
+    "2025-12-04": {
+      "total": 48,
+      "active": 33,
+      "heart": 13
+    },
+    "2025-12-03": {
+      "total": 96,
+      "active": 56,
+      "heart": 14
+    },
+    "2025-12-02": {
+      "total": 107,
+      "active": 49,
+      "heart": 17
+    },
+    "2025-12-01": {
+      "total": 87,
+      "active": 63,
+      "heart": 37
+    },
+    "2025-11-30": {
+      "total": 26,
+      "active": 55,
+      "heart": 11
+    },
+    "2025-11-29": {
+      "total": 70,
+      "active": 77,
+      "heart": 19
+    },
+    "2025-11-28": {
+      "total": 33,
+      "active": 78,
+      "heart": 28
+    },
+    "2025-11-27": {
+      "total": 100,
+      "active": 33,
+      "heart": 13
+    },
+    "2025-11-26": {
+      "total": 87,
+      "active": 48,
+      "heart": 35
+    },
+    "2025-11-25": {
+      "total": 100,
+      "active": 26,
+      "heart": 18
+    },
+    "2025-11-24": {
+      "total": 116,
+      "active": 18,
+      "heart": 16
+    },
+    "2025-11-23": {
+      "total": 66,
+      "active": 18,
+      "heart": 26
+    },
+    "2025-11-22": {
+      "total": 119,
+      "active": 33,
+      "heart": 40
+    },
+    "2025-11-21": {
+      "total": 64,
+      "active": 57,
+      "heart": 30
+    },
+    "2025-11-20": {
+      "total": 71,
+      "active": 16,
+      "heart": 19
+    },
+    "2025-11-19": {
+      "total": 116,
+      "active": 26,
+      "heart": 12
+    },
+    "2025-11-18": {
+      "total": 39,
+      "active": 30,
+      "heart": 35
+    },
+    "2025-11-17": {
+      "total": 20,
+      "active": 66,
+      "heart": 13
+    },
+    "2025-11-16": {
+      "total": 84,
+      "active": 59,
+      "heart": 30
+    },
+    "2025-11-15": {
+      "total": 71,
+      "active": 41,
+      "heart": 20
+    },
+    "2025-11-14": {
+      "total": 33,
+      "active": 51,
+      "heart": 22
+    },
+    "2025-11-13": {
+      "total": 103,
+      "active": 17,
+      "heart": 20
+    },
+    "2025-11-12": {
+      "total": 101,
+      "active": 24,
+      "heart": 28
+    },
+    "2025-11-11": {
+      "total": 75,
+      "active": 21,
+      "heart": 17
+    },
+    "2025-11-10": {
+      "total": 68,
+      "active": 79,
+      "heart": 19
+    },
+    "2025-11-09": {
+      "total": 22,
+      "active": 42,
+      "heart": 40
+    },
+    "2025-11-08": {
+      "total": 79,
+      "active": 53,
+      "heart": 34
+    },
+    "2025-11-07": {
+      "total": 69,
+      "active": 29,
+      "heart": 18
+    },
+    "2025-11-06": {
+      "total": 104,
+      "active": 43,
+      "heart": 32
+    },
+    "2025-11-05": {
+      "total": 113,
+      "active": 74,
+      "heart": 29
+    },
+    "2025-11-04": {
+      "total": 73,
       "active": 22,
       "heart": 16
     },
-    "2026-02-18": {
-      "total": 78,
-      "active": 52,
-      "heart": 26
+    "2025-11-03": {
+      "total": 118,
+      "active": 19,
+      "heart": 15
     },
-    "2026-02-19": {
-      "total": 55,
-      "active": 35,
-      "heart": 20
+    "2025-11-02": {
+      "total": 48,
+      "active": 14,
+      "heart": 13
     },
-    "2026-02-20": {
-      "total": 68,
-      "active": 44,
-      "heart": 24
+    "2025-11-01": {
+      "total": 90,
+      "active": 24,
+      "heart": 14
     },
-    "2026-02-21": {
-      "total": 85,
-      "active": 58,
+    "2025-10-31": {
+      "total": 87,
+      "active": 45,
+      "heart": 15
+    },
+    "2025-10-30": {
+      "total": 84,
+      "active": 74,
       "heart": 27
     },
-    "2026-02-22": {
-      "total": 42,
-      "active": 26,
+    "2025-10-29": {
+      "total": 108,
+      "active": 10,
+      "heart": 36
+    },
+    "2025-10-28": {
+      "total": 109,
+      "active": 41,
+      "heart": 13
+    },
+    "2025-10-27": {
+      "total": 81,
+      "active": 22,
+      "heart": 37
+    },
+    "2025-10-26": {
+      "total": 95,
+      "active": 23,
+      "heart": 28
+    },
+    "2025-10-25": {
+      "total": 47,
+      "active": 77,
+      "heart": 14
+    },
+    "2025-10-24": {
+      "total": 106,
+      "active": 74,
+      "heart": 25
+    },
+    "2025-10-23": {
+      "total": 96,
+      "active": 49,
+      "heart": 18
+    },
+    "2025-10-22": {
+      "total": 53,
+      "active": 58,
+      "heart": 35
+    },
+    "2025-10-21": {
+      "total": 69,
+      "active": 54,
+      "heart": 20
+    },
+    "2025-10-20": {
+      "total": 22,
+      "active": 38,
+      "heart": 19
+    },
+    "2025-10-19": {
+      "total": 51,
+      "active": 73,
+      "heart": 19
+    },
+    "2025-10-18": {
+      "total": 64,
+      "active": 47,
+      "heart": 17
+    },
+    "2025-10-17": {
+      "total": 50,
+      "active": 72,
+      "heart": 29
+    },
+    "2025-10-16": {
+      "total": 59,
+      "active": 64,
+      "heart": 30
+    },
+    "2025-10-15": {
+      "total": 104,
+      "active": 39,
+      "heart": 20
+    },
+    "2025-10-14": {
+      "total": 59,
+      "active": 31,
+      "heart": 35
+    },
+    "2025-10-13": {
+      "total": 98,
+      "active": 34,
+      "heart": 17
+    },
+    "2025-10-12": {
+      "total": 46,
+      "active": 48,
+      "heart": 28
+    },
+    "2025-10-11": {
+      "total": 23,
+      "active": 70,
+      "heart": 21
+    },
+    "2025-10-10": {
+      "total": 45,
+      "active": 16,
+      "heart": 29
+    },
+    "2025-10-09": {
+      "total": 116,
+      "active": 27,
+      "heart": 25
+    },
+    "2025-10-08": {
+      "total": 50,
+      "active": 35,
+      "heart": 34
+    },
+    "2025-10-07": {
+      "total": 57,
+      "active": 12,
+      "heart": 30
+    },
+    "2025-10-06": {
+      "total": 55,
+      "active": 80,
+      "heart": 31
+    },
+    "2025-10-05": {
+      "total": 105,
+      "active": 25,
+      "heart": 22
+    },
+    "2025-10-04": {
+      "total": 85,
+      "active": 79,
+      "heart": 28
+    },
+    "2025-10-03": {
+      "total": 43,
+      "active": 20,
+      "heart": 11
+    },
+    "2025-10-02": {
+      "total": 58,
+      "active": 17,
+      "heart": 34
+    },
+    "2025-10-01": {
+      "total": 88,
+      "active": 22,
+      "heart": 20
+    },
+    "2025-09-30": {
+      "total": 86,
+      "active": 62,
+      "heart": 15
+    },
+    "2025-09-29": {
+      "total": 24,
+      "active": 74,
+      "heart": 18
+    },
+    "2025-09-28": {
+      "total": 73,
+      "active": 31,
+      "heart": 22
+    },
+    "2025-09-27": {
+      "total": 83,
+      "active": 27,
       "heart": 16
+    },
+    "2025-09-26": {
+      "total": 36,
+      "active": 20,
+      "heart": 26
+    },
+    "2025-09-25": {
+      "total": 87,
+      "active": 77,
+      "heart": 19
+    },
+    "2025-09-24": {
+      "total": 103,
+      "active": 43,
+      "heart": 39
+    },
+    "2025-09-23": {
+      "total": 24,
+      "active": 15,
+      "heart": 12
+    },
+    "2025-09-22": {
+      "total": 43,
+      "active": 21,
+      "heart": 34
+    },
+    "2025-09-21": {
+      "total": 114,
+      "active": 68,
+      "heart": 28
+    },
+    "2025-09-20": {
+      "total": 91,
+      "active": 67,
+      "heart": 11
+    },
+    "2025-09-19": {
+      "total": 87,
+      "active": 14,
+      "heart": 22
+    },
+    "2025-09-18": {
+      "total": 84,
+      "active": 57,
+      "heart": 11
+    },
+    "2025-09-17": {
+      "total": 25,
+      "active": 19,
+      "heart": 11
+    },
+    "2025-09-16": {
+      "total": 67,
+      "active": 77,
+      "heart": 14
+    },
+    "2025-09-15": {
+      "total": 87,
+      "active": 53,
+      "heart": 31
+    },
+    "2025-09-14": {
+      "total": 114,
+      "active": 54,
+      "heart": 21
+    },
+    "2025-09-13": {
+      "total": 57,
+      "active": 26,
+      "heart": 30
+    },
+    "2025-09-12": {
+      "total": 23,
+      "active": 44,
+      "heart": 37
+    },
+    "2025-09-11": {
+      "total": 77,
+      "active": 52,
+      "heart": 33
+    },
+    "2025-09-10": {
+      "total": 31,
+      "active": 31,
+      "heart": 12
+    },
+    "2025-09-09": {
+      "total": 63,
+      "active": 15,
+      "heart": 33
+    },
+    "2025-09-08": {
+      "total": 57,
+      "active": 19,
+      "heart": 11
+    },
+    "2025-09-07": {
+      "total": 62,
+      "active": 71,
+      "heart": 22
+    },
+    "2025-09-06": {
+      "total": 79,
+      "active": 46,
+      "heart": 21
+    },
+    "2025-09-05": {
+      "total": 48,
+      "active": 55,
+      "heart": 28
+    },
+    "2025-09-04": {
+      "total": 60,
+      "active": 23,
+      "heart": 28
+    },
+    "2025-09-03": {
+      "total": 89,
+      "active": 58,
+      "heart": 26
+    },
+    "2025-09-02": {
+      "total": 88,
+      "active": 31,
+      "heart": 15
+    },
+    "2025-09-01": {
+      "total": 84,
+      "active": 73,
+      "heart": 27
+    },
+    "2025-08-31": {
+      "total": 73,
+      "active": 76,
+      "heart": 10
+    },
+    "2025-08-30": {
+      "total": 22,
+      "active": 73,
+      "heart": 11
+    },
+    "2025-08-29": {
+      "total": 68,
+      "active": 21,
+      "heart": 25
+    },
+    "2025-08-28": {
+      "total": 80,
+      "active": 69,
+      "heart": 27
+    },
+    "2025-08-27": {
+      "total": 26,
+      "active": 63,
+      "heart": 18
+    },
+    "2025-08-26": {
+      "total": 72,
+      "active": 47,
+      "heart": 21
+    },
+    "2025-08-25": {
+      "total": 89,
+      "active": 68,
+      "heart": 22
+    },
+    "2025-08-24": {
+      "total": 47,
+      "active": 13,
+      "heart": 18
+    },
+    "2025-08-23": {
+      "total": 95,
+      "active": 36,
+      "heart": 36
+    },
+    "2025-08-22": {
+      "total": 33,
+      "active": 11,
+      "heart": 23
+    },
+    "2025-08-21": {
+      "total": 67,
+      "active": 17,
+      "heart": 17
+    },
+    "2025-08-20": {
+      "total": 77,
+      "active": 29,
+      "heart": 26
+    },
+    "2025-08-19": {
+      "total": 32,
+      "active": 20,
+      "heart": 29
+    },
+    "2025-08-18": {
+      "total": 84,
+      "active": 21,
+      "heart": 17
+    },
+    "2025-08-17": {
+      "total": 105,
+      "active": 79,
+      "heart": 23
+    },
+    "2025-08-16": {
+      "total": 49,
+      "active": 44,
+      "heart": 29
+    },
+    "2025-08-15": {
+      "total": 64,
+      "active": 15,
+      "heart": 30
+    },
+    "2025-08-14": {
+      "total": 51,
+      "active": 35,
+      "heart": 38
+    },
+    "2025-08-13": {
+      "total": 116,
+      "active": 80,
+      "heart": 17
+    },
+    "2025-08-12": {
+      "total": 116,
+      "active": 33,
+      "heart": 11
+    },
+    "2025-08-11": {
+      "total": 48,
+      "active": 52,
+      "heart": 32
+    },
+    "2025-08-10": {
+      "total": 53,
+      "active": 58,
+      "heart": 11
+    },
+    "2025-08-09": {
+      "total": 86,
+      "active": 59,
+      "heart": 26
+    },
+    "2025-08-08": {
+      "total": 93,
+      "active": 46,
+      "heart": 38
+    },
+    "2025-08-07": {
+      "total": 84,
+      "active": 45,
+      "heart": 32
+    },
+    "2025-08-06": {
+      "total": 40,
+      "active": 58,
+      "heart": 22
+    },
+    "2025-08-05": {
+      "total": 71,
+      "active": 49,
+      "heart": 18
+    },
+    "2025-08-04": {
+      "total": 58,
+      "active": 64,
+      "heart": 39
+    },
+    "2025-08-03": {
+      "total": 93,
+      "active": 80,
+      "heart": 25
+    },
+    "2025-08-02": {
+      "total": 119,
+      "active": 72,
+      "heart": 39
+    },
+    "2025-08-01": {
+      "total": 80,
+      "active": 77,
+      "heart": 17
+    },
+    "2025-07-31": {
+      "total": 70,
+      "active": 10,
+      "heart": 27
+    },
+    "2025-07-30": {
+      "total": 42,
+      "active": 36,
+      "heart": 18
+    },
+    "2025-07-29": {
+      "total": 111,
+      "active": 56,
+      "heart": 26
+    },
+    "2025-07-28": {
+      "total": 67,
+      "active": 73,
+      "heart": 27
+    },
+    "2025-07-27": {
+      "total": 107,
+      "active": 17,
+      "heart": 39
+    },
+    "2025-07-26": {
+      "total": 22,
+      "active": 46,
+      "heart": 33
+    },
+    "2025-07-25": {
+      "total": 35,
+      "active": 38,
+      "heart": 38
+    },
+    "2025-07-24": {
+      "total": 92,
+      "active": 42,
+      "heart": 35
+    },
+    "2025-07-23": {
+      "total": 23,
+      "active": 25,
+      "heart": 25
+    },
+    "2025-07-22": {
+      "total": 56,
+      "active": 65,
+      "heart": 30
+    },
+    "2025-07-21": {
+      "total": 58,
+      "active": 40,
+      "heart": 19
+    },
+    "2025-07-20": {
+      "total": 111,
+      "active": 63,
+      "heart": 19
+    },
+    "2025-07-19": {
+      "total": 86,
+      "active": 55,
+      "heart": 40
+    },
+    "2025-07-18": {
+      "total": 25,
+      "active": 37,
+      "heart": 33
+    },
+    "2025-07-17": {
+      "total": 37,
+      "active": 14,
+      "heart": 10
+    },
+    "2025-07-16": {
+      "total": 47,
+      "active": 50,
+      "heart": 28
+    },
+    "2025-07-15": {
+      "total": 69,
+      "active": 51,
+      "heart": 28
+    },
+    "2025-07-14": {
+      "total": 90,
+      "active": 70,
+      "heart": 40
+    },
+    "2025-07-13": {
+      "total": 70,
+      "active": 13,
+      "heart": 20
+    },
+    "2025-07-12": {
+      "total": 100,
+      "active": 44,
+      "heart": 39
+    },
+    "2025-07-11": {
+      "total": 115,
+      "active": 46,
+      "heart": 11
+    },
+    "2025-07-10": {
+      "total": 97,
+      "active": 72,
+      "heart": 10
+    },
+    "2025-07-09": {
+      "total": 106,
+      "active": 79,
+      "heart": 40
+    },
+    "2025-07-08": {
+      "total": 71,
+      "active": 24,
+      "heart": 32
+    },
+    "2025-07-07": {
+      "total": 90,
+      "active": 43,
+      "heart": 23
+    },
+    "2025-07-06": {
+      "total": 108,
+      "active": 46,
+      "heart": 13
+    },
+    "2025-07-05": {
+      "total": 59,
+      "active": 63,
+      "heart": 13
+    },
+    "2025-07-04": {
+      "total": 27,
+      "active": 26,
+      "heart": 18
+    },
+    "2025-07-03": {
+      "total": 80,
+      "active": 51,
+      "heart": 30
+    },
+    "2025-07-02": {
+      "total": 112,
+      "active": 30,
+      "heart": 23
+    },
+    "2025-07-01": {
+      "total": 43,
+      "active": 37,
+      "heart": 10
+    },
+    "2025-06-30": {
+      "total": 102,
+      "active": 23,
+      "heart": 14
+    },
+    "2025-06-29": {
+      "total": 101,
+      "active": 51,
+      "heart": 27
+    },
+    "2025-06-28": {
+      "total": 88,
+      "active": 62,
+      "heart": 39
+    },
+    "2025-06-27": {
+      "total": 96,
+      "active": 12,
+      "heart": 35
+    },
+    "2025-06-26": {
+      "total": 50,
+      "active": 77,
+      "heart": 35
+    },
+    "2025-06-25": {
+      "total": 56,
+      "active": 12,
+      "heart": 10
+    },
+    "2025-06-24": {
+      "total": 118,
+      "active": 78,
+      "heart": 15
+    },
+    "2025-06-23": {
+      "total": 69,
+      "active": 75,
+      "heart": 15
+    },
+    "2025-06-22": {
+      "total": 115,
+      "active": 79,
+      "heart": 27
+    },
+    "2025-06-21": {
+      "total": 67,
+      "active": 24,
+      "heart": 28
+    },
+    "2025-06-20": {
+      "total": 107,
+      "active": 15,
+      "heart": 10
+    },
+    "2025-06-19": {
+      "total": 37,
+      "active": 72,
+      "heart": 16
+    },
+    "2025-06-18": {
+      "total": 99,
+      "active": 29,
+      "heart": 28
+    },
+    "2025-06-17": {
+      "total": 114,
+      "active": 79,
+      "heart": 34
+    },
+    "2025-06-16": {
+      "total": 60,
+      "active": 27,
+      "heart": 26
+    },
+    "2025-06-15": {
+      "total": 33,
+      "active": 63,
+      "heart": 29
+    },
+    "2025-06-14": {
+      "total": 115,
+      "active": 75,
+      "heart": 15
+    },
+    "2025-06-13": {
+      "total": 98,
+      "active": 70,
+      "heart": 27
+    },
+    "2025-06-12": {
+      "total": 87,
+      "active": 45,
+      "heart": 31
+    },
+    "2025-06-11": {
+      "total": 28,
+      "active": 56,
+      "heart": 27
+    },
+    "2025-06-10": {
+      "total": 32,
+      "active": 45,
+      "heart": 34
+    },
+    "2025-06-09": {
+      "total": 94,
+      "active": 47,
+      "heart": 10
+    },
+    "2025-06-08": {
+      "total": 92,
+      "active": 56,
+      "heart": 38
+    },
+    "2025-06-07": {
+      "total": 65,
+      "active": 38,
+      "heart": 35
+    },
+    "2025-06-06": {
+      "total": 56,
+      "active": 13,
+      "heart": 12
+    },
+    "2025-06-05": {
+      "total": 106,
+      "active": 65,
+      "heart": 10
+    },
+    "2025-06-04": {
+      "total": 86,
+      "active": 11,
+      "heart": 39
+    },
+    "2025-06-03": {
+      "total": 29,
+      "active": 23,
+      "heart": 12
+    },
+    "2025-06-02": {
+      "total": 21,
+      "active": 47,
+      "heart": 18
+    },
+    "2025-06-01": {
+      "total": 38,
+      "active": 56,
+      "heart": 25
+    },
+    "2025-05-31": {
+      "total": 40,
+      "active": 45,
+      "heart": 24
+    },
+    "2025-05-30": {
+      "total": 61,
+      "active": 26,
+      "heart": 12
+    },
+    "2025-05-29": {
+      "total": 105,
+      "active": 74,
+      "heart": 10
+    },
+    "2025-05-28": {
+      "total": 74,
+      "active": 78,
+      "heart": 30
+    },
+    "2025-05-27": {
+      "total": 111,
+      "active": 42,
+      "heart": 24
+    },
+    "2025-05-26": {
+      "total": 116,
+      "active": 57,
+      "heart": 39
+    },
+    "2025-05-25": {
+      "total": 29,
+      "active": 74,
+      "heart": 28
+    },
+    "2025-05-24": {
+      "total": 111,
+      "active": 60,
+      "heart": 39
+    },
+    "2025-05-23": {
+      "total": 115,
+      "active": 12,
+      "heart": 11
+    },
+    "2025-05-22": {
+      "total": 50,
+      "active": 53,
+      "heart": 19
+    },
+    "2025-05-21": {
+      "total": 48,
+      "active": 39,
+      "heart": 28
+    },
+    "2025-05-20": {
+      "total": 98,
+      "active": 60,
+      "heart": 22
+    },
+    "2025-05-19": {
+      "total": 37,
+      "active": 65,
+      "heart": 34
+    },
+    "2025-05-18": {
+      "total": 93,
+      "active": 18,
+      "heart": 26
+    },
+    "2025-05-17": {
+      "total": 36,
+      "active": 58,
+      "heart": 38
+    },
+    "2025-05-16": {
+      "total": 107,
+      "active": 29,
+      "heart": 33
+    },
+    "2025-05-15": {
+      "total": 63,
+      "active": 47,
+      "heart": 39
+    },
+    "2025-05-14": {
+      "total": 49,
+      "active": 64,
+      "heart": 16
+    },
+    "2025-05-13": {
+      "total": 26,
+      "active": 78,
+      "heart": 13
+    },
+    "2025-05-12": {
+      "total": 55,
+      "active": 75,
+      "heart": 12
+    },
+    "2025-05-11": {
+      "total": 96,
+      "active": 42,
+      "heart": 39
+    },
+    "2025-05-10": {
+      "total": 28,
+      "active": 30,
+      "heart": 40
+    },
+    "2025-05-09": {
+      "total": 40,
+      "active": 72,
+      "heart": 21
+    },
+    "2025-05-08": {
+      "total": 111,
+      "active": 10,
+      "heart": 32
+    },
+    "2025-05-07": {
+      "total": 117,
+      "active": 29,
+      "heart": 30
+    },
+    "2025-05-06": {
+      "total": 102,
+      "active": 70,
+      "heart": 26
+    },
+    "2025-05-05": {
+      "total": 57,
+      "active": 48,
+      "heart": 17
+    },
+    "2025-05-04": {
+      "total": 22,
+      "active": 59,
+      "heart": 14
+    },
+    "2025-05-03": {
+      "total": 26,
+      "active": 55,
+      "heart": 28
+    },
+    "2025-05-02": {
+      "total": 99,
+      "active": 34,
+      "heart": 38
+    },
+    "2025-05-01": {
+      "total": 81,
+      "active": 22,
+      "heart": 13
+    },
+    "2025-04-30": {
+      "total": 94,
+      "active": 15,
+      "heart": 33
+    },
+    "2025-04-29": {
+      "total": 25,
+      "active": 65,
+      "heart": 40
+    },
+    "2025-04-28": {
+      "total": 32,
+      "active": 44,
+      "heart": 19
+    },
+    "2025-04-27": {
+      "total": 76,
+      "active": 36,
+      "heart": 22
+    },
+    "2025-04-26": {
+      "total": 26,
+      "active": 44,
+      "heart": 38
+    },
+    "2025-04-25": {
+      "total": 35,
+      "active": 70,
+      "heart": 29
+    },
+    "2025-04-24": {
+      "total": 109,
+      "active": 34,
+      "heart": 38
+    },
+    "2025-04-23": {
+      "total": 51,
+      "active": 75,
+      "heart": 20
+    },
+    "2025-04-22": {
+      "total": 71,
+      "active": 22,
+      "heart": 33
+    },
+    "2025-04-21": {
+      "total": 34,
+      "active": 11,
+      "heart": 13
+    },
+    "2025-04-20": {
+      "total": 60,
+      "active": 12,
+      "heart": 19
+    },
+    "2025-04-19": {
+      "total": 61,
+      "active": 28,
+      "heart": 14
+    },
+    "2025-04-18": {
+      "total": 42,
+      "active": 65,
+      "heart": 39
+    },
+    "2025-04-17": {
+      "total": 96,
+      "active": 48,
+      "heart": 26
+    },
+    "2025-04-16": {
+      "total": 22,
+      "active": 42,
+      "heart": 29
+    },
+    "2025-04-15": {
+      "total": 31,
+      "active": 17,
+      "heart": 37
+    },
+    "2025-04-14": {
+      "total": 50,
+      "active": 42,
+      "heart": 35
+    },
+    "2025-04-13": {
+      "total": 91,
+      "active": 34,
+      "heart": 18
+    },
+    "2025-04-12": {
+      "total": 82,
+      "active": 70,
+      "heart": 25
+    },
+    "2025-04-11": {
+      "total": 21,
+      "active": 27,
+      "heart": 33
+    },
+    "2025-04-10": {
+      "total": 103,
+      "active": 12,
+      "heart": 29
+    },
+    "2025-04-09": {
+      "total": 93,
+      "active": 51,
+      "heart": 31
+    },
+    "2025-04-08": {
+      "total": 88,
+      "active": 43,
+      "heart": 31
+    },
+    "2025-04-07": {
+      "total": 96,
+      "active": 37,
+      "heart": 18
+    },
+    "2025-04-06": {
+      "total": 65,
+      "active": 54,
+      "heart": 39
+    },
+    "2025-04-05": {
+      "total": 95,
+      "active": 57,
+      "heart": 16
+    },
+    "2025-04-04": {
+      "total": 56,
+      "active": 47,
+      "heart": 12
+    },
+    "2025-04-03": {
+      "total": 39,
+      "active": 73,
+      "heart": 35
+    },
+    "2025-04-02": {
+      "total": 65,
+      "active": 62,
+      "heart": 33
+    },
+    "2025-04-01": {
+      "total": 77,
+      "active": 33,
+      "heart": 33
+    },
+    "2025-03-31": {
+      "total": 75,
+      "active": 70,
+      "heart": 12
+    },
+    "2025-03-30": {
+      "total": 52,
+      "active": 31,
+      "heart": 35
+    },
+    "2025-03-29": {
+      "total": 54,
+      "active": 73,
+      "heart": 19
+    },
+    "2025-03-28": {
+      "total": 90,
+      "active": 42,
+      "heart": 34
+    },
+    "2025-03-27": {
+      "total": 37,
+      "active": 32,
+      "heart": 33
+    },
+    "2025-03-26": {
+      "total": 115,
+      "active": 45,
+      "heart": 31
+    },
+    "2025-03-25": {
+      "total": 56,
+      "active": 44,
+      "heart": 19
+    },
+    "2025-03-24": {
+      "total": 26,
+      "active": 76,
+      "heart": 21
+    },
+    "2025-03-23": {
+      "total": 28,
+      "active": 31,
+      "heart": 29
+    },
+    "2025-03-22": {
+      "total": 63,
+      "active": 64,
+      "heart": 39
+    },
+    "2025-03-21": {
+      "total": 35,
+      "active": 36,
+      "heart": 11
+    },
+    "2025-03-20": {
+      "total": 86,
+      "active": 65,
+      "heart": 30
+    },
+    "2025-03-19": {
+      "total": 118,
+      "active": 15,
+      "heart": 25
+    },
+    "2025-03-18": {
+      "total": 45,
+      "active": 34,
+      "heart": 37
+    },
+    "2025-03-17": {
+      "total": 103,
+      "active": 42,
+      "heart": 29
+    },
+    "2025-03-16": {
+      "total": 106,
+      "active": 74,
+      "heart": 15
+    },
+    "2025-03-15": {
+      "total": 94,
+      "active": 23,
+      "heart": 34
+    },
+    "2025-03-14": {
+      "total": 29,
+      "active": 58,
+      "heart": 40
+    },
+    "2025-03-13": {
+      "total": 64,
+      "active": 40,
+      "heart": 32
+    },
+    "2025-03-12": {
+      "total": 48,
+      "active": 36,
+      "heart": 16
+    },
+    "2025-03-11": {
+      "total": 28,
+      "active": 57,
+      "heart": 27
+    },
+    "2025-03-10": {
+      "total": 69,
+      "active": 20,
+      "heart": 24
+    },
+    "2025-03-09": {
+      "total": 42,
+      "active": 57,
+      "heart": 21
+    },
+    "2025-03-08": {
+      "total": 40,
+      "active": 19,
+      "heart": 16
+    },
+    "2025-03-07": {
+      "total": 91,
+      "active": 66,
+      "heart": 30
+    },
+    "2025-03-06": {
+      "total": 74,
+      "active": 33,
+      "heart": 34
+    },
+    "2025-03-05": {
+      "total": 52,
+      "active": 20,
+      "heart": 27
+    },
+    "2025-03-04": {
+      "total": 57,
+      "active": 24,
+      "heart": 10
+    },
+    "2025-03-03": {
+      "total": 117,
+      "active": 25,
+      "heart": 34
+    },
+    "2025-03-02": {
+      "total": 43,
+      "active": 46,
+      "heart": 16
+    },
+    "2025-03-01": {
+      "total": 80,
+      "active": 20,
+      "heart": 34
+    },
+    "2025-02-28": {
+      "total": 35,
+      "active": 74,
+      "heart": 27
+    },
+    "2025-02-27": {
+      "total": 56,
+      "active": 31,
+      "heart": 23
+    },
+    "2025-02-26": {
+      "total": 69,
+      "active": 14,
+      "heart": 11
+    },
+    "2025-02-25": {
+      "total": 112,
+      "active": 15,
+      "heart": 18
+    },
+    "2025-02-24": {
+      "total": 110,
+      "active": 73,
+      "heart": 39
     }
   },
   "sleep": {
+    "2026-02-23": {
+      "duration": 368,
+      "deep": 99,
+      "light": 181,
+      "rem": 101,
+      "awake": 29
+    },
+    "2026-02-22": {
+      "duration": 408,
+      "deep": 138,
+      "light": 255,
+      "rem": 94,
+      "awake": 25
+    },
+    "2026-02-21": {
+      "duration": 439,
+      "deep": 122,
+      "light": 285,
+      "rem": 69,
+      "awake": 26
+    },
+    "2026-02-20": {
+      "duration": 305,
+      "deep": 111,
+      "light": 200,
+      "rem": 98,
+      "awake": 14
+    },
+    "2026-02-19": {
+      "duration": 331,
+      "deep": 103,
+      "light": 251,
+      "rem": 87,
+      "awake": 19
+    },
+    "2026-02-18": {
+      "duration": 455,
+      "deep": 131,
+      "light": 288,
+      "rem": 87,
+      "awake": 20
+    },
+    "2026-02-17": {
+      "duration": 339,
+      "deep": 71,
+      "light": 232,
+      "rem": 54,
+      "awake": 20
+    },
+    "2026-02-16": {
+      "duration": 412,
+      "deep": 134,
+      "light": 235,
+      "rem": 75,
+      "awake": 24
+    },
     "2026-02-15": {
-      "duration": 420,
-      "deep": 105,
+      "duration": 357,
+      "deep": 113,
+      "light": 202,
+      "rem": 92,
+      "awake": 23
+    },
+    "2026-02-14": {
+      "duration": 367,
+      "deep": 89,
+      "light": 236,
+      "rem": 77,
+      "awake": 9
+    },
+    "2026-02-13": {
+      "duration": 496,
+      "deep": 103,
       "light": 245,
+      "rem": 60,
+      "awake": 18
+    },
+    "2026-02-12": {
+      "duration": 402,
+      "deep": 100,
+      "light": 232,
+      "rem": 77,
+      "awake": 27
+    },
+    "2026-02-11": {
+      "duration": 464,
+      "deep": 110,
+      "light": 287,
+      "rem": 78,
+      "awake": 15
+    },
+    "2026-02-10": {
+      "duration": 350,
+      "deep": 89,
+      "light": 276,
+      "rem": 114,
+      "awake": 5
+    },
+    "2026-02-09": {
+      "duration": 353,
+      "deep": 132,
+      "light": 234,
+      "rem": 74,
+      "awake": 8
+    },
+    "2026-02-08": {
+      "duration": 525,
+      "deep": 74,
+      "light": 238,
+      "rem": 56,
+      "awake": 5
+    },
+    "2026-02-07": {
+      "duration": 393,
+      "deep": 123,
+      "light": 236,
+      "rem": 63,
+      "awake": 13
+    },
+    "2026-02-06": {
+      "duration": 468,
+      "deep": 139,
+      "light": 286,
+      "rem": 72,
+      "awake": 6
+    },
+    "2026-02-05": {
+      "duration": 340,
+      "deep": 132,
+      "light": 289,
+      "rem": 62,
+      "awake": 11
+    },
+    "2026-02-04": {
+      "duration": 300,
+      "deep": 85,
+      "light": 251,
+      "rem": 96,
+      "awake": 6
+    },
+    "2026-02-03": {
+      "duration": 307,
+      "deep": 69,
+      "light": 218,
+      "rem": 66,
+      "awake": 14
+    },
+    "2026-02-02": {
+      "duration": 531,
+      "deep": 61,
+      "light": 291,
+      "rem": 108,
+      "awake": 28
+    },
+    "2026-02-01": {
+      "duration": 479,
+      "deep": 128,
+      "light": 202,
+      "rem": 118,
+      "awake": 18
+    },
+    "2026-01-31": {
+      "duration": 498,
+      "deep": 61,
+      "light": 288,
+      "rem": 93,
+      "awake": 23
+    },
+    "2026-01-30": {
+      "duration": 485,
+      "deep": 108,
+      "light": 202,
+      "rem": 99,
+      "awake": 19
+    },
+    "2026-01-29": {
+      "duration": 343,
+      "deep": 73,
+      "light": 218,
+      "rem": 79,
+      "awake": 19
+    },
+    "2026-01-28": {
+      "duration": 320,
+      "deep": 102,
+      "light": 258,
+      "rem": 53,
+      "awake": 11
+    },
+    "2026-01-27": {
+      "duration": 479,
+      "deep": 137,
+      "light": 292,
+      "rem": 83,
+      "awake": 28
+    },
+    "2026-01-26": {
+      "duration": 341,
+      "deep": 94,
+      "light": 224,
+      "rem": 108,
+      "awake": 15
+    },
+    "2026-01-25": {
+      "duration": 525,
+      "deep": 71,
+      "light": 203,
+      "rem": 76,
+      "awake": 8
+    },
+    "2026-01-24": {
+      "duration": 422,
+      "deep": 131,
+      "light": 187,
+      "rem": 58,
+      "awake": 5
+    },
+    "2026-01-23": {
+      "duration": 535,
+      "deep": 80,
+      "light": 254,
+      "rem": 48,
+      "awake": 20
+    },
+    "2026-01-22": {
+      "duration": 316,
+      "deep": 86,
+      "light": 286,
+      "rem": 52,
+      "awake": 24
+    },
+    "2026-01-21": {
+      "duration": 376,
+      "deep": 66,
+      "light": 202,
       "rem": 70,
       "awake": 15
     },
-    "2026-02-16": {
-      "duration": 450,
-      "deep": 120,
-      "light": 260,
-      "rem": 85,
-      "awake": 10
-    },
-    "2026-02-17": {
-      "duration": 390,
-      "deep": 95,
-      "light": 225,
-      "rem": 65,
-      "awake": 20
-    },
-    "2026-02-18": {
-      "duration": 465,
-      "deep": 130,
-      "light": 270,
-      "rem": 90,
-      "awake": 8
-    },
-    "2026-02-19": {
-      "duration": 435,
-      "deep": 110,
-      "light": 255,
-      "rem": 78,
-      "awake": 12
-    },
-    "2026-02-20": {
-      "duration": 455,
-      "deep": 125,
-      "light": 265,
-      "rem": 88,
-      "awake": 9
-    },
-    "2026-02-21": {
-      "duration": 470,
-      "deep": 135,
-      "light": 275,
-      "rem": 95,
+    "2026-01-20": {
+      "duration": 372,
+      "deep": 92,
+      "light": 281,
+      "rem": 117,
       "awake": 7
     },
-    "2026-02-22": {
-      "duration": 410,
+    "2026-01-19": {
+      "duration": 316,
+      "deep": 70,
+      "light": 203,
+      "rem": 63,
+      "awake": 12
+    },
+    "2026-01-18": {
+      "duration": 309,
+      "deep": 149,
+      "light": 261,
+      "rem": 114,
+      "awake": 29
+    },
+    "2026-01-17": {
+      "duration": 507,
+      "deep": 111,
+      "light": 213,
+      "rem": 99,
+      "awake": 25
+    },
+    "2026-01-16": {
+      "duration": 408,
+      "deep": 104,
+      "light": 211,
+      "rem": 55,
+      "awake": 25
+    },
+    "2026-01-15": {
+      "duration": 507,
+      "deep": 108,
+      "light": 257,
+      "rem": 91,
+      "awake": 20
+    },
+    "2026-01-14": {
+      "duration": 373,
+      "deep": 68,
+      "light": 282,
+      "rem": 74,
+      "awake": 17
+    },
+    "2026-01-13": {
+      "duration": 304,
+      "deep": 85,
+      "light": 222,
+      "rem": 118,
+      "awake": 27
+    },
+    "2026-01-12": {
+      "duration": 470,
+      "deep": 136,
+      "light": 271,
+      "rem": 89,
+      "awake": 24
+    },
+    "2026-01-11": {
+      "duration": 338,
+      "deep": 84,
+      "light": 204,
+      "rem": 84,
+      "awake": 24
+    },
+    "2026-01-10": {
+      "duration": 308,
+      "deep": 149,
+      "light": 270,
+      "rem": 91,
+      "awake": 9
+    },
+    "2026-01-09": {
+      "duration": 387,
+      "deep": 122,
+      "light": 281,
+      "rem": 74,
+      "awake": 15
+    },
+    "2026-01-08": {
+      "duration": 313,
+      "deep": 64,
+      "light": 180,
+      "rem": 49,
+      "awake": 9
+    },
+    "2026-01-07": {
+      "duration": 539,
+      "deep": 60,
+      "light": 181,
+      "rem": 113,
+      "awake": 26
+    },
+    "2026-01-06": {
+      "duration": 399,
+      "deep": 144,
+      "light": 225,
+      "rem": 83,
+      "awake": 5
+    },
+    "2026-01-05": {
+      "duration": 450,
+      "deep": 125,
+      "light": 242,
+      "rem": 69,
+      "awake": 29
+    },
+    "2026-01-04": {
+      "duration": 320,
+      "deep": 119,
+      "light": 257,
+      "rem": 45,
+      "awake": 26
+    },
+    "2026-01-03": {
+      "duration": 439,
+      "deep": 123,
+      "light": 194,
+      "rem": 46,
+      "awake": 24
+    },
+    "2026-01-02": {
+      "duration": 464,
+      "deep": 98,
+      "light": 254,
+      "rem": 93,
+      "awake": 28
+    },
+    "2026-01-01": {
+      "duration": 495,
+      "deep": 74,
+      "light": 205,
+      "rem": 92,
+      "awake": 13
+    },
+    "2025-12-31": {
+      "duration": 332,
+      "deep": 97,
+      "light": 218,
+      "rem": 117,
+      "awake": 5
+    },
+    "2025-12-30": {
+      "duration": 515,
+      "deep": 118,
+      "light": 288,
+      "rem": 47,
+      "awake": 28
+    },
+    "2025-12-29": {
+      "duration": 471,
+      "deep": 145,
+      "light": 180,
+      "rem": 61,
+      "awake": 14
+    },
+    "2025-12-28": {
+      "duration": 472,
+      "deep": 131,
+      "light": 221,
+      "rem": 103,
+      "awake": 10
+    },
+    "2025-12-27": {
+      "duration": 533,
+      "deep": 114,
+      "light": 286,
+      "rem": 77,
+      "awake": 19
+    },
+    "2025-12-26": {
+      "duration": 342,
+      "deep": 80,
+      "light": 295,
+      "rem": 73,
+      "awake": 5
+    },
+    "2025-12-25": {
+      "duration": 390,
+      "deep": 88,
+      "light": 226,
+      "rem": 92,
+      "awake": 29
+    },
+    "2025-12-24": {
+      "duration": 411,
+      "deep": 110,
+      "light": 297,
+      "rem": 97,
+      "awake": 26
+    },
+    "2025-12-23": {
+      "duration": 337,
+      "deep": 63,
+      "light": 280,
+      "rem": 109,
+      "awake": 16
+    },
+    "2025-12-22": {
+      "duration": 334,
+      "deep": 134,
+      "light": 207,
+      "rem": 97,
+      "awake": 5
+    },
+    "2025-12-21": {
+      "duration": 386,
+      "deep": 127,
+      "light": 295,
+      "rem": 50,
+      "awake": 16
+    },
+    "2025-12-20": {
+      "duration": 327,
+      "deep": 118,
+      "light": 278,
+      "rem": 71,
+      "awake": 9
+    },
+    "2025-12-19": {
+      "duration": 540,
       "deep": 100,
-      "light": 240,
-      "rem": 72,
+      "light": 214,
+      "rem": 69,
+      "awake": 25
+    },
+    "2025-12-18": {
+      "duration": 540,
+      "deep": 94,
+      "light": 233,
+      "rem": 96,
+      "awake": 20
+    },
+    "2025-12-17": {
+      "duration": 515,
+      "deep": 98,
+      "light": 252,
+      "rem": 82,
+      "awake": 22
+    },
+    "2025-12-16": {
+      "duration": 472,
+      "deep": 129,
+      "light": 224,
+      "rem": 86,
+      "awake": 11
+    },
+    "2025-12-15": {
+      "duration": 331,
+      "deep": 128,
+      "light": 256,
+      "rem": 91,
+      "awake": 22
+    },
+    "2025-12-14": {
+      "duration": 514,
+      "deep": 146,
+      "light": 293,
+      "rem": 76,
+      "awake": 16
+    },
+    "2025-12-13": {
+      "duration": 413,
+      "deep": 129,
+      "light": 201,
+      "rem": 112,
+      "awake": 23
+    },
+    "2025-12-12": {
+      "duration": 401,
+      "deep": 128,
+      "light": 284,
+      "rem": 57,
+      "awake": 17
+    },
+    "2025-12-11": {
+      "duration": 372,
+      "deep": 74,
+      "light": 276,
+      "rem": 45,
+      "awake": 9
+    },
+    "2025-12-10": {
+      "duration": 395,
+      "deep": 120,
+      "light": 269,
+      "rem": 47,
+      "awake": 8
+    },
+    "2025-12-09": {
+      "duration": 309,
+      "deep": 89,
+      "light": 213,
+      "rem": 83,
+      "awake": 19
+    },
+    "2025-12-08": {
+      "duration": 428,
+      "deep": 98,
+      "light": 184,
+      "rem": 89,
+      "awake": 21
+    },
+    "2025-12-07": {
+      "duration": 497,
+      "deep": 83,
+      "light": 203,
+      "rem": 75,
       "awake": 18
+    },
+    "2025-12-06": {
+      "duration": 530,
+      "deep": 81,
+      "light": 200,
+      "rem": 119,
+      "awake": 29
+    },
+    "2025-12-05": {
+      "duration": 337,
+      "deep": 109,
+      "light": 208,
+      "rem": 55,
+      "awake": 20
+    },
+    "2025-12-04": {
+      "duration": 333,
+      "deep": 124,
+      "light": 253,
+      "rem": 86,
+      "awake": 29
+    },
+    "2025-12-03": {
+      "duration": 419,
+      "deep": 97,
+      "light": 243,
+      "rem": 103,
+      "awake": 16
+    },
+    "2025-12-02": {
+      "duration": 382,
+      "deep": 105,
+      "light": 250,
+      "rem": 46,
+      "awake": 8
+    },
+    "2025-12-01": {
+      "duration": 522,
+      "deep": 144,
+      "light": 214,
+      "rem": 78,
+      "awake": 28
+    },
+    "2025-11-30": {
+      "duration": 400,
+      "deep": 95,
+      "light": 279,
+      "rem": 57,
+      "awake": 26
+    },
+    "2025-11-29": {
+      "duration": 535,
+      "deep": 104,
+      "light": 187,
+      "rem": 69,
+      "awake": 20
+    },
+    "2025-11-28": {
+      "duration": 460,
+      "deep": 135,
+      "light": 225,
+      "rem": 61,
+      "awake": 16
+    },
+    "2025-11-27": {
+      "duration": 404,
+      "deep": 146,
+      "light": 195,
+      "rem": 110,
+      "awake": 13
+    },
+    "2025-11-26": {
+      "duration": 509,
+      "deep": 104,
+      "light": 248,
+      "rem": 94,
+      "awake": 7
+    },
+    "2025-11-25": {
+      "duration": 441,
+      "deep": 132,
+      "light": 285,
+      "rem": 70,
+      "awake": 9
+    },
+    "2025-11-24": {
+      "duration": 449,
+      "deep": 62,
+      "light": 227,
+      "rem": 99,
+      "awake": 20
+    },
+    "2025-11-23": {
+      "duration": 511,
+      "deep": 90,
+      "light": 235,
+      "rem": 95,
+      "awake": 22
+    },
+    "2025-11-22": {
+      "duration": 472,
+      "deep": 63,
+      "light": 217,
+      "rem": 69,
+      "awake": 14
+    },
+    "2025-11-21": {
+      "duration": 388,
+      "deep": 100,
+      "light": 264,
+      "rem": 88,
+      "awake": 26
+    },
+    "2025-11-20": {
+      "duration": 540,
+      "deep": 117,
+      "light": 225,
+      "rem": 60,
+      "awake": 27
+    },
+    "2025-11-19": {
+      "duration": 372,
+      "deep": 90,
+      "light": 262,
+      "rem": 51,
+      "awake": 6
+    },
+    "2025-11-18": {
+      "duration": 354,
+      "deep": 126,
+      "light": 249,
+      "rem": 96,
+      "awake": 23
+    },
+    "2025-11-17": {
+      "duration": 526,
+      "deep": 82,
+      "light": 255,
+      "rem": 117,
+      "awake": 6
+    },
+    "2025-11-16": {
+      "duration": 421,
+      "deep": 133,
+      "light": 255,
+      "rem": 49,
+      "awake": 26
+    },
+    "2025-11-15": {
+      "duration": 364,
+      "deep": 64,
+      "light": 247,
+      "rem": 105,
+      "awake": 12
+    },
+    "2025-11-14": {
+      "duration": 499,
+      "deep": 80,
+      "light": 256,
+      "rem": 107,
+      "awake": 10
+    },
+    "2025-11-13": {
+      "duration": 409,
+      "deep": 104,
+      "light": 288,
+      "rem": 119,
+      "awake": 29
+    },
+    "2025-11-12": {
+      "duration": 327,
+      "deep": 104,
+      "light": 244,
+      "rem": 116,
+      "awake": 24
+    },
+    "2025-11-11": {
+      "duration": 339,
+      "deep": 113,
+      "light": 254,
+      "rem": 57,
+      "awake": 21
+    },
+    "2025-11-10": {
+      "duration": 330,
+      "deep": 104,
+      "light": 271,
+      "rem": 91,
+      "awake": 5
+    },
+    "2025-11-09": {
+      "duration": 301,
+      "deep": 113,
+      "light": 214,
+      "rem": 114,
+      "awake": 23
+    },
+    "2025-11-08": {
+      "duration": 460,
+      "deep": 107,
+      "light": 212,
+      "rem": 107,
+      "awake": 8
+    },
+    "2025-11-07": {
+      "duration": 308,
+      "deep": 103,
+      "light": 202,
+      "rem": 94,
+      "awake": 8
+    },
+    "2025-11-06": {
+      "duration": 503,
+      "deep": 112,
+      "light": 221,
+      "rem": 102,
+      "awake": 12
+    },
+    "2025-11-05": {
+      "duration": 501,
+      "deep": 98,
+      "light": 254,
+      "rem": 55,
+      "awake": 19
+    },
+    "2025-11-04": {
+      "duration": 486,
+      "deep": 80,
+      "light": 277,
+      "rem": 113,
+      "awake": 25
+    },
+    "2025-11-03": {
+      "duration": 494,
+      "deep": 91,
+      "light": 206,
+      "rem": 100,
+      "awake": 17
+    },
+    "2025-11-02": {
+      "duration": 462,
+      "deep": 140,
+      "light": 221,
+      "rem": 79,
+      "awake": 19
+    },
+    "2025-11-01": {
+      "duration": 436,
+      "deep": 93,
+      "light": 198,
+      "rem": 55,
+      "awake": 21
+    },
+    "2025-10-31": {
+      "duration": 425,
+      "deep": 123,
+      "light": 245,
+      "rem": 115,
+      "awake": 6
+    },
+    "2025-10-30": {
+      "duration": 313,
+      "deep": 100,
+      "light": 271,
+      "rem": 72,
+      "awake": 8
+    },
+    "2025-10-29": {
+      "duration": 505,
+      "deep": 111,
+      "light": 294,
+      "rem": 52,
+      "awake": 19
+    },
+    "2025-10-28": {
+      "duration": 424,
+      "deep": 134,
+      "light": 213,
+      "rem": 71,
+      "awake": 20
+    },
+    "2025-10-27": {
+      "duration": 525,
+      "deep": 113,
+      "light": 292,
+      "rem": 112,
+      "awake": 7
+    },
+    "2025-10-26": {
+      "duration": 452,
+      "deep": 60,
+      "light": 200,
+      "rem": 93,
+      "awake": 15
+    },
+    "2025-10-25": {
+      "duration": 430,
+      "deep": 126,
+      "light": 240,
+      "rem": 68,
+      "awake": 8
+    },
+    "2025-10-24": {
+      "duration": 528,
+      "deep": 76,
+      "light": 187,
+      "rem": 71,
+      "awake": 29
+    },
+    "2025-10-23": {
+      "duration": 521,
+      "deep": 78,
+      "light": 235,
+      "rem": 59,
+      "awake": 12
+    },
+    "2025-10-22": {
+      "duration": 382,
+      "deep": 94,
+      "light": 219,
+      "rem": 82,
+      "awake": 10
+    },
+    "2025-10-21": {
+      "duration": 539,
+      "deep": 74,
+      "light": 219,
+      "rem": 68,
+      "awake": 30
+    },
+    "2025-10-20": {
+      "duration": 355,
+      "deep": 70,
+      "light": 230,
+      "rem": 63,
+      "awake": 16
+    },
+    "2025-10-19": {
+      "duration": 394,
+      "deep": 106,
+      "light": 276,
+      "rem": 76,
+      "awake": 18
+    },
+    "2025-10-18": {
+      "duration": 333,
+      "deep": 117,
+      "light": 226,
+      "rem": 59,
+      "awake": 13
+    },
+    "2025-10-17": {
+      "duration": 506,
+      "deep": 130,
+      "light": 207,
+      "rem": 112,
+      "awake": 17
+    },
+    "2025-10-16": {
+      "duration": 328,
+      "deep": 134,
+      "light": 288,
+      "rem": 81,
+      "awake": 16
+    },
+    "2025-10-15": {
+      "duration": 440,
+      "deep": 117,
+      "light": 181,
+      "rem": 95,
+      "awake": 10
+    },
+    "2025-10-14": {
+      "duration": 313,
+      "deep": 66,
+      "light": 219,
+      "rem": 59,
+      "awake": 22
+    },
+    "2025-10-13": {
+      "duration": 306,
+      "deep": 128,
+      "light": 278,
+      "rem": 103,
+      "awake": 26
+    },
+    "2025-10-12": {
+      "duration": 440,
+      "deep": 140,
+      "light": 259,
+      "rem": 46,
+      "awake": 18
+    },
+    "2025-10-11": {
+      "duration": 354,
+      "deep": 108,
+      "light": 192,
+      "rem": 116,
+      "awake": 14
+    },
+    "2025-10-10": {
+      "duration": 451,
+      "deep": 109,
+      "light": 227,
+      "rem": 94,
+      "awake": 18
+    },
+    "2025-10-09": {
+      "duration": 410,
+      "deep": 92,
+      "light": 286,
+      "rem": 112,
+      "awake": 13
+    },
+    "2025-10-08": {
+      "duration": 433,
+      "deep": 74,
+      "light": 195,
+      "rem": 100,
+      "awake": 29
+    },
+    "2025-10-07": {
+      "duration": 439,
+      "deep": 148,
+      "light": 209,
+      "rem": 104,
+      "awake": 28
+    },
+    "2025-10-06": {
+      "duration": 425,
+      "deep": 65,
+      "light": 205,
+      "rem": 112,
+      "awake": 12
+    },
+    "2025-10-05": {
+      "duration": 337,
+      "deep": 74,
+      "light": 180,
+      "rem": 109,
+      "awake": 19
+    },
+    "2025-10-04": {
+      "duration": 405,
+      "deep": 75,
+      "light": 209,
+      "rem": 82,
+      "awake": 10
+    },
+    "2025-10-03": {
+      "duration": 421,
+      "deep": 100,
+      "light": 189,
+      "rem": 54,
+      "awake": 8
+    },
+    "2025-10-02": {
+      "duration": 305,
+      "deep": 139,
+      "light": 291,
+      "rem": 59,
+      "awake": 9
+    },
+    "2025-10-01": {
+      "duration": 498,
+      "deep": 108,
+      "light": 236,
+      "rem": 90,
+      "awake": 12
+    },
+    "2025-09-30": {
+      "duration": 448,
+      "deep": 93,
+      "light": 230,
+      "rem": 77,
+      "awake": 14
+    },
+    "2025-09-29": {
+      "duration": 376,
+      "deep": 103,
+      "light": 200,
+      "rem": 112,
+      "awake": 7
+    },
+    "2025-09-28": {
+      "duration": 461,
+      "deep": 137,
+      "light": 290,
+      "rem": 72,
+      "awake": 9
+    },
+    "2025-09-27": {
+      "duration": 343,
+      "deep": 124,
+      "light": 243,
+      "rem": 110,
+      "awake": 15
+    },
+    "2025-09-26": {
+      "duration": 529,
+      "deep": 105,
+      "light": 276,
+      "rem": 101,
+      "awake": 26
+    },
+    "2025-09-25": {
+      "duration": 503,
+      "deep": 118,
+      "light": 273,
+      "rem": 96,
+      "awake": 7
+    },
+    "2025-09-24": {
+      "duration": 355,
+      "deep": 113,
+      "light": 232,
+      "rem": 91,
+      "awake": 28
+    },
+    "2025-09-23": {
+      "duration": 308,
+      "deep": 134,
+      "light": 203,
+      "rem": 46,
+      "awake": 10
+    },
+    "2025-09-22": {
+      "duration": 463,
+      "deep": 106,
+      "light": 283,
+      "rem": 73,
+      "awake": 16
+    },
+    "2025-09-21": {
+      "duration": 498,
+      "deep": 125,
+      "light": 208,
+      "rem": 59,
+      "awake": 19
+    },
+    "2025-09-20": {
+      "duration": 416,
+      "deep": 84,
+      "light": 292,
+      "rem": 64,
+      "awake": 13
+    },
+    "2025-09-19": {
+      "duration": 331,
+      "deep": 111,
+      "light": 263,
+      "rem": 120,
+      "awake": 6
+    },
+    "2025-09-18": {
+      "duration": 414,
+      "deep": 99,
+      "light": 260,
+      "rem": 67,
+      "awake": 5
+    },
+    "2025-09-17": {
+      "duration": 485,
+      "deep": 70,
+      "light": 234,
+      "rem": 56,
+      "awake": 14
+    },
+    "2025-09-16": {
+      "duration": 462,
+      "deep": 87,
+      "light": 199,
+      "rem": 108,
+      "awake": 8
+    },
+    "2025-09-15": {
+      "duration": 385,
+      "deep": 75,
+      "light": 274,
+      "rem": 80,
+      "awake": 11
+    },
+    "2025-09-14": {
+      "duration": 358,
+      "deep": 116,
+      "light": 286,
+      "rem": 59,
+      "awake": 26
+    },
+    "2025-09-13": {
+      "duration": 453,
+      "deep": 90,
+      "light": 180,
+      "rem": 61,
+      "awake": 5
+    },
+    "2025-09-12": {
+      "duration": 456,
+      "deep": 101,
+      "light": 249,
+      "rem": 106,
+      "awake": 9
+    },
+    "2025-09-11": {
+      "duration": 382,
+      "deep": 134,
+      "light": 275,
+      "rem": 113,
+      "awake": 11
+    },
+    "2025-09-10": {
+      "duration": 348,
+      "deep": 97,
+      "light": 230,
+      "rem": 106,
+      "awake": 6
+    },
+    "2025-09-09": {
+      "duration": 425,
+      "deep": 150,
+      "light": 268,
+      "rem": 58,
+      "awake": 21
+    },
+    "2025-09-08": {
+      "duration": 400,
+      "deep": 91,
+      "light": 279,
+      "rem": 101,
+      "awake": 8
+    },
+    "2025-09-07": {
+      "duration": 413,
+      "deep": 63,
+      "light": 226,
+      "rem": 58,
+      "awake": 8
+    },
+    "2025-09-06": {
+      "duration": 384,
+      "deep": 103,
+      "light": 272,
+      "rem": 69,
+      "awake": 9
+    },
+    "2025-09-05": {
+      "duration": 468,
+      "deep": 107,
+      "light": 203,
+      "rem": 93,
+      "awake": 9
+    },
+    "2025-09-04": {
+      "duration": 380,
+      "deep": 130,
+      "light": 239,
+      "rem": 69,
+      "awake": 10
+    },
+    "2025-09-03": {
+      "duration": 352,
+      "deep": 119,
+      "light": 199,
+      "rem": 56,
+      "awake": 23
+    },
+    "2025-09-02": {
+      "duration": 308,
+      "deep": 125,
+      "light": 233,
+      "rem": 94,
+      "awake": 20
+    },
+    "2025-09-01": {
+      "duration": 425,
+      "deep": 115,
+      "light": 190,
+      "rem": 83,
+      "awake": 22
+    },
+    "2025-08-31": {
+      "duration": 455,
+      "deep": 133,
+      "light": 248,
+      "rem": 52,
+      "awake": 18
+    },
+    "2025-08-30": {
+      "duration": 435,
+      "deep": 139,
+      "light": 206,
+      "rem": 101,
+      "awake": 11
+    },
+    "2025-08-29": {
+      "duration": 377,
+      "deep": 67,
+      "light": 299,
+      "rem": 74,
+      "awake": 27
+    },
+    "2025-08-28": {
+      "duration": 471,
+      "deep": 141,
+      "light": 292,
+      "rem": 107,
+      "awake": 16
+    },
+    "2025-08-27": {
+      "duration": 449,
+      "deep": 103,
+      "light": 247,
+      "rem": 71,
+      "awake": 25
+    },
+    "2025-08-26": {
+      "duration": 321,
+      "deep": 130,
+      "light": 205,
+      "rem": 55,
+      "awake": 6
+    },
+    "2025-08-25": {
+      "duration": 402,
+      "deep": 112,
+      "light": 295,
+      "rem": 68,
+      "awake": 10
+    },
+    "2025-08-24": {
+      "duration": 451,
+      "deep": 141,
+      "light": 208,
+      "rem": 68,
+      "awake": 14
+    },
+    "2025-08-23": {
+      "duration": 360,
+      "deep": 128,
+      "light": 270,
+      "rem": 55,
+      "awake": 25
+    },
+    "2025-08-22": {
+      "duration": 450,
+      "deep": 107,
+      "light": 256,
+      "rem": 74,
+      "awake": 14
+    },
+    "2025-08-21": {
+      "duration": 339,
+      "deep": 149,
+      "light": 259,
+      "rem": 104,
+      "awake": 8
+    },
+    "2025-08-20": {
+      "duration": 394,
+      "deep": 121,
+      "light": 256,
+      "rem": 76,
+      "awake": 24
+    },
+    "2025-08-19": {
+      "duration": 358,
+      "deep": 98,
+      "light": 276,
+      "rem": 47,
+      "awake": 29
+    },
+    "2025-08-18": {
+      "duration": 394,
+      "deep": 111,
+      "light": 248,
+      "rem": 72,
+      "awake": 8
+    },
+    "2025-08-17": {
+      "duration": 319,
+      "deep": 147,
+      "light": 298,
+      "rem": 107,
+      "awake": 9
+    },
+    "2025-08-16": {
+      "duration": 363,
+      "deep": 143,
+      "light": 198,
+      "rem": 102,
+      "awake": 21
+    },
+    "2025-08-15": {
+      "duration": 339,
+      "deep": 106,
+      "light": 201,
+      "rem": 97,
+      "awake": 21
+    },
+    "2025-08-14": {
+      "duration": 471,
+      "deep": 128,
+      "light": 255,
+      "rem": 67,
+      "awake": 6
+    },
+    "2025-08-13": {
+      "duration": 371,
+      "deep": 142,
+      "light": 216,
+      "rem": 58,
+      "awake": 28
+    },
+    "2025-08-12": {
+      "duration": 452,
+      "deep": 126,
+      "light": 198,
+      "rem": 92,
+      "awake": 24
+    },
+    "2025-08-11": {
+      "duration": 342,
+      "deep": 101,
+      "light": 183,
+      "rem": 83,
+      "awake": 12
+    },
+    "2025-08-10": {
+      "duration": 479,
+      "deep": 96,
+      "light": 214,
+      "rem": 115,
+      "awake": 15
+    },
+    "2025-08-09": {
+      "duration": 476,
+      "deep": 74,
+      "light": 271,
+      "rem": 60,
+      "awake": 20
+    },
+    "2025-08-08": {
+      "duration": 341,
+      "deep": 89,
+      "light": 290,
+      "rem": 53,
+      "awake": 29
+    },
+    "2025-08-07": {
+      "duration": 374,
+      "deep": 94,
+      "light": 249,
+      "rem": 76,
+      "awake": 23
+    },
+    "2025-08-06": {
+      "duration": 440,
+      "deep": 102,
+      "light": 193,
+      "rem": 55,
+      "awake": 29
+    },
+    "2025-08-05": {
+      "duration": 473,
+      "deep": 116,
+      "light": 190,
+      "rem": 99,
+      "awake": 23
+    },
+    "2025-08-04": {
+      "duration": 416,
+      "deep": 71,
+      "light": 184,
+      "rem": 58,
+      "awake": 10
+    },
+    "2025-08-03": {
+      "duration": 492,
+      "deep": 62,
+      "light": 267,
+      "rem": 93,
+      "awake": 16
+    },
+    "2025-08-02": {
+      "duration": 322,
+      "deep": 150,
+      "light": 184,
+      "rem": 120,
+      "awake": 28
+    },
+    "2025-08-01": {
+      "duration": 419,
+      "deep": 133,
+      "light": 203,
+      "rem": 62,
+      "awake": 9
+    },
+    "2025-07-31": {
+      "duration": 376,
+      "deep": 99,
+      "light": 196,
+      "rem": 80,
+      "awake": 23
+    },
+    "2025-07-30": {
+      "duration": 396,
+      "deep": 65,
+      "light": 211,
+      "rem": 77,
+      "awake": 21
+    },
+    "2025-07-29": {
+      "duration": 515,
+      "deep": 64,
+      "light": 237,
+      "rem": 73,
+      "awake": 22
+    },
+    "2025-07-28": {
+      "duration": 319,
+      "deep": 99,
+      "light": 188,
+      "rem": 75,
+      "awake": 6
+    },
+    "2025-07-27": {
+      "duration": 495,
+      "deep": 139,
+      "light": 203,
+      "rem": 89,
+      "awake": 21
+    },
+    "2025-07-26": {
+      "duration": 300,
+      "deep": 150,
+      "light": 247,
+      "rem": 63,
+      "awake": 26
+    },
+    "2025-07-25": {
+      "duration": 521,
+      "deep": 143,
+      "light": 260,
+      "rem": 77,
+      "awake": 8
+    },
+    "2025-07-24": {
+      "duration": 468,
+      "deep": 79,
+      "light": 200,
+      "rem": 66,
+      "awake": 6
+    },
+    "2025-07-23": {
+      "duration": 302,
+      "deep": 124,
+      "light": 276,
+      "rem": 60,
+      "awake": 8
+    },
+    "2025-07-22": {
+      "duration": 512,
+      "deep": 132,
+      "light": 225,
+      "rem": 60,
+      "awake": 24
+    },
+    "2025-07-21": {
+      "duration": 345,
+      "deep": 85,
+      "light": 234,
+      "rem": 78,
+      "awake": 15
+    },
+    "2025-07-20": {
+      "duration": 467,
+      "deep": 125,
+      "light": 211,
+      "rem": 79,
+      "awake": 30
+    },
+    "2025-07-19": {
+      "duration": 403,
+      "deep": 103,
+      "light": 217,
+      "rem": 76,
+      "awake": 6
+    },
+    "2025-07-18": {
+      "duration": 488,
+      "deep": 132,
+      "light": 215,
+      "rem": 71,
+      "awake": 11
+    },
+    "2025-07-17": {
+      "duration": 335,
+      "deep": 116,
+      "light": 184,
+      "rem": 51,
+      "awake": 19
+    },
+    "2025-07-16": {
+      "duration": 393,
+      "deep": 127,
+      "light": 204,
+      "rem": 49,
+      "awake": 30
+    },
+    "2025-07-15": {
+      "duration": 471,
+      "deep": 60,
+      "light": 213,
+      "rem": 92,
+      "awake": 25
+    },
+    "2025-07-14": {
+      "duration": 363,
+      "deep": 137,
+      "light": 270,
+      "rem": 109,
+      "awake": 28
+    },
+    "2025-07-13": {
+      "duration": 334,
+      "deep": 99,
+      "light": 213,
+      "rem": 102,
+      "awake": 9
+    },
+    "2025-07-12": {
+      "duration": 369,
+      "deep": 146,
+      "light": 219,
+      "rem": 51,
+      "awake": 26
+    },
+    "2025-07-11": {
+      "duration": 303,
+      "deep": 102,
+      "light": 283,
+      "rem": 95,
+      "awake": 11
+    },
+    "2025-07-10": {
+      "duration": 310,
+      "deep": 146,
+      "light": 268,
+      "rem": 116,
+      "awake": 13
+    },
+    "2025-07-09": {
+      "duration": 341,
+      "deep": 122,
+      "light": 285,
+      "rem": 87,
+      "awake": 5
+    },
+    "2025-07-08": {
+      "duration": 451,
+      "deep": 79,
+      "light": 195,
+      "rem": 102,
+      "awake": 9
+    },
+    "2025-07-07": {
+      "duration": 450,
+      "deep": 136,
+      "light": 283,
+      "rem": 49,
+      "awake": 28
+    },
+    "2025-07-06": {
+      "duration": 402,
+      "deep": 73,
+      "light": 201,
+      "rem": 55,
+      "awake": 18
+    },
+    "2025-07-05": {
+      "duration": 457,
+      "deep": 132,
+      "light": 255,
+      "rem": 60,
+      "awake": 24
+    },
+    "2025-07-04": {
+      "duration": 479,
+      "deep": 113,
+      "light": 229,
+      "rem": 92,
+      "awake": 24
+    },
+    "2025-07-03": {
+      "duration": 402,
+      "deep": 134,
+      "light": 261,
+      "rem": 112,
+      "awake": 17
+    },
+    "2025-07-02": {
+      "duration": 305,
+      "deep": 147,
+      "light": 187,
+      "rem": 103,
+      "awake": 25
+    },
+    "2025-07-01": {
+      "duration": 472,
+      "deep": 66,
+      "light": 277,
+      "rem": 90,
+      "awake": 5
+    },
+    "2025-06-30": {
+      "duration": 473,
+      "deep": 113,
+      "light": 194,
+      "rem": 94,
+      "awake": 25
+    },
+    "2025-06-29": {
+      "duration": 535,
+      "deep": 86,
+      "light": 207,
+      "rem": 45,
+      "awake": 28
+    },
+    "2025-06-28": {
+      "duration": 317,
+      "deep": 127,
+      "light": 238,
+      "rem": 94,
+      "awake": 6
+    },
+    "2025-06-27": {
+      "duration": 412,
+      "deep": 130,
+      "light": 260,
+      "rem": 67,
+      "awake": 13
+    },
+    "2025-06-26": {
+      "duration": 326,
+      "deep": 110,
+      "light": 269,
+      "rem": 55,
+      "awake": 9
+    },
+    "2025-06-25": {
+      "duration": 304,
+      "deep": 119,
+      "light": 204,
+      "rem": 55,
+      "awake": 24
+    },
+    "2025-06-24": {
+      "duration": 453,
+      "deep": 85,
+      "light": 214,
+      "rem": 79,
+      "awake": 5
+    },
+    "2025-06-23": {
+      "duration": 425,
+      "deep": 102,
+      "light": 265,
+      "rem": 90,
+      "awake": 21
+    },
+    "2025-06-22": {
+      "duration": 310,
+      "deep": 138,
+      "light": 221,
+      "rem": 45,
+      "awake": 13
+    },
+    "2025-06-21": {
+      "duration": 521,
+      "deep": 71,
+      "light": 191,
+      "rem": 91,
+      "awake": 23
+    },
+    "2025-06-20": {
+      "duration": 352,
+      "deep": 68,
+      "light": 213,
+      "rem": 84,
+      "awake": 19
+    },
+    "2025-06-19": {
+      "duration": 460,
+      "deep": 80,
+      "light": 222,
+      "rem": 111,
+      "awake": 25
+    },
+    "2025-06-18": {
+      "duration": 393,
+      "deep": 149,
+      "light": 187,
+      "rem": 88,
+      "awake": 17
+    },
+    "2025-06-17": {
+      "duration": 468,
+      "deep": 87,
+      "light": 246,
+      "rem": 73,
+      "awake": 29
+    },
+    "2025-06-16": {
+      "duration": 486,
+      "deep": 71,
+      "light": 204,
+      "rem": 88,
+      "awake": 26
+    },
+    "2025-06-15": {
+      "duration": 432,
+      "deep": 78,
+      "light": 249,
+      "rem": 53,
+      "awake": 15
+    },
+    "2025-06-14": {
+      "duration": 301,
+      "deep": 78,
+      "light": 272,
+      "rem": 57,
+      "awake": 29
+    },
+    "2025-06-13": {
+      "duration": 487,
+      "deep": 121,
+      "light": 212,
+      "rem": 49,
+      "awake": 30
+    },
+    "2025-06-12": {
+      "duration": 422,
+      "deep": 86,
+      "light": 229,
+      "rem": 72,
+      "awake": 15
+    },
+    "2025-06-11": {
+      "duration": 360,
+      "deep": 106,
+      "light": 251,
+      "rem": 100,
+      "awake": 18
+    },
+    "2025-06-10": {
+      "duration": 340,
+      "deep": 83,
+      "light": 290,
+      "rem": 49,
+      "awake": 18
+    },
+    "2025-06-09": {
+      "duration": 338,
+      "deep": 87,
+      "light": 278,
+      "rem": 65,
+      "awake": 28
+    },
+    "2025-06-08": {
+      "duration": 312,
+      "deep": 131,
+      "light": 208,
+      "rem": 84,
+      "awake": 21
+    },
+    "2025-06-07": {
+      "duration": 473,
+      "deep": 99,
+      "light": 273,
+      "rem": 70,
+      "awake": 7
+    },
+    "2025-06-06": {
+      "duration": 516,
+      "deep": 144,
+      "light": 259,
+      "rem": 103,
+      "awake": 30
+    },
+    "2025-06-05": {
+      "duration": 349,
+      "deep": 114,
+      "light": 198,
+      "rem": 52,
+      "awake": 27
+    },
+    "2025-06-04": {
+      "duration": 485,
+      "deep": 73,
+      "light": 219,
+      "rem": 106,
+      "awake": 20
+    },
+    "2025-06-03": {
+      "duration": 322,
+      "deep": 136,
+      "light": 193,
+      "rem": 80,
+      "awake": 6
+    },
+    "2025-06-02": {
+      "duration": 373,
+      "deep": 137,
+      "light": 296,
+      "rem": 116,
+      "awake": 13
+    },
+    "2025-06-01": {
+      "duration": 316,
+      "deep": 64,
+      "light": 251,
+      "rem": 66,
+      "awake": 15
+    },
+    "2025-05-31": {
+      "duration": 300,
+      "deep": 143,
+      "light": 244,
+      "rem": 67,
+      "awake": 17
+    },
+    "2025-05-30": {
+      "duration": 501,
+      "deep": 67,
+      "light": 186,
+      "rem": 95,
+      "awake": 21
+    },
+    "2025-05-29": {
+      "duration": 333,
+      "deep": 140,
+      "light": 228,
+      "rem": 120,
+      "awake": 16
+    },
+    "2025-05-28": {
+      "duration": 454,
+      "deep": 136,
+      "light": 254,
+      "rem": 81,
+      "awake": 22
+    },
+    "2025-05-27": {
+      "duration": 522,
+      "deep": 65,
+      "light": 189,
+      "rem": 77,
+      "awake": 30
+    },
+    "2025-05-26": {
+      "duration": 506,
+      "deep": 96,
+      "light": 289,
+      "rem": 81,
+      "awake": 20
+    },
+    "2025-05-25": {
+      "duration": 321,
+      "deep": 126,
+      "light": 277,
+      "rem": 69,
+      "awake": 5
+    },
+    "2025-05-24": {
+      "duration": 461,
+      "deep": 78,
+      "light": 246,
+      "rem": 94,
+      "awake": 6
+    },
+    "2025-05-23": {
+      "duration": 419,
+      "deep": 144,
+      "light": 199,
+      "rem": 59,
+      "awake": 10
+    },
+    "2025-05-22": {
+      "duration": 483,
+      "deep": 128,
+      "light": 255,
+      "rem": 88,
+      "awake": 30
+    },
+    "2025-05-21": {
+      "duration": 533,
+      "deep": 141,
+      "light": 247,
+      "rem": 117,
+      "awake": 7
+    },
+    "2025-05-20": {
+      "duration": 378,
+      "deep": 125,
+      "light": 287,
+      "rem": 83,
+      "awake": 21
+    },
+    "2025-05-19": {
+      "duration": 537,
+      "deep": 116,
+      "light": 227,
+      "rem": 117,
+      "awake": 30
+    },
+    "2025-05-18": {
+      "duration": 391,
+      "deep": 123,
+      "light": 218,
+      "rem": 100,
+      "awake": 23
+    },
+    "2025-05-17": {
+      "duration": 308,
+      "deep": 139,
+      "light": 228,
+      "rem": 51,
+      "awake": 27
+    },
+    "2025-05-16": {
+      "duration": 388,
+      "deep": 62,
+      "light": 232,
+      "rem": 100,
+      "awake": 21
+    },
+    "2025-05-15": {
+      "duration": 322,
+      "deep": 102,
+      "light": 289,
+      "rem": 87,
+      "awake": 15
+    },
+    "2025-05-14": {
+      "duration": 363,
+      "deep": 141,
+      "light": 261,
+      "rem": 102,
+      "awake": 16
+    },
+    "2025-05-13": {
+      "duration": 514,
+      "deep": 73,
+      "light": 266,
+      "rem": 105,
+      "awake": 26
+    },
+    "2025-05-12": {
+      "duration": 312,
+      "deep": 77,
+      "light": 214,
+      "rem": 81,
+      "awake": 26
+    },
+    "2025-05-11": {
+      "duration": 513,
+      "deep": 89,
+      "light": 202,
+      "rem": 74,
+      "awake": 22
+    },
+    "2025-05-10": {
+      "duration": 492,
+      "deep": 63,
+      "light": 269,
+      "rem": 108,
+      "awake": 20
+    },
+    "2025-05-09": {
+      "duration": 515,
+      "deep": 115,
+      "light": 289,
+      "rem": 68,
+      "awake": 12
+    },
+    "2025-05-08": {
+      "duration": 439,
+      "deep": 127,
+      "light": 237,
+      "rem": 51,
+      "awake": 16
+    },
+    "2025-05-07": {
+      "duration": 501,
+      "deep": 61,
+      "light": 254,
+      "rem": 105,
+      "awake": 29
+    },
+    "2025-05-06": {
+      "duration": 418,
+      "deep": 99,
+      "light": 262,
+      "rem": 103,
+      "awake": 26
+    },
+    "2025-05-05": {
+      "duration": 316,
+      "deep": 83,
+      "light": 294,
+      "rem": 109,
+      "awake": 15
+    },
+    "2025-05-04": {
+      "duration": 483,
+      "deep": 116,
+      "light": 299,
+      "rem": 76,
+      "awake": 5
+    },
+    "2025-05-03": {
+      "duration": 402,
+      "deep": 107,
+      "light": 285,
+      "rem": 69,
+      "awake": 10
+    },
+    "2025-05-02": {
+      "duration": 366,
+      "deep": 94,
+      "light": 189,
+      "rem": 59,
+      "awake": 7
+    },
+    "2025-05-01": {
+      "duration": 312,
+      "deep": 95,
+      "light": 217,
+      "rem": 79,
+      "awake": 21
+    },
+    "2025-04-30": {
+      "duration": 519,
+      "deep": 71,
+      "light": 280,
+      "rem": 46,
+      "awake": 26
+    },
+    "2025-04-29": {
+      "duration": 321,
+      "deep": 131,
+      "light": 261,
+      "rem": 79,
+      "awake": 18
+    },
+    "2025-04-28": {
+      "duration": 387,
+      "deep": 67,
+      "light": 299,
+      "rem": 102,
+      "awake": 29
+    },
+    "2025-04-27": {
+      "duration": 408,
+      "deep": 109,
+      "light": 203,
+      "rem": 116,
+      "awake": 27
+    },
+    "2025-04-26": {
+      "duration": 464,
+      "deep": 87,
+      "light": 242,
+      "rem": 75,
+      "awake": 30
+    },
+    "2025-04-25": {
+      "duration": 304,
+      "deep": 111,
+      "light": 240,
+      "rem": 103,
+      "awake": 18
+    },
+    "2025-04-24": {
+      "duration": 406,
+      "deep": 74,
+      "light": 285,
+      "rem": 61,
+      "awake": 5
+    },
+    "2025-04-23": {
+      "duration": 509,
+      "deep": 136,
+      "light": 248,
+      "rem": 53,
+      "awake": 9
+    },
+    "2025-04-22": {
+      "duration": 462,
+      "deep": 91,
+      "light": 225,
+      "rem": 120,
+      "awake": 11
+    },
+    "2025-04-21": {
+      "duration": 453,
+      "deep": 122,
+      "light": 184,
+      "rem": 54,
+      "awake": 9
+    },
+    "2025-04-20": {
+      "duration": 405,
+      "deep": 142,
+      "light": 189,
+      "rem": 63,
+      "awake": 30
+    },
+    "2025-04-19": {
+      "duration": 480,
+      "deep": 74,
+      "light": 276,
+      "rem": 108,
+      "awake": 9
+    },
+    "2025-04-18": {
+      "duration": 303,
+      "deep": 85,
+      "light": 243,
+      "rem": 65,
+      "awake": 21
+    },
+    "2025-04-17": {
+      "duration": 318,
+      "deep": 125,
+      "light": 269,
+      "rem": 71,
+      "awake": 28
+    },
+    "2025-04-16": {
+      "duration": 482,
+      "deep": 119,
+      "light": 205,
+      "rem": 56,
+      "awake": 21
+    },
+    "2025-04-15": {
+      "duration": 518,
+      "deep": 123,
+      "light": 211,
+      "rem": 62,
+      "awake": 22
+    },
+    "2025-04-14": {
+      "duration": 436,
+      "deep": 79,
+      "light": 216,
+      "rem": 59,
+      "awake": 15
+    },
+    "2025-04-13": {
+      "duration": 448,
+      "deep": 149,
+      "light": 239,
+      "rem": 79,
+      "awake": 16
+    },
+    "2025-04-12": {
+      "duration": 492,
+      "deep": 121,
+      "light": 246,
+      "rem": 80,
+      "awake": 14
+    },
+    "2025-04-11": {
+      "duration": 500,
+      "deep": 67,
+      "light": 289,
+      "rem": 110,
+      "awake": 26
+    },
+    "2025-04-10": {
+      "duration": 312,
+      "deep": 146,
+      "light": 247,
+      "rem": 51,
+      "awake": 6
+    },
+    "2025-04-09": {
+      "duration": 431,
+      "deep": 117,
+      "light": 287,
+      "rem": 59,
+      "awake": 21
+    },
+    "2025-04-08": {
+      "duration": 379,
+      "deep": 139,
+      "light": 205,
+      "rem": 113,
+      "awake": 16
+    },
+    "2025-04-07": {
+      "duration": 388,
+      "deep": 119,
+      "light": 196,
+      "rem": 54,
+      "awake": 17
+    },
+    "2025-04-06": {
+      "duration": 348,
+      "deep": 101,
+      "light": 295,
+      "rem": 88,
+      "awake": 11
+    },
+    "2025-04-05": {
+      "duration": 376,
+      "deep": 72,
+      "light": 216,
+      "rem": 85,
+      "awake": 16
+    },
+    "2025-04-04": {
+      "duration": 305,
+      "deep": 77,
+      "light": 194,
+      "rem": 115,
+      "awake": 5
+    },
+    "2025-04-03": {
+      "duration": 419,
+      "deep": 78,
+      "light": 219,
+      "rem": 63,
+      "awake": 21
+    },
+    "2025-04-02": {
+      "duration": 528,
+      "deep": 63,
+      "light": 245,
+      "rem": 112,
+      "awake": 9
+    },
+    "2025-04-01": {
+      "duration": 483,
+      "deep": 95,
+      "light": 182,
+      "rem": 96,
+      "awake": 6
+    },
+    "2025-03-31": {
+      "duration": 375,
+      "deep": 147,
+      "light": 246,
+      "rem": 115,
+      "awake": 22
+    },
+    "2025-03-30": {
+      "duration": 512,
+      "deep": 145,
+      "light": 259,
+      "rem": 79,
+      "awake": 29
+    },
+    "2025-03-29": {
+      "duration": 531,
+      "deep": 142,
+      "light": 298,
+      "rem": 69,
+      "awake": 29
+    },
+    "2025-03-28": {
+      "duration": 449,
+      "deep": 79,
+      "light": 238,
+      "rem": 76,
+      "awake": 28
+    },
+    "2025-03-27": {
+      "duration": 390,
+      "deep": 139,
+      "light": 184,
+      "rem": 101,
+      "awake": 20
+    },
+    "2025-03-26": {
+      "duration": 351,
+      "deep": 142,
+      "light": 219,
+      "rem": 112,
+      "awake": 7
+    },
+    "2025-03-25": {
+      "duration": 488,
+      "deep": 63,
+      "light": 191,
+      "rem": 81,
+      "awake": 7
+    },
+    "2025-03-24": {
+      "duration": 506,
+      "deep": 95,
+      "light": 286,
+      "rem": 81,
+      "awake": 29
+    },
+    "2025-03-23": {
+      "duration": 405,
+      "deep": 134,
+      "light": 239,
+      "rem": 47,
+      "awake": 13
+    },
+    "2025-03-22": {
+      "duration": 531,
+      "deep": 125,
+      "light": 294,
+      "rem": 89,
+      "awake": 9
+    },
+    "2025-03-21": {
+      "duration": 388,
+      "deep": 140,
+      "light": 286,
+      "rem": 113,
+      "awake": 20
+    },
+    "2025-03-20": {
+      "duration": 404,
+      "deep": 93,
+      "light": 214,
+      "rem": 75,
+      "awake": 11
+    },
+    "2025-03-19": {
+      "duration": 469,
+      "deep": 109,
+      "light": 247,
+      "rem": 100,
+      "awake": 27
+    },
+    "2025-03-18": {
+      "duration": 518,
+      "deep": 98,
+      "light": 239,
+      "rem": 60,
+      "awake": 17
+    },
+    "2025-03-17": {
+      "duration": 459,
+      "deep": 62,
+      "light": 298,
+      "rem": 73,
+      "awake": 7
+    },
+    "2025-03-16": {
+      "duration": 494,
+      "deep": 74,
+      "light": 284,
+      "rem": 107,
+      "awake": 11
+    },
+    "2025-03-15": {
+      "duration": 316,
+      "deep": 86,
+      "light": 295,
+      "rem": 116,
+      "awake": 19
+    },
+    "2025-03-14": {
+      "duration": 395,
+      "deep": 101,
+      "light": 180,
+      "rem": 108,
+      "awake": 26
+    },
+    "2025-03-13": {
+      "duration": 350,
+      "deep": 110,
+      "light": 297,
+      "rem": 87,
+      "awake": 8
+    },
+    "2025-03-12": {
+      "duration": 431,
+      "deep": 147,
+      "light": 265,
+      "rem": 119,
+      "awake": 30
+    },
+    "2025-03-11": {
+      "duration": 369,
+      "deep": 98,
+      "light": 190,
+      "rem": 117,
+      "awake": 5
+    },
+    "2025-03-10": {
+      "duration": 339,
+      "deep": 79,
+      "light": 260,
+      "rem": 63,
+      "awake": 8
+    },
+    "2025-03-09": {
+      "duration": 380,
+      "deep": 75,
+      "light": 243,
+      "rem": 97,
+      "awake": 13
+    },
+    "2025-03-08": {
+      "duration": 521,
+      "deep": 61,
+      "light": 283,
+      "rem": 83,
+      "awake": 24
+    },
+    "2025-03-07": {
+      "duration": 538,
+      "deep": 122,
+      "light": 266,
+      "rem": 58,
+      "awake": 6
+    },
+    "2025-03-06": {
+      "duration": 329,
+      "deep": 132,
+      "light": 239,
+      "rem": 120,
+      "awake": 9
+    },
+    "2025-03-05": {
+      "duration": 408,
+      "deep": 64,
+      "light": 192,
+      "rem": 66,
+      "awake": 15
+    },
+    "2025-03-04": {
+      "duration": 428,
+      "deep": 100,
+      "light": 213,
+      "rem": 90,
+      "awake": 14
+    },
+    "2025-03-03": {
+      "duration": 505,
+      "deep": 149,
+      "light": 296,
+      "rem": 112,
+      "awake": 12
+    },
+    "2025-03-02": {
+      "duration": 308,
+      "deep": 122,
+      "light": 286,
+      "rem": 66,
+      "awake": 12
+    },
+    "2025-03-01": {
+      "duration": 490,
+      "deep": 87,
+      "light": 205,
+      "rem": 117,
+      "awake": 30
+    },
+    "2025-02-28": {
+      "duration": 312,
+      "deep": 145,
+      "light": 260,
+      "rem": 99,
+      "awake": 16
+    },
+    "2025-02-27": {
+      "duration": 368,
+      "deep": 62,
+      "light": 242,
+      "rem": 119,
+      "awake": 20
+    },
+    "2025-02-26": {
+      "duration": 531,
+      "deep": 140,
+      "light": 206,
+      "rem": 65,
+      "awake": 21
+    },
+    "2025-02-25": {
+      "duration": 472,
+      "deep": 105,
+      "light": 194,
+      "rem": 120,
+      "awake": 13
+    },
+    "2025-02-24": {
+      "duration": 431,
+      "deep": 89,
+      "light": 271,
+      "rem": 102,
+      "awake": 24
     }
   }
 }

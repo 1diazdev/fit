@@ -14,7 +14,8 @@
     "strava-script": "bun scripts/strava-script.ts",
     "googlefit-setup": "bun scripts/googlefit-setup.ts",
     "googlefit-script": "bun scripts/googlefit-script.ts",
-    "debug-googlefit": "bun scripts/debug-googlefit.ts"
+    "debug-googlefit": "bun scripts/debug-googlefit.ts",
+    "generate-dummy-data": "bun scripts/generate-dummy-data.ts"
   },
   "dependencies": {
     "@mapbox/polyline": "^1.2.1",
@@ -30,6 +31,7 @@
     "@astrojs/prefetch": "^0.4.1",
     "@astrojs/sitemap": "3.3.1",
     "@astrojs/tailwind": "^6.0.2",
+    "@faker-js/faker": "^10.3.0",
     "@netlify/functions": "^5.1.2",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.8",
