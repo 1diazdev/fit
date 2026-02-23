@@ -4,12 +4,12 @@
 
 // Generate static paths for the last 90 days
 export async function getStaticPaths() {
-  const paths = [];
-  const today = new Date();
+  const paths: Array<{ params: { date: string } }> = [];
+  const today = new globalThis.Date();
 
   // Generate paths for last 90 days
   for (let i = 0; i < 90; i++) {
-    const date = new Date(today);
+    const date = new globalThis.Date(today);
     date.setDate(date.getDate() - i);
     const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
     paths.push({ params: { date: dateStr } });
@@ -63,14 +63,14 @@ console.log(`[day/[date]] Loading dashboard for date: ${selectedDate}`);
 
 // Parse date string properly to avoid timezone issues
 const [year, month, day] = selectedDate.split("-").map(Number);
-const selectedDateObj = new Date(year, month - 1, day);
+const selectedDateObj = new globalThis.Date(year, month - 1, day);
 
 // Calculate previous and next day dates
-const prevDay = new Date(selectedDateObj);
+const prevDay = new globalThis.Date(selectedDateObj);
 prevDay.setDate(prevDay.getDate() - 1);
 const prevDayStr = `${prevDay.getFullYear()}-${String(prevDay.getMonth() + 1).padStart(2, "0")}-${String(prevDay.getDate()).padStart(2, "0")}`;
 
-const nextDay = new Date(selectedDateObj);
+const nextDay = new globalThis.Date(selectedDateObj);
 nextDay.setDate(nextDay.getDate() + 1);
 const nextDayStr = `${nextDay.getFullYear()}-${String(nextDay.getMonth() + 1).padStart(2, "0")}-${String(nextDay.getDate()).padStart(2, "0")}`;
 
@@ -81,10 +81,10 @@ const displayDate = new Intl.DateTimeFormat("en-US", {
   month: "short",
   day: "numeric",
   timeZone: "UTC",
-}).format(new Date(Date.UTC(year, month - 1, day, 12)));
+}).format(new globalThis.Date(globalThis.Date.UTC(year, month - 1, day, 12)));
 
 // Check if selected date is today
-const today = new Date();
+const today = new globalThis.Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 const isToday = selectedDate === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
@@ -130,8 +130,8 @@ const findLastActivityByType = (type: string) => {
 
   if (!activity) return null;
 
-  const activityDate = new Date(activity.start_date);
-  const newYorkDate = new Date(
+  const activityDate = new globalThis.Date(activity.start_date);
+  const newYorkDate = new globalThis.Date(
     activityDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
   );
 
