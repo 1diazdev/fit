@@ -1,4 +1,23 @@
 ---
+// Dynamic route for date-specific dashboard
+// Accessed as /day/2026-02-19
+
+// Generate static paths for the last 90 days
+export async function getStaticPaths() {
+  const paths = [];
+  const today = new Date();
+
+  // Generate paths for last 90 days
+  for (let i = 0; i < 90; i++) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    paths.push({ params: { date: dateStr } });
+  }
+
+  return paths;
+}
+
 import Base from '@layouts/Base.astro';
 import { PAGE_METADATA } from '@src/consts';
 import SectionLayout from '@components/SectionLayout.astro';
@@ -23,16 +42,20 @@ import { fetchStepsData, fetchHeartRateData, fetchMoveMinutesData } from '@servi
 import { generateInsights, getPersonalRecords } from '@utils/statsUtils';
 import { fetchHevyData, fetchWorkoutCount } from '@services/hevyService';
 
-// WORKAROUND: Query parameters don't work in Astro dev server
-// Load today's data by default, client-side will handle date navigation
-const today = new Date();
-const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-const selectedDate = todayStr; // Always use today for SSR
+// Get date from path parameter
+const { date } = Astro.params;
+const selectedDate = date || '';
+
+// Validate date format
+if (!/^\d{4}-\d{2}-\d{2}$/.test(selectedDate)) {
+  return Astro.redirect('/');
+}
+
+console.log(`[day/[date]] Loading dashboard for date: ${selectedDate}`);
 
 // Parse date string properly to avoid timezone issues
-// YYYY-MM-DD format should be interpreted as local date, not UTC
 const [year, month, day] = selectedDate.split('-').map(Number);
-const selectedDateObj = new Date(year, month - 1, day); // month is 0-indexed
+const selectedDateObj = new Date(year, month - 1, day);
 
 // Calculate previous and next day dates
 const prevDay = new Date(selectedDateObj);
@@ -53,19 +76,12 @@ const displayDate = new Intl.DateTimeFormat('en-US', {
 }).format(new Date(Date.UTC(year, month - 1, day, 12)));
 
 // Check if selected date is today
+const today = new Date();
+const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 const isToday = selectedDate === todayStr;
-
-console.log(`[index.astro] ====== Loading dashboard for date: ${selectedDate} ======`);
-console.log(`[index.astro] Today: ${todayStr}, Selected: ${selectedDate}, Is Today: ${selectedDate === todayStr}`);
 
 // Fetch all data for selected date
 const dayData = await getDataForDate(selectedDate);
-console.log(`[index.astro] DayData fetched:`, {
-  steps: dayData.steps.count,
-  activities: dayData.activities.length,
-  workouts: dayData.workouts.length,
-});
-
 const comparisons = await getComparisons(selectedDate);
 const streaks = await calculateStreaks(selectedDate);
 const testMode = isTestDataMode();
@@ -83,9 +99,7 @@ const [stepsData, allActivities, allWorkouts] = testMode && testSnapshot
 const personalRecords = getPersonalRecords(stepsData, allActivities, allWorkouts);
 const insights = generateInsights(dayData, comparisons, streaks, personalRecords);
 
-// Pre-calculate activity data for the dashboard (using selected date data)
-// Note: ActivityDashboard shows "days since last" globally, not for specific date
-// We'll use the dayData.activities for the selected date instead
+// Pre-calculate activity data
 const findLastActivityByType = (type: string) => {
   const activity = allActivities.find(a => {
     const activityType = a.type || a.sport_type || "";
@@ -112,15 +126,6 @@ const activityData = {
   walk: findLastActivityByType("walk"),
 };
 
-// For the selected date, show if there were activities
-// This will make the activity cards update based on selected date
-const selectedDateActivitiesByType = {
-  run: dayData.activities.find(a => (a.type || a.sport_type || "").toLowerCase() === "run"),
-  ride: dayData.activities.find(a => (a.type || a.sport_type || "").toLowerCase() === "ride"),
-  swim: dayData.activities.find(a => (a.type || a.sport_type || "").toLowerCase() === "swim"),
-  walk: dayData.activities.find(a => (a.type || a.sport_type || "").toLowerCase().includes("walk")),
-};
-
 // Fetch 365-day heatmap data
 const distanceMap = testMode && testSnapshot
   ? testSnapshot.distanceMap
@@ -130,12 +135,12 @@ const positiveDistances = distanceData.map(data => data[1]).filter(value => valu
 const minDistance = positiveDistances.length > 0 ? Math.min(...positiveDistances) : 0;
 const maxDistance = positiveDistances.length > 0 ? Math.max(...positiveDistances) : 1;
 
-// Fetch move minutes for chart (last 7 days)
+// Fetch move minutes for chart
 const moveMinutesData = testMode && testSnapshot
   ? testSnapshot.moveMinutesData
   : await fetchMoveMinutesData(30).catch(() => ({}));
 
-// Fetch heart rate data for zones component
+// Fetch heart rate data
 const heartRateData = testMode && testSnapshot
   ? testSnapshot.heartRateData
   : await fetchHeartRateData(7).catch(() => ({}));
@@ -172,7 +177,7 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
   terminalCommand={terminalCommand}
   systemMessage={systemMessage}
 >
-  <!-- Date Navigator - Uses /day/YYYY-MM-DD routes -->
+  <!-- Date Navigator -->
   <div class="date-navigator">
     <a href={`/day/${prevDayStr}`} class="nav-arrow" title="Previous day">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -185,6 +190,9 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
       <div class="date-debug" style="font-size: 0.7rem; color: rgba(0,255,0,0.5);">
         [{selectedDate}] - Steps: {dayData.steps.count} | Activities: {dayData.activities.length} | Workouts: {dayData.workouts.length}
       </div>
+      {!isToday && (
+        <a href="/" class="today-btn">[TODAY]</a>
+      )}
     </div>
 
     <a href={`/day/${nextDayStr}`} class="nav-arrow" title="Next day">
@@ -194,86 +202,50 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
     </a>
   </div>
 
-  <!-- Daily Metrics Grid -->
+  <!-- Same content as index.astro -->
   <SectionLayout title="[DAILY_METRICS]" rightHeaderText={`[${selectedDate}]`}>
-    <div
-      slot="headerElements"
-      class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
-    >
-    </div>
+    <div slot="headerElements" class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
     <DayMetricsGrid dayData={dayData} />
   </SectionLayout>
 
-  <!-- Insights & Comparisons -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <SectionLayout title="[INSIGHTS]">
-      <div
-        slot="headerElements"
-        class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
-      >
-      </div>
+      <div slot="headerElements" class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
       <InsightsPanel insights={insights} />
     </SectionLayout>
 
     <SectionLayout title="[COMPARISONS]">
-      <div
-        slot="headerElements"
-        class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
-      >
-      </div>
+      <div slot="headerElements" class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
       <DayComparison comparisons={comparisons} />
     </SectionLayout>
   </div>
 
-  <!-- Charts Section -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <SectionLayout title="[MOVE_MINUTES]" rightHeaderText="[LAST_7_DAYS]">
-      <div
-        slot="headerElements"
-        class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
-      >
-      </div>
+      <div slot="headerElements" class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
       <MoveMinutesChart moveMinutesData={moveMinutesData} days={7} />
     </SectionLayout>
 
     <SectionLayout title="[HEART_RATE_ZONES]" rightHeaderText="[LAST_7_DAYS]">
-      <div
-        slot="headerElements"
-        class="w-2 h-2 bg-red-400 rounded-full animate-pulse"
-      >
-      </div>
+      <div slot="headerElements" class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
       <HeartRateZones heartRateData={heartRateData} daysToShow={7} />
     </SectionLayout>
   </div>
 
-    <!-- Activity Status Section -->
   <SectionLayout title="[ACTIVITY_STATUS]" rightHeaderText="[DAYS_SINCE_LAST]">
-    <div
-      slot="headerElements"
-      class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
-    ></div>
+    <div slot="headerElements" class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
     <ActivityDashboard activityData={activityData} />
   </SectionLayout>
 
-  <!-- Hevy Workout Count Section -->
   <SectionLayout title="[HEVY_WORKOUT]" rightHeaderText="[TOTAL_WORKOUT_COUNT]">
-    <div
-      slot="headerElements"
-      class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
-    ></div>
+    <div slot="headerElements" class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
     <HevyWorkoutCount workoutCount={workoutCount} />
   </SectionLayout>
 
-  <!-- 365-Day Heatmap (Annual Overview) -->
   <SectionLayout title="[ANNUAL_OVERVIEW]" rightHeaderText="[365_DAY_ACTIVITY_MAP]">
-    <div
-      slot="headerElements"
-      class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
-    >
-    </div>
+    <div slot="headerElements" class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
     <div class="heatmap-container">
       <div class="heatmap-wrapper">
-        <!-- Heatmap Header Info -->
         <div class="heatmap-info mb-4">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
             <div class="info-block">
@@ -282,63 +254,34 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
             </div>
             <div class="info-block">
               <span class="text-green-400/60">MIN_ACTIVITY:</span>
-              <span class="text-green-300 ml-2"
-                >{minDistance.toFixed(1)} KM</span
-              >
+              <span class="text-green-300 ml-2">{minDistance.toFixed(1)} KM</span>
             </div>
             <div class="info-block">
               <span class="text-green-400/60">MAX_ACTIVITY:</span>
-              <span class="text-green-300 ml-2"
-                >{maxDistance.toFixed(1)} KM</span
-              >
+              <span class="text-green-300 ml-2">{maxDistance.toFixed(1)} KM</span>
             </div>
           </div>
         </div>
 
-        <!-- Main Heatmap Grid -->
         <div class="heatmap-display">
-          <HeatmapGrid
-            distanceData={distanceData}
-            minDistance={minDistance}
-            maxDistance={maxDistance}
-          />
+          <HeatmapGrid distanceData={distanceData} minDistance={minDistance} maxDistance={maxDistance} />
         </div>
 
-        <!-- Heatmap Footer Info with Strava Button -->
         <div class="heatmap-footer mt-4">
           <div class="flex justify-between items-center text-xs">
             <div class="flex items-center space-x-4">
               <span class="text-green-400/60">NEURAL_ACTIVITY_TRACKING</span>
               <div class="flex items-center space-x-1">
-                <div class="w-1 h-1 bg-green-500 rounded-full animate-pulse">
-                </div>
+                <div class="w-1 h-1 bg-green-500 rounded-full animate-pulse"></div>
                 <span class="text-green-500">ONLINE</span>
               </div>
             </div>
 
-            <!-- Strava Activities Button -->
-            <a
-              href="https://www.strava.com/athletes/47698767"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="strava-link-button group"
-            >
-              <span
-                class="text-green-300 hover:text-green-100 transition-colors duration-300 font-mono text-xs flex items-center space-x-2"
-              >
+            <a href="https://www.strava.com/athletes/47698767" target="_blank" rel="noopener noreferrer" class="strava-link-button group">
+              <span class="text-green-300 hover:text-green-100 transition-colors duration-300 font-mono text-xs flex items-center space-x-2">
                 <span>[VERIFY_ON_STRAVA]</span>
-                <svg
-                  class="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  ></path>
+                <svg class="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                 </svg>
               </span>
             </a>
@@ -348,63 +291,50 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
     </div>
   </SectionLayout>
 
-  <!-- Streaks Info (small footer section) -->
   <SectionLayout title="[ACTIVE_STREAKS]">
     <div class="streaks-grid">
-      {
-        streaks.steps.current > 0 && (
-          <div class="streak-card">
-            <span class="streak-icon">🔥</span>
-            <div class="streak-info">
-              <div class="streak-value">{streaks.steps.current} days</div>
-              <div class="streak-label">Step Goal Streak</div>
-              <div class="streak-record">Best: {streaks.steps.longest} days</div>
-            </div>
+      {streaks.steps.current > 0 && (
+        <div class="streak-card">
+          <span class="streak-icon">🔥</span>
+          <div class="streak-info">
+            <div class="streak-value">{streaks.steps.current} days</div>
+            <div class="streak-label">Step Goal Streak</div>
+            <div class="streak-record">Best: {streaks.steps.longest} days</div>
           </div>
-        )
-      }
-      {
-        streaks.activities.current > 0 && (
-          <div class="streak-card">
-            <span class="streak-icon">⚡</span>
-            <div class="streak-info">
-              <div class="streak-value">{streaks.activities.current} days</div>
-              <div class="streak-label">Activity Streak</div>
-              <div class="streak-record">Best: {streaks.activities.longest} days</div>
-            </div>
+        </div>
+      )}
+      {streaks.activities.current > 0 && (
+        <div class="streak-card">
+          <span class="streak-icon">⚡</span>
+          <div class="streak-info">
+            <div class="streak-value">{streaks.activities.current} days</div>
+            <div class="streak-label">Activity Streak</div>
+            <div class="streak-record">Best: {streaks.activities.longest} days</div>
           </div>
-        )
-      }
-      {
-        streaks.workouts.current > 0 && (
-          <div class="streak-card">
-            <span class="streak-icon">💪</span>
-            <div class="streak-info">
-              <div class="streak-value">{streaks.workouts.current} days</div>
-              <div class="streak-label">Workout Streak</div>
-              <div class="streak-record">Best: {streaks.workouts.longest} days</div>
-            </div>
+        </div>
+      )}
+      {streaks.workouts.current > 0 && (
+        <div class="streak-card">
+          <span class="streak-icon">💪</span>
+          <div class="streak-info">
+            <div class="streak-value">{streaks.workouts.current} days</div>
+            <div class="streak-label">Workout Streak</div>
+            <div class="streak-record">Best: {streaks.workouts.longest} days</div>
           </div>
-        )
-      }
+        </div>
+      )}
     </div>
   </SectionLayout>
 </Base>
 
 <style>
-  /* Heatmap styles */
+  /* Copy all styles from index.astro */
   .heatmap-container {
-    background: linear-gradient(
-      135deg,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 20, 0, 0.6) 100%
-    );
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 0, 0.6) 100%);
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
     padding: 20px;
-    box-shadow:
-      0 0 20px rgba(0, 255, 0, 0.2),
-      inset 0 0 20px rgba(0, 255, 0, 0.05);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2), inset 0 0 20px rgba(0, 255, 0, 0.05);
     position: relative;
     overflow: hidden;
   }
@@ -420,8 +350,7 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
     aspect-ratio: 53/7;
   }
 
-  .heatmap-info,
-  .heatmap-footer {
+  .heatmap-info, .heatmap-footer {
     font-family: 'Courier New', monospace;
   }
 
@@ -446,7 +375,6 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
     transform: translateY(-1px);
   }
 
-  /* Streaks Grid */
   .streaks-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -499,8 +427,7 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
   }
 
   @keyframes pulse {
-    0%,
-    100% {
+    0%, 100% {
       opacity: 0.6;
     }
     50% {
@@ -508,7 +435,6 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
     }
   }
 
-  /* Date Navigator */
   .date-navigator {
     display: flex;
     align-items: center;
@@ -585,7 +511,6 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
   }
 
-  /* Responsive */
   @media (max-width: 768px) {
     .heatmap-container {
       padding: 12px;
@@ -622,4 +547,3 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
     }
   }
 </style>
-

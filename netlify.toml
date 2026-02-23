@@ -12,7 +12,9 @@
 # Note: Scheduled functions are configured directly in the function files
 # See netlify/functions/*.ts for schedule declarations
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Commented out - This redirect was stripping query parameters
+# Astro handles routing, doesn't need SPA fallback
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200

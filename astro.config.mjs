@@ -17,7 +17,7 @@ export default defineConfig({
       img: false,
       svg: false,
     }),
-    prefetch(),
+    // prefetch(), // Temporarily disabled - may interfere with query params
     tailwind(),
   ],
 });
