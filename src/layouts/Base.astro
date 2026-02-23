@@ -1,5 +1,6 @@
 ---
 import "@styles/matrixAnimations.css";
+import "@mdi/font/css/materialdesignicons.min.css";
 import Footer from "@components/Footer.astro";
 import Navigation from "@components/Navigation.astro";
 import ScrollToTop from "@components/ScrollToTop.astro";
@@ -36,6 +37,7 @@ const currentPath = Astro.url.pathname;
     <meta name="author" content="Juan Diaz" />
     <meta name="keywords" content={keywords.join(", ")} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
     <title>{title}</title>
     <script
       async

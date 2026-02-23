@@ -1,5 +1,5 @@
 ---
-import { Activity, Bike, Waves, ExternalLink, Search } from "lucide-astro";
+import { ExternalLink, Search } from "lucide-astro";
 
 export interface Props {
   lastRunDate?: string | Date;
@@ -109,10 +109,10 @@ const getActivityConfig = (type: string) => {
   return configs[type] || configs["RUN"];
 };
 
-const iconMap: Record<string, any> = {
-  run: Activity,
-  ride: Bike,
-  swim: Waves,
+const iconMap: Record<string, string> = {
+  run: "mdi mdi-run",
+  ride: "mdi mdi-bike",
+  swim: "mdi mdi-swim",
 };
 
 // Determine status color and message based on days
@@ -194,7 +194,7 @@ const formatDistance = (distance: number, unit: string) => {
   return `${distance.toFixed(1)}${unit}`;
 };
 
-const ActivityIcon = iconMap[activityConfig.iconName] || Activity;
+const ActivityIcon = iconMap[activityConfig.iconName] || "mdi mdi-run-fast";
 ---
 
 <div class="relative z-10 mb-8 group">
@@ -236,7 +236,7 @@ const ActivityIcon = iconMap[activityConfig.iconName] || Activity;
         <div
           class="flex items-center justify-center space-x-2 sm:space-x-4 mb-2"
         >
-          <span class="text-2xl sm:text-4xl text-green-400"><ActivityIcon size={32} /></span>
+          <span class={`text-2xl sm:text-4xl text-green-400 ${ActivityIcon}`}></span>
           <div
             class={`
             text-4xl sm:text-6xl md:text-8xl font-bold ${statusInfo.color}

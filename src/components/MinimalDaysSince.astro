@@ -7,7 +7,7 @@ import {
 export interface Props {
   activityType: string;
   label?: string;
-  icon?: string;
+  iconClass?: string;
   // Optional pre-fetched data to avoid redundant API calls
   lastActivityInfo?: {
     date: Date | null;
@@ -18,7 +18,7 @@ export interface Props {
 const {
   activityType,
   label = activityType.toUpperCase(),
-  icon = "🏃‍♂️",
+  iconClass = "mdi-run",
   lastActivityInfo: providedActivityInfo,
 } = Astro.props;
 
@@ -106,7 +106,7 @@ const formattedDate = lastDate.toLocaleDateString("en-US", {
   >
     <!-- Header with icon and activity type -->
     <div class="activity-header">
-      <span class="activity-icon">{icon}</span>
+      <span class={`activity-icon mdi ${iconClass}`}></span>
       <span class="activity-label">{label}</span>
     </div>
 
@@ -211,7 +211,8 @@ const formattedDate = lastDate.toLocaleDateString("en-US", {
   }
 
   .activity-icon {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    color: rgba(0, 255, 0, 0.8);
   }
 
   .activity-label {
