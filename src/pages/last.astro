@@ -64,13 +64,14 @@ const getLastActivityDetails = (activityType: string) => {
   });
 
   if (!activity) {
-    return { distance: 0, duration: 0, stravaUrl: "" };
+    return { distance: 0, duration: 0, stravaUrl: "", name: "" };
   }
 
   return {
     distance: (activity.distance || 0) / 1000, // Convert to km
     duration: activity.moving_time || 0, // seconds
     stravaUrl: `https://www.strava.com/activities/${activity.id}`,
+    name: activity.name || "",
   };
 };
 
@@ -126,124 +127,114 @@ if (pageParam) {
   terminalCommand="./view_activities.sh --last-7-days"
   systemMessage={`[SYSTEM] Last ${totalWeeklyActivities} activities | Total: ${totalWeeklyDistance.toFixed(1)} km | Disciplines: ${totalDisciplines}`}
 >
-  <!-- Header Section -->
-  <section class="mb-8">
-    <div class="text-center space-y-4">
-      <div
-        class="inline-flex items-center space-x-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-lg"
-      >
-        <span class="text-green-400 animate-pulse">●</span>
-        <span class="text-green-300 font-mono text-sm"
-          >REAL_TIME_ACTIVITY_MONITORING</span
-        >
-      </div>
 
-      <div class="text-green-400/80 text-sm max-w-2xl mx-auto">
-        Tracking your fitness journey across multiple disciplines. Stay
-        consistent, stay strong, and let the data guide your progress.
-      </div>
+  <!-- Activity Cards Grid - Desktop: 3 columns, Mobile: stack -->
+  <section class="mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Running Activity Section -->
+      <SectionLayout
+        title="[RUNNING_MODULE]"
+        titleClass="text-sm font-mono"
+        rightHeaderText="CARDIOVASCULAR"
+        sectionClass="activity-section"
+        headerClass="mb-3 text-green-400 text-xs"
+      >
+        <div
+          slot="headerElements"
+          class="flex-1 h-px bg-gradient-to-r from-green-500/50 via-green-500/20 to-transparent"
+        >
+        </div>
+        <DaysSinceLast
+          lastRunDate={lastRunDate || new Date()}
+          activityType="RUN"
+          stravaUrl={runDetails.stravaUrl}
+          lastDistance={runDetails.distance || 0}
+          lastDuration={runDetails.duration || 0}
+          averageWeekly={weeklyRunDistance}
+          lastActivityName={runDetails.name}
+        />
+      </SectionLayout>
+
+      <!-- Cycling Activity Section -->
+      <SectionLayout
+        title="[CYCLING_MODULE]"
+        titleClass="text-sm font-mono"
+        rightHeaderText="ENDURANCE"
+        sectionClass="activity-section"
+        headerClass="mb-3 text-green-400 text-xs"
+      >
+        <div
+          slot="headerElements"
+          class="flex-1 h-px bg-gradient-to-r from-green-500/50 via-green-500/20 to-transparent"
+        >
+        </div>
+        <DaysSinceLast
+          lastRunDate={lastRideDate || new Date()}
+          activityType="RIDE"
+          stravaUrl={rideDetails.stravaUrl}
+          lastDistance={rideDetails.distance || 0}
+          lastDuration={rideDetails.duration || 0}
+          averageWeekly={weeklyRideDistance}
+          lastActivityName={rideDetails.name}
+        />
+      </SectionLayout>
+
+      <!-- Swimming Activity Section -->
+      <SectionLayout
+        title="[SWIMMING_MODULE]"
+        titleClass="text-sm font-mono"
+        rightHeaderText="AQUATIC"
+        sectionClass="activity-section"
+        headerClass="mb-3 text-green-400 text-xs"
+      >
+        <div
+          slot="headerElements"
+          class="flex-1 h-px bg-gradient-to-r from-green-500/50 via-green-500/20 to-transparent"
+        >
+        </div>
+        <DaysSinceLast
+          lastRunDate={lastSwimDate || new Date()}
+          activityType="Swim"
+          stravaUrl={swimDetails.stravaUrl}
+          lastDistance={swimDetails.distance || 0}
+          lastDuration={swimDetails.duration || 0}
+          averageWeekly={weeklySwimDistance}
+          lastActivityName={swimDetails.name}
+        />
+      </SectionLayout>
     </div>
   </section>
 
-  <!-- Running Activity Section -->
-  <SectionLayout
-    title="[RUNNING_MODULE]"
-    titleClass="text-lg font-mono"
-    rightHeaderText="CARDIOVASCULAR_TRAINING"
-    sectionClass="activity-section mb-12"
-    headerClass="mb-6 text-green-400 text-sm"
-  >
-    <div
-      slot="headerElements"
-      class="flex-1 h-px bg-gradient-to-r from-green-500/50 via-green-500/20 to-transparent"
-    >
-    </div>
-    <DaysSinceLast
-      lastRunDate={lastRunDate || new Date()}
-      activityType="RUN"
-      stravaUrl={runDetails.stravaUrl}
-      lastDistance={runDetails.distance || 0}
-      lastDuration={runDetails.duration || 0}
-      averageWeekly={weeklyRunDistance}
-    />
-  </SectionLayout>
-
-  <!-- Cycling Activity Section -->
-  <SectionLayout
-    title="[CYCLING_MODULE]"
-    titleClass="text-lg font-mono"
-    rightHeaderText="ENDURANCE_TRAINING"
-    sectionClass="activity-section mb-12"
-    headerClass="mb-6 text-green-400 text-sm"
-  >
-    <div
-      slot="headerElements"
-      class="flex-1 h-px bg-gradient-to-r from-green-500/50 via-green-500/20 to-transparent"
-    >
-    </div>
-    <DaysSinceLast
-      lastRunDate={lastRideDate || new Date()}
-      activityType="RIDE"
-      stravaUrl={rideDetails.stravaUrl}
-      lastDistance={rideDetails.distance || 0}
-      lastDuration={rideDetails.duration || 0}
-      averageWeekly={weeklyRideDistance}
-    />
-  </SectionLayout>
-
-  <!-- Swimming Activity Section -->
-  <SectionLayout
-    title="[SWIMMING_MODULE]"
-    titleClass="text-lg font-mono"
-    rightHeaderText="AQUATIC_TRAINING"
-    sectionClass="activity-section mb-12"
-    headerClass="mb-6 text-green-400 text-sm"
-  >
-    <div
-      slot="headerElements"
-      class="flex-1 h-px bg-gradient-to-r from-green-500/50 via-green-500/20 to-transparent"
-    >
-    </div>
-    <DaysSinceLast
-      lastRunDate={lastSwimDate || new Date()}
-      activityType="Swim"
-      stravaUrl={swimDetails.stravaUrl}
-      lastDistance={swimDetails.distance || 0}
-      lastDuration={swimDetails.duration || 0}
-      averageWeekly={weeklySwimDistance}
-    />
-  </SectionLayout>
-
   <!-- Training Summary Section - REAL DATA -->
-  <section class="mb-8">
+  <section class="mb-6">
     <div
-      class="bg-black/60 border border-green-500/30 rounded-lg p-6 backdrop-blur-sm"
+      class="bg-black/60 border border-green-500/30 rounded-lg p-4 backdrop-blur-sm"
     >
-      <div class="text-center space-y-4">
-        <div class="text-green-400 font-mono text-lg mb-4">
+      <div class="text-center space-y-3">
+        <div class="text-green-400 font-mono text-sm mb-2">
           [WEEKLY_TRAINING_SUMMARY]
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-          <div class="space-y-2">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <div class="space-y-1">
             <div class="text-green-400/60 text-xs">TOTAL_ACTIVITIES:</div>
-            <div class="text-green-300 font-mono text-xl">
+            <div class="text-green-300 font-mono text-lg">
               {totalWeeklyActivities}
             </div>
             <div class="text-green-400/80 text-xs">LAST_7_DAYS</div>
           </div>
 
-          <div class="space-y-2">
+          <div class="space-y-1">
             <div class="text-green-400/60 text-xs">TOTAL_DISTANCE:</div>
-            <div class="text-green-300 font-mono text-xl">
+            <div class="text-green-300 font-mono text-lg">
               {totalWeeklyDistance.toFixed(1)} km
             </div>
             <div class="text-green-400/80 text-xs">LAST_7_DAYS</div>
           </div>
 
-          <div class="space-y-2">
+          <div class="space-y-1">
             <div class="text-green-400/60 text-xs">TOTAL_TIME:</div>
-            <div class="text-green-300 font-mono text-xl">
+            <div class="text-green-300 font-mono text-lg">
               {Math.floor(totalWeeklyTime / 3600)}h {
                 Math.floor((totalWeeklyTime % 3600) / 60)
               }m
@@ -251,17 +242,17 @@ if (pageParam) {
             <div class="text-green-400/80 text-xs">MOVING_TIME</div>
           </div>
 
-          <div class="space-y-2">
+          <div class="space-y-1">
             <div class="text-green-400/60 text-xs">DISCIPLINES:</div>
-            <div class="text-green-300 font-mono text-xl">
+            <div class="text-green-300 font-mono text-lg">
               {totalDisciplines}
             </div>
             <div class="text-green-400/80 text-xs">TYPES_TRACKED</div>
           </div>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-green-500/20">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="mt-3 pt-3 border-t border-green-500/20">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
             <div class="space-y-1">
               <div class="text-green-400/60">RUNNING:</div>
               <div class="text-green-300 font-mono">
@@ -287,9 +278,9 @@ if (pageParam) {
   </section>
 
   <!-- Quick Actions Section -->
-  <section class="mb-8">
-    <div class="text-center space-y-4">
-      <div class="text-green-400 font-mono text-sm mb-4">[QUICK_ACTIONS]</div>
+  <section>
+    <div class="text-center space-y-3">
+      <div class="text-green-400 font-mono text-sm mb-2">[QUICK_ACTIONS]</div>
 
       <div
         class="flex flex-col sm:flex-row gap-3 justify-center max-w-2xl mx-auto"
@@ -298,30 +289,30 @@ if (pageParam) {
           href="https://www.strava.com/dashboard"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex-1 px-4 py-3 bg-orange-500/20 border border-orange-500/40 text-orange-400 rounded-lg font-mono text-sm hover:bg-orange-500/30 hover:border-orange-500/60 transition-all duration-300 transform hover:scale-105 no-underline hover:no-underline"
+          class="flex-1 px-4 py-2 bg-orange-500/20 border border-orange-500/40 text-orange-400 rounded-lg font-mono text-sm hover:bg-orange-500/30 hover:border-orange-500/60 transition-all duration-300 transform hover:scale-105 no-underline hover:no-underline"
         >
-          <div class="flex items-center justify-center space-x-2">
+          <span class="flex items-center justify-center space-x-2">
             <BarChart3 size={16} />
             <span>STRAVA_DASHBOARD</span>
-          </div>
+          </span>
         </a>
 
         <button
-          class="flex-1 px-4 py-3 bg-blue-500/20 border border-blue-500/40 text-blue-400 rounded-lg font-mono text-sm hover:bg-blue-500/30 hover:border-blue-500/60 transition-all duration-300 transform hover:scale-105 training-plan-btn"
+          class="flex-1 px-4 py-2 bg-blue-500/20 border border-blue-500/40 text-blue-400 rounded-lg font-mono text-sm hover:bg-blue-500/30 hover:border-blue-500/60 transition-all duration-300 transform hover:scale-105 training-plan-btn"
         >
-          <div class="flex items-center justify-center space-x-2">
+          <span class="flex items-center justify-center space-x-2">
             <ClipboardList size={16} />
             <span>TRAINING_PLAN</span>
-          </div>
+          </span>
         </button>
 
         <button
-          class="flex-1 px-4 py-3 bg-purple-500/20 border border-purple-500/40 text-purple-400 rounded-lg font-mono text-sm hover:bg-purple-500/30 hover:border-purple-500/60 transition-all duration-300 transform hover:scale-105 analytics-btn"
+          class="flex-1 px-4 py-2 bg-purple-500/20 border border-purple-500/40 text-purple-400 rounded-lg font-mono text-sm hover:bg-purple-500/30 hover:border-purple-500/60 transition-all duration-300 transform hover:scale-105 analytics-btn"
         >
-          <div class="flex items-center justify-center space-x-2">
+          <span class="flex items-center justify-center space-x-2">
             <TrendingUp size={16} />
             <span>ANALYTICS</span>
-          </div>
+          </span>
         </button>
       </div>
     </div>
@@ -329,44 +320,7 @@ if (pageParam) {
 </Base>
 
 <style>
-  /* Optional: Add some styling for the list container if needed */
-  .activities-list {
-    margin-top: 2rem;
-  }
-
-  /* Ensure scanline still works with SectionLayout's internal structure */
-  .activity-section .base-section-header {
-    position: relative; /* Needed for the ::before pseudo-element to be positioned correctly */
-  }
-
-  .activity-section .base-section-header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(0, 255, 0, 0.3),
-      transparent
-    );
-    animation: scanLine 2s ease-in-out infinite;
-  }
-
-  @keyframes scanLine {
-    0%,
-    100% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-
   .activity-section {
-    position: relative;
     transition: all 0.3s ease;
   }
 
@@ -374,20 +328,15 @@ if (pageParam) {
     transform: translateY(-2px);
   }
 
-  /* Responsive improvements */
   @media (max-width: 768px) {
-    /* Original .section-header responsive margin is now handled by headerClass prop on SectionLayout if needed */
-    /* For example, if headerClass="mb-6 md:mb-4" was used */
-
     .activity-section {
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // --- Modal Functionality ---
     const trainingPlanBtn = document.querySelector(".training-plan-btn");
     trainingPlanBtn?.addEventListener("click", () => {
       showModal(
