@@ -175,7 +175,9 @@ export function getActivityStats(activities: StravaActivity[]): ActivityStats {
     const typeStats = stats.byType[type];
     if (typeStats.distance > 0) {
       // Calculate pace as minutes per kilometer
-      typeStats.avgPace = typeStats.time / 60 / (typeStats.distance / 1000);
+      typeStats.avgPace = parseFloat(
+        (typeStats.time / 60 / (typeStats.distance / 1000)).toFixed(2),
+      );
     } else {
       typeStats.avgPace = null;
     }
