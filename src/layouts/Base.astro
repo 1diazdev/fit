@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname;
       gtag("config", "G-9ZZXEM92EB");
     </script>
   </head>
-  <body class="bg-black text-green-400 font-mono overflow-x-hidden">
+  <body class="bg-black text-green-400 font-mono" style="overflow: hidden; height: 100vh;">
     <!-- Matrix Rain Background -->
     <div class="fixed inset-0 pointer-events-none z-0">
       <div class="matrix-rain"></div>
@@ -59,9 +59,9 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Main Terminal Container -->
-    <div class="min-h-screen p-2 sm:p-4 relative z-10">
+    <div class="p-2 sm:p-4 relative z-10" style="height: 100vh; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: rgba(0, 255, 0, 0.3) transparent;" class="custom-scrollbar">
       <!-- Terminal Window Frame -->
-      <div class="terminal-window max-w-7xl mx-auto">
+      <div class="terminal-window max-w-7xl mx-auto" style="margin-bottom: 2rem; min-height: calc(100vh - 2rem);">
         <!-- Window Title Bar -->
         <div class="window-titlebar">
           <div class="window-controls">
@@ -105,6 +105,25 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <style>
+      /* Custom Scrollbar */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(0, 255, 0, 0.3);
+        border-radius: 3px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 255, 0, 0.5);
+      }
+
       /* Matrix Rain Animation */
       .matrix-rain {
         position: absolute;
@@ -237,9 +256,8 @@ const currentPath = Astro.url.pathname;
           0 0 20px rgba(0, 255, 0, 0.3),
           inset 0 0 20px rgba(0, 255, 0, 0.1);
         backdrop-filter: blur(10px);
-        min-height: calc(100vh - 2rem);
         position: relative;
-        overflow: hidden;
+        overflow: visible;
       }
 
       .terminal-window::before {
