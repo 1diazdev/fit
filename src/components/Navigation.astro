@@ -1,5 +1,6 @@
 ---
 import RealTimeHeader from "./RealTimeHeader.astro";
+import { Activity, List, Map, Dumbbell, Heart, Trophy, Info, Plus } from "lucide-astro";
 
 export interface Props {
   currentPath?: string;
@@ -8,13 +9,13 @@ export interface Props {
 const { currentPath = "/" } = Astro.props;
 
 const navItems = [
-  { path: "/", label: "DASHBOARD", icon: "●" },
-  { path: "/last", label: "ACTIVITIES", icon: "◐" },
-  { path: "/map", label: "ROUTES", icon: "◑" },
-  { path: "/hevy", label: "WORKOUTS", icon: "◑" },
-  { path: "/health", label: "HEALTH", icon: "◑" },
-  { path: "/record", label: "RECORDS", icon: "◑" },
-  { path: "/about", label: "ABOUT", icon: "◑" },
+  { path: "/", label: "DASHBOARD", Icon: Activity },
+  { path: "/last", label: "ACTIVITIES", Icon: List },
+  { path: "/map", label: "ROUTES", Icon: Map },
+  { path: "/hevy", label: "WORKOUTS", Icon: Dumbbell },
+  { path: "/health", label: "HEALTH", Icon: Heart },
+  { path: "/record", label: "RECORDS", Icon: Trophy },
+  { path: "/about", label: "ABOUT", Icon: Info },
 ];
 ---
 
@@ -29,7 +30,9 @@ const navItems = [
           href={item.path}
           class={`browser-tab ${currentPath === item.path ? "active" : ""}`}
         >
-          <span class="tab-icon">{item.icon}</span>
+          <span class="tab-icon">
+            <item.Icon size={12} />
+          </span>
           <span class="tab-label">{item.label}</span>
           <span class="tab-close">×</span>
         </a>
@@ -38,7 +41,7 @@ const navItems = [
 
     <!-- New Tab Button -->
     <button class="new-tab-btn">
-      <span class="text-green-400">+</span>
+      <Plus size={16} class="text-green-400" />
     </button>
   </div>
 
@@ -115,9 +118,11 @@ const navItems = [
   }
 
   .tab-icon {
-    font-size: 10px;
     color: #00ff00;
     animation: pulse 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .tab-label {
