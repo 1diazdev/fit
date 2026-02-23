@@ -24,18 +24,22 @@
 
 <script>
   const scrollButton = document.getElementById("scroll-to-top");
+  const mainContainer = document.getElementById("main-scroll-container");
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
+  const checkScroll = () => {
+    const scrollTop = mainContainer?.scrollTop || 0;
+    if (scrollTop > 300) {
       scrollButton?.classList.remove("opacity-0", "pointer-events-none");
       scrollButton?.classList.add("opacity-100");
     } else {
       scrollButton?.classList.remove("opacity-100");
       scrollButton?.classList.add("opacity-0", "pointer-events-none");
     }
-  });
+  };
+
+  mainContainer?.addEventListener("scroll", checkScroll);
 
   scrollButton?.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    mainContainer?.scrollTo({ top: 0, behavior: "smooth" });
   });
 </script>
