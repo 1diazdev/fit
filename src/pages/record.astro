@@ -121,7 +121,7 @@ const percentChange = (current: number, previous: number) => {
       {
         records.longestRun.distance > 0 && (
           <div class="record-card">
-            <div class="record-icon"><Activity size={20} /></div>
+            <div class="record-icon mdi mdi-run-fast"></div>
             <div class="record-content">
               <div class="record-label">LONGEST RUN</div>
               <div class="record-value">
@@ -392,7 +392,7 @@ const percentChange = (current: number, previous: number) => {
 
     <div class="lifetime-grid">
       <div class="lifetime-stat">
-        <div class="lifetime-icon"><Activity size={20} /></div>
+        <div class="lifetime-icon mdi mdi-run-fast"></div>
         <div class="lifetime-value">
           {
             (
@@ -405,19 +405,19 @@ const percentChange = (current: number, previous: number) => {
       </div>
 
       <div class="lifetime-stat">
-        <div class="lifetime-icon"><TrendingUp size={20} /></div>
+        <div class="lifetime-icon mdi mdi-trending-up"></div>
         <div class="lifetime-value">{allActivities.length}</div>
         <div class="lifetime-label">Total Activities</div>
       </div>
 
       <div class="lifetime-stat">
-        <div class="lifetime-icon"><Dumbbell size={20} /></div>
+        <div class="lifetime-icon mdi mdi-dumbbell"></div>
         <div class="lifetime-value">{allWorkouts.length}</div>
         <div class="lifetime-label">Total Workouts</div>
       </div>
 
       <div class="lifetime-stat">
-        <div class="lifetime-icon"><Footprints size={20} /></div>
+        <div class="lifetime-icon mdi mdi-shoe-print"></div>
         <div class="lifetime-value">
           {
             formatNumber(
