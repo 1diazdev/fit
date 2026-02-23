@@ -193,7 +193,7 @@ const hasSteps = dayData.steps.count > 0;
 const hasActivities = dayData.activities.length > 0;
 const hasWorkouts = dayData.workouts.length > 0;
 const modeLabel = testMode ? "TEST" : "LIVE";
-const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} | Google Fit: ${hasSteps ? "✓" : "○"} | Strava: ${hasActivities ? "✓" : "○"} | Hevy: ${hasWorkouts ? "✓" : "○"}`;
+const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Strava: ${hasActivities ? "✓" : "○"} | Hevy: ${hasWorkouts ? "✓" : "○"}`;
 ---
 
 <Base
@@ -223,14 +223,6 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
-      <div
-        class="date-debug"
-        style="font-size: 0.7rem; color: rgba(0,255,0,0.5);"
-      >
-        [{selectedDate}] - Steps: {dayData.steps.count} | Activities: {
-          dayData.activities.length
-        } | Workouts: {dayData.workouts.length}
-      </div>
       {
         !isToday && (
           <a href="/" class="today-btn">
@@ -261,7 +253,7 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
   </div>
 
   <!-- Same content as index.astro -->
-  <SectionLayout title="[DAILY_METRICS]" rightHeaderText={`[${selectedDate}]`}>
+  <SectionLayout title="[DAILY_METRICS]">
     <div
       slot="headerElements"
       class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
