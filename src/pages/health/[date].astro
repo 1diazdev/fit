@@ -1,4 +1,23 @@
 ---
+// Dynamic route for date-specific health dashboard
+// Accessed as /health/2026-02-19
+
+// Generate static paths for the last 90 days
+export async function getStaticPaths() {
+  const paths: Array<{ params: { date: string } }> = [];
+  const today = new globalThis.Date();
+
+  // Generate paths for last 90 days
+  for (let i = 0; i < 90; i++) {
+    const date = new globalThis.Date(today);
+    date.setDate(date.getDate() - i);
+    const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    paths.push({ params: { date: dateStr } });
+  }
+
+  return paths;
+}
+
 import Layout from "@/layouts/Base.astro";
 import SectionLayout from "@/components/SectionLayout.astro";
 import StepsCounter from "@/components/StepsCounter.astro";
@@ -13,25 +32,27 @@ import type {
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-// Get date from query param or use today
-const url = new URL(Astro.request.url);
-const selectedDate = url.searchParams.get("date") || "";
+// Get date from path parameter
+const { date } = Astro.params;
+const dateToUse = date || "";
 
-// Validate date or use today
-const today = new Date();
-const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
-const dateToUse = /^\d{4}-\d{2}-\d{2}$/.test(selectedDate) ? selectedDate : todayStr;
+// Validate date format
+if (!/^\d{4}-\d{2}-\d{2}$/.test(dateToUse)) {
+  return Astro.redirect("/health");
+}
+
+console.log(`[health/[date]] Loading health data for date: ${dateToUse}`);
 
 // Parse date string properly
 const [year, month, day] = dateToUse.split("-").map(Number);
-const selectedDateObj = new Date(year, month - 1, day);
+const selectedDateObj = new globalThis.Date(year, month - 1, day);
 
 // Calculate previous and next day dates
-const prevDay = new Date(selectedDateObj);
+const prevDay = new globalThis.Date(selectedDateObj);
 prevDay.setDate(prevDay.getDate() - 1);
 const prevDayStr = `${prevDay.getFullYear()}-${String(prevDay.getMonth() + 1).padStart(2, "0")}-${String(prevDay.getDate()).padStart(2, "0")}`;
 
-const nextDay = new Date(selectedDateObj);
+const nextDay = new globalThis.Date(selectedDateObj);
 nextDay.setDate(nextDay.getDate() + 1);
 const nextDayStr = `${nextDay.getFullYear()}-${String(nextDay.getMonth() + 1).padStart(2, "0")}-${String(nextDay.getDate()).padStart(2, "0")}`;
 
@@ -41,8 +62,12 @@ const displayDate = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
   month: "short",
   day: "numeric",
-}).format(selectedDateObj);
+  timeZone: "UTC",
+}).format(new globalThis.Date(globalThis.Date.UTC(year, month - 1, day, 12)));
 
+// Check if selected date is today
+const today = new globalThis.Date();
+const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 const isToday = dateToUse === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
 
@@ -57,7 +82,7 @@ let healthData: {
   steps: {},
   sleep: {},
   heartRate: {},
-  lastUpdated: new Date().toISOString(),
+  lastUpdated: new globalThis.Date().toISOString(),
   source: "Google Fit",
 };
 
@@ -93,7 +118,7 @@ const totalSleepNights = Object.keys(healthData.sleep).length;
 const totalHRDays = Object.keys(healthData.heartRate).length;
 
 // Format last updated
-const lastUpdated = new Date(healthData.lastUpdated);
+const lastUpdated = new globalThis.Date(healthData.lastUpdated);
 const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
   month: "short",
   day: "numeric",
@@ -107,9 +132,9 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
   title="Health Matrix | Fitness Tracker"
   windowTitle="HEALTH_MONITOR"
   terminalCommand={`./run_health_scan.exe ${dateToUse}`}
-  systemMessage="[SYSTEM] Google Fit API connected. Biometric data streaming..."
+  systemMessage={`${dateToUse} | Google Fit: ${dayData.steps > 0 ? "✓" : "○"} | Sleep: ${daySleepData ? "✓" : "○"} | HR: ${dayHeartRateData ? "✓" : "○"}`}
 >
-  <!-- Date Navigator - Uses /health/YYYY-MM-DD routes -->
+  <!-- Date Navigator -->
   <div class="date-navigator">
     <a href={`/health/${prevDayStr}`} class="nav-arrow" title="Previous day">
       <svg
@@ -128,7 +153,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
-      {isToday && <div class="date-badge">TODAY</div>}
+      {!isToday && <a href="/health" class="today-btn">[TODAY]</a>}
     </div>
 
     <a
@@ -152,7 +177,12 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
   </div>
 
   <!-- Daily Steps Counter -->
-  <SectionLayout title="[DAILY_METRICS]" rightHeaderText="[GOOGLE_FIT_DATA]">
+  <SectionLayout title="[DAILY_METRICS]" rightHeaderText={`[${dateToUse}]`}>
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+    >
+    </div>
     <StepsCounter
       steps={dayData.steps}
       distance={dayData.distance}
@@ -165,6 +195,11 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     title="[ACTIVITY_HEATMAP]"
     rightHeaderText={`[${totalStepDays}_ACTIVE_DAYS]`}
   >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+    >
+    </div>
     <HealthHeatmap stepsData={healthData.steps} />
   </SectionLayout>
 
@@ -173,6 +208,11 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     title="[SLEEP_ANALYSIS]"
     rightHeaderText={`[${totalSleepNights}_NIGHTS_TRACKED]`}
   >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+    >
+    </div>
     {
       totalSleepNights > 0 ? (
         <SleepTracker sleepData={healthData.sleep} daysToShow={14} />
@@ -201,6 +241,11 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     title="[HEART_RATE_ZONES]"
     rightHeaderText={`[${totalHRDays}_DAYS_MONITORED]`}
   >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-red-400 rounded-full animate-pulse"
+    >
+    </div>
     {
       totalHRDays > 0 ? (
         <HeartRateZones heartRateData={healthData.heartRate} daysToShow={14} />
@@ -229,6 +274,16 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     <div
       class="bg-black/60 border border-green-500/30 rounded-lg p-6 font-mono"
     >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <div>
+          <span class="text-green-400/60">SOURCE:</span>
+          <span class="text-green-300 ml-2">{healthData.source}</span>
+        </div>
+        <div>
+          <span class="text-green-400/60">LAST_UPDATED:</span>
+          <span class="text-green-300 ml-2">{lastUpdatedStr}</span>
+        </div>
+      </div>
     </div>
   </SectionLayout>
 </Layout>
@@ -254,13 +309,18 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 2rem;
     margin-bottom: 1.5rem;
     padding: 1rem;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 20, 0, 0.7) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 20, 0, 0.7) 100%
+    );
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+    font-family: "Courier New", monospace;
   }
 
   .nav-arrow {
@@ -269,19 +329,20 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: rgba(0, 255, 0, 0.1);
+    background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 6px;
-    color: rgba(0, 255, 0, 0.8);
+    color: #00ff00;
     text-decoration: none;
     transition: all 0.2s ease;
+    cursor: pointer;
   }
 
   .nav-arrow:hover:not(.disabled) {
-    background: rgba(0, 255, 0, 0.2);
+    background: rgba(0, 255, 0, 0.15);
     border-color: rgba(0, 255, 0, 0.6);
-    color: #00ff00;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    transform: scale(1.1);
   }
 
   .nav-arrow.disabled {
@@ -299,38 +360,51 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 180px;
+    gap: 0.5rem;
+    min-width: 220px;
   }
 
   .date-text {
-    font-family: "Courier New", monospace;
     font-size: 1.25rem;
     font-weight: bold;
     color: #00ff00;
+    text-align: center;
+    letter-spacing: 0.05em;
     text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
   }
 
-  .date-badge {
-    font-family: "Courier New", monospace;
-    font-size: 0.65rem;
-    padding: 2px 8px;
-    margin-top: 4px;
-    background: rgba(0, 255, 0, 0.2);
-    border: 1px solid rgba(0, 255, 0, 0.4);
+  .today-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 4px;
+    color: rgba(0, 255, 0, 0.8);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .today-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: rgba(0, 255, 0, 0.5);
     color: #00ff00;
-    letter-spacing: 0.1em;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
   }
 
   @media (max-width: 480px) {
     .date-navigator {
-      gap: 0.5rem;
+      gap: 1rem;
       padding: 0.75rem;
     }
 
     .nav-arrow {
       width: 36px;
       height: 36px;
+    }
+
+    .date-display {
+      min-width: 180px;
     }
 
     .date-text {
