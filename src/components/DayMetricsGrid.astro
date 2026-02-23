@@ -1,18 +1,6 @@
 ---
-/**
- * Day Metrics Grid Component
- *
- * Displays all metrics for a selected day in a grid layout.
- * Shows:
- * - Steps (count, distance, calories, progress to goal)
- * - Activities (count, types, total distance, total time)
- * - Workouts (count, exercises, volume)
- * - Sleep (total, breakdown, score)
- * - Heart Rate (min, max, avg, resting)
- * - Move Minutes (active, heart minutes, progress to WHO 150min/week)
- */
-
 import type { DayData } from "@/services/dataAggregationService";
+import { Footprints, Activity, Dumbbell, Moon, Heart, Zap } from "lucide-astro";
 
 export interface Props {
   dayData: DayData;
@@ -72,7 +60,7 @@ const heartMinutesProgress = Math.min(
   <!-- Steps Card -->
   <div class="metric-card">
     <div class="card-header">
-      <span class="card-icon">🚶</span>
+      <span class="card-icon"><Footprints size={16} /></span>
       <span class="card-title">STEPS</span>
     </div>
     <div class="card-content">
@@ -98,7 +86,7 @@ const heartMinutesProgress = Math.min(
   <!-- Activities Card -->
   <div class="metric-card">
     <div class="card-header">
-      <span class="card-icon">🏃</span>
+      <span class="card-icon"><Activity size={16} /></span>
       <span class="card-title">ACTIVITIES</span>
     </div>
     <div class="card-content">
@@ -140,7 +128,7 @@ const heartMinutesProgress = Math.min(
   <!-- Workouts Card -->
   <div class="metric-card">
     <div class="card-header">
-      <span class="card-icon">💪</span>
+      <span class="card-icon"><Dumbbell size={16} /></span>
       <span class="card-title">WORKOUTS</span>
     </div>
     <div class="card-content">
@@ -174,7 +162,7 @@ const heartMinutesProgress = Math.min(
   <!-- Sleep Card -->
   <div class="metric-card">
     <div class="card-header">
-      <span class="card-icon">😴</span>
+      <span class="card-icon"><Moon size={16} /></span>
       <span class="card-title">SLEEP</span>
     </div>
     <div class="card-content">
@@ -220,7 +208,7 @@ const heartMinutesProgress = Math.min(
   <!-- Heart Rate Card -->
   <div class="metric-card">
     <div class="card-header">
-      <span class="card-icon">❤️</span>
+      <span class="card-icon"><Heart size={16} /></span>
       <span class="card-title">HEART_RATE</span>
     </div>
     <div class="card-content">
@@ -253,7 +241,7 @@ const heartMinutesProgress = Math.min(
   <!-- Move Minutes Card -->
   <div class="metric-card">
     <div class="card-header">
-      <span class="card-icon">⚡</span>
+      <span class="card-icon"><Zap size={16} /></span>
       <span class="card-title">MOVE_MINUTES</span>
     </div>
     <div class="card-content">
@@ -317,7 +305,10 @@ const heartMinutesProgress = Math.min(
   }
 
   .card-icon {
-    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ff00;
   }
 
   .card-title {
