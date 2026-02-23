@@ -81,18 +81,6 @@ const currentPath = Astro.url.pathname;
 
         <Navigation currentPath={currentPath} />
 
-        <!-- Terminal Header -->
-        <div class="terminal-header">
-          <div class="flex items-center space-x-2 mb-2">
-            <div class="text-green-400 text-sm">root@matrix:~$</div>
-            <div class="text-green-300 text-sm">{terminalCommand}</div>
-          </div>
-          <div class="text-green-500 text-xs opacity-80">
-            {systemMessage}
-          </div>
-          <div class="terminal-separator"></div>
-        </div>
-
         <!-- Terminal Content Area -->
         <div class="terminal-content">
           <main class="content-area">
