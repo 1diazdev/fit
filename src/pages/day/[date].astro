@@ -79,6 +79,7 @@ const displayDate = new Intl.DateTimeFormat('en-US', {
 const today = new Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 const isToday = selectedDate === todayStr;
+const isNextDayFuture = nextDayStr > todayStr;
 
 // Fetch all data for selected date
 const dayData = await getDataForDate(selectedDate);
@@ -195,7 +196,7 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
       )}
     </div>
 
-    <a href={`/day/${nextDayStr}`} class="nav-arrow" title="Next day">
+    <a href={isNextDayFuture ? '#' : `/day/${nextDayStr}`} class={`nav-arrow ${isNextDayFuture ? 'disabled' : ''}`} title="Next day">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
@@ -468,6 +469,15 @@ const systemMessage = `[SYSTEM] (${modeLabel}) Loaded data for ${selectedDate} |
     border-color: rgba(0, 255, 0, 0.6);
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
     transform: scale(1.1);
+  }
+
+  .nav-arrow.disabled,
+  .nav-arrow.disabled:hover {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
   }
 
   .nav-arrow svg {
