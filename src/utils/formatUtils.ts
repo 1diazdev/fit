@@ -24,6 +24,38 @@ export function formatRelativeTime(date: Date): string {
   }
 }
 
+export function formatRelativeTimeNY(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+
+  const nowNY = now.toLocaleString("en-US", { timeZone: "America/New_York" });
+  const dateNY = date.toLocaleString("en-US", { timeZone: "America/New_York" });
+
+  const nowDateNY = new Date(nowNY);
+  const dateDateNY = new Date(dateNY);
+
+  const diffInMilliseconds = nowDateNY.getTime() - dateDateNY.getTime();
+
+  const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  const diffInDays = Math.floor(diffInHours / 24);
+
+  if (diffInDays > 0) {
+    const remainingHours = diffInHours % 24;
+    return `${diffInDays} day${
+      diffInDays > 1 ? "s" : ""
+    } ${remainingHours}hr ago`;
+  } else if (diffInHours > 0) {
+    const remainingMinutes = diffInMinutes % 60;
+    return `${diffInHours}hr ${remainingMinutes}min ago`;
+  } else if (diffInMinutes > 0) {
+    return `${diffInMinutes}min ago`;
+  } else {
+    return "just now";
+  }
+}
+
 export function formatDuration(seconds: number): string {
   if (seconds < 0) {
     return "0s"; // Or handle negative duration as an error
