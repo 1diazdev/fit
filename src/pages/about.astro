@@ -2,6 +2,7 @@
 import Base from "@layouts/Base.astro";
 import { PAGE_METADATA } from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
+import { Code, BarChart3, Activity } from "lucide-astro";
 ---
 
 <Base
@@ -170,7 +171,7 @@ import SectionLayout from "@components/SectionLayout.astro";
       <div
         class="philosophy-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
       >
-        <div class="text-green-500 text-2xl mb-3">💻</div>
+        <div class="text-green-500 text-2xl mb-3"><Code size={24} /></div>
         <div class="text-green-400 mb-2 font-bold text-sm">
           CODE_WITH_PURPOSE
         </div>
@@ -182,7 +183,7 @@ import SectionLayout from "@components/SectionLayout.astro";
       <div
         class="philosophy-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
       >
-        <div class="text-green-500 text-2xl mb-3">📊</div>
+        <div class="text-green-500 text-2xl mb-3"><BarChart3 size={24} /></div>
         <div class="text-green-400 mb-2 font-bold text-sm">
           DATA_DRIVEN_LIFE
         </div>
@@ -194,7 +195,7 @@ import SectionLayout from "@components/SectionLayout.astro";
       <div
         class="philosophy-item text-center p-4 bg-black/40 rounded border border-green-500/20 hover:border-green-500/50 transition-all"
       >
-        <div class="text-green-500 text-2xl mb-3">🏃‍♂️</div>
+        <div class="text-green-500 text-2xl mb-3"><Activity size={24} /></div>
         <div class="text-green-400 mb-2 font-bold text-sm">
           BREAK_THE_MATRIX
         </div>
