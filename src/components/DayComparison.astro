@@ -6,7 +6,7 @@
  * Color coded: green (better), red (worse), yellow (stable)
  */
 
-import type { ComparisonData } from '@/services/dataAggregationService';
+import type { ComparisonData } from "@/services/dataAggregationService";
 
 export interface Props {
   comparisons: ComparisonData;
@@ -15,18 +15,18 @@ export interface Props {
 const { comparisons } = Astro.props;
 
 // Helper to format difference with + or -
-function formatDiff(value: number, suffix: string = ''): string {
-  const sign = value > 0 ? '+' : '';
+function formatDiff(value: number, suffix: string = ""): string {
+  const sign = value > 0 ? "+" : "";
   return `${sign}${Math.round(value).toLocaleString()}${suffix}`;
 }
 
 // Helper to get color class based on value
 function getColorClass(value: number): string {
-  if (value > 100) return 'good'; // Significant improvement
-  if (value > 0) return 'slight-good'; // Slight improvement
-  if (value < -100) return 'bad'; // Significant decline
-  if (value < 0) return 'slight-bad'; // Slight decline
-  return 'neutral'; // Stable
+  if (value > 100) return "good"; // Significant improvement
+  if (value > 0) return "slight-good"; // Slight improvement
+  if (value < -100) return "bad"; // Significant decline
+  if (value < 0) return "slight-bad"; // Slight decline
+  return "neutral"; // Stable
 }
 ---
 
@@ -37,20 +37,26 @@ function getColorClass(value: number): string {
     <div class="comparison-grid">
       <div class="comparison-row">
         <span class="metric-name">Steps</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vsYesterday.steps)}`}>
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vsYesterday.steps)}`}
+        >
           {formatDiff(comparisons.vsYesterday.steps)}
         </span>
       </div>
       <div class="comparison-row">
         <span class="metric-name">Activities</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vsYesterday.activities * 100)}`}>
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vsYesterday.activities * 100)}`}
+        >
           {formatDiff(comparisons.vsYesterday.activities)}
         </span>
       </div>
       <div class="comparison-row">
         <span class="metric-name">Heart Minutes</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vsYesterday.heartMinutes * 10)}`}>
-          {formatDiff(comparisons.vsYesterday.heartMinutes, ' min')}
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vsYesterday.heartMinutes * 10)}`}
+        >
+          {formatDiff(comparisons.vsYesterday.heartMinutes, " min")}
         </span>
       </div>
     </div>
@@ -62,25 +68,33 @@ function getColorClass(value: number): string {
     <div class="comparison-grid">
       <div class="comparison-row">
         <span class="metric-name">Steps</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.steps)}`}>
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.steps)}`}
+        >
           {formatDiff(comparisons.vs7DayAvg.steps)}
         </span>
       </div>
       <div class="comparison-row">
         <span class="metric-name">Distance</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.distance)}`}>
-          {formatDiff(comparisons.vs7DayAvg.distance, ' m')}
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.distance)}`}
+        >
+          {formatDiff(comparisons.vs7DayAvg.distance, " m")}
         </span>
       </div>
       <div class="comparison-row">
         <span class="metric-name">Heart Minutes</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.heartMinutes * 10)}`}>
-          {formatDiff(comparisons.vs7DayAvg.heartMinutes, ' min')}
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.heartMinutes * 10)}`}
+        >
+          {formatDiff(comparisons.vs7DayAvg.heartMinutes, " min")}
         </span>
       </div>
       <div class="comparison-row">
         <span class="metric-name">Workouts</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.workouts * 100)}`}>
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vs7DayAvg.workouts * 100)}`}
+        >
           {formatDiff(comparisons.vs7DayAvg.workouts)}
         </span>
       </div>
@@ -93,20 +107,26 @@ function getColorClass(value: number): string {
     <div class="comparison-grid">
       <div class="comparison-row">
         <span class="metric-name">Steps</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.steps)}`}>
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.steps)}`}
+        >
           {formatDiff(comparisons.vs30DayAvg.steps)}
         </span>
       </div>
       <div class="comparison-row">
         <span class="metric-name">Distance</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.distance)}`}>
-          {formatDiff(comparisons.vs30DayAvg.distance, ' m')}
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.distance)}`}
+        >
+          {formatDiff(comparisons.vs30DayAvg.distance, " m")}
         </span>
       </div>
       <div class="comparison-row">
         <span class="metric-name">Calories</span>
-        <span class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.calories)}`}>
-          {formatDiff(comparisons.vs30DayAvg.calories, ' kcal')}
+        <span
+          class={`metric-diff ${getColorClass(comparisons.vs30DayAvg.calories)}`}
+        >
+          {formatDiff(comparisons.vs30DayAvg.calories, " kcal")}
         </span>
       </div>
     </div>
@@ -118,11 +138,15 @@ function getColorClass(value: number): string {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
   }
 
   .comparison-section {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 20, 0, 0.5) 100%
+    );
     border: 1px solid rgba(0, 255, 0, 0.2);
     border-radius: 6px;
     padding: 1rem;

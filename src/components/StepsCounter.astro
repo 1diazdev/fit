@@ -47,9 +47,7 @@ const status = getStatusLevel(steps);
     <div class="steps-count-display">
       <div class="count-grid">
         <div class="count-label">
-          <span class="text-green-400/60 text-sm font-mono"
-            >DAILY_STEPS:</span
-          >
+          <span class="text-green-400/60 text-sm font-mono">DAILY_STEPS:</span>
         </div>
         <div class="count-value">
           <span
@@ -108,11 +106,15 @@ const status = getStatusLevel(steps);
 
     <!-- Progress bar to 10k steps -->
     <div class="mt-4">
-      <div class="flex justify-between text-xs font-mono text-green-400/60 mb-1">
+      <div
+        class="flex justify-between text-xs font-mono text-green-400/60 mb-1"
+      >
         <span>TARGET_PROGRESS:</span>
         <span>{Math.min(Math.round((steps / 10000) * 100), 100)}%</span>
       </div>
-      <div class="w-full h-2 bg-black/60 border border-green-500/30 rounded-full overflow-hidden">
+      <div
+        class="w-full h-2 bg-black/60 border border-green-500/30 rounded-full overflow-hidden"
+      >
         <div
           class="h-full bg-gradient-to-r from-green-600 to-green-400 transition-all duration-1000 ease-out"
           style={`width: ${Math.min((steps / 10000) * 100, 100)}%`}

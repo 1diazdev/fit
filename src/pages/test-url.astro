@@ -2,25 +2,25 @@
 const url = Astro.url;
 const requestUrl = Astro.request.url;
 const params = new URL(requestUrl).searchParams;
-const dateParam = params.get('date');
+const dateParam = params.get("date");
 
-console.log('[test-url] Full URL:', requestUrl);
-console.log('[test-url] Astro.url:', url.href);
-console.log('[test-url] Search:', url.search);
-console.log('[test-url] Date param:', dateParam);
+console.log("[test-url] Full URL:", requestUrl);
+console.log("[test-url] Astro.url:", url.href);
+console.log("[test-url] Search:", url.search);
+console.log("[test-url] Date param:", dateParam);
 ---
 
 <html>
-<head>
-  <title>URL Test</title>
-</head>
-<body>
-  <h1>URL Test Page</h1>
-  <pre>
+  <head>
+    <title>URL Test</title>
+  </head>
+  <body>
+    <h1>URL Test Page</h1>
+    <pre>
 Request URL: {requestUrl}
 Astro.url: {url.href}
 Search string: {url.search}
 Date param: {dateParam || 'null'}
   </pre>
-</body>
+  </body>
 </html>

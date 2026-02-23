@@ -1,5 +1,8 @@
 ---
-import { getLastActivityInfo, type StravaActivity } from "@services/stravaService";
+import {
+  getLastActivityInfo,
+  type StravaActivity,
+} from "@services/stravaService";
 
 export interface Props {
   activityType: string;
@@ -20,7 +23,8 @@ const {
 } = Astro.props;
 
 // Get last activity info from Strava only if not provided
-const lastActivityInfo = providedActivityInfo ?? await getLastActivityInfo(activityType);
+const lastActivityInfo =
+  providedActivityInfo ?? (await getLastActivityInfo(activityType));
 const lastDate = lastActivityInfo?.date || new Date();
 const lastActivity = lastActivityInfo?.activity;
 

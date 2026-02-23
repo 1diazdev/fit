@@ -5,13 +5,13 @@
  * Combines data from Strava, Hevy, and Google Fit APIs.
  */
 
-import { memoize } from '@/lib/dataCache';
-import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
-import type { StravaActivity } from './stravaService';
-import type { Workout as HevyWorkout } from './hevyService';
-import { fetchActivities } from './stravaService';
-import { fetchHevyData } from './hevyService';
+import { memoize } from "@/lib/dataCache";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import type { StravaActivity } from "./stravaService";
+import type { Workout as HevyWorkout } from "./hevyService";
+import { fetchActivities } from "./stravaService";
+import { fetchHevyData } from "./hevyService";
 import {
   fetchStepsData,
   fetchSleepData,
@@ -23,7 +23,7 @@ import {
   type HeartRateData,
   type MoveMinutesData,
   type HeartRateZones,
-} from './googleFitService';
+} from "./googleFitService";
 
 // ============================================================================
 // INTERFACES
@@ -104,11 +104,17 @@ interface DummyHealthData {
   steps?: Record<string, { steps: number; distance: number; calories: number }>;
   heartRate?: Record<string, { resting: number; avg: number; max: number }>;
   moveMinutes?: Record<string, { active: number; heart: number }>;
-  sleep?: Record<string, { duration: number; deep: number; light: number; rem: number }>;
+  sleep?: Record<
+    string,
+    { duration: number; deep: number; light: number; rem: number }
+  >;
 }
 
-const DUMMY_DATA_ENABLED = String(import.meta.env.USE_DUMMY_HEALTH_DATA || '').toLowerCase() === 'true';
-const DUMMY_DATA_FILE = String(import.meta.env.HEALTH_DATA_FILE || 'health-data-dummy.json');
+const DUMMY_DATA_ENABLED =
+  String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() === "true";
+const DUMMY_DATA_FILE = String(
+  import.meta.env.HEALTH_DATA_FILE || "health-data-dummy.json",
+);
 
 export interface TestModeSnapshot {
   stepsData: StepsData;
@@ -133,7 +139,11 @@ export async function getDataForDate(date: string): Promise<DayData> {
 
     const dummyData = await loadDummyHealthData();
     if (dummyData) {
-      const rawSteps = dummyData.steps?.[date] || { steps: 0, distance: 0, calories: 0 };
+      const rawSteps = dummyData.steps?.[date] || {
+        steps: 0,
+        distance: 0,
+        calories: 0,
+      };
       const rawSleep = dummyData.sleep?.[date];
       const rawHeartRate = dummyData.heartRate?.[date];
       const rawMove = dummyData.moveMinutes?.[date] || { active: 0, heart: 0 };
@@ -153,7 +163,10 @@ export async function getDataForDate(date: string): Promise<DayData> {
               deepMinutes: rawSleep.deep,
               lightMinutes: rawSleep.light,
               remMinutes: rawSleep.rem,
-              sleepScore: Math.min(100, Math.round((rawSleep.duration / 480) * 100)),
+              sleepScore: Math.min(
+                100,
+                Math.round((rawSleep.duration / 480) * 100),
+              ),
             }
           : null,
         heartRate: rawHeartRate
@@ -177,19 +190,36 @@ export async function getDataForDate(date: string): Promise<DayData> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     targetDate.setHours(0, 0, 0, 0);
-    const daysBack = Math.ceil((today.getTime() - targetDate.getTime()) / (1000 * 60 * 60 * 24));
+    const daysBack = Math.ceil(
+      (today.getTime() - targetDate.getTime()) / (1000 * 60 * 60 * 24),
+    );
 
     // Fetch all data sources in parallel
-    const [stepsData, sleepData, hrData, moveData, hrZones, stravaActivities, hevyWorkouts] =
-      await Promise.all([
-        fetchStepsData(Math.max(daysBack + 1, 7)).catch(() => ({} as StepsData)),
-        fetchSleepData(Math.min(Math.max(daysBack + 1, 7), 90)).catch(() => ({} as SleepData)),
-        fetchHeartRateData(Math.min(Math.max(daysBack + 1, 7), 30)).catch(() => ({} as HeartRateData)),
-        fetchMoveMinutesData(Math.min(Math.max(daysBack + 1, 7), 30)).catch(() => ({} as MoveMinutesData)),
-        fetchHeartRateZones(Math.min(Math.max(daysBack + 1, 7), 30)).catch(() => ({} as HeartRateZones)),
-        fetchActivities(1, 100).catch(() => [] as StravaActivity[]),
-        fetchHevyData().catch(() => [] as HevyWorkout[]),
-      ]);
+    const [
+      stepsData,
+      sleepData,
+      hrData,
+      moveData,
+      hrZones,
+      stravaActivities,
+      hevyWorkouts,
+    ] = await Promise.all([
+      fetchStepsData(Math.max(daysBack + 1, 7)).catch(() => ({}) as StepsData),
+      fetchSleepData(Math.min(Math.max(daysBack + 1, 7), 90)).catch(
+        () => ({}) as SleepData,
+      ),
+      fetchHeartRateData(Math.min(Math.max(daysBack + 1, 7), 30)).catch(
+        () => ({}) as HeartRateData,
+      ),
+      fetchMoveMinutesData(Math.min(Math.max(daysBack + 1, 7), 30)).catch(
+        () => ({}) as MoveMinutesData,
+      ),
+      fetchHeartRateZones(Math.min(Math.max(daysBack + 1, 7), 30)).catch(
+        () => ({}) as HeartRateZones,
+      ),
+      fetchActivities(1, 100).catch(() => [] as StravaActivity[]),
+      fetchHevyData().catch(() => [] as HevyWorkout[]),
+    ]);
 
     // Extract data for the specific date
     const rawSteps = stepsData[date] || { steps: 0, distance: 0, calories: 0 };
@@ -207,7 +237,7 @@ export async function getDataForDate(date: string): Promise<DayData> {
     const dayActivities = stravaActivities.filter(activity => {
       const activityDate = new Date(activity.start_date);
       const nyDate = new Date(
-        activityDate.toLocaleString('en-US', { timeZone: 'America/New_York' })
+        activityDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
       );
       const activityDateStr = formatDate(nyDate);
       return activityDateStr === date;
@@ -217,7 +247,7 @@ export async function getDataForDate(date: string): Promise<DayData> {
     const dayWorkouts = hevyWorkouts.filter(workout => {
       const workoutDate = new Date(workout.start_time);
       const nyDate = new Date(
-        workoutDate.toLocaleString('en-US', { timeZone: 'America/New_York' })
+        workoutDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
       );
       const workoutDateStr = formatDate(nyDate);
       return workoutDateStr === date;
@@ -248,16 +278,30 @@ export async function getTestModeSnapshot(): Promise<TestModeSnapshot | null> {
   const moveMinutesData = toMoveMinutesData(dummyData);
   const heartRateData = toHeartRateData(dummyData);
 
+  let workoutCount = 0;
+  try {
+    const hevyFilePath = resolve(
+      process.cwd(),
+      "public",
+      "hevy-workouts-dummy.json",
+    );
+    const hevyRaw = await readFile(hevyFilePath, "utf-8");
+    const hevyData = JSON.parse(hevyRaw);
+    workoutCount = hevyData.workouts?.length || 0;
+  } catch {
+    console.warn("[DataAggregation] Could not load hevy-workouts-dummy.json");
+  }
+
   return {
     stepsData,
     moveMinutesData,
     heartRateData,
     distanceMap: Object.fromEntries(
-      Object.entries(stepsData).map(([date, stats]) => [date, stats.distance])
+      Object.entries(stepsData).map(([date, stats]) => [date, stats.distance]),
     ),
     activities: [],
     workouts: [],
-    workoutCount: 0,
+    workoutCount,
   };
 }
 
@@ -280,17 +324,30 @@ export async function getComparisons(date: string): Promise<ComparisonData> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     targetDate.setHours(0, 0, 0, 0);
-    const daysBack = Math.ceil((today.getTime() - targetDate.getTime()) / (1000 * 60 * 60 * 24));
+    const daysBack = Math.ceil(
+      (today.getTime() - targetDate.getTime()) / (1000 * 60 * 60 * 24),
+    );
 
     // Fetch historical data
-    const [stepsData, moveData, stravaActivities, hevyWorkouts] = await Promise.all([
-      fetchStepsData(Math.max(daysBack + 31, 365)).catch(() => ({} as StepsData)),
-      fetchMoveMinutesData(Math.min(Math.max(daysBack + 31, 30), 365)).catch(() => ({} as MoveMinutesData)),
-      fetchActivities(1, 200).catch(() => [] as StravaActivity[]),
-      fetchHevyData().catch(() => [] as HevyWorkout[]),
-    ]);
+    const [stepsData, moveData, stravaActivities, hevyWorkouts] =
+      await Promise.all([
+        fetchStepsData(Math.max(daysBack + 31, 365)).catch(
+          () => ({}) as StepsData,
+        ),
+        fetchMoveMinutesData(Math.min(Math.max(daysBack + 31, 30), 365)).catch(
+          () => ({}) as MoveMinutesData,
+        ),
+        fetchActivities(1, 200).catch(() => [] as StravaActivity[]),
+        fetchHevyData().catch(() => [] as HevyWorkout[]),
+      ]);
 
-    return calculateComparisonMetrics(date, stepsData, moveData, stravaActivities, hevyWorkouts);
+    return calculateComparisonMetrics(
+      date,
+      stepsData,
+      moveData,
+      stravaActivities,
+      hevyWorkouts,
+    );
   });
 }
 
@@ -306,7 +363,9 @@ export async function calculateStreaks(dateStr: string): Promise<StreakData> {
       const stepsData = toStepsData(dummyData);
       const last365Days = buildDayRange(dateStr, 365);
 
-      const stepSeries = last365Days.map(date => (stepsData[date]?.steps || 0) >= 10000);
+      const stepSeries = last365Days.map(
+        date => (stepsData[date]?.steps || 0) >= 10000,
+      );
       const stepStreaks = calculateStreakFromSeries(stepSeries);
 
       return {
@@ -318,7 +377,7 @@ export async function calculateStreaks(dateStr: string): Promise<StreakData> {
 
     // Fetch historical data (365 days should be enough)
     const [stepsData, stravaActivities, hevyWorkouts] = await Promise.all([
-      fetchStepsData(365).catch(() => ({} as StepsData)),
+      fetchStepsData(365).catch(() => ({}) as StepsData),
       fetchActivities(1, 200).catch(() => [] as StravaActivity[]),
       fetchHevyData().catch(() => [] as HevyWorkout[]),
     ]);
@@ -328,13 +387,19 @@ export async function calculateStreaks(dateStr: string): Promise<StreakData> {
     // Generate last 365 days
     const last365Days = buildDayRange(formatDate(targetDate), 365);
 
-    const stepSeries = last365Days.map(date => (stepsData[date]?.steps || 0) >= 10000);
+    const stepSeries = last365Days.map(
+      date => (stepsData[date]?.steps || 0) >= 10000,
+    );
     const stepStreaks = calculateStreakFromSeries(stepSeries);
 
-    const activitySeries = last365Days.map(date => stravaActivities.some(a => getActivityDate(a) === date));
+    const activitySeries = last365Days.map(date =>
+      stravaActivities.some(a => getActivityDate(a) === date),
+    );
     const activityStreaks = calculateStreakFromSeries(activitySeries);
 
-    const workoutSeries = last365Days.map(date => hevyWorkouts.some(w => getWorkoutDate(w) === date));
+    const workoutSeries = last365Days.map(date =>
+      hevyWorkouts.some(w => getWorkoutDate(w) === date),
+    );
     const workoutStreaks = calculateStreakFromSeries(workoutSeries);
 
     return {
@@ -354,8 +419,8 @@ export async function calculateStreaks(dateStr: string): Promise<StreakData> {
  */
 function formatDate(date: Date): string {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
 
@@ -365,7 +430,7 @@ function formatDate(date: Date): string {
 function getActivityDate(activity: StravaActivity): string {
   const activityDate = new Date(activity.start_date);
   const nyDate = new Date(
-    activityDate.toLocaleString('en-US', { timeZone: 'America/New_York' })
+    activityDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
   );
   return formatDate(nyDate);
 }
@@ -376,7 +441,7 @@ function getActivityDate(activity: StravaActivity): string {
 function getWorkoutDate(workout: HevyWorkout): string {
   const workoutDate = new Date(workout.start_time);
   const nyDate = new Date(
-    workoutDate.toLocaleString('en-US', { timeZone: 'America/New_York' })
+    workoutDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
   );
   return formatDate(nyDate);
 }
@@ -434,7 +499,10 @@ function buildDayRange(dateStr: string, days: number): string[] {
   }).reverse();
 }
 
-function calculateStreakFromSeries(series: boolean[]): { current: number; longest: number } {
+function calculateStreakFromSeries(series: boolean[]): {
+  current: number;
+  longest: number;
+} {
   let current = 0;
   let longest = 0;
   let temp = 0;
@@ -457,7 +525,7 @@ function calculateComparisonMetrics(
   stepsData: StepsData,
   moveData: MoveMinutesData,
   stravaActivities: StravaActivity[],
-  hevyWorkouts: HevyWorkout[]
+  hevyWorkouts: HevyWorkout[],
 ): ComparisonData {
   const targetDate = new Date(date);
 
@@ -469,8 +537,12 @@ function calculateComparisonMetrics(
   // Calculate yesterday comparison
   const todaySteps = stepsData[date]?.steps || 0;
   const yesterdaySteps = stepsData[yesterdayStr]?.steps || 0;
-  const todayActivities = stravaActivities.filter(a => getActivityDate(a) === date).length;
-  const yesterdayActivities = stravaActivities.filter(a => getActivityDate(a) === yesterdayStr).length;
+  const todayActivities = stravaActivities.filter(
+    a => getActivityDate(a) === date,
+  ).length;
+  const yesterdayActivities = stravaActivities.filter(
+    a => getActivityDate(a) === yesterdayStr,
+  ).length;
   const todayHeartMinutes = moveData[date]?.heartMinutes || 0;
   const yesterdayHeartMinutes = moveData[yesterdayStr]?.heartMinutes || 0;
 
@@ -481,16 +553,25 @@ function calculateComparisonMetrics(
     return formatDate(d);
   });
 
-  const avg7Steps = calculateAverage(last7Days.map(d => stepsData[d]?.steps || 0));
-  const avg7HeartMinutes = calculateAverage(last7Days.map(d => moveData[d]?.heartMinutes || 0));
-  const avg7Distance = calculateAverage(last7Days.map(d => stepsData[d]?.distance || 0));
-  const avg7Workouts = hevyWorkouts.filter(w => {
-    const workoutDate = getWorkoutDate(w);
-    return last7Days.includes(workoutDate);
-  }).length / 7;
+  const avg7Steps = calculateAverage(
+    last7Days.map(d => stepsData[d]?.steps || 0),
+  );
+  const avg7HeartMinutes = calculateAverage(
+    last7Days.map(d => moveData[d]?.heartMinutes || 0),
+  );
+  const avg7Distance = calculateAverage(
+    last7Days.map(d => stepsData[d]?.distance || 0),
+  );
+  const avg7Workouts =
+    hevyWorkouts.filter(w => {
+      const workoutDate = getWorkoutDate(w);
+      return last7Days.includes(workoutDate);
+    }).length / 7;
 
   const todayDistance = stepsData[date]?.distance || 0;
-  const todayWorkouts = hevyWorkouts.filter(w => getWorkoutDate(w) === date).length;
+  const todayWorkouts = hevyWorkouts.filter(
+    w => getWorkoutDate(w) === date,
+  ).length;
 
   // Calculate 30-day average
   const last30Days = Array.from({ length: 30 }, (_, i) => {
@@ -499,9 +580,15 @@ function calculateComparisonMetrics(
     return formatDate(d);
   });
 
-  const avg30Steps = calculateAverage(last30Days.map(d => stepsData[d]?.steps || 0));
-  const avg30Distance = calculateAverage(last30Days.map(d => stepsData[d]?.distance || 0));
-  const avg30Calories = calculateAverage(last30Days.map(d => stepsData[d]?.calories || 0));
+  const avg30Steps = calculateAverage(
+    last30Days.map(d => stepsData[d]?.steps || 0),
+  );
+  const avg30Distance = calculateAverage(
+    last30Days.map(d => stepsData[d]?.distance || 0),
+  );
+  const avg30Calories = calculateAverage(
+    last30Days.map(d => stepsData[d]?.calories || 0),
+  );
   const todayCalories = stepsData[date]?.calories || 0;
 
   return {
@@ -530,12 +617,15 @@ async function loadDummyHealthData(): Promise<DummyHealthData | null> {
 
   return memoize(`dummy-health-data-${DUMMY_DATA_FILE}`, async () => {
     try {
-      const filePath = resolve(process.cwd(), 'public', DUMMY_DATA_FILE);
-      const raw = await readFile(filePath, 'utf-8');
+      const filePath = resolve(process.cwd(), "public", DUMMY_DATA_FILE);
+      const raw = await readFile(filePath, "utf-8");
       console.log(`[DataAggregation] Using dummy data from ${DUMMY_DATA_FILE}`);
       return JSON.parse(raw) as DummyHealthData;
     } catch (error) {
-      console.warn(`[DataAggregation] Dummy data enabled but failed to load ${DUMMY_DATA_FILE}:`, error);
+      console.warn(
+        `[DataAggregation] Dummy data enabled but failed to load ${DUMMY_DATA_FILE}:`,
+        error,
+      );
       return null;
     }
   });

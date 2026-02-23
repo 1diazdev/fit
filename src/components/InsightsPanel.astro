@@ -37,7 +37,9 @@ function parseInsight(insight: string) {
           const parsed = parseInsight(insight);
           return (
             <div class="insight-item">
-              {parsed.emoji && <span class="insight-emoji">{parsed.emoji}</span>}
+              {parsed.emoji && (
+                <span class="insight-emoji">{parsed.emoji}</span>
+              )}
               <span class="insight-text">{parsed.text}</span>
             </div>
           );
@@ -54,14 +56,18 @@ function parseInsight(insight: string) {
 
 <style>
   .insights-panel {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 0, 0.6) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 20, 0, 0.6) 100%
+    );
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
     padding: 1.25rem;
     box-shadow:
       0 0 15px rgba(0, 255, 0, 0.15),
       inset 0 0 15px rgba(0, 255, 0, 0.05);
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     min-height: 200px;
     display: flex;
     flex-direction: column;

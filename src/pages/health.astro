@@ -29,7 +29,9 @@ let healthData: {
 };
 
 try {
-  const isTestMode = String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() === "true";
+  const isTestMode =
+    String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() ===
+    "true";
   const sourceFile = isTestMode
     ? String(import.meta.env.HEALTH_DATA_FILE || "health-data-dummy.json")
     : "health-data.json";
@@ -42,11 +44,15 @@ try {
 
 // Get today's data for StepsCounter
 const today = new Date().toISOString().split("T")[0];
-const todayData = healthData.steps[today] || { steps: 0, distance: 0, calories: 0 };
+const todayData = healthData.steps[today] || {
+  steps: 0,
+  distance: 0,
+  calories: 0,
+};
 
 // Calculate total days with data
 const totalStepDays = Object.keys(healthData.steps).filter(
-  (date) => healthData.steps[date].steps > 0,
+  date => healthData.steps[date].steps > 0,
 ).length;
 const totalSleepNights = Object.keys(healthData.sleep).length;
 const totalHRDays = Object.keys(healthData.heartRate).length;
@@ -100,10 +106,12 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
               NO_SLEEP_DATA_AVAILABLE
             </div>
             <div class="text-green-300/80 font-mono text-xs">
-              Sleep tracking will appear here once Google Fit syncs your Zepp data.
+              Sleep tracking will appear here once Google Fit syncs your Zepp
+              data.
             </div>
             <div class="text-green-400/60 font-mono text-xs mt-4">
-              To sync: Open Zepp app → Profile → Third-party access → Google Fit → Sync
+              To sync: Open Zepp app → Profile → Third-party access → Google Fit
+              → Sync
             </div>
           </div>
         </div>
@@ -126,10 +134,12 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
               NO_HEART_RATE_DATA_AVAILABLE
             </div>
             <div class="text-green-300/80 font-mono text-xs">
-              Heart rate monitoring will appear here once Google Fit syncs your Zepp data.
+              Heart rate monitoring will appear here once Google Fit syncs your
+              Zepp data.
             </div>
             <div class="text-green-400/60 font-mono text-xs mt-4">
-              To sync: Open Zepp app → Profile → Third-party access → Google Fit → Sync
+              To sync: Open Zepp app → Profile → Third-party access → Google Fit
+              → Sync
             </div>
           </div>
         </div>
@@ -167,8 +177,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
         <div class="mb-2">DATA_SYNC_INFO:</div>
         <ul class="list-disc list-inside space-y-1 text-green-300/70">
           <li>
-            Google Fit aggregates health data from Zepp and other connected
-            apps
+            Google Fit aggregates health data from Zepp and other connected apps
           </li>
           <li>Data updates automatically when you sync your Zepp app</li>
           <li>Historical data may take time to populate from initial sync</li>

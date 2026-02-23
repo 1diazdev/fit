@@ -3,9 +3,7 @@ import SectionLayout from "@components/SectionLayout.astro";
 import DaysSinceLast from "@components/DaysSinceLast.astro";
 import Base from "@layouts/Base.astro";
 import { PAGE_METADATA } from "@src/consts";
-import {
-  fetchActivities,
-} from "@services/stravaService";
+import { fetchActivities } from "@services/stravaService";
 
 // Fetch activities once (optimized - single API call instead of 3 separate calls)
 const allActivities = await fetchActivities(1, 50);
@@ -24,7 +22,7 @@ const findLastActivityByType = (type: string) => {
 
   const activityDate = new Date(activity.start_date);
   const newYorkDate = new Date(
-    activityDate.toLocaleString("en-US", { timeZone: "America/New_York" })
+    activityDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
   );
 
   return newYorkDate;
@@ -43,12 +41,14 @@ const calculateWeeklyStats = (activityType: string) => {
   const weekActivities = allActivities.filter(activity => {
     const activityDate = new Date(activity.start_date);
     const type = activity.type || activity.sport_type || "";
-    const matchesType = type.toLowerCase() === activityType.toLowerCase() ||
-                        activity.name.toLowerCase().includes(activityType.toLowerCase());
+    const matchesType =
+      type.toLowerCase() === activityType.toLowerCase() ||
+      activity.name.toLowerCase().includes(activityType.toLowerCase());
     return matchesType && activityDate >= weekAgo;
   });
 
-  const totalDistance = weekActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+  const totalDistance =
+    weekActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
   return totalDistance;
 };
 
@@ -56,8 +56,10 @@ const calculateWeeklyStats = (activityType: string) => {
 const getLastActivityDetails = (activityType: string) => {
   const activity = allActivities.find(a => {
     const type = a.type || a.sport_type || "";
-    return type.toLowerCase() === activityType.toLowerCase() ||
-           a.name.toLowerCase().includes(activityType.toLowerCase());
+    return (
+      type.toLowerCase() === activityType.toLowerCase() ||
+      a.name.toLowerCase().includes(activityType.toLowerCase())
+    );
   });
 
   if (!activity) {
@@ -89,15 +91,19 @@ const weekActivities = allActivities.filter(activity => {
   return activityDate >= weekAgo;
 });
 const totalWeeklyActivities = weekActivities.length;
-const totalWeeklyDistance = weekActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
-const totalWeeklyTime = weekActivities.reduce((sum, a) => sum + (a.moving_time || 0), 0); // seconds
+const totalWeeklyDistance =
+  weekActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+const totalWeeklyTime = weekActivities.reduce(
+  (sum, a) => sum + (a.moving_time || 0),
+  0,
+); // seconds
 
 // Calculate discipline count (how many types of activities)
 const disciplineTypes = new Set(
   allActivities
     .slice(0, 50)
     .map(a => a.type || a.sport_type)
-    .filter(Boolean)
+    .filter(Boolean),
 );
 const totalDisciplines = disciplineTypes.size;
 const pageParam = Astro.url.searchParams.get("page");
@@ -220,27 +226,35 @@ if (pageParam) {
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
           <div class="space-y-2">
             <div class="text-green-400/60 text-xs">TOTAL_ACTIVITIES:</div>
-            <div class="text-green-300 font-mono text-xl">{totalWeeklyActivities}</div>
+            <div class="text-green-300 font-mono text-xl">
+              {totalWeeklyActivities}
+            </div>
             <div class="text-green-400/80 text-xs">LAST_7_DAYS</div>
           </div>
 
           <div class="space-y-2">
             <div class="text-green-400/60 text-xs">TOTAL_DISTANCE:</div>
-            <div class="text-green-300 font-mono text-xl">{totalWeeklyDistance.toFixed(1)} km</div>
+            <div class="text-green-300 font-mono text-xl">
+              {totalWeeklyDistance.toFixed(1)} km
+            </div>
             <div class="text-green-400/80 text-xs">LAST_7_DAYS</div>
           </div>
 
           <div class="space-y-2">
             <div class="text-green-400/60 text-xs">TOTAL_TIME:</div>
             <div class="text-green-300 font-mono text-xl">
-              {Math.floor(totalWeeklyTime / 3600)}h {Math.floor((totalWeeklyTime % 3600) / 60)}m
+              {Math.floor(totalWeeklyTime / 3600)}h {
+                Math.floor((totalWeeklyTime % 3600) / 60)
+              }m
             </div>
             <div class="text-green-400/80 text-xs">MOVING_TIME</div>
           </div>
 
           <div class="space-y-2">
             <div class="text-green-400/60 text-xs">DISCIPLINES:</div>
-            <div class="text-green-300 font-mono text-xl">{totalDisciplines}</div>
+            <div class="text-green-300 font-mono text-xl">
+              {totalDisciplines}
+            </div>
             <div class="text-green-400/80 text-xs">TYPES_TRACKED</div>
           </div>
         </div>
@@ -249,15 +263,21 @@ if (pageParam) {
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
             <div class="space-y-1">
               <div class="text-green-400/60">RUNNING:</div>
-              <div class="text-green-300 font-mono">{weeklyRunDistance.toFixed(1)} km/week</div>
+              <div class="text-green-300 font-mono">
+                {weeklyRunDistance.toFixed(1)} km/week
+              </div>
             </div>
             <div class="space-y-1">
               <div class="text-green-400/60">CYCLING:</div>
-              <div class="text-green-300 font-mono">{weeklyRideDistance.toFixed(1)} km/week</div>
+              <div class="text-green-300 font-mono">
+                {weeklyRideDistance.toFixed(1)} km/week
+              </div>
             </div>
             <div class="space-y-1">
               <div class="text-green-400/60">SWIMMING:</div>
-              <div class="text-green-300 font-mono">{weeklySwimDistance.toFixed(1)} km/week</div>
+              <div class="text-green-300 font-mono">
+                {weeklySwimDistance.toFixed(1)} km/week
+              </div>
             </div>
           </div>
         </div>

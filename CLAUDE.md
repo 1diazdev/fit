@@ -28,6 +28,7 @@ bun clean            # Remove artifacts and reinstall dependencies
 ### Service Layer (`src/services/`)
 
 **stravaService.ts** - Strava API integration
+
 - `getBearerToken()`: Refreshes OAuth token using environment variables (STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN)
 - `fetchActivities(page, perPage)`: Fetch recent activities
 - `fetchDistanceData()`: Fetch 365 days of activity data for heatmap
@@ -39,6 +40,7 @@ bun clean            # Remove artifacts and reinstall dependencies
 **Critical**: All date handling uses "America/New_York" timezone to ensure consistent day boundaries across heatmap visualization.
 
 **hevyService.ts** - Hevy API integration
+
 - `fetchHevyData(apiKey?)`: Fetch all workouts (sorted newest first)
 - `fetchWorkoutCount(apiKey?)`: Get total workout count
 - Exports TypeScript interfaces: `Workout`, `Exercise`, `Set`
@@ -80,6 +82,7 @@ For Strava OAuth setup instructions, see `DOCS-STRAVA.md`. The refresh token mus
 ## Automated Data Updates
 
 GitHub Actions workflow (`.github/workflows/strava-build.yml`) runs daily at 6am UTC:
+
 1. Executes `bun run strava-script`
 2. Fetches last 365 days of Strava activities
 3. Summarizes distance by date (EST timezone, UTC-5)

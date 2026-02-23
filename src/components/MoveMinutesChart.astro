@@ -6,7 +6,7 @@
  * for the last N days with WHO goal line overlay (150 min/week ≈ 21.4 min/day)
  */
 
-import type { MoveMinutesData } from '@/services/googleFitService';
+import type { MoveMinutesData } from "@/services/googleFitService";
 
 export interface Props {
   moveMinutesData: MoveMinutesData;
@@ -21,8 +21,8 @@ const chartDays = Array.from({ length: days }, (_, i) => {
   const date = new Date(today);
   date.setDate(date.getDate() - (days - 1 - i)); // Oldest to newest
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 });
 
@@ -35,7 +35,7 @@ const maxValue = Math.max(
     const data = moveMinutesData[date];
     return Math.max(data?.activeMinutes || 0, data?.heartMinutes || 0);
   }),
-  dailyGoal * 1.2 // Ensure goal line is visible
+  dailyGoal * 1.2, // Ensure goal line is visible
 );
 
 // Format date for display
@@ -66,7 +66,10 @@ function formatDate(dateStr: string): string {
   <div class="chart-container">
     {
       chartDays.map(date => {
-        const data = moveMinutesData[date] || { activeMinutes: 0, heartMinutes: 0 };
+        const data = moveMinutesData[date] || {
+          activeMinutes: 0,
+          heartMinutes: 0,
+        };
         const activePercent = (data.activeMinutes / maxValue) * 100;
         const heartPercent = (data.heartMinutes / maxValue) * 100;
         const goalPercent = (dailyGoal / maxValue) * 100;
@@ -78,7 +81,9 @@ function formatDate(dateStr: string): string {
               {/* Active minutes bar (full width) */}
               <div class="chart-bar active" style={`width: ${activePercent}%`}>
                 {data.activeMinutes > 0 && (
-                  <span class="bar-value">{Math.round(data.activeMinutes)}</span>
+                  <span class="bar-value">
+                    {Math.round(data.activeMinutes)}
+                  </span>
                 )}
               </div>
               {/* Heart minutes bar (inner, overlaid) */}
@@ -99,7 +104,7 @@ function formatDate(dateStr: string): string {
 
 <style>
   .move-chart {
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
   }
 
   .chart-legend {
@@ -223,7 +228,7 @@ function formatDate(dateStr: string): string {
   }
 
   .goal-line::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: -4px;

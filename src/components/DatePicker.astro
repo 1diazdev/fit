@@ -28,7 +28,11 @@ const startingDayOfWeek = firstDay.getDay(); // 0 = Sunday
 const daysInMonth = lastDay.getDate();
 
 // Generate calendar days
-const calendarDays: Array<{ date: number; isCurrentMonth: boolean; dateStr: string }> = [];
+const calendarDays: Array<{
+  date: number;
+  isCurrentMonth: boolean;
+  dateStr: string;
+}> = [];
 
 // Previous month days
 const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
@@ -39,7 +43,7 @@ for (let i = startingDayOfWeek - 1; i >= 0; i--) {
   calendarDays.push({
     date,
     isCurrentMonth: false,
-    dateStr: `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`,
+    dateStr: `${prevYear}-${String(prevMonth + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`,
   });
 }
 
@@ -48,7 +52,7 @@ for (let date = 1; date <= daysInMonth; date++) {
   calendarDays.push({
     date,
     isCurrentMonth: true,
-    dateStr: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`,
+    dateStr: `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`,
   });
 }
 
@@ -60,43 +64,43 @@ for (let date = 1; date <= remainingDays; date++) {
   calendarDays.push({
     date,
     isCurrentMonth: false,
-    dateStr: `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`,
+    dateStr: `${nextYear}-${String(nextMonth + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`,
   });
 }
 
 // Month names
 const monthNames = [
-  'JANUARY',
-  'FEBRUARY',
-  'MARCH',
-  'APRIL',
-  'MAY',
-  'JUNE',
-  'JULY',
-  'AUGUST',
-  'SEPTEMBER',
-  'OCTOBER',
-  'NOVEMBER',
-  'DECEMBER',
+  "JANUARY",
+  "FEBRUARY",
+  "MARCH",
+  "APRIL",
+  "MAY",
+  "JUNE",
+  "JULY",
+  "AUGUST",
+  "SEPTEMBER",
+  "OCTOBER",
+  "NOVEMBER",
+  "DECEMBER",
 ];
 
 // Quick shortcut dates
 const today = new Date();
-const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
 const yesterday = new Date(today);
 yesterday.setDate(yesterday.getDate() - 1);
-const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, "0")}-${String(yesterday.getDate()).padStart(2, "0")}`;
 
 const lastWeek = new Date(today);
 lastWeek.setDate(lastWeek.getDate() - 7);
-const lastWeekStr = `${lastWeek.getFullYear()}-${String(lastWeek.getMonth() + 1).padStart(2, '0')}-${String(lastWeek.getDate()).padStart(2, '0')}`;
+const lastWeekStr = `${lastWeek.getFullYear()}-${String(lastWeek.getMonth() + 1).padStart(2, "0")}-${String(lastWeek.getDate()).padStart(2, "0")}`;
 
 // Previous and next month navigation
 const prevMonth = new Date(currentYear, currentMonth - 1, 1);
 const nextMonth = new Date(currentYear, currentMonth + 1, 1);
-const prevMonthStr = `${prevMonth.getFullYear()}-${String(prevMonth.getMonth() + 1).padStart(2, '0')}-${String(prevMonth.getDate()).padStart(2, '0')}`;
-const nextMonthStr = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-${String(nextMonth.getDate()).padStart(2, '0')}`;
+const prevMonthStr = `${prevMonth.getFullYear()}-${String(prevMonth.getMonth() + 1).padStart(2, "0")}-${String(prevMonth.getDate()).padStart(2, "0")}`;
+const nextMonthStr = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, "0")}-${String(nextMonth.getDate()).padStart(2, "0")}`;
 ---
 
 <div class="date-picker">
@@ -104,7 +108,8 @@ const nextMonthStr = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() +
   <div class="picker-header">
     <a href={`/?date=${prevMonthStr}`} class="nav-btn">&lt;</a>
     <div class="month-year">
-      {monthNames[currentMonth]} {currentYear}
+      {monthNames[currentMonth]}
+      {currentYear}
     </div>
     <a href={`/?date=${nextMonthStr}`} class="nav-btn">&gt;</a>
   </div>
@@ -132,10 +137,10 @@ const nextMonthStr = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() +
           <a
             href={`/?date=${dateStr}`}
             class:list={[
-              'calendar-day',
+              "calendar-day",
               {
-                'current-month': isCurrentMonth,
-                'other-month': !isCurrentMonth,
+                "current-month": isCurrentMonth,
+                "other-month": !isCurrentMonth,
                 selected: isSelected,
                 today: isToday && !isSelected,
                 future: isFuture,
@@ -160,14 +165,18 @@ const nextMonthStr = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() +
 
 <style>
   .date-picker {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 20, 0, 0.7) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 20, 0, 0.7) 100%
+    );
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow:
       0 0 20px rgba(0, 255, 0, 0.2),
       inset 0 0 20px rgba(0, 255, 0, 0.05);
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
   }
 
   .picker-header {

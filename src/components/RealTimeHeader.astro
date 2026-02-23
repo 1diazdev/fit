@@ -12,15 +12,19 @@
  * - Current streak
  */
 
-import { fetchStepsData } from '@/services/googleFitService';
-import { fetchActivities } from '@/services/stravaService';
-import { fetchHevyData } from '@/services/hevyService';
-import { calculateStreaks, isTestDataMode, getTestModeSnapshot } from '@/services/dataAggregationService';
+import { fetchStepsData } from "@/services/googleFitService";
+import { fetchActivities } from "@/services/stravaService";
+import { fetchHevyData } from "@/services/hevyService";
+import {
+  calculateStreaks,
+  isTestDataMode,
+  getTestModeSnapshot,
+} from "@/services/dataAggregationService";
 
 // Fetch today's data
-const todayStr = new Date().toISOString().split('T')[0];
+const todayStr = new Date().toISOString().split("T")[0];
 let todaySteps = 0;
-let lastActivity = '';
+let lastActivity = "";
 let weeklyWorkouts = 0;
 let currentStreak = 0;
 
@@ -93,7 +97,7 @@ try {
   const streaks = await calculateStreaks(todayStr);
   currentStreak = streaks.steps.current;
 } catch (error) {
-  console.error('Error fetching real-time header data:', error);
+  console.error("Error fetching real-time header data:", error);
 }
 ---
 
@@ -141,9 +145,13 @@ try {
     align-items: center;
     gap: 1.5rem;
     padding: 0.75rem 1rem;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 30, 0, 0.6) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 30, 0, 0.6) 100%
+    );
     border-bottom: 1px solid rgba(0, 255, 0, 0.2);
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 255, 0, 0.3) rgba(0, 0, 0, 0.5);

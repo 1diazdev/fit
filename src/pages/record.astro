@@ -1,16 +1,18 @@
 ---
-import Base from '@layouts/Base.astro';
-import { PAGE_METADATA } from '@src/consts';
-import SectionLayout from '@components/SectionLayout.astro';
-import { fetchStepsData, type StepsData } from '@services/googleFitService';
-import { fetchActivities, type StravaActivity } from '@services/stravaService';
-import { fetchHevyData } from '@services/hevyService';
-import type { Workout as HevyWorkout } from '@services/hevyService';
-import { getPersonalRecords } from '@utils/statsUtils';
+import Base from "@layouts/Base.astro";
+import { PAGE_METADATA } from "@src/consts";
+import SectionLayout from "@components/SectionLayout.astro";
+import { fetchStepsData, type StepsData } from "@services/googleFitService";
+import { fetchActivities, type StravaActivity } from "@services/stravaService";
+import { fetchHevyData } from "@services/hevyService";
+import type { Workout as HevyWorkout } from "@services/hevyService";
+import { getPersonalRecords } from "@utils/statsUtils";
 
 // Fetch all data for personal records
 const stepsData: StepsData = await fetchStepsData(365).catch(() => ({}));
-const allActivities: StravaActivity[] = await fetchActivities(1, 200).catch(() => []);
+const allActivities: StravaActivity[] = await fetchActivities(1, 200).catch(
+  () => [],
+);
 const allWorkouts: HevyWorkout[] = await fetchHevyData().catch(() => []);
 
 // Get personal records
@@ -26,7 +28,8 @@ const currentYearActivities = allActivities.filter(a => {
   return year === currentYear;
 });
 
-const currentYearDistance = currentYearActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+const currentYearDistance =
+  currentYearActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
 const currentYearWorkouts = allWorkouts.filter(w => {
   const year = new Date(w.start_time).getFullYear();
   return year === currentYear;
@@ -42,7 +45,8 @@ const lastYearActivities = allActivities.filter(a => {
   return year === lastYear;
 });
 
-const lastYearDistance = lastYearActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+const lastYearDistance =
+  lastYearActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
 const lastYearWorkouts = allWorkouts.filter(w => {
   const year = new Date(w.start_time).getFullYear();
   return year === lastYear;
@@ -85,11 +89,15 @@ const percentChange = (current: number, previous: number) => {
   </div>
 
   <!-- Personal Records Grid -->
-  <SectionLayout title="[ALL_TIME_RECORDS]" rightHeaderText="[BEST_PERFORMANCES]">
+  <SectionLayout
+    title="[ALL_TIME_RECORDS]"
+    rightHeaderText="[BEST_PERFORMANCES]"
+  >
     <div
       slot="headerElements"
       class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
-    ></div>
+    >
+    </div>
 
     <div class="records-grid">
       <!-- Max Steps -->
@@ -97,107 +105,136 @@ const percentChange = (current: number, previous: number) => {
         <div class="record-icon">🚶</div>
         <div class="record-content">
           <div class="record-label">MAX STEPS</div>
-          <div class="record-value">{records.maxSteps.value.toLocaleString()}</div>
-          {records.maxSteps.date && (
-            <div class="record-date">{records.maxSteps.date}</div>
-          )}
+          <div class="record-value">
+            {records.maxSteps.value.toLocaleString()}
+          </div>
+          {
+            records.maxSteps.date && (
+              <div class="record-date">{records.maxSteps.date}</div>
+            )
+          }
         </div>
       </div>
 
       <!-- Longest Run -->
-      {records.longestRun.distance > 0 && (
-        <div class="record-card">
-          <div class="record-icon">🏃</div>
-          <div class="record-content">
-            <div class="record-label">LONGEST RUN</div>
-            <div class="record-value">{records.longestRun.distance.toFixed(2)} km</div>
-            {records.longestRun.date && (
-              <>
-                <div class="record-date">{records.longestRun.date}</div>
-                <div class="record-name">{records.longestRun.name}</div>
-              </>
-            )}
+      {
+        records.longestRun.distance > 0 && (
+          <div class="record-card">
+            <div class="record-icon">🏃</div>
+            <div class="record-content">
+              <div class="record-label">LONGEST RUN</div>
+              <div class="record-value">
+                {records.longestRun.distance.toFixed(2)} km
+              </div>
+              {records.longestRun.date && (
+                <>
+                  <div class="record-date">{records.longestRun.date}</div>
+                  <div class="record-name">{records.longestRun.name}</div>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       <!-- Fastest Pace -->
-      {records.fastestPace.pace > 0 && (
-        <div class="record-card">
-          <div class="record-icon">⚡</div>
-          <div class="record-content">
-            <div class="record-label">FASTEST PACE</div>
-            <div class="record-value">
-              {Math.floor(records.fastestPace.pace)}:{String(Math.round((records.fastestPace.pace % 1) * 60)).padStart(2, '0')}/km
+      {
+        records.fastestPace.pace > 0 && (
+          <div class="record-card">
+            <div class="record-icon">⚡</div>
+            <div class="record-content">
+              <div class="record-label">FASTEST PACE</div>
+              <div class="record-value">
+                {Math.floor(records.fastestPace.pace)}:
+                {String(
+                  Math.round((records.fastestPace.pace % 1) * 60),
+                ).padStart(2, "0")}
+                /km
+              </div>
+              {records.fastestPace.date && (
+                <>
+                  <div class="record-date">{records.fastestPace.date}</div>
+                  <div class="record-name">{records.fastestPace.name}</div>
+                </>
+              )}
             </div>
-            {records.fastestPace.date && (
-              <>
-                <div class="record-date">{records.fastestPace.date}</div>
-                <div class="record-name">{records.fastestPace.name}</div>
-              </>
-            )}
           </div>
-        </div>
-      )}
+        )
+      }
 
       <!-- Most Workouts in a Day -->
-      {records.mostWorkouts.count > 0 && (
-        <div class="record-card">
-          <div class="record-icon">💪</div>
-          <div class="record-content">
-            <div class="record-label">MOST WORKOUTS</div>
-            <div class="record-value">{records.mostWorkouts.count} in 1 day</div>
-            {records.mostWorkouts.date && (
-              <div class="record-date">{records.mostWorkouts.date}</div>
-            )}
+      {
+        records.mostWorkouts.count > 0 && (
+          <div class="record-card">
+            <div class="record-icon">💪</div>
+            <div class="record-content">
+              <div class="record-label">MOST WORKOUTS</div>
+              <div class="record-value">
+                {records.mostWorkouts.count} in 1 day
+              </div>
+              {records.mostWorkouts.date && (
+                <div class="record-date">{records.mostWorkouts.date}</div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       <!-- Longest Workout -->
-      {records.longestWorkout.duration > 0 && (
-        <div class="record-card">
-          <div class="record-icon">⏱️</div>
-          <div class="record-content">
-            <div class="record-label">LONGEST WORKOUT</div>
-            <div class="record-value">
-              {Math.floor(records.longestWorkout.duration / 60)}h {Math.round(records.longestWorkout.duration % 60)}m
+      {
+        records.longestWorkout.duration > 0 && (
+          <div class="record-card">
+            <div class="record-icon">⏱️</div>
+            <div class="record-content">
+              <div class="record-label">LONGEST WORKOUT</div>
+              <div class="record-value">
+                {Math.floor(records.longestWorkout.duration / 60)}h{" "}
+                {Math.round(records.longestWorkout.duration % 60)}m
+              </div>
+              {records.longestWorkout.date && (
+                <>
+                  <div class="record-date">{records.longestWorkout.date}</div>
+                  <div class="record-name">{records.longestWorkout.title}</div>
+                </>
+              )}
             </div>
-            {records.longestWorkout.date && (
-              <>
-                <div class="record-date">{records.longestWorkout.date}</div>
-                <div class="record-name">{records.longestWorkout.title}</div>
-              </>
-            )}
           </div>
-        </div>
-      )}
+        )
+      }
 
       <!-- Total Volume -->
-      {records.totalVolume.weight > 0 && (
-        <div class="record-card">
-          <div class="record-icon">🏋️</div>
-          <div class="record-content">
-            <div class="record-label">MAX VOLUME</div>
-            <div class="record-value">{Math.round(records.totalVolume.weight).toLocaleString()} kg</div>
-            {records.totalVolume.date && (
-              <>
-                <div class="record-date">{records.totalVolume.date}</div>
-                <div class="record-name">{records.totalVolume.title}</div>
-              </>
-            )}
+      {
+        records.totalVolume.weight > 0 && (
+          <div class="record-card">
+            <div class="record-icon">🏋️</div>
+            <div class="record-content">
+              <div class="record-label">MAX VOLUME</div>
+              <div class="record-value">
+                {Math.round(records.totalVolume.weight).toLocaleString()} kg
+              </div>
+              {records.totalVolume.date && (
+                <>
+                  <div class="record-date">{records.totalVolume.date}</div>
+                  <div class="record-name">{records.totalVolume.title}</div>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </div>
   </SectionLayout>
 
   <!-- Yearly Totals Comparison -->
-  <SectionLayout title="[YEARLY_TOTALS]" rightHeaderText={`[${lastYear}_vs_${currentYear}]`}>
+  <SectionLayout
+    title="[YEARLY_TOTALS]"
+    rightHeaderText={`[${lastYear}_vs_${currentYear}]`}
+  >
     <div
       slot="headerElements"
       class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
-    ></div>
+    >
+    </div>
 
     <div class="yearly-grid">
       <!-- Current Year -->
@@ -250,12 +287,21 @@ const percentChange = (current: number, previous: number) => {
             <div>
               <div class="stat-value">{lastYearDistance.toFixed(1)} km</div>
               <div class="stat-label">Distance</div>
-              {lastYearDistance > 0 && (
-                <div class={`stat-change ${percentChange(currentYearDistance, lastYearDistance) > 0 ? 'positive' : 'negative'}`}>
-                  {percentChange(currentYearDistance, lastYearDistance) > 0 ? '↗' : '↘'}
-                  {Math.abs(percentChange(currentYearDistance, lastYearDistance)).toFixed(1)}%
-                </div>
-              )}
+              {
+                lastYearDistance > 0 && (
+                  <div
+                    class={`stat-change ${percentChange(currentYearDistance, lastYearDistance) > 0 ? "positive" : "negative"}`}
+                  >
+                    {percentChange(currentYearDistance, lastYearDistance) > 0
+                      ? "↗"
+                      : "↘"}
+                    {Math.abs(
+                      percentChange(currentYearDistance, lastYearDistance),
+                    ).toFixed(1)}
+                    %
+                  </div>
+                )
+              }
             </div>
           </div>
           <div class="year-stat">
@@ -263,12 +309,21 @@ const percentChange = (current: number, previous: number) => {
             <div>
               <div class="stat-value">{lastYearWorkouts}</div>
               <div class="stat-label">Workouts</div>
-              {lastYearWorkouts > 0 && (
-                <div class={`stat-change ${percentChange(currentYearWorkouts, lastYearWorkouts) > 0 ? 'positive' : 'negative'}`}>
-                  {percentChange(currentYearWorkouts, lastYearWorkouts) > 0 ? '↗' : '↘'}
-                  {Math.abs(percentChange(currentYearWorkouts, lastYearWorkouts)).toFixed(1)}%
-                </div>
-              )}
+              {
+                lastYearWorkouts > 0 && (
+                  <div
+                    class={`stat-change ${percentChange(currentYearWorkouts, lastYearWorkouts) > 0 ? "positive" : "negative"}`}
+                  >
+                    {percentChange(currentYearWorkouts, lastYearWorkouts) > 0
+                      ? "↗"
+                      : "↘"}
+                    {Math.abs(
+                      percentChange(currentYearWorkouts, lastYearWorkouts),
+                    ).toFixed(1)}
+                    %
+                  </div>
+                )
+              }
             </div>
           </div>
           <div class="year-stat">
@@ -276,12 +331,21 @@ const percentChange = (current: number, previous: number) => {
             <div>
               <div class="stat-value">{formatNumber(lastYearSteps)}</div>
               <div class="stat-label">Steps</div>
-              {lastYearSteps > 0 && (
-                <div class={`stat-change ${percentChange(currentYearSteps, lastYearSteps) > 0 ? 'positive' : 'negative'}`}>
-                  {percentChange(currentYearSteps, lastYearSteps) > 0 ? '↗' : '↘'}
-                  {Math.abs(percentChange(currentYearSteps, lastYearSteps)).toFixed(1)}%
-                </div>
-              )}
+              {
+                lastYearSteps > 0 && (
+                  <div
+                    class={`stat-change ${percentChange(currentYearSteps, lastYearSteps) > 0 ? "positive" : "negative"}`}
+                  >
+                    {percentChange(currentYearSteps, lastYearSteps) > 0
+                      ? "↗"
+                      : "↘"}
+                    {Math.abs(
+                      percentChange(currentYearSteps, lastYearSteps),
+                    ).toFixed(1)}
+                    %
+                  </div>
+                )
+              }
             </div>
           </div>
           <div class="year-stat">
@@ -289,12 +353,27 @@ const percentChange = (current: number, previous: number) => {
             <div>
               <div class="stat-value">{lastYearActivities.length}</div>
               <div class="stat-label">Activities</div>
-              {lastYearActivities.length > 0 && (
-                <div class={`stat-change ${percentChange(currentYearActivities.length, lastYearActivities.length) > 0 ? 'positive' : 'negative'}`}>
-                  {percentChange(currentYearActivities.length, lastYearActivities.length) > 0 ? '↗' : '↘'}
-                  {Math.abs(percentChange(currentYearActivities.length, lastYearActivities.length)).toFixed(1)}%
-                </div>
-              )}
+              {
+                lastYearActivities.length > 0 && (
+                  <div
+                    class={`stat-change ${percentChange(currentYearActivities.length, lastYearActivities.length) > 0 ? "positive" : "negative"}`}
+                  >
+                    {percentChange(
+                      currentYearActivities.length,
+                      lastYearActivities.length,
+                    ) > 0
+                      ? "↗"
+                      : "↘"}
+                    {Math.abs(
+                      percentChange(
+                        currentYearActivities.length,
+                        lastYearActivities.length,
+                      ),
+                    ).toFixed(1)}
+                    %
+                  </div>
+                )
+              }
             </div>
           </div>
         </div>
@@ -307,12 +386,20 @@ const percentChange = (current: number, previous: number) => {
     <div
       slot="headerElements"
       class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
-    ></div>
+    >
+    </div>
 
     <div class="lifetime-grid">
       <div class="lifetime-stat">
         <div class="lifetime-icon">🏃</div>
-        <div class="lifetime-value">{(allActivities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000).toFixed(1)} km</div>
+        <div class="lifetime-value">
+          {
+            (
+              allActivities.reduce((sum, a) => sum + (a.distance || 0), 0) /
+              1000
+            ).toFixed(1)
+          } km
+        </div>
         <div class="lifetime-label">Total Distance</div>
       </div>
 
@@ -331,7 +418,14 @@ const percentChange = (current: number, previous: number) => {
       <div class="lifetime-stat">
         <div class="lifetime-icon">🚶</div>
         <div class="lifetime-value">
-          {formatNumber(Object.values(stepsData).reduce((sum, data) => sum + (data.steps || 0), 0))}
+          {
+            formatNumber(
+              Object.values(stepsData).reduce(
+                (sum, data) => sum + (data.steps || 0),
+                0,
+              ),
+            )
+          }
         </div>
         <div class="lifetime-label">Total Steps</div>
       </div>
@@ -352,7 +446,11 @@ const percentChange = (current: number, previous: number) => {
     align-items: flex-start;
     gap: 1rem;
     padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 20, 0, 0.5) 100%
+    );
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -371,7 +469,7 @@ const percentChange = (current: number, previous: number) => {
 
   .record-content {
     flex: 1;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
   }
 
   .record-label {
@@ -412,11 +510,15 @@ const percentChange = (current: number, previous: number) => {
   }
 
   .year-card {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 0, 0.6) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 20, 0, 0.6) 100%
+    );
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
     padding: 1.5rem;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
   }
 
   .year-card.current {
@@ -502,10 +604,14 @@ const percentChange = (current: number, previous: number) => {
   .lifetime-stat {
     text-align: center;
     padding: 2rem 1rem;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 20, 0, 0.5) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 20, 0, 0.5) 100%
+    );
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     transition: all 0.3s ease;
   }
 

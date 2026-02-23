@@ -4,10 +4,14 @@
  * Functions for calculating trends, streaks, personal records, and insights.
  */
 
-import type { DayData, StreakData, ComparisonData } from '@/services/dataAggregationService';
-import type { StravaActivity } from '@/services/stravaService';
-import type { Workout as HevyWorkout } from '@/services/hevyService';
-import type { StepsData } from '@/services/googleFitService';
+import type {
+  DayData,
+  StreakData,
+  ComparisonData,
+} from "@/services/dataAggregationService";
+import type { StravaActivity } from "@/services/stravaService";
+import type { Workout as HevyWorkout } from "@/services/hevyService";
+import type { StepsData } from "@/services/googleFitService";
 
 // ============================================================================
 // INTERFACES
@@ -22,7 +26,7 @@ export interface PersonalRecords {
   totalVolume: { weight: number; date: string; title: string }; // kg
 }
 
-export type Trend = 'up' | 'down' | 'stable';
+export type Trend = "up" | "down" | "stable";
 
 // ============================================================================
 // STREAK CALCULATIONS
@@ -34,7 +38,7 @@ export type Trend = 'up' | 'down' | 'stable';
 export function calculateStreak(
   data: { [date: string]: number },
   threshold: number,
-  fromDate: string
+  fromDate: string,
 ): number {
   const targetDate = new Date(fromDate);
   let streak = 0;
@@ -66,7 +70,7 @@ export function calculateStreak(
 export function calculateTrend(
   data: { [date: string]: number },
   fromDate: string,
-  days: number
+  days: number,
 ): Trend {
   const targetDate = new Date(fromDate);
   const values: number[] = [];
@@ -79,16 +83,16 @@ export function calculateTrend(
     values.push(data[dateStr] || 0);
   }
 
-  if (values.length < 2) return 'stable';
+  if (values.length < 2) return "stable";
 
   // Calculate linear regression slope
   const slope = calculateSlope(values);
 
   // Determine trend based on slope
   const threshold = 0.05; // 5% change threshold
-  if (slope > threshold) return 'up';
-  if (slope < -threshold) return 'down';
-  return 'stable';
+  if (slope > threshold) return "up";
+  if (slope < -threshold) return "down";
+  return "stable";
 }
 
 /**
@@ -122,10 +126,10 @@ function calculateSlope(values: number[]): number {
 export function getPersonalRecords(
   stepsData: StepsData,
   activities: StravaActivity[],
-  workouts: HevyWorkout[]
+  workouts: HevyWorkout[],
 ): PersonalRecords {
   // Max steps
-  let maxSteps = { value: 0, date: '' };
+  let maxSteps = { value: 0, date: "" };
   for (const [date, data] of Object.entries(stepsData)) {
     if (data.steps > maxSteps.value) {
       maxSteps = { value: data.steps, date };
@@ -133,10 +137,10 @@ export function getPersonalRecords(
   }
 
   // Longest run (distance)
-  let longestRun = { distance: 0, date: '', name: '' };
+  let longestRun = { distance: 0, date: "", name: "" };
   for (const activity of activities) {
     if (
-      (activity.type === 'Run' || activity.sport_type === 'Run') &&
+      (activity.type === "Run" || activity.sport_type === "Run") &&
       activity.distance > longestRun.distance
     ) {
       longestRun = {
@@ -148,10 +152,10 @@ export function getPersonalRecords(
   }
 
   // Fastest pace (min/km)
-  let fastestPace = { pace: Infinity, date: '', name: '' };
+  let fastestPace = { pace: Infinity, date: "", name: "" };
   for (const activity of activities) {
     if (
-      (activity.type === 'Run' || activity.sport_type === 'Run') &&
+      (activity.type === "Run" || activity.sport_type === "Run") &&
       activity.distance > 1000 && // At least 1km
       activity.moving_time > 0
     ) {
@@ -172,7 +176,7 @@ export function getPersonalRecords(
     const date = formatDate(new Date(workout.start_time));
     workoutsByDate[date] = (workoutsByDate[date] || 0) + 1;
   }
-  let mostWorkouts = { count: 0, date: '' };
+  let mostWorkouts = { count: 0, date: "" };
   for (const [date, count] of Object.entries(workoutsByDate)) {
     if (count > mostWorkouts.count) {
       mostWorkouts = { count, date };
@@ -180,7 +184,7 @@ export function getPersonalRecords(
   }
 
   // Longest workout (duration)
-  let longestWorkout = { duration: 0, date: '', title: '' };
+  let longestWorkout = { duration: 0, date: "", title: "" };
   for (const workout of workouts) {
     const start = new Date(workout.start_time).getTime();
     const end = new Date(workout.end_time).getTime();
@@ -196,7 +200,7 @@ export function getPersonalRecords(
   }
 
   // Total volume in a single workout (sum of all sets * weight)
-  let totalVolume = { weight: 0, date: '', title: '' };
+  let totalVolume = { weight: 0, date: "", title: "" };
   for (const workout of workouts) {
     let volume = 0;
     for (const exercise of workout.exercises) {
@@ -216,7 +220,10 @@ export function getPersonalRecords(
   return {
     maxSteps,
     longestRun,
-    fastestPace: fastestPace.pace === Infinity ? { pace: 0, date: '', name: '' } : fastestPace,
+    fastestPace:
+      fastestPace.pace === Infinity
+        ? { pace: 0, date: "", name: "" }
+        : fastestPace,
     mostWorkouts,
     longestWorkout,
     totalVolume,
@@ -234,7 +241,7 @@ export function generateInsights(
   dayData: DayData,
   comparisons: ComparisonData,
   streaks: StreakData,
-  personalRecords: PersonalRecords
+  personalRecords: PersonalRecords,
 ): string[] {
   const insights: string[] = [];
 
@@ -254,7 +261,8 @@ export function generateInsights(
   }
 
   if (dayData.activities.length > 0) {
-    const totalDistance = dayData.activities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000;
+    const totalDistance =
+      dayData.activities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000;
     if (totalDistance > 10) {
       insights.push(`🏃 Covered ${totalDistance.toFixed(1)}km today!`);
     }
@@ -266,42 +274,61 @@ export function generateInsights(
   }
 
   if (dayData.workouts.length > 0) {
-    insights.push(`💪 Completed ${dayData.workouts.length} workout${dayData.workouts.length > 1 ? 's' : ''} today`);
+    insights.push(
+      `💪 Completed ${dayData.workouts.length} workout${dayData.workouts.length > 1 ? "s" : ""} today`,
+    );
   }
 
   // Comparison insights
   if (comparisons.vsYesterday.steps > 2000) {
-    insights.push(`📈 ${comparisons.vsYesterday.steps.toLocaleString()} more steps than yesterday!`);
+    insights.push(
+      `📈 ${comparisons.vsYesterday.steps.toLocaleString()} more steps than yesterday!`,
+    );
   }
 
   if (comparisons.vs7DayAvg.steps > 3000) {
-    insights.push(`🚀 Way above your 7-day average (+${comparisons.vs7DayAvg.steps.toLocaleString()} steps)`);
+    insights.push(
+      `🚀 Way above your 7-day average (+${comparisons.vs7DayAvg.steps.toLocaleString()} steps)`,
+    );
   } else if (comparisons.vs7DayAvg.steps < -3000) {
-    insights.push(`⚠️ Below your 7-day average (${Math.abs(comparisons.vs7DayAvg.steps).toLocaleString()} steps)`);
+    insights.push(
+      `⚠️ Below your 7-day average (${Math.abs(comparisons.vs7DayAvg.steps).toLocaleString()} steps)`,
+    );
   }
 
   // Heart minutes insights
   if (dayData.moveMinutes.heartMinutes >= 30) {
-    insights.push(`❤️ ${dayData.moveMinutes.heartMinutes} heart minutes today!`);
+    insights.push(
+      `❤️ ${dayData.moveMinutes.heartMinutes} heart minutes today!`,
+    );
   }
 
   // Sleep insights
   if (dayData.sleep) {
     if (dayData.sleep.sleepScore >= 90) {
-      insights.push(`😴 Excellent sleep score: ${dayData.sleep.sleepScore}/100`);
+      insights.push(
+        `😴 Excellent sleep score: ${dayData.sleep.sleepScore}/100`,
+      );
     } else if (dayData.sleep.sleepScore < 70) {
-      insights.push(`⚠️ Low sleep score: ${dayData.sleep.sleepScore}/100 - prioritize rest`);
+      insights.push(
+        `⚠️ Low sleep score: ${dayData.sleep.sleepScore}/100 - prioritize rest`,
+      );
     }
   }
 
   // Personal records
-  if (personalRecords.maxSteps.value > 0 && dayData.steps.count === personalRecords.maxSteps.value) {
-    insights.push(`🏆 Personal record: ${dayData.steps.count.toLocaleString()} steps!`);
+  if (
+    personalRecords.maxSteps.value > 0 &&
+    dayData.steps.count === personalRecords.maxSteps.value
+  ) {
+    insights.push(
+      `🏆 Personal record: ${dayData.steps.count.toLocaleString()} steps!`,
+    );
   }
 
   // If no insights, provide encouragement
   if (insights.length === 0) {
-    insights.push('💚 Start tracking your progress today!');
+    insights.push("💚 Start tracking your progress today!");
   }
 
   // Limit to 5 most important insights
@@ -317,7 +344,7 @@ export function generateInsights(
  */
 function formatDate(date: Date): string {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }

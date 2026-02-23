@@ -319,7 +319,7 @@ console.log(
   `✓ Generated strava-activities-dummy.json with ${stravaData.activities.length} activities`,
 );
 
-const hevyData = generateHevyWorkouts(200);
+const hevyData = generateHevyWorkouts(50);
 writeFileSync(
   "./public/hevy-workouts-dummy.json",
   JSON.stringify(hevyData, null, 2),
