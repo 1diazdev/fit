@@ -94,13 +94,13 @@ function getBarColor(zone: string): string {
             AVG_RESTING:
           </div>
           <div class="text-green-300 text-2xl font-mono font-bold">
-            {avgRestingHR > 0 ? `${avgRestingHR} BPM` : "N/A"}
+            {avgRestingHR > 0 ? `${Math.round(avgRestingHR)} BPM` : "N/A"}
           </div>
         </div>
         <div class="stat-box">
           <div class="text-green-400/60 text-xs font-mono mb-1">MAX_HR:</div>
           <div class="text-green-300 text-2xl font-mono font-bold">
-            {maxHR} BPM
+            {Math.round(maxHR)} BPM
           </div>
         </div>
       </div>
@@ -153,25 +153,25 @@ function getBarColor(zone: string): string {
                         <div class="flex justify-between">
                           <span class="text-red-400">Max:</span>
                           <span class={getZoneColor(maxZone)}>
-                            {data.max} BPM
+                            {Math.round(data.max)} BPM
                           </span>
                         </div>
                         <div class="flex justify-between">
                           <span class="text-yellow-400">Avg:</span>
                           <span class={getZoneColor(avgZone)}>
-                            {data.avg} BPM
+                            {Math.round(data.avg)} BPM
                           </span>
                         </div>
                         <div class="flex justify-between">
                           <span class="text-blue-400">Min:</span>
-                          <span class="text-green-400">{data.min} BPM</span>
+                          <span class="text-green-400">{Math.round(data.min)} BPM</span>
                         </div>
                         {data.resting > 0 && (
                           <div class="border-t border-green-500/30 pt-1 mt-1">
                             <div class="flex justify-between">
                               <span class="text-green-400">Resting:</span>
                               <span class="text-green-300">
-                                {data.resting} BPM
+                                {Math.round(data.resting)} BPM
                               </span>
                             </div>
                           </div>
@@ -183,10 +183,10 @@ function getBarColor(zone: string): string {
 
                 <div class="hr-info">
                   <div class={`text-sm font-mono ${getZoneColor(avgZone)}`}>
-                    {data.avg} BPM
+                    {Math.round(data.avg)} BPM
                   </div>
                   <div class="text-xs text-green-400/60 font-mono">
-                    {data.min}-{data.max}
+                    {Math.round(data.min)}-{Math.round(data.max)}
                   </div>
                 </div>
               </div>
