@@ -1,18 +1,34 @@
 ---
+// Dynamic route for date-specific dashboard
+// Accessed as /day/2026-02-19
+
+// Generate static paths for the last 90 days
+export async function getStaticPaths() {
+  const paths: Array<{ params: { date: string } }> = [];
+  const today = new globalThis.Date();
+
+  // Generate paths for last 90 days
+  for (let i = 0; i < 90; i++) {
+    const date = new globalThis.Date(today);
+    date.setDate(date.getDate() - i);
+    const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    paths.push({ params: { date: dateStr } });
+  }
+
+  return paths;
+}
+
 import Base from "@layouts/Base.astro";
 import { PAGE_METADATA } from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
 import DayMetricsGrid from "@components/DayMetricsGrid.astro";
-import DaysSinceLast from "@components/DaysSinceLast.astro";
-import MinimalDaysSince from "@components/MinimalDaysSince.astro";
+import DayComparison from "@components/DayComparison.astro";
 import InsightsPanel from "@components/InsightsPanel.astro";
-import { Flame, Zap, Dumbbell } from "lucide-astro";
 import MoveMinutesChart from "@components/MoveMinutesChart.astro";
 import HeartRateZones from "@components/HeartRateZones.astro";
 import HeatmapGrid from "@components/HeatmapGrid.astro";
 import ActivityDashboard from "@components/ActivityDashboard.astro";
 import HevyWorkoutCount from "@components/HevyWorkoutCount.astro";
-import DayComparison from "@components/DayComparison.astro";
 
 import {
   getDataForDate,
@@ -33,24 +49,29 @@ import {
 } from "@services/googleFitService";
 import { generateInsights, getPersonalRecords } from "@utils/statsUtils";
 import { fetchHevyData, fetchWorkoutCount } from "@services/hevyService";
+import { Flame, Zap, Dumbbell } from "lucide-astro";
 
-// WORKAROUND: Query parameters don't work in Astro dev server
-// Load today's data by default, client-side will handle date navigation
-const today = new Date();
-const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
-const selectedDate = todayStr; // Always use today for SSR
+// Get date from path parameter
+const { date } = Astro.params;
+const selectedDate = date || "";
+
+// Validate date format
+if (!/^\d{4}-\d{2}-\d{2}$/.test(selectedDate)) {
+  return Astro.redirect("/");
+}
+
+console.log(`[day/[date]] Loading dashboard for date: ${selectedDate}`);
 
 // Parse date string properly to avoid timezone issues
-// YYYY-MM-DD format should be interpreted as local date, not UTC
 const [year, month, day] = selectedDate.split("-").map(Number);
-const selectedDateObj = new Date(year, month - 1, day); // month is 0-indexed
+const selectedDateObj = new globalThis.Date(year, month - 1, day);
 
 // Calculate previous and next day dates
-const prevDay = new Date(selectedDateObj);
+const prevDay = new globalThis.Date(selectedDateObj);
 prevDay.setDate(prevDay.getDate() - 1);
 const prevDayStr = `${prevDay.getFullYear()}-${String(prevDay.getMonth() + 1).padStart(2, "0")}-${String(prevDay.getDate()).padStart(2, "0")}`;
 
-const nextDay = new Date(selectedDateObj);
+const nextDay = new globalThis.Date(selectedDateObj);
 nextDay.setDate(nextDay.getDate() + 1);
 const nextDayStr = `${nextDay.getFullYear()}-${String(nextDay.getMonth() + 1).padStart(2, "0")}-${String(nextDay.getDate()).padStart(2, "0")}`;
 
@@ -61,27 +82,16 @@ const displayDate = new Intl.DateTimeFormat("en-US", {
   month: "short",
   day: "numeric",
   timeZone: "UTC",
-}).format(new Date(Date.UTC(year, month - 1, day, 12)));
+}).format(new globalThis.Date(globalThis.Date.UTC(year, month - 1, day, 12)));
 
 // Check if selected date is today
+const today = new globalThis.Date();
+const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 const isToday = selectedDate === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
 
-console.log(
-  `[index.astro] ====== Loading dashboard for date: ${selectedDate} ======`,
-);
-console.log(
-  `[index.astro] Today: ${todayStr}, Selected: ${selectedDate}, Is Today: ${selectedDate === todayStr}`,
-);
-
 // Fetch all data for selected date
 const dayData = await getDataForDate(selectedDate);
-console.log(`[index.astro] DayData fetched:`, {
-  steps: dayData.steps.count,
-  activities: dayData.activities.length,
-  workouts: dayData.workouts.length,
-});
-
 const comparisons = await getComparisons(selectedDate);
 const streaks = await calculateStreaks(selectedDate);
 const testMode = isTestDataMode();
@@ -109,9 +119,7 @@ const insights = generateInsights(
   personalRecords,
 );
 
-// Pre-calculate activity data for the dashboard (using selected date data)
-// Note: ActivityDashboard shows "days since last" globally, not for specific date
-// We'll use the dayData.activities for the selected date instead
+// Pre-calculate activity data
 const findLastActivityByType = (type: string) => {
   const activity = allActivities.find(a => {
     const activityType = a.type || a.sport_type || "";
@@ -123,8 +131,8 @@ const findLastActivityByType = (type: string) => {
 
   if (!activity) return null;
 
-  const activityDate = new Date(activity.start_date);
-  const newYorkDate = new Date(
+  const activityDate = new globalThis.Date(activity.start_date);
+  const newYorkDate = new globalThis.Date(
     activityDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
   );
 
@@ -136,23 +144,6 @@ const activityData = {
   ride: findLastActivityByType("ride"),
   swim: findLastActivityByType("swim"),
   walk: findLastActivityByType("walk"),
-};
-
-// For the selected date, show if there were activities
-// This will make the activity cards update based on selected date
-const selectedDateActivitiesByType = {
-  run: dayData.activities.find(
-    a => (a.type || a.sport_type || "").toLowerCase() === "run",
-  ),
-  ride: dayData.activities.find(
-    a => (a.type || a.sport_type || "").toLowerCase() === "ride",
-  ),
-  swim: dayData.activities.find(
-    a => (a.type || a.sport_type || "").toLowerCase() === "swim",
-  ),
-  walk: dayData.activities.find(a =>
-    (a.type || a.sport_type || "").toLowerCase().includes("walk"),
-  ),
 };
 
 // Fetch 365-day heatmap data
@@ -169,13 +160,13 @@ const minDistance =
 const maxDistance =
   positiveDistances.length > 0 ? Math.max(...positiveDistances) : 1;
 
-// Fetch move minutes for chart (last 7 days)
+// Fetch move minutes for chart
 const moveMinutesData =
   testMode && testSnapshot
     ? testSnapshot.moveMinutesData
     : await fetchMoveMinutesData(30).catch(() => ({}));
 
-// Fetch heart rate data for zones component
+// Fetch heart rate data
 const heartRateData =
   testMode && testSnapshot
     ? testSnapshot.heartRateData
@@ -213,7 +204,7 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
   terminalCommand={terminalCommand}
   systemMessage={systemMessage}
 >
-  <!-- Date Navigator - Uses /day/YYYY-MM-DD routes -->
+  <!-- Date Navigator -->
   <div class="date-navigator">
     <a href={`/day/${prevDayStr}`} class="nav-arrow" title="Previous day">
       <svg
@@ -232,6 +223,13 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
+      {
+        !isToday && (
+          <a href="/" class="today-btn">
+            [TODAY]
+          </a>
+        )
+      }
     </div>
 
     <a
@@ -254,7 +252,7 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     </a>
   </div>
 
-  <!-- Daily Metrics Grid -->
+  <!-- Same content as index.astro -->
   <SectionLayout title="[DAILY_METRICS]">
     <div
       slot="headerElements"
@@ -264,7 +262,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     <DayMetricsGrid dayData={dayData} />
   </SectionLayout>
 
-  <!-- Insights & Comparisons -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <SectionLayout title="[INSIGHTS]">
       <div
@@ -285,7 +282,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     </SectionLayout>
   </div>
 
-  <!-- Charts Section -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <SectionLayout title="[MOVE_MINUTES]" rightHeaderText="[LAST_7_DAYS]">
       <div
@@ -306,7 +302,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     </SectionLayout>
   </div>
 
-  <!-- Activity Status Section -->
   <SectionLayout title="[ACTIVITY_STATUS]" rightHeaderText="[DAYS_SINCE_LAST]">
     <div
       slot="headerElements"
@@ -316,7 +311,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     <ActivityDashboard activityData={activityData} />
   </SectionLayout>
 
-  <!-- Hevy Workout Count Section -->
   <SectionLayout title="[HEVY_WORKOUT]" rightHeaderText="[TOTAL_WORKOUT_COUNT]">
     <div
       slot="headerElements"
@@ -326,7 +320,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     <HevyWorkoutCount workoutCount={workoutCount} />
   </SectionLayout>
 
-  <!-- 365-Day Heatmap (Annual Overview) -->
   <SectionLayout
     title="[ANNUAL_OVERVIEW]"
     rightHeaderText="[365_DAY_ACTIVITY_MAP]"
@@ -338,7 +331,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     </div>
     <div class="heatmap-container">
       <div class="heatmap-wrapper">
-        <!-- Heatmap Header Info -->
         <div class="heatmap-info mb-4">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
             <div class="info-block">
@@ -360,7 +352,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
           </div>
         </div>
 
-        <!-- Main Heatmap Grid -->
         <div class="heatmap-display">
           <HeatmapGrid
             distanceData={distanceData}
@@ -369,7 +360,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
           />
         </div>
 
-        <!-- Heatmap Footer Info with Strava Button -->
         <div class="heatmap-footer mt-4">
           <div class="flex justify-between items-center text-xs">
             <div class="flex items-center space-x-4">
@@ -381,7 +371,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
               </div>
             </div>
 
-            <!-- Strava Activities Button -->
             <a
               href="https://www.strava.com/athletes/47698767"
               target="_blank"
@@ -413,7 +402,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     </div>
   </SectionLayout>
 
-  <!-- Streaks Info (small footer section) -->
   <SectionLayout title="[ACTIVE_STREAKS]">
     <div class="streaks-grid">
       {
@@ -463,7 +451,7 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
 </Base>
 
 <style>
-  /* Heatmap styles */
+  /* Copy all styles from index.astro */
   .heatmap-container {
     background: linear-gradient(
       135deg,
@@ -517,7 +505,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     transform: translateY(-1px);
   }
 
-  /* Streaks Grid */
   .streaks-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -583,7 +570,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     }
   }
 
-  /* Date Navigator */
   .date-navigator {
     display: flex;
     align-items: center;
@@ -673,7 +659,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
   }
 
-  /* Responsive */
   @media (max-width: 768px) {
     .heatmap-container {
       padding: 12px;

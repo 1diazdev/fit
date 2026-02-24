@@ -17,7 +17,10 @@ const buildCache = new Map<string, any>();
  * @example
  * const activities = await memoize('strava-activities', () => fetchActivities(1, 50));
  */
-export async function memoize<T>(key: string, fn: () => Promise<T>): Promise<T> {
+export async function memoize<T>(
+  key: string,
+  fn: () => Promise<T>,
+): Promise<T> {
   if (buildCache.has(key)) {
     console.log(`[Cache HIT] ${key}`);
     return Promise.resolve(buildCache.get(key));
@@ -42,6 +45,6 @@ export function clearCache(): void {
 export function getCacheStats() {
   return {
     size: buildCache.size,
-    keys: Array.from(buildCache.keys())
+    keys: Array.from(buildCache.keys()),
   };
 }

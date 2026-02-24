@@ -9,8 +9,17 @@ export interface Props {
 const { stepsData } = Astro.props;
 
 // Convert StepsData to array format [timestamp, steps]
-const dataArray: [number, { steps: number; distance: number; calories: number }][] = Object.entries(stepsData)
-  .map(([date, data]) => [new Date(date).getTime(), data] as [number, { steps: number; distance: number; calories: number }])
+const dataArray: [
+  number,
+  { steps: number; distance: number; calories: number },
+][] = Object.entries(stepsData)
+  .map(
+    ([date, data]) =>
+      [new Date(date).getTime(), data] as [
+        number,
+        { steps: number; distance: number; calories: number },
+      ],
+  )
   .sort((a, b) => a[0] - b[0]);
 
 // Calculate min/max for color scaling
@@ -146,7 +155,8 @@ const totalWeeks = Math.ceil(dataArray.length / 7);
           const colorClasses = getStepsColor(steps, minSteps, maxSteps);
           const intensityLevel = hasActivity
             ? Math.min(
-                Math.floor(((steps - minSteps) / (maxSteps - minSteps)) * 5) + 1,
+                Math.floor(((steps - minSteps) / (maxSteps - minSteps)) * 5) +
+                  1,
                 5,
               )
             : 0;

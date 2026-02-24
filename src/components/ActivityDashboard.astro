@@ -20,28 +20,28 @@ const { activityData } = Astro.props;
   <MinimalDaysSince
     activityType="run"
     label="RUNNING"
-    icon="🏃‍♂️"
+    iconClass="mdi-run"
     lastActivityInfo={activityData?.run}
   />
 
   <MinimalDaysSince
     activityType="ride"
     label="CYCLING"
-    icon="🚴‍♂️"
+    iconClass="mdi-bike"
     lastActivityInfo={activityData?.ride}
   />
 
   <MinimalDaysSince
     activityType="swim"
     label="SWIMMING"
-    icon="🏊‍♂️"
+    iconClass="mdi-swim"
     lastActivityInfo={activityData?.swim}
   />
 
   <MinimalDaysSince
     activityType="walk"
     label="WALKING"
-    icon="🚶‍♂️"
+    iconClass="mdi-walk"
     lastActivityInfo={activityData?.walk}
   />
 

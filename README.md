@@ -68,6 +68,7 @@ This project leverages modern web technologies for optimal performance and user 
 - **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework for rapid styling
 - **[Strava API](https://developers.strava.com/)** - Access to running, cycling, and swimming data
 - **[Hevy API](https://github.com/jovanhuang/hevy-api)** - Strength training and workout data integration
+- **[Google Fit API](https://developers.google.com/fit)** - Health and activity data synchronization
 - **[Vitest](https://vitest.dev/)** - Fast unit testing framework
 
 ## 📊 Data Integration
@@ -86,6 +87,13 @@ This project leverages modern web technologies for optimal performance and user 
 - **Progress Metrics**: Weight, reps, sets, and volume tracking
 - **Training Analytics**: Workout frequency and intensity analysis
 
+### Google Fit Integration
+
+- **Health Metrics**: Steps, distance, calories, sleep, heart rate, and move minutes
+- **Zepp/Amazfit Sync**: Uses Google Fit as the source of synced wearable data
+- **Historical Data**: Daily health timelines for charts and comparisons
+- **Test Mode Support**: Can be replaced entirely with local dummy data for development
+
 ## ⚙️ Installation & Setup
 
 ### Prerequisites
@@ -94,6 +102,7 @@ This project leverages modern web technologies for optimal performance and user 
 - **Bun** runtime installed
 - **Strava Developer Account** with API access
 - **Hevy API Key** for workout data
+- **google-fit-api** (optional for additional health data)
 
 ### Quick Start
 
@@ -125,6 +134,13 @@ This project leverages modern web technologies for optimal performance and user 
    HEVY_API_KEY=your_hevy_api_key
    ```
 
+   Test mode (use local dummy data for all dashboard sources):
+
+   ```env
+   USE_DUMMY_HEALTH_DATA=true
+   HEALTH_DATA_FILE=health-data-dummy.json
+   ```
+
 4. **Start development server**
 
    ```bash
@@ -134,18 +150,62 @@ This project leverages modern web technologies for optimal performance and user 
 5. **Open your browser**
    Navigate to `http://localhost:4321` to see your fitness matrix!
 
+## 🧪 Test Mode (Dummy Data)
+
+Use this mode when you want the whole dashboard to run with local test data and avoid real API calls.
+
+1. **Generate fresh dummy data** (optional):
+
+   ```bash
+   bun generate-dummy-data
+   ```
+
+   This generates:
+
+   - `public/strava-activities-dummy.json` - 500 Strava activities
+   - `public/hevy-workouts-dummy.json` - 200 Hevy workouts
+   - `public/health-data-dummy.json` - 365 days of health data
+
+2. Set these variables in your `.env`:
+
+   ```env
+   USE_DUMMY_HEALTH_DATA=true
+   HEALTH_DATA_FILE=health-data-dummy.json
+   ```
+
+3. Start normally:
+
+   ```bash
+   bun dev
+   ```
+
+4. Open the dashboard and change dates with `?date=YYYY-MM-DD` or the arrows.
+
+What this does:
+
+- Forces services to read data from `public/health-data-dummy.json` (or the file in `HEALTH_DATA_FILE`)
+- Disables live calls to Google Fit, Strava, and Hevy in the main dashboard flow
+- Keeps date navigation working against dummy dates
+
+To return to live data:
+
+```env
+USE_DUMMY_HEALTH_DATA=false
+```
+
 ## 📦 Available Scripts
 
-| Command             | Description                             |
-| ------------------- | --------------------------------------- |
-| `bun dev`           | Start development server                |
-| `bun build`         | Build production version                |
-| `bun preview`       | Preview production build locally        |
-| `bun format`        | Format code with Prettier               |
-| `bun clean`         | Remove build artifacts and dependencies |
-| `bun lint`          | Lint code with ESLint                   |
-| `bun test`          | Run tests with Vitest                   |
-| `bun strava-script` | Execute Strava-specific scripts         |
+| Command                   | Description                                      |
+| ------------------------- | ------------------------------------------------ |
+| `bun dev`                 | Start development server                         |
+| `bun build`               | Build production version                         |
+| `bun preview`             | Preview production build locally                 |
+| `bun format`              | Format code with Prettier                        |
+| `bun clean`               | Remove build artifacts and dependencies          |
+| `bun lint`                | Lint code with ESLint                            |
+| `bun test`                | Run tests with Vitest                            |
+| `bun strava-script`       | Execute Strava-specific scripts                  |
+| `bun generate-dummy-data` | Generate massive dummy test data for development |
 
 ## 📚 Documentation
 
@@ -199,4 +259,4 @@ Special thanks to:
 
 - **Website**: [jpdiaz.dev](https://jpdiaz.dev)
 - **GitHub**: [@JuanPabloDiaz](https://github.com/JuanPabloDiaz)
-- **Project**: [fit.jpdiaz.dev](https://fit.jpdiaz.dev)
+- **Project**: [fit.jpdiaz.dev](https://fit.jpdiaz.dev) | [ftness.netlify.app](https://ftness.netlify.app)

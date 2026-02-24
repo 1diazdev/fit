@@ -45,9 +45,7 @@ function getDurationColor(minutes: number): string {
     <div class="sleep-header">
       <div class="grid grid-cols-2 gap-4 mb-6">
         <div class="stat-box">
-          <div class="text-green-400/60 text-xs font-mono mb-1">
-            AVG_SLEEP:
-          </div>
+          <div class="text-green-400/60 text-xs font-mono mb-1">AVG_SLEEP:</div>
           <div class="text-green-300 text-2xl font-mono font-bold">
             {avgHours}h {avgMinutes}m
           </div>
@@ -152,7 +150,9 @@ function getDurationColor(minutes: number): string {
                   >
                     {totalHours}h{totalMins}m
                   </span>
-                  <span class={`text-xs font-mono ml-2 ${getScoreColor(data.sleepScore)}`}>
+                  <span
+                    class={`text-xs font-mono ml-2 ${getScoreColor(data.sleepScore)}`}
+                  >
                     {data.sleepScore}
                   </span>
                 </div>

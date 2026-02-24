@@ -1,9 +1,9 @@
-import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
-import { writeFile } from 'fs/promises';
-import { join } from 'path';
+import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
+import { writeFile } from "fs/promises";
+import { join } from "path";
 
 // Schedule: Run daily at 6:00 AM UTC (cron format)
-export const schedule = '0 6 * * *';
+export const schedule = "0 6 * * *";
 
 interface StravaTokenResponse {
   access_token: string;
@@ -30,17 +30,17 @@ const getBearerToken = async (): Promise<string> => {
   const refreshToken = process.env.STRAVA_REFRESH_TOKEN;
 
   if (!clientId || !clientSecret || !refreshToken) {
-    throw new Error('Missing Strava credentials in environment variables');
+    throw new Error("Missing Strava credentials in environment variables");
   }
 
-  const response = await fetch('https://www.strava.com/oauth/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const response = await fetch("https://www.strava.com/oauth/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       client_id: clientId,
       client_secret: clientSecret,
       refresh_token: refreshToken,
-      grant_type: 'refresh_token',
+      grant_type: "refresh_token",
     }),
   });
 
@@ -67,10 +67,10 @@ const getAllActivities = async (bearer: string): Promise<StravaActivity[]> => {
       await res.json();
 
     if (!Array.isArray(data)) {
-      if ('message' in data && data.message === 'Rate Limit Exceeded') {
-        console.warn('Strava API rate limit exceeded');
+      if ("message" in data && data.message === "Rate Limit Exceeded") {
+        console.warn("Strava API rate limit exceeded");
       } else {
-        console.error('Failed to fetch activities:', data);
+        console.error("Failed to fetch activities:", data);
       }
       break;
     }
@@ -99,23 +99,31 @@ const summarizeDistance = (activities: StravaActivity[]): DistanceMap => {
   return distance;
 };
 
-export const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+export const handler: Handler = async (
+  event: HandlerEvent,
+  context: HandlerContext,
+) => {
   // Netlify scheduled functions don't require auth headers
   // But we can still check if it's a manual trigger vs scheduled
-  const isScheduled = event.headers['x-netlify-event'] === 'schedule';
+  const isScheduled = event.headers["x-netlify-event"] === "schedule";
 
   try {
-    console.log('[Netlify/Strava] Starting data update...', isScheduled ? '(scheduled)' : '(manual)');
+    console.log(
+      "[Netlify/Strava] Starting data update...",
+      isScheduled ? "(scheduled)" : "(manual)",
+    );
 
     const bearer = await getBearerToken();
     const activities = await getAllActivities(bearer);
     const distanceMap = summarizeDistance(activities);
 
     // Write to dist/public directory (Netlify serves from dist/)
-    const publicPath = join(process.cwd(), 'dist', 'last-activities.json');
+    const publicPath = join(process.cwd(), "dist", "last-activities.json");
     await writeFile(publicPath, JSON.stringify(distanceMap, null, 2));
 
-    console.log(`[Netlify/Strava] Successfully updated ${Object.keys(distanceMap).length} days of data`);
+    console.log(
+      `[Netlify/Strava] Successfully updated ${Object.keys(distanceMap).length} days of data`,
+    );
 
     return {
       statusCode: 200,
@@ -124,17 +132,17 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
         activitiesCount: activities.length,
         daysTracked: Object.keys(distanceMap).length,
         timestamp: new Date().toISOString(),
-        platform: 'netlify'
+        platform: "netlify",
       }),
     };
   } catch (error) {
-    console.error('[Netlify/Strava] Error:', error);
+    console.error("[Netlify/Strava] Error:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
-        platform: 'netlify'
+        error: error instanceof Error ? error.message : "Unknown error",
+        platform: "netlify",
       }),
     };
   }

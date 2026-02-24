@@ -1,844 +1,234 @@
 {
   "steps": {
-    "2025-11-23": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-11-24": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-11-25": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-11-26": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-11-27": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-11-28": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-11-29": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-11-30": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-01": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-02": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-03": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-04": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-05": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-06": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-07": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-08": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-09": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-10": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-11": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-12": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-13": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-14": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-15": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-16": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-17": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-18": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-19": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-20": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-21": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-22": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-23": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-24": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-25": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-26": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-27": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-28": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-29": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-30": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2025-12-31": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-01": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-02": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-03": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-04": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-05": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-06": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-07": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-08": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-09": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-10": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-11": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-12": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-13": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-14": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-15": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-16": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-17": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-18": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-19": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-20": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-21": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-22": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-23": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-24": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-25": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-26": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-27": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-28": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-29": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-30": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-01-31": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-01": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-02": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-03": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-04": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-05": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-06": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-07": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-08": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-09": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-10": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-11": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-12": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-13": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
-    "2026-02-14": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
-    },
     "2026-02-15": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
+      "steps": 8543,
+      "distance": 6.2,
+      "calories": 320
     },
     "2026-02-16": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
+      "steps": 10234,
+      "distance": 7.8,
+      "calories": 410
     },
     "2026-02-17": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 0
+      "steps": 6789,
+      "distance": 5.1,
+      "calories": 280
     },
     "2026-02-18": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 589.3283625281089
+      "steps": 12456,
+      "distance": 9.3,
+      "calories": 485
     },
     "2026-02-19": {
-      "steps": 0,
-      "distance": 0,
-      "calories": 1812.749940276146
+      "steps": 9876,
+      "distance": 7.2,
+      "calories": 390
     },
     "2026-02-20": {
-      "steps": 102,
-      "distance": 70,
-      "calories": 1812.749940276146
+      "steps": 11234,
+      "distance": 8.5,
+      "calories": 445
+    },
+    "2026-02-21": {
+      "steps": 13567,
+      "distance": 10.2,
+      "calories": 520
+    },
+    "2026-02-22": {
+      "steps": 7890,
+      "distance": 5.9,
+      "calories": 310
     }
   },
-  "sleep": {},
   "heartRate": {
+    "2026-02-15": {
+      "resting": 62,
+      "avg": 78,
+      "max": 145,
+      "zones": {
+        "rest": 680,
+        "fat_burn": 120,
+        "cardio": 45,
+        "peak": 5
+      }
+    },
+    "2026-02-16": {
+      "resting": 61,
+      "avg": 82,
+      "max": 158,
+      "zones": {
+        "rest": 640,
+        "fat_burn": 150,
+        "cardio": 60,
+        "peak": 10
+      }
+    },
+    "2026-02-17": {
+      "resting": 63,
+      "avg": 75,
+      "max": 132,
+      "zones": {
+        "rest": 720,
+        "fat_burn": 90,
+        "cardio": 30,
+        "peak": 0
+      }
+    },
+    "2026-02-18": {
+      "resting": 60,
+      "avg": 85,
+      "max": 165,
+      "zones": {
+        "rest": 600,
+        "fat_burn": 180,
+        "cardio": 75,
+        "peak": 15
+      }
+    },
+    "2026-02-19": {
+      "resting": 62,
+      "avg": 80,
+      "max": 152,
+      "zones": {
+        "rest": 660,
+        "fat_burn": 140,
+        "cardio": 50,
+        "peak": 8
+      }
+    },
     "2026-02-20": {
-      "min": 60.52613636363636,
-      "max": 60.52613636363636,
-      "avg": 61,
-      "resting": 6
+      "resting": 61,
+      "avg": 83,
+      "max": 160,
+      "zones": {
+        "rest": 620,
+        "fat_burn": 165,
+        "cardio": 68,
+        "peak": 12
+      }
+    },
+    "2026-02-21": {
+      "resting": 59,
+      "avg": 88,
+      "max": 172,
+      "zones": {
+        "rest": 580,
+        "fat_burn": 200,
+        "cardio": 85,
+        "peak": 20
+      }
+    },
+    "2026-02-22": {
+      "resting": 63,
+      "avg": 76,
+      "max": 140,
+      "zones": {
+        "rest": 700,
+        "fat_burn": 100,
+        "cardio": 38,
+        "peak": 2
+      }
     }
   },
   "moveMinutes": {
-    "2026-01-22": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-23": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-24": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-25": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-26": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-27": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-28": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-29": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-30": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-01-31": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-01": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-02": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-03": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-04": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-05": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-06": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-07": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-08": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-09": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-10": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-11": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-12": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-13": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
-    "2026-02-14": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    },
     "2026-02-15": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
+      "total": 45,
+      "active": 28,
+      "heart": 17
     },
     "2026-02-16": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
+      "total": 62,
+      "active": 38,
+      "heart": 24
     },
     "2026-02-17": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
+      "total": 38,
+      "active": 22,
+      "heart": 16
     },
     "2026-02-18": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
+      "total": 78,
+      "active": 52,
+      "heart": 26
     },
     "2026-02-19": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
+      "total": 55,
+      "active": 35,
+      "heart": 20
     },
     "2026-02-20": {
-      "activeMinutes": 0,
-      "heartMinutes": 0
-    }
-  },
-  "heartRateZones": {
-    "2026-01-22": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-23": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-24": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-25": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-26": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-27": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-28": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-29": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-30": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-01-31": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-01": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-02": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-03": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-04": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-05": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-06": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-07": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-08": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-09": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-10": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-11": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-12": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-13": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-14": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-15": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-16": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-17": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-18": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-19": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
-    },
-    "2026-02-20": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
+      "total": 68,
+      "active": 44,
+      "heart": 24
     },
     "2026-02-21": {
-      "zone1Minutes": 0,
-      "zone2Minutes": 0,
-      "zone3Minutes": 0,
-      "zone4Minutes": 0,
-      "zone5Minutes": 0,
-      "totalActiveMinutes": 0
+      "total": 85,
+      "active": 58,
+      "heart": 27
+    },
+    "2026-02-22": {
+      "total": 42,
+      "active": 26,
+      "heart": 16
     }
   },
-  "lastUpdated": "2026-02-21T12:49:11.039Z",
-  "source": "Google Fit",
-  "dataRange": {
-    "stepsDays": 90,
-    "sleepDays": 0,
-    "heartRateDays": 1,
-    "moveMinutesDays": 30,
-    "heartRateZonesDays": 31
+  "sleep": {
+    "2026-02-15": {
+      "duration": 420,
+      "deep": 105,
+      "light": 245,
+      "rem": 70,
+      "awake": 15
+    },
+    "2026-02-16": {
+      "duration": 450,
+      "deep": 120,
+      "light": 260,
+      "rem": 85,
+      "awake": 10
+    },
+    "2026-02-17": {
+      "duration": 390,
+      "deep": 95,
+      "light": 225,
+      "rem": 65,
+      "awake": 20
+    },
+    "2026-02-18": {
+      "duration": 465,
+      "deep": 130,
+      "light": 270,
+      "rem": 90,
+      "awake": 8
+    },
+    "2026-02-19": {
+      "duration": 435,
+      "deep": 110,
+      "light": 255,
+      "rem": 78,
+      "awake": 12
+    },
+    "2026-02-20": {
+      "duration": 455,
+      "deep": 125,
+      "light": 265,
+      "rem": 88,
+      "awake": 9
+    },
+    "2026-02-21": {
+      "duration": 470,
+      "deep": 135,
+      "light": 275,
+      "rem": 95,
+      "awake": 7
+    },
+    "2026-02-22": {
+      "duration": 410,
+      "deep": 100,
+      "light": 240,
+      "rem": 72,
+      "awake": 18
+    }
   }
 }

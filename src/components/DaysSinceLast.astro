@@ -1,4 +1,6 @@
 ---
+import { ExternalLink, Search } from "lucide-astro";
+
 export interface Props {
   lastRunDate?: string | Date;
   activityType?: string;
@@ -6,6 +8,7 @@ export interface Props {
   lastDistance?: number;
   lastDuration?: number;
   averageWeekly?: number;
+  lastActivityName?: string;
 }
 
 const {
@@ -15,6 +18,7 @@ const {
   lastDistance = 0,
   lastDuration = 0,
   averageWeekly = 0,
+  lastActivityName = "",
 } = Astro.props;
 
 // Calculate days since last activity
@@ -27,7 +31,7 @@ const daysSince = Math.floor(timeDiff / (1000 * 3600 * 24));
 const getActivityConfig = (type: string) => {
   const configs = {
     RUN: {
-      icon: "🏃‍♂️",
+      iconName: "run",
       unit: "km",
       terminalCommand: "./analyze_running_metrics.exe",
       systemMessages: {
@@ -38,15 +42,15 @@ const getActivityConfig = (type: string) => {
         critical: "RUNNING_ROUTINE_RESTART_REQUIRED",
       },
       motivationalMessages: {
-        0: "Fresh legs, clear mind! 🚀",
-        1: "Recovery day complete ✅",
-        2: "Still in rhythm 🎵",
-        warning: "Time to lace up those shoes! 👟",
-        critical: "Your running streak is calling! 📞",
+        0: "Fresh legs, clear mind!",
+        1: "Recovery day complete",
+        2: "Still in rhythm",
+        warning: "Time to lace up those shoes!",
+        critical: "Your running streak is calling!",
       },
     },
     RIDE: {
-      icon: "🚴‍♂️",
+      iconName: "ride",
       unit: "km",
       terminalCommand: "./check_cycling_performance.exe",
       systemMessages: {
@@ -57,15 +61,15 @@ const getActivityConfig = (type: string) => {
         critical: "BIKE_MAINTENANCE_OVERDUE",
       },
       motivationalMessages: {
-        0: "Wheels spinning strong! 💪",
-        1: "Momentum maintained 🔄",
-        2: "Cruising speed achieved 🌟",
-        warning: "Time to hit the road! 🛣️",
-        critical: "Your bike misses you! 🚲",
+        0: "Wheels spinning strong!",
+        1: "Momentum maintained",
+        2: "Cruising speed achieved",
+        warning: "Time to hit the road!",
+        critical: "Your bike misses you!",
       },
     },
     SWIM: {
-      icon: "🏊‍♂️",
+      iconName: "swim",
       unit: "m",
       terminalCommand: "./evaluate_swim_technique.exe",
       systemMessages: {
@@ -76,16 +80,15 @@ const getActivityConfig = (type: string) => {
         critical: "POOL_ACCESS_REQUIRED",
       },
       motivationalMessages: {
-        0: "Making waves! 🌊",
-        1: "Stroke technique locked in 🔒",
-        2: "Water confidence high 📈",
-        warning: "Time to dive back in! 🏊",
-        critical: "The pool is waiting! 🏊‍♀️",
+        0: "Making waves!",
+        1: "Stroke technique locked in",
+        2: "Water confidence high",
+        warning: "Time to dive back in!",
+        critical: "The pool is waiting!",
       },
     },
     Swim: {
-      // Handle both cases
-      icon: "🏊‍♂️",
+      iconName: "swim",
       unit: "m",
       terminalCommand: "./evaluate_swim_technique.exe",
       systemMessages: {
@@ -96,16 +99,22 @@ const getActivityConfig = (type: string) => {
         critical: "POOL_ACCESS_REQUIRED",
       },
       motivationalMessages: {
-        0: "Making waves! 🌊",
-        1: "Stroke technique locked in 🔒",
-        2: "Water confidence high 📈",
-        warning: "Time to dive back in! 🏊",
-        critical: "The pool is waiting! 🏊‍♀️",
+        0: "Making waves!",
+        1: "Stroke technique locked in",
+        2: "Water confidence high",
+        warning: "Time to dive back in!",
+        critical: "The pool is waiting!",
       },
     },
   };
 
   return configs[type] || configs["RUN"];
+};
+
+const iconMap: Record<string, string> = {
+  run: "mdi mdi-run",
+  ride: "mdi mdi-bike",
+  swim: "mdi mdi-swim",
 };
 
 // Determine status color and message based on days
@@ -161,6 +170,16 @@ const getStatusInfo = (days: number, activityConfig: any) => {
 const activityConfig = getActivityConfig(activityType);
 const statusInfo = getStatusInfo(daysSince, activityConfig);
 
+const getActivityGerund = (type: string) => {
+  const map: Record<string, string> = {
+    RUN: "RUNNING",
+    RIDE: "RIDING",
+    Swim: "SWIMMING",
+  };
+  return map[type] || type.toUpperCase();
+};
+const activityGerund = getActivityGerund(activityType);
+
 const formattedDate = lastDate.toLocaleDateString("en-US", {
   year: "numeric",
   month: "short",
@@ -186,6 +205,8 @@ const formatDistance = (distance: number, unit: string) => {
   }
   return `${distance.toFixed(1)}${unit}`;
 };
+
+const ActivityIcon = iconMap[activityConfig.iconName] || "mdi mdi-run-fast";
 ---
 
 <div class="relative z-10 mb-8 group">
@@ -199,19 +220,17 @@ const formatDistance = (distance: number, unit: string) => {
   >
     <!-- Terminal header -->
     <div
-      class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2"
+      class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2"
     >
       <div class="flex items-center space-x-2 min-w-0">
-        <span class="text-green-400 text-xs sm:text-sm shrink-0"
-          >matrix@athlete:~$</span
-        >
+        <span class="text-green-400 text-xs sm:text-sm shrink-0">></span>
         <span class="text-green-300 text-xs sm:text-sm typing-effect truncate">
-          {activityConfig.terminalCommand}
+          {activityGerund}
         </span>
       </div>
       <div
         class={`
-        px-2 sm:px-3 py-1 rounded-full text-xs font-bold tracking-wider
+        px-2 sm:px-3 py-0.5 sm:py-1 rounded text-xs font-bold tracking-wider
         ${statusInfo.bgColor} ${statusInfo.borderColor} border
         ${statusInfo.color} shrink-0 self-start sm:self-center
       `}
@@ -227,7 +246,7 @@ const formatDistance = (distance: number, unit: string) => {
         <div
           class="flex items-center justify-center space-x-2 sm:space-x-4 mb-2"
         >
-          <span class="text-2xl sm:text-4xl">{activityConfig.icon}</span>
+          <span class={`text-2xl sm:text-4xl text-green-400 ${ActivityIcon}`}></span>
           <div
             class={`
             text-4xl sm:text-6xl md:text-8xl font-bold ${statusInfo.color}
@@ -305,9 +324,9 @@ const formatDistance = (distance: number, unit: string) => {
           }
 
           <div class="space-y-1 sm:col-span-1 lg:col-span-1">
-            <div class="text-green-400/60 text-xs">STATUS:</div>
+            <div class="text-green-400/60 text-xs">LAST_ACTIVITY:</div>
             <div class={`${statusInfo.color} font-mono text-xs break-words`}>
-              {statusInfo.systemMessage}
+              {lastActivityName || "No data"}
             </div>
           </div>
         </div>
@@ -330,7 +349,7 @@ const formatDistance = (distance: number, unit: string) => {
 
       <!-- Action buttons -->
       <div
-        class="flex flex-col sm:flex-row gap-3 mt-6 pt-4 border-t border-green-500/20"
+        class="flex gap-2 mt-4 pt-3 border-t border-green-500/20"
       >
         {
           stravaUrl && (
@@ -339,37 +358,33 @@ const formatDistance = (distance: number, unit: string) => {
               target="_blank"
               rel="noopener noreferrer"
               class={`
-              flex-1 px-4 py-2 rounded-lg font-mono text-sm
+              flex-1 px-2 py-1.5 rounded font-mono text-xs
               bg-orange-500/20 border border-orange-500/40 text-orange-400
               hover:bg-orange-500/30 hover:border-orange-500/60 hover:text-orange-300
-              transition-all duration-300 transform hover:scale-105
-              focus:outline-none focus:ring-2 focus:ring-orange-500/50
-              no-underline hover:no-underline
+              transition-all duration-300
+              focus:outline-none focus:ring-1 focus:ring-orange-500/50
+              no-underline hover:no-underline text-center
             `}
             >
-              <span class="flex items-center justify-center space-x-2">
-                <span>📊</span>
-                <span>VIEW_ON_STRAVA</span>
-              </span>
+              <ExternalLink size={12} class="inline mr-1" />
+              STRAVA
             </a>
           )
         }
 
         <button
           class={`
-            flex-1 px-4 py-2 rounded-lg font-mono text-sm
+            flex-1 px-2 py-1.5 rounded font-mono text-xs
             ${statusInfo.bgColor} ${statusInfo.borderColor} border ${statusInfo.color}
             hover:${statusInfo.bgColor.replace("/20", "/30")} hover:${statusInfo.borderColor.replace("/40", "/60")}
-            transition-all duration-300 transform hover:scale-105
-            focus:outline-none focus:ring-2 focus:ring-green-500/50
+            transition-all duration-300
+            focus:outline-none focus:ring-1 focus:ring-green-500/50
             activity-details-btn
           `}
           data-activity-type={activityType}
         >
-          <span class="flex items-center justify-center space-x-2">
-            <span>🔍</span>
-            <span>DETAILED_ANALYSIS</span>
-          </span>
+          <Search size={12} class="inline mr-1" />
+          DETAILS
         </button>
       </div>
     </div>
@@ -387,10 +402,11 @@ const formatDistance = (distance: number, unit: string) => {
   .typing-effect {
     overflow: hidden;
     white-space: nowrap;
-    border-right: 1px solid rgba(0, 255, 0, 0.6);
+    border-right: 2px solid rgba(0, 255, 0, 0.8);
     animation:
-      typing 2s steps(25, end),
-      blink-caret 1s step-end infinite;
+      typing 1.5s ease-out forwards,
+      blink-caret 0.75s step-end infinite;
+    width: fit-content;
   }
 
   @keyframes typing {
@@ -408,7 +424,7 @@ const formatDistance = (distance: number, unit: string) => {
       border-color: transparent;
     }
     50% {
-      border-color: rgba(0, 255, 0, 0.6);
+      border-color: rgba(0, 255, 0, 0.8);
     }
   }
 

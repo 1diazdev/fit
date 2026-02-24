@@ -2,7 +2,7 @@
 import type { StravaActivity } from "@services/stravaService";
 import ActivityMap from "@components/ActivityMap.astro";
 import {
-  formatRelativeTime,
+  formatRelativeTimeNY,
   formatDuration,
   formatDistance,
 } from "@utils/formatUtils";
@@ -18,17 +18,30 @@ const hasGpsData = !!(
   (activity.start_latlng && activity.start_latlng.length >= 2)
 );
 
-// Basic formatting (can be improved later)
-const activityDate = formatRelativeTime(new Date(activity.start_date));
+const activityDate = formatRelativeTimeNY(activity.start_date);
+const activityDateObj = new Date(activity.start_date);
+const activityDateFormatted = activityDateObj.toLocaleDateString("en-US", {
+  timeZone: "America/New_York",
+  weekday: "short",
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+const activityTimeFormatted = activityDateObj.toLocaleTimeString("en-US", {
+  timeZone: "America/New_York",
+  hour: "numeric",
+  minute: "2-digit",
+  hour12: true,
+});
 const durationFormatted = formatDuration(activity.moving_time);
 const distanceFormatted = formatDistance(activity.distance);
 const activityType = activity.type || activity.sport_type || "Unknown";
+const activityDateTimeInfo = `${activityDateFormatted} at ${activityTimeFormatted} (${activityDate})`;
 ---
 
 <div class="activity-card" data-activity-type={activityType}>
   <h2 class="text-lg font-bold">{activity.name}</h2>
-  <div class="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4">
-    <p><strong>Date:</strong> {activityDate}</p>
+  <div class="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3">
     <p><strong>Duration:</strong> {durationFormatted}</p>
     <p><strong>Distance:</strong> {distanceFormatted}</p>
     <p>
@@ -41,6 +54,7 @@ const activityType = activity.type || activity.sport_type || "Unknown";
       }
     </p>
   </div>
+  <p class="text-xs sm:text-sm text-green-500 mt-2"><span class="font-bold">{activityDateFormatted} at {activityTimeFormatted}</span> ({activityDate})</p>
   {
     hasGpsData ? (
       <ActivityMap activities={[activity]} />

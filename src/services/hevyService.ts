@@ -1,4 +1,10 @@
-import { memoize } from '@/lib/dataCache';
+import { memoize } from "@/lib/dataCache";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+
+const TEST_MODE =
+  String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() === "true";
+const DUMMY_DATA_FILE = "hevy-workouts-dummy.json";
 
 // TypeScript interfaces for Hevy workout data
 interface Set {
@@ -58,10 +64,14 @@ const getApiKey = (): string | undefined => {
 // Function to fetch data from the Hevy API
 const fetchHevyData = async (apiKey?: string): Promise<Workout[]> => {
   // Memoize with today's date to cache for the day
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   const key = apiKey || getApiKey();
 
   return memoize(`hevy-workouts-${today}`, async () => {
+    if (TEST_MODE) {
+      return loadDummyWorkouts();
+    }
+
     if (!key) {
       console.error("API key is required to fetch Hevy data.");
       console.error(
@@ -173,9 +183,14 @@ const fetchHevyWorkouts = async (
 // Function to fetch the total number of workouts
 const fetchWorkoutCount = async (apiKey?: string): Promise<number> => {
   const key = apiKey || getApiKey();
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   return memoize(`hevy-workout-count-${today}`, async () => {
+    if (TEST_MODE) {
+      const workouts = await loadDummyWorkouts();
+      return workouts.length;
+    }
+
     if (!key) {
       throw new Error("Hevy API key not provided.");
     }
@@ -270,3 +285,16 @@ if (
 // Export all functions and types - SINGLE EXPORT STATEMENT
 export { fetchHevyData, fetchHevyWorkouts, getApiKey, fetchWorkoutCount };
 export type { Workout, Exercise, Set };
+
+async function loadDummyWorkouts(): Promise<Workout[]> {
+  try {
+    const filePath = resolve(process.cwd(), "public", DUMMY_DATA_FILE);
+    const raw = await readFile(filePath, "utf-8");
+    const data = JSON.parse(raw);
+    console.log("[Hevy] Using dummy workouts from", DUMMY_DATA_FILE);
+    return data.workouts || [];
+  } catch (error) {
+    console.warn("[Hevy] Dummy data enabled but failed to load:", error);
+    return [];
+  }
+}

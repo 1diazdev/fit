@@ -1,0 +1,430 @@
+---
+import type { DayData } from "@/services/dataAggregationService";
+import { Footprints, Activity, Dumbbell, Moon, Heart, Zap } from "lucide-astro";
+
+export interface Props {
+  dayData: DayData;
+}
+
+const { dayData } = Astro.props;
+
+// Calculate totals
+const totalActivityDistance =
+  dayData.activities.reduce((sum, a) => sum + (a.distance || 0), 0) / 1000; // km
+const totalActivityTime = dayData.activities.reduce(
+  (sum, a) => sum + (a.moving_time || 0),
+  0,
+); // seconds
+const totalActivityTimeMin = Math.floor(totalActivityTime / 60);
+
+// Steps progress to 10K goal
+const stepsGoal = 10000;
+const stepsProgress = Math.min((dayData.steps.count / stepsGoal) * 100, 100);
+
+// Group activities by type
+const activityTypes = dayData.activities.reduce(
+  (acc, activity) => {
+    const type = activity.type || activity.sport_type || "Unknown";
+    acc[type] = (acc[type] || 0) + 1;
+    return acc;
+  },
+  {} as Record<string, number>,
+);
+
+// Calculate workout totals
+const totalExercises = dayData.workouts.reduce(
+  (sum, w) => sum + w.exercises.length,
+  0,
+);
+const totalSets = dayData.workouts.reduce((sum, w) => {
+  return sum + w.exercises.reduce((s, e) => s + e.sets.length, 0);
+}, 0);
+const totalVolume = dayData.workouts.reduce((sum, w) => {
+  return (
+    sum +
+    w.exercises.reduce((s, e) => {
+      return s + e.sets.reduce((v, set) => v + set.weight_kg * set.reps, 0);
+    }, 0)
+  );
+}, 0);
+
+// WHO recommendation: 150 min of moderate-intensity or 75 min of vigorous-intensity per week
+const heartMinutesGoal = 150 / 7; // ~21.4 min/day
+const heartMinutesProgress = Math.min(
+  (dayData.moveMinutes.heartMinutes / heartMinutesGoal) * 100,
+  100,
+);
+---
+
+<div class="metrics-grid">
+  <!-- Steps Card -->
+  <div class="metric-card">
+    <div class="card-header">
+      <span class="card-icon"><Footprints size={16} /></span>
+      <span class="card-title">STEPS</span>
+    </div>
+    <div class="card-content">
+      <div class="primary-stat">{dayData.steps.count.toLocaleString()}</div>
+      <div class="stat-row">
+        <span class="stat-label">Distance:</span>
+        <span class="stat-value"
+          >{(dayData.steps.distance / 1000).toFixed(2)} km</span
+        >
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Calories:</span>
+        <span class="stat-value">{Math.round(dayData.steps.calories)} kcal</span
+        >
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style={`width: ${stepsProgress}%`}></div>
+      </div>
+      <div class="progress-text">{stepsProgress.toFixed(0)}% to 10K goal</div>
+    </div>
+  </div>
+
+  <!-- Activities Card -->
+  <div class="metric-card">
+    <div class="card-header">
+      <span class="card-icon"><Activity size={16} /></span>
+      <span class="card-title">ACTIVITIES</span>
+    </div>
+    <div class="card-content">
+      <div class="primary-stat">{dayData.activities.length}</div>
+      {
+        dayData.activities.length > 0 && (
+          <>
+            <div class="stat-row">
+              <span class="stat-label">Total Distance:</span>
+              <span class="stat-value">
+                {totalActivityDistance.toFixed(2)} km
+              </span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Total Time:</span>
+              <span class="stat-value">
+                {Math.floor(totalActivityTimeMin / 60)}h{" "}
+                {totalActivityTimeMin % 60}m
+              </span>
+            </div>
+            <div class="activity-types">
+              {Object.entries(activityTypes).map(([type, count]) => (
+                <span class="activity-badge">
+                  {type}: {count}
+                </span>
+              ))}
+            </div>
+          </>
+        )
+      }
+      {
+        dayData.activities.length === 0 && (
+          <div class="no-data">No activities recorded</div>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- Workouts Card -->
+  <div class="metric-card">
+    <div class="card-header">
+      <span class="card-icon"><Dumbbell size={16} /></span>
+      <span class="card-title">WORKOUTS</span>
+    </div>
+    <div class="card-content">
+      <div class="primary-stat">{dayData.workouts.length}</div>
+      {
+        dayData.workouts.length > 0 && (
+          <>
+            <div class="stat-row">
+              <span class="stat-label">Exercises:</span>
+              <span class="stat-value">{totalExercises}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Total Sets:</span>
+              <span class="stat-value">{totalSets}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Volume:</span>
+              <span class="stat-value">{totalVolume.toLocaleString()} kg</span>
+            </div>
+          </>
+        )
+      }
+      {
+        dayData.workouts.length === 0 && (
+          <div class="no-data">No workouts recorded</div>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- Sleep Card -->
+  <div class="metric-card">
+    <div class="card-header">
+      <span class="card-icon"><Moon size={16} /></span>
+      <span class="card-title">SLEEP</span>
+    </div>
+    <div class="card-content">
+      {
+        dayData.sleep ? (
+          <>
+            <div class="primary-stat">
+              {Math.floor(dayData.sleep.totalMinutes / 60)}h{" "}
+              {Math.round(dayData.sleep.totalMinutes % 60)}m
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Deep:</span>
+              <span class="stat-value">
+                {Math.round(dayData.sleep.deepMinutes)} min
+              </span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Light:</span>
+              <span class="stat-value">
+                {Math.round(dayData.sleep.lightMinutes)} min
+              </span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">REM:</span>
+              <span class="stat-value">
+                {Math.round(dayData.sleep.remMinutes)} min
+              </span>
+            </div>
+            <div class="stat-row score">
+              <span class="stat-label">Score:</span>
+              <span class="stat-value highlight">
+                {dayData.sleep.sleepScore}/100
+              </span>
+            </div>
+          </>
+        ) : (
+          <div class="no-data">No sleep data available</div>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- Heart Rate Card -->
+  <div class="metric-card">
+    <div class="card-header">
+      <span class="card-icon"><Heart size={16} /></span>
+      <span class="card-title">HEART_RATE</span>
+    </div>
+    <div class="card-content">
+      {
+        dayData.heartRate ? (
+          <>
+            <div class="primary-stat">{Math.round(dayData.heartRate.avg)} BPM</div>
+            <div class="stat-row">
+              <span class="stat-label">Min:</span>
+              <span class="stat-value">{Math.round(dayData.heartRate.min)} BPM</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Max:</span>
+              <span class="stat-value">{Math.round(dayData.heartRate.max)} BPM</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Resting:</span>
+              <span class="stat-value highlight">
+                {Math.round(dayData.heartRate.resting)} BPM
+              </span>
+            </div>
+          </>
+        ) : (
+          <div class="no-data">No heart rate data available</div>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- Move Minutes Card -->
+  <div class="metric-card">
+    <div class="card-header">
+      <span class="card-icon"><Zap size={16} /></span>
+      <span class="card-title">MOVE_MINUTES</span>
+    </div>
+    <div class="card-content">
+      <div class="primary-stat">{dayData.moveMinutes.heartMinutes} min</div>
+      <div class="stat-row">
+        <span class="stat-label">Active:</span>
+        <span class="stat-value">{dayData.moveMinutes.activeMinutes} min</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Heart:</span>
+        <span class="stat-value">{dayData.moveMinutes.heartMinutes} min</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style={`width: ${heartMinutesProgress}%`}>
+        </div>
+      </div>
+      <div class="progress-text">
+        {heartMinutesProgress.toFixed(0)}% of daily goal (~21 min)
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .metric-card {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 20, 0, 0.6) 100%
+    );
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow:
+      0 0 15px rgba(0, 255, 0, 0.15),
+      inset 0 0 15px rgba(0, 255, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .metric-card:hover {
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow:
+      0 0 25px rgba(0, 255, 0, 0.25),
+      inset 0 0 20px rgba(0, 255, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  }
+
+  .card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ff00;
+  }
+
+  .card-title {
+    font-family: "Courier New", monospace;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #00ff00;
+    letter-spacing: 0.05em;
+  }
+
+  .card-content {
+    font-family: "Courier New", monospace;
+  }
+
+  .primary-stat {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #00ff00;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .stat-label {
+    color: rgba(0, 255, 0, 0.7);
+  }
+
+  .stat-value {
+    color: #00ff00;
+    font-weight: bold;
+  }
+
+  .stat-value.highlight {
+    color: #00ff00;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 255, 0, 0.6),
+      rgba(0, 255, 0, 0.9)
+    );
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .progress-text {
+    font-size: 0.7rem;
+    color: rgba(0, 255, 0, 0.7);
+    text-align: center;
+  }
+
+  .activity-types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .activity-badge {
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: #00ff00;
+  }
+
+  .no-data {
+    color: rgba(0, 255, 0, 0.5);
+    font-size: 0.875rem;
+    font-style: italic;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .primary-stat {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .metrics-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

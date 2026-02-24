@@ -49,14 +49,17 @@ Before creating credentials, you need to configure the OAuth consent screen:
 **OAuth Consent Screen Form:**
 
 **App Information:**
+
 - **App name**: `Fitness Matrix`
 - **User support email**: Your email address
 - **App logo**: (optional, skip for now)
 
 **App Domain:**
+
 - Leave blank for now (optional for testing)
 
 **Developer contact information:**
+
 - **Email addresses**: Your email address
 
 4. Click **"Save and Continue"**
@@ -105,6 +108,7 @@ Before creating credentials, you need to configure the OAuth consent screen:
 **Important:** A popup will show your credentials
 
 7. **COPY THESE IMMEDIATELY:**
+
    - **Client ID**: Something like `123456789-abcdefg.apps.googleusercontent.com`
    - **Client Secret**: Something like `GOCSPX-abc123def456`
 
@@ -126,6 +130,7 @@ GOOGLE_FIT_REDIRECT_URI=http://localhost:3000/callback
 ```
 
 **Example:**
+
 ```bash
 GOOGLE_FIT_CLIENT_ID=123456789-abc123.apps.googleusercontent.com
 GOOGLE_FIT_CLIENT_SECRET=GOCSPX-xyz789abc456
@@ -160,6 +165,7 @@ bun run googlefit-setup
 9. The script will exchange the code for a refresh token
 
 **Output:**
+
 ```
 ✅ Successfully obtained tokens!
 
@@ -184,6 +190,7 @@ bun run googlefit-script
 ```
 
 **Expected output:**
+
 ```
 ✅ Data fetched successfully in 3.45s
 
@@ -227,6 +234,7 @@ Your health data from Zepp (synced via Google Fit) is now being fetched automati
 ### Error: "redirect_uri_mismatch"
 
 **Solution:**
+
 1. Go to Google Cloud Console → Credentials
 2. Click on your OAuth client ID
 3. Add `http://localhost:3000/callback` to "Authorized redirect URIs"
@@ -239,6 +247,7 @@ Your health data from Zepp (synced via Google Fit) is now being fetched automati
 ### Error: "invalid_grant"
 
 **Solution:**
+
 1. Your refresh token may have expired
 2. Run `bun run googlefit-setup` again
 3. Get a new refresh token
@@ -246,12 +255,14 @@ Your health data from Zepp (synced via Google Fit) is now being fetched automati
 ### Error: "insufficient permissions"
 
 **Solution:**
+
 1. Make sure you added all 5 scopes in Step 3
 2. When authorizing, make sure you clicked "Allow" for all permissions
 
 ### No data returned / Empty response
 
 **Possible causes:**
+
 1. You haven't used your Zepp device recently
 2. Zepp hasn't synced to Google Fit yet
    - Open Zepp app

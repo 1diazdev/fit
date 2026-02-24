@@ -1,0 +1,267 @@
+---
+/**
+ * Move Minutes Chart Component
+ *
+ * Horizontal bar chart showing active minutes and heart minutes
+ * for the last N days with WHO goal line overlay (150 min/week ≈ 21.4 min/day)
+ */
+
+import type { MoveMinutesData } from "@/services/googleFitService";
+
+export interface Props {
+  moveMinutesData: MoveMinutesData;
+  days?: number;
+}
+
+const { moveMinutesData, days = 7 } = Astro.props;
+
+// Generate last N days
+const today = new Date();
+const chartDays = Array.from({ length: days }, (_, i) => {
+  const date = new Date(today);
+  date.setDate(date.getDate() - (days - 1 - i)); // Oldest to newest
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+});
+
+// WHO recommendation: 150 min of moderate-intensity per week ≈ 21.4 min/day
+const dailyGoal = 150 / 7;
+
+// Find max value for scaling
+const maxValue = Math.max(
+  ...chartDays.map(date => {
+    const data = moveMinutesData[date];
+    return Math.max(data?.activeMinutes || 0, data?.heartMinutes || 0);
+  }),
+  dailyGoal * 1.2, // Ensure goal line is visible
+);
+
+// Format date for display
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${month}/${day}`;
+}
+---
+
+<div class="move-chart">
+  <div class="chart-legend">
+    <div class="legend-item">
+      <div class="legend-color active"></div>
+      <span class="legend-label">Active Minutes</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color heart"></div>
+      <span class="legend-label">Heart Minutes</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-line goal"></div>
+      <span class="legend-label">Goal (21.4/day)</span>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    {
+      chartDays.map(date => {
+        const data = moveMinutesData[date] || {
+          activeMinutes: 0,
+          heartMinutes: 0,
+        };
+        const activePercent = (data.activeMinutes / maxValue) * 100;
+        const heartPercent = (data.heartMinutes / maxValue) * 100;
+        const goalPercent = (dailyGoal / maxValue) * 100;
+
+        return (
+          <div class="chart-row">
+            <div class="chart-label">{formatDate(date)}</div>
+            <div class="chart-bar-container">
+              {/* Active minutes bar (full width) */}
+              <div class="chart-bar active" style={`width: ${activePercent}%`}>
+                {data.activeMinutes > 0 && (
+                  <span class="bar-value">
+                    {Math.round(data.activeMinutes)}
+                  </span>
+                )}
+              </div>
+              {/* Heart minutes bar (inner, overlaid) */}
+              {data.heartMinutes > 0 && (
+                <div class="chart-bar heart" style={`width: ${heartPercent}%`}>
+                  <span class="bar-value">{Math.round(data.heartMinutes)}</span>
+                </div>
+              )}
+              {/* Goal line */}
+              <div class="goal-line" style={`left: ${goalPercent}%`} />
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>
+
+<style>
+  .move-chart {
+    font-family: "Courier New", monospace;
+  }
+
+  .chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+  }
+
+  .legend-color.active {
+    background: rgba(0, 255, 0, 0.4);
+    border: 1px solid rgba(0, 255, 0, 0.6);
+  }
+
+  .legend-color.heart {
+    background: rgba(0, 255, 0, 0.7);
+    border: 1px solid #00ff00;
+  }
+
+  .legend-line {
+    width: 16px;
+    height: 2px;
+    background: rgba(255, 165, 0, 0.8);
+  }
+
+  .legend-line.goal {
+    border-top: 2px dashed rgba(255, 165, 0, 0.8);
+    background: none;
+  }
+
+  .legend-label {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.8);
+  }
+
+  .chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .chart-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .chart-label {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.7);
+    min-width: 40px;
+    text-align: right;
+  }
+
+  .chart-bar-container {
+    flex: 1;
+    position: relative;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 4px;
+    overflow: visible;
+  }
+
+  .chart-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+  }
+
+  .chart-bar.active {
+    background: rgba(0, 255, 0, 0.3);
+    border: 1px solid rgba(0, 255, 0, 0.5);
+    z-index: 1;
+  }
+
+  .chart-bar.heart {
+    background: rgba(0, 255, 0, 0.6);
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    z-index: 2;
+  }
+
+  .bar-value {
+    font-size: 0.7rem;
+    color: #00ff00;
+    font-weight: bold;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    z-index: 3;
+  }
+
+  .goal-line {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    background: none;
+    border-left: 2px dashed rgba(255, 165, 0, 0.8);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .goal-line::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 165, 0, 0.8);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .chart-legend {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .chart-row {
+      gap: 0.5rem;
+    }
+
+    .chart-label {
+      min-width: 30px;
+      font-size: 0.65rem;
+    }
+
+    .bar-value {
+      font-size: 0.6rem;
+    }
+
+    .chart-bar-container {
+      height: 24px;
+    }
+  }
+</style>

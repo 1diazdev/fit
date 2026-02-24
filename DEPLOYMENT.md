@@ -63,9 +63,11 @@ curl http://localhost:8888/.netlify/functions/update-strava
 ### 6. Manual Trigger (desde Netlify Dashboard)
 
 Puedes ejecutar manualmente las funciones desde:
+
 - **Functions → [función] → Trigger function**
 
 O vía API:
+
 ```bash
 curl https://ftness.netlify.app/.netlify/functions/update-strava
 ```
@@ -107,6 +109,7 @@ CRON_SECRET=genera_un_secret_aleatorio
 ```
 
 **Generar CRON_SECRET:**
+
 ```bash
 openssl rand -base64 32
 ```
@@ -131,6 +134,7 @@ Los cron jobs están configurados en `vercel.json`:
 ### 5. Build Settings
 
 Vercel detecta automáticamente:
+
 - **Framework**: Astro
 - **Build Command**: `bun run build`
 - **Output Directory**: `dist`
@@ -150,14 +154,14 @@ curl http://localhost:4321/api/update-strava \
 
 ## 📊 Comparación: Netlify vs Vercel
 
-| Feature | Netlify (Actual) | Vercel |
-|---------|-----------------|--------|
-| **Cron Jobs Gratis** | ✅ Sí (Scheduled Functions) | ❌ No (requiere Pro) |
-| **Build Time** | ~2-3 min | ~1-2 min |
-| **Serverless Functions** | ✅ Ilimitadas (Free tier) | ✅ 100 GB-hours/mes (Free) |
-| **Edge Network** | ✅ Global CDN | ✅ Global Edge Network |
-| **Logs** | ✅ Function logs | ✅ Detailed logs |
-| **Deploy Previews** | ✅ Automático | ✅ Automático |
+| Feature                  | Netlify (Actual)            | Vercel                     |
+| ------------------------ | --------------------------- | -------------------------- |
+| **Cron Jobs Gratis**     | ✅ Sí (Scheduled Functions) | ❌ No (requiere Pro)       |
+| **Build Time**           | ~2-3 min                    | ~1-2 min                   |
+| **Serverless Functions** | ✅ Ilimitadas (Free tier)   | ✅ 100 GB-hours/mes (Free) |
+| **Edge Network**         | ✅ Global CDN               | ✅ Global Edge Network     |
+| **Logs**                 | ✅ Function logs            | ✅ Detailed logs           |
+| **Deploy Previews**      | ✅ Automático               | ✅ Automático              |
 
 **Recomendación**: Usar **Netlify** para este proyecto por el soporte gratuito de Scheduled Functions.
 
