@@ -259,4 +259,4 @@ Special thanks to:
 
 - **Website**: [jpdiaz.dev](https://jpdiaz.dev)
 - **GitHub**: [@JuanPabloDiaz](https://github.com/JuanPabloDiaz)
-- **Project**: [fit.jpdiaz.dev](https://fit.jpdiaz.dev)
+- **Project**: [fit.jpdiaz.dev](https://fit.jpdiaz.dev) | [ftness.netlify.app](https://ftness.netlify.app)
