@@ -322,10 +322,10 @@ export async function getDataForDate(date: string): Promise<DayData> {
       stravaActivities,
       hevyWorkouts,
     ] = await Promise.all([
-      fetchStepsData(Math.min(daysBack + 1, 365)).catch(() => ({}) as StepsData),
-      fetchSleepData(Math.min(daysBack + 1, 90)).catch(
-        () => ({}) as SleepData,
+      fetchStepsData(Math.min(daysBack + 1, 365)).catch(
+        () => ({}) as StepsData,
       ),
+      fetchSleepData(Math.min(daysBack + 1, 90)).catch(() => ({}) as SleepData),
       fetchHeartRateData(Math.min(daysBack + 1, 30)).catch(
         () => ({}) as HeartRateData,
       ),
