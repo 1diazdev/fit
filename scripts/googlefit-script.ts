@@ -21,7 +21,6 @@
  *   - Run googlefit-setup script first if you don't have a refresh token
  */
 
-import { writeFile } from "fs/promises";
 import {
   fetchStepsData,
   fetchSleepData,
@@ -29,6 +28,14 @@ import {
   fetchMoveMinutesData,
   fetchHeartRateZones,
 } from "../src/services/googleFitService";
+import {
+  needsBootstrap,
+  mergeByDateKey,
+  saveJSON,
+  loadJSON,
+  calculateDataRange,
+  getDateRangeString,
+} from "./lib/jsonMerger";
 
 interface HealthData {
   steps: any;
@@ -48,7 +55,7 @@ interface HealthData {
 }
 
 const main = async (): Promise<void> => {
-  console.log("📊 Google Fit Health Data Fetch Script\n");
+  console.log("📊 Google Fit Health Data Fetch Script (Incremental)\n");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
   // Verify refresh token exists
@@ -65,81 +72,129 @@ const main = async (): Promise<void> => {
   console.log("✅ Refresh token found");
   console.log(`   Token: ${refreshToken.substring(0, 20)}...\n`);
 
-  try {
-    console.log("🔄 Fetching health data from Google Fit API...\n");
+  const outputPath = "public/health-data.json";
 
-    console.log("  📈 Fetching steps data (365 days)...");
-    console.log("  😴 Fetching sleep data (90 days - API limit)...");
-    console.log("  ❤️  Fetching heart rate data (30 days)...");
-    console.log("  🏃 Fetching move minutes (30 days)...");
-    console.log("  🎯 Fetching heart rate zones (30 days)...\n");
+  try {
+    // Step 1: Determine if we need bootstrap or incremental update
+    const isBootstrap = await needsBootstrap({
+      jsonPath: outputPath,
+      maxStaleDays: 2,
+    });
+
+    // Step 2: Determine how many days to fetch
+    const stepsDays = isBootstrap ? 90 : 7;
+    const sleepDays = isBootstrap ? 90 : 7;
+    const hrDays = isBootstrap ? 30 : 7;
+    const moveDays = isBootstrap ? 30 : 7;
+    const zonesDays = isBootstrap ? 30 : 7;
+
+    console.log(
+      `\n🔄 Mode: ${isBootstrap ? "BOOTSTRAP (full fetch)" : "INCREMENTAL (recent only)"}\n`,
+    );
+    console.log(`  📈 Fetching steps data (${stepsDays} days)...`);
+    console.log(`  😴 Fetching sleep data (${sleepDays} days)...`);
+    console.log(`  ❤️  Fetching heart rate data (${hrDays} days)...`);
+    console.log(`  🏃 Fetching move minutes (${moveDays} days)...`);
+    console.log(`  🎯 Fetching heart rate zones (${zonesDays} days)...\n`);
 
     const startTime = Date.now();
 
+    // Step 3: Fetch new data
     const [
-      stepsData,
-      sleepData,
-      heartRateData,
-      moveMinutesData,
-      heartRateZonesData,
+      newStepsData,
+      newSleepData,
+      newHeartRateData,
+      newMoveMinutesData,
+      newHeartRateZonesData,
     ] = await Promise.all([
-      fetchStepsData(365),
-      fetchSleepData(90), // Limited to 90 days due to API constraints
-      fetchHeartRateData(30),
-      fetchMoveMinutesData(30),
-      fetchHeartRateZones(30, 30), // 30 days, age 30 (adjust age as needed)
+      fetchStepsData(stepsDays),
+      fetchSleepData(sleepDays),
+      fetchHeartRateData(hrDays),
+      fetchMoveMinutesData(moveDays),
+      fetchHeartRateZones(zonesDays, 30),
     ]);
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
-
     console.log(`✅ Data fetched successfully in ${elapsed}s\n`);
 
-    // Count data points
-    const stepsDays = Object.keys(stepsData).length;
-    const sleepDays = Object.keys(sleepData).length;
-    const hrDays = Object.keys(heartRateData).length;
-    const moveDays = Object.keys(moveMinutesData).length;
-    const zonesDays = Object.keys(heartRateZonesData).length;
+    // Step 4: Load existing data (if incremental)
+    let finalStepsData = newStepsData;
+    let finalSleepData = newSleepData;
+    let finalHeartRateData = newHeartRateData;
+    let finalMoveMinutesData = newMoveMinutesData;
+    let finalHeartRateZonesData = newHeartRateZonesData;
 
-    console.log("📊 Data Summary:");
-    console.log(`   Steps data: ${stepsDays} days`);
-    console.log(`   Sleep data: ${sleepDays} days`);
-    console.log(`   Heart rate data: ${hrDays} days`);
-    console.log(`   Move minutes: ${moveDays} days`);
-    console.log(`   HR zones: ${zonesDays} days\n`);
+    if (!isBootstrap) {
+      console.log("🔀 Merging with existing data...\n");
+      const existingData = await loadJSON<HealthData>(outputPath);
 
-    // Calculate some quick stats
-    if (stepsDays > 0) {
-      const totalSteps = Object.values(stepsData).reduce(
+      if (existingData) {
+        finalStepsData = mergeByDateKey(
+          existingData.steps || {},
+          newStepsData,
+        );
+        finalSleepData = mergeByDateKey(existingData.sleep || {}, newSleepData);
+        finalHeartRateData = mergeByDateKey(
+          existingData.heartRate || {},
+          newHeartRateData,
+        );
+        finalMoveMinutesData = mergeByDateKey(
+          existingData.moveMinutes || {},
+          newMoveMinutesData,
+        );
+        finalHeartRateZonesData = mergeByDateKey(
+          existingData.heartRateZones || {},
+          newHeartRateZonesData,
+        );
+      }
+    }
+
+    // Step 5: Calculate statistics
+    const totalStepsDays = calculateDataRange(finalStepsData);
+    const totalSleepDays = calculateDataRange(finalSleepData);
+    const totalHrDays = calculateDataRange(finalHeartRateData);
+    const totalMoveDays = calculateDataRange(finalMoveMinutesData);
+    const totalZonesDays = calculateDataRange(finalHeartRateZonesData);
+
+    console.log("📊 Total Data Summary:");
+    console.log(`   Steps: ${totalStepsDays} days (${getDateRangeString(finalStepsData)})`);
+    console.log(`   Sleep: ${totalSleepDays} days (${getDateRangeString(finalSleepData)})`);
+    console.log(`   Heart rate: ${totalHrDays} days (${getDateRangeString(finalHeartRateData)})`);
+    console.log(`   Move minutes: ${totalMoveDays} days (${getDateRangeString(finalMoveMinutesData)})`);
+    console.log(`   HR zones: ${totalZonesDays} days (${getDateRangeString(finalHeartRateZonesData)})\n`);
+
+    // Calculate quick stats from recent data
+    if (totalStepsDays > 0) {
+      const totalSteps = Object.values(finalStepsData).reduce(
         (sum, day: any) => sum + day.steps,
         0,
       );
-      const avgSteps = Math.round(totalSteps / stepsDays);
+      const avgSteps = Math.round(totalSteps / totalStepsDays);
       console.log(`   Average daily steps: ${avgSteps.toLocaleString()}`);
 
-      const totalDistance = Object.values(stepsData).reduce(
+      const totalDistance = Object.values(finalStepsData).reduce(
         (sum, day: any) => sum + day.distance,
         0,
       );
-      const avgDistance = (totalDistance / stepsDays / 1000).toFixed(2);
+      const avgDistance = (totalDistance / totalStepsDays / 1000).toFixed(2);
       console.log(`   Average daily distance: ${avgDistance} km`);
     }
 
-    if (sleepDays > 0) {
-      const totalSleep = Object.values(sleepData).reduce(
+    if (totalSleepDays > 0) {
+      const totalSleep = Object.values(finalSleepData).reduce(
         (sum, day: any) => sum + day.totalMinutes,
         0,
       );
-      const avgSleep = Math.round(totalSleep / sleepDays);
+      const avgSleep = Math.round(totalSleep / totalSleepDays);
       const avgHours = Math.floor(avgSleep / 60);
       const avgMinutes = avgSleep % 60;
       console.log(`   Average sleep: ${avgHours}h ${avgMinutes}m per night`);
     }
 
-    if (hrDays > 0) {
-      const avgHeartRates = Object.values(heartRateData)
+    if (totalHrDays > 0) {
+      const avgHeartRates = Object.values(finalHeartRateData)
         .map((day: any) => day.avg)
-        .filter(hr => hr > 0);
+        .filter((hr) => hr > 0);
       if (avgHeartRates.length > 0) {
         const overallAvg = Math.round(
           avgHeartRates.reduce((a, b) => a + b, 0) / avgHeartRates.length,
@@ -148,67 +203,54 @@ const main = async (): Promise<void> => {
       }
     }
 
-    if (moveDays > 0) {
-      const totalActive = Object.values(moveMinutesData).reduce(
-        (sum, day: any) => sum + day.activeMinutes,
-        0,
-      );
-      const avgActive = Math.round(totalActive / moveDays);
-      console.log(`   Average active minutes: ${avgActive} min/day`);
-
-      const totalHeart = Object.values(moveMinutesData).reduce(
-        (sum, day: any) => sum + day.heartMinutes,
-        0,
-      );
-      const avgHeart = Math.round(totalHeart / moveDays);
-      console.log(`   Average heart minutes: ${avgHeart} min/day`);
-    }
-
-    if (zonesDays > 0) {
-      const totalZoneMinutes = Object.values(heartRateZonesData).reduce(
-        (sum, day: any) => sum + day.totalActiveMinutes,
-        0,
-      );
-      const avgZoneMinutes = Math.round(totalZoneMinutes / zonesDays);
-      console.log(`   Average time in HR zones: ${avgZoneMinutes} min/day`);
-    }
-
-    // Prepare data for JSON
+    // Step 6: Prepare data with metadata
     const healthData: HealthData = {
-      steps: stepsData,
-      sleep: sleepData,
-      heartRate: heartRateData,
-      moveMinutes: moveMinutesData,
-      heartRateZones: heartRateZonesData,
+      steps: finalStepsData,
+      sleep: finalSleepData,
+      heartRate: finalHeartRateData,
+      moveMinutes: finalMoveMinutesData,
+      heartRateZones: finalHeartRateZonesData,
       lastUpdated: new Date().toISOString(),
       source: "Google Fit",
       dataRange: {
-        stepsDays,
-        sleepDays,
-        heartRateDays: hrDays,
-        moveMinutesDays: moveDays,
-        heartRateZonesDays: zonesDays,
+        stepsDays: totalStepsDays,
+        sleepDays: totalSleepDays,
+        heartRateDays: totalHrDays,
+        moveMinutesDays: totalMoveDays,
+        heartRateZonesDays: totalZonesDays,
       },
     };
 
-    // Write to public directory
-    const outputPath = "public/health-data.json";
-    await writeFile(outputPath, JSON.stringify(healthData, null, 2));
-
-    console.log(`\n✅ Health data saved to ${outputPath}`);
+    // Step 7: Save to JSON with metadata
+    await saveJSON(outputPath, healthData, {
+      source: "Google Fit",
+      dataRange: {
+        stepsDays: totalStepsDays,
+        sleepDays: totalSleepDays,
+        heartRateDays: totalHrDays,
+        moveMinutesDays: totalMoveDays,
+        heartRateZonesDays: totalZonesDays,
+      },
+    });
 
     // Calculate file size
-    const stats = await import("fs").then(fs => fs.promises.stat(outputPath));
+    const stats = await import("fs").then((fs) =>
+      fs.promises.stat(outputPath),
+    );
     const fileSizeKB = (stats.size / 1024).toFixed(2);
     console.log(`   File size: ${fileSizeKB} KB\n`);
 
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    console.log("✨ Google Fit data fetch complete!\n");
+    console.log(
+      `✨ Google Fit ${isBootstrap ? "bootstrap" : "incremental update"} complete!\n`,
+    );
 
     console.log("📝 Data is now available at:");
     console.log("   - public/health-data.json (for Astro components)");
     console.log("   - Synced from your Google Fit account");
-    console.log("   - Includes data from Zepp and other connected apps\n");
+    console.log(
+      `   - ${isBootstrap ? "Full historical data loaded" : "Latest data merged with existing"}\n`,
+    );
   } catch (error) {
     console.error("\n❌ Error fetching Google Fit data:\n");
     if (error instanceof Error) {
