@@ -322,17 +322,17 @@ export async function getDataForDate(date: string): Promise<DayData> {
       stravaActivities,
       hevyWorkouts,
     ] = await Promise.all([
-      fetchStepsData(Math.max(daysBack + 1, 90)).catch(() => ({}) as StepsData),
-      fetchSleepData(Math.min(Math.max(daysBack + 1, 90), 90)).catch(
+      fetchStepsData(Math.min(daysBack + 1, 365)).catch(() => ({}) as StepsData),
+      fetchSleepData(Math.min(daysBack + 1, 90)).catch(
         () => ({}) as SleepData,
       ),
-      fetchHeartRateData(Math.min(Math.max(daysBack + 1, 90), 30)).catch(
+      fetchHeartRateData(Math.min(daysBack + 1, 30)).catch(
         () => ({}) as HeartRateData,
       ),
-      fetchMoveMinutesData(Math.min(Math.max(daysBack + 1, 90), 30)).catch(
+      fetchMoveMinutesData(Math.min(daysBack + 1, 30)).catch(
         () => ({}) as MoveMinutesData,
       ),
-      fetchHeartRateZones(Math.min(Math.max(daysBack + 1, 90), 30)).catch(
+      fetchHeartRateZones(Math.min(daysBack + 1, 30)).catch(
         () => ({}) as HeartRateZones,
       ),
       fetchActivities(1, 100).catch(() => [] as StravaActivity[]),
@@ -449,10 +449,10 @@ export async function getComparisons(date: string): Promise<ComparisonData> {
     // Fetch historical data
     const [stepsData, moveData, stravaActivities, hevyWorkouts] =
       await Promise.all([
-        fetchStepsData(Math.max(daysBack + 31, 365)).catch(
+        fetchStepsData(Math.min(daysBack + 31, 365)).catch(
           () => ({}) as StepsData,
         ),
-        fetchMoveMinutesData(Math.min(Math.max(daysBack + 31, 30), 365)).catch(
+        fetchMoveMinutesData(Math.min(daysBack + 31, 30)).catch(
           () => ({}) as MoveMinutesData,
         ),
         fetchActivities(1, 200).catch(() => [] as StravaActivity[]),
