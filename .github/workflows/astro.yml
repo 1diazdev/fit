@@ -1,8 +1,4 @@
-# Sample workflow for building and deploying an Astro site to GitHub Pages
-#
-# To get started with Astro see: https://docs.astro.build/en/getting-started/
-#
-name: Deploy Astro site to Pages
+name: Deploy Astro to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -72,6 +68,14 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+          HEVY_API_KEY: ${{ secrets.HEVY_API_KEY }}
+          GOOGLE_FIT_CLIENT_ID: ${{ secrets.GOOGLE_FIT_CLIENT_ID }}
+          GOOGLE_FIT_CLIENT_SECRET: ${{ secrets.GOOGLE_FIT_CLIENT_SECRET }}
+          GOOGLE_FIT_REFRESH_TOKEN: ${{ secrets.GOOGLE_FIT_REFRESH_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
