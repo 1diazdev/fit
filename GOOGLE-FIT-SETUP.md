@@ -108,7 +108,6 @@ Before creating credentials, you need to configure the OAuth consent screen:
 **Important:** A popup will show your credentials
 
 7. **COPY THESE IMMEDIATELY:**
-
    - **Client ID**: Something like `123456789-abcdefg.apps.googleusercontent.com`
    - **Client Secret**: Something like `GOCSPX-abc123def456`
 

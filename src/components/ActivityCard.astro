@@ -54,7 +54,11 @@ const activityDateTimeInfo = `${activityDateFormatted} at ${activityTimeFormatte
       }
     </p>
   </div>
-  <p class="text-xs sm:text-sm text-green-500 mt-2"><span class="font-bold">{activityDateFormatted} at {activityTimeFormatted}</span> ({activityDate})</p>
+  <p class="text-xs sm:text-sm text-green-500 mt-2">
+    <span class="font-bold"
+      >{activityDateFormatted} at {activityTimeFormatted}</span
+    > ({activityDate})
+  </p>
   {
     hasGpsData ? (
       <ActivityMap activities={[activity]} />

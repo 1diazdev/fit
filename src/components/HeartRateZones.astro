@@ -164,7 +164,9 @@ function getBarColor(zone: string): string {
                         </div>
                         <div class="flex justify-between">
                           <span class="text-blue-400">Min:</span>
-                          <span class="text-green-400">{Math.round(data.min)} BPM</span>
+                          <span class="text-green-400">
+                            {Math.round(data.min)} BPM
+                          </span>
                         </div>
                         {data.resting > 0 && (
                           <div class="border-t border-green-500/30 pt-1 mt-1">

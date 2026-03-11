@@ -419,7 +419,9 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
       {
         streaks.steps.current > 0 && (
           <div class="streak-card">
-            <span class="streak-icon"><Flame size={16} /></span>
+            <span class="streak-icon">
+              <Flame size={16} />
+            </span>
             <div class="streak-info">
               <div class="streak-value">{streaks.steps.current} days</div>
               <div class="streak-label">Step Goal Streak</div>
@@ -433,7 +435,9 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
       {
         streaks.activities.current > 0 && (
           <div class="streak-card">
-            <span class="streak-icon"><Zap size={16} /></span>
+            <span class="streak-icon">
+              <Zap size={16} />
+            </span>
             <div class="streak-info">
               <div class="streak-value">{streaks.activities.current} days</div>
               <div class="streak-label">Activity Streak</div>
@@ -447,7 +451,9 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
       {
         streaks.workouts.current > 0 && (
           <div class="streak-card">
-            <span class="streak-icon"><Dumbbell size={16} /></span>
+            <span class="streak-icon">
+              <Dumbbell size={16} />
+            </span>
             <div class="streak-info">
               <div class="streak-value">{streaks.workouts.current} days</div>
               <div class="streak-label">Workout Streak</div>

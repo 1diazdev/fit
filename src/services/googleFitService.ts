@@ -188,7 +188,10 @@ export async function refreshAccessToken(
 
   // Debug logging
   console.log("[GoogleFit] Client ID length:", clientId?.length || 0);
-  console.log("[GoogleFit] Client ID ends with:", clientId?.slice(-30) || "undefined");
+  console.log(
+    "[GoogleFit] Client ID ends with:",
+    clientId?.slice(-30) || "undefined",
+  );
   console.log("[GoogleFit] Client Secret exists:", !!clientSecret);
   console.log("[GoogleFit] Refresh Token exists:", !!refreshToken);
 

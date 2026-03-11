@@ -215,14 +215,20 @@ const heartMinutesProgress = Math.min(
       {
         dayData.heartRate ? (
           <>
-            <div class="primary-stat">{Math.round(dayData.heartRate.avg)} BPM</div>
+            <div class="primary-stat">
+              {Math.round(dayData.heartRate.avg)} BPM
+            </div>
             <div class="stat-row">
               <span class="stat-label">Min:</span>
-              <span class="stat-value">{Math.round(dayData.heartRate.min)} BPM</span>
+              <span class="stat-value">
+                {Math.round(dayData.heartRate.min)} BPM
+              </span>
             </div>
             <div class="stat-row">
               <span class="stat-label">Max:</span>
-              <span class="stat-value">{Math.round(dayData.heartRate.max)} BPM</span>
+              <span class="stat-value">
+                {Math.round(dayData.heartRate.max)} BPM
+              </span>
             </div>
             <div class="stat-row">
               <span class="stat-label">Resting:</span>

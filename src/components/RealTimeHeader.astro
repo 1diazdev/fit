@@ -106,7 +106,9 @@ try {
   {
     todaySteps > 0 && (
       <div class="metric">
-        <span class="metric-icon"><Footprints size={14} /></span>
+        <span class="metric-icon">
+          <Footprints size={14} />
+        </span>
         <span class="metric-value">{todaySteps.toLocaleString()} STEPS</span>
       </div>
     )
@@ -115,7 +117,9 @@ try {
   {
     lastActivity && (
       <div class="metric">
-        <span class="metric-icon"><Activity size={14} /></span>
+        <span class="metric-icon">
+          <Activity size={14} />
+        </span>
         <span class="metric-value">LAST: {lastActivity}</span>
       </div>
     )
@@ -124,7 +128,9 @@ try {
   {
     weeklyWorkouts > 0 && (
       <div class="metric">
-        <span class="metric-icon"><Dumbbell size={14} /></span>
+        <span class="metric-icon">
+          <Dumbbell size={14} />
+        </span>
         <span class="metric-value">{weeklyWorkouts} WORKOUTS/WK</span>
       </div>
     )
@@ -133,7 +139,9 @@ try {
   {
     currentStreak > 0 && (
       <div class="metric streak">
-        <span class="metric-icon"><Flame size={14} /></span>
+        <span class="metric-icon">
+          <Flame size={14} />
+        </span>
         <span class="metric-value">{currentStreak}-DAY STREAK</span>
       </div>
     )

@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   for (let i = 0; i < 7; i++) {
     const date = new globalThis.Date(today);
     date.setDate(date.getDate() - i);
-    const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
     paths.push({ params: { date: dateStr } });
   }
 
@@ -153,7 +153,13 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
-      {!isToday && <a href="/health" class="today-btn">[TODAY]</a>}
+      {
+        !isToday && (
+          <a href="/health" class="today-btn">
+            [TODAY]
+          </a>
+        )
+      }
     </div>
 
     <a

@@ -37,7 +37,10 @@ const currentPath = Astro.url.pathname;
     <meta name="author" content="Juan Diaz" />
     <meta name="keywords" content={keywords.join(", ")} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
+    />
     <title>{title}</title>
     <script
       async
@@ -52,7 +55,10 @@ const currentPath = Astro.url.pathname;
       gtag("config", "G-9ZZXEM92EB");
     </script>
   </head>
-  <body class="bg-black text-green-400 font-mono" style="overflow: hidden; height: 100vh;">
+  <body
+    class="bg-black text-green-400 font-mono"
+    style="overflow: hidden; height: 100vh;"
+  >
     <!-- Matrix Rain Background -->
     <div class="fixed inset-0 pointer-events-none z-0">
       <div class="matrix-rain"></div>
@@ -61,9 +67,17 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Main Terminal Container -->
-    <div id="main-scroll-container" class="p-2 sm:p-4 relative z-10" style="height: 100vh; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: rgba(0, 255, 0, 0.3) transparent;" class="custom-scrollbar">
+    <div
+      id="main-scroll-container"
+      class="p-2 sm:p-4 relative z-10"
+      style="height: 100vh; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: rgba(0, 255, 0, 0.3) transparent;"
+      class="custom-scrollbar"
+    >
       <!-- Terminal Window Frame -->
-      <div class="terminal-window max-w-7xl mx-auto" style="margin-bottom: 2rem; min-height: calc(100vh - 2rem);">
+      <div
+        class="terminal-window max-w-7xl mx-auto"
+        style="margin-bottom: 2rem; min-height: calc(100vh - 2rem);"
+      >
         <!-- Window Title Bar -->
         <div class="window-titlebar">
           <div class="window-controls">

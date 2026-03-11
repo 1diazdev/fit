@@ -20,7 +20,9 @@ const selectedDate = url.searchParams.get("date") || "";
 // Validate date or use today
 const today = new Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
-const dateToUse = /^\d{4}-\d{2}-\d{2}$/.test(selectedDate) ? selectedDate : todayStr;
+const dateToUse = /^\d{4}-\d{2}-\d{2}$/.test(selectedDate)
+  ? selectedDate
+  : todayStr;
 
 // Parse date string properly
 const [year, month, day] = dateToUse.split("-").map(Number);
@@ -257,7 +259,11 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     gap: 1rem;
     margin-bottom: 1.5rem;
     padding: 1rem;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 20, 0, 0.7) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 20, 0, 0.7) 100%
+    );
     border: 1px solid rgba(0, 255, 0, 0.3);
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);

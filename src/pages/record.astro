@@ -7,7 +7,14 @@ import { fetchActivities, type StravaActivity } from "@services/stravaService";
 import { fetchHevyData } from "@services/hevyService";
 import type { Workout as HevyWorkout } from "@services/hevyService";
 import { getPersonalRecords } from "@utils/statsUtils";
-import { Footprints, Activity, Dumbbell, Timer, Zap, TrendingUp } from "lucide-astro";
+import {
+  Footprints,
+  Activity,
+  Dumbbell,
+  Timer,
+  Zap,
+  TrendingUp,
+} from "lucide-astro";
 
 // Fetch all data for personal records
 const stepsData: StepsData = await fetchStepsData(365).catch(() => ({}));
@@ -121,7 +128,7 @@ const percentChange = (current: number, previous: number) => {
       {
         records.longestRun.distance > 0 && (
           <div class="record-card">
-            <div class="record-icon mdi mdi-run-fast"></div>
+            <div class="record-icon mdi mdi-run-fast" />
             <div class="record-content">
               <div class="record-label">LONGEST RUN</div>
               <div class="record-value">
@@ -142,7 +149,9 @@ const percentChange = (current: number, previous: number) => {
       {
         records.fastestPace.pace > 0 && (
           <div class="record-card">
-            <div class="record-icon"><Zap size={20} /></div>
+            <div class="record-icon">
+              <Zap size={20} />
+            </div>
             <div class="record-content">
               <div class="record-label">FASTEST PACE</div>
               <div class="record-value">
@@ -167,7 +176,9 @@ const percentChange = (current: number, previous: number) => {
       {
         records.mostWorkouts.count > 0 && (
           <div class="record-card">
-            <div class="record-icon"><Dumbbell size={20} /></div>
+            <div class="record-icon">
+              <Dumbbell size={20} />
+            </div>
             <div class="record-content">
               <div class="record-label">MOST WORKOUTS</div>
               <div class="record-value">
@@ -185,7 +196,9 @@ const percentChange = (current: number, previous: number) => {
       {
         records.longestWorkout.duration > 0 && (
           <div class="record-card">
-            <div class="record-icon"><Timer size={20} /></div>
+            <div class="record-icon">
+              <Timer size={20} />
+            </div>
             <div class="record-content">
               <div class="record-label">LONGEST WORKOUT</div>
               <div class="record-value">
@@ -207,7 +220,9 @@ const percentChange = (current: number, previous: number) => {
       {
         records.totalVolume.weight > 0 && (
           <div class="record-card">
-            <div class="record-icon"><TrendingUp size={20} /></div>
+            <div class="record-icon">
+              <TrendingUp size={20} />
+            </div>
             <div class="record-content">
               <div class="record-label">MAX VOLUME</div>
               <div class="record-value">

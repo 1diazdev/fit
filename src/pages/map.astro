@@ -20,7 +20,10 @@ const allActivities = await fetchActivities(1, 200);
 const totalActivities = allActivities.length;
 const totalPages = Math.ceil(totalActivities / activitiesPerPage);
 const startIndex = (currentPage - 1) * activitiesPerPage;
-const paginatedActivities = allActivities.slice(startIndex, startIndex + activitiesPerPage);
+const paginatedActivities = allActivities.slice(
+  startIndex,
+  startIndex + activitiesPerPage,
+);
 const stats = getActivityStats(allActivities);
 
 const activitiesWithGPS = allActivities.filter(

@@ -161,7 +161,6 @@ Use this mode when you want the whole dashboard to run with local test data and 
    ```
 
    This generates:
-
    - `public/strava-activities-dummy.json` - 500 Strava activities
    - `public/hevy-workouts-dummy.json` - 200 Hevy workouts
    - `public/health-data-dummy.json` - 365 days of health data

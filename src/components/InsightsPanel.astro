@@ -89,7 +89,7 @@ function parseInsight(insight: string | Insight) {
   {
     insights.length > 0 ? (
       <div class="insights-list">
-        {insights.map((insight) => {
+        {insights.map(insight => {
           const parsed = parseInsight(insight);
           const IconComponent = iconMap[parsed.iconName] || Lightbulb;
           return (
@@ -104,7 +104,9 @@ function parseInsight(insight: string | Insight) {
       </div>
     ) : (
       <div class="no-insights">
-        <span class="no-insights-icon"><Lightbulb size={48} /></span>
+        <span class="no-insights-icon">
+          <Lightbulb size={48} />
+        </span>
         <span class="no-insights-text">Start tracking to see insights!</span>
       </div>
     )
