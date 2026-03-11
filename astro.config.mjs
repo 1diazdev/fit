@@ -1,13 +1,17 @@
-import prefetch from "@astrojs/prefetch";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import compress from "astro-compress";
 import { defineConfig } from "astro/config";
 
+// Determine base path for GitHub Pages
+// Set ASTRO_BASE_PATH=/fit/ for GitHub Pages deployment
+// Leave empty for Vercel or custom domain
+const base = process.env.ASTRO_BASE_PATH || "";
+
 export default defineConfig({
   site: "https://fit.jpdiaz.dev",
-  // output: "static" is the default - Netlify Functions are separate
-  // For Vercel with API routes, you would use: output: "server"
+  base: base,
+  // output: "static" is the default - static site generation
   integrations: [
     sitemap(),
     compress({

@@ -1,253 +1,103 @@
-# Deployment Guide - Fitness Matrix
+# Deployment Guide
 
-Este proyecto está optimizado para funcionar en **Netlify** y **Vercel**. Ambas plataformas soportan:
+This app supports multiple deployment platforms. Choose based on your needs:
 
-- ✅ Builds estáticos optimizados
-- ✅ API Routes / Serverless Functions
-- ✅ Scheduled Functions (Cron Jobs)
-- ✅ Environment Variables
+## 🚀 Deployment Options
 
----
+### ✅ Vercel (Recommended - Currently Active)
 
-## 🚀 Deployment en Netlify (Actual: https://ftness.netlify.app/)
+**Pros:**
 
-### 1. Configuración Inicial
+- ✅ Fast deployments
+- ✅ Automatic previews for PRs
+- ✅ Custom domain support
+- ✅ Serverless functions (for future API routes)
+- ✅ Cron jobs for data updates
 
-El proyecto ya está configurado con `netlify.toml`. Las funciones serverless están en `netlify/functions/`.
+**Current Status:** ✅ Working
 
-### 2. Environment Variables
+**Setup:**
 
-Añade estas variables en **Netlify Dashboard → Site settings → Environment variables**:
+1. Connect your GitHub repo to Vercel
+2. Add environment variables in Vercel dashboard
+3. Deploy automatically on push to main
 
-```bash
-STRAVA_CLIENT_ID=tu_client_id
-STRAVA_CLIENT_SECRET=tu_client_secret
-STRAVA_REFRESH_TOKEN=tu_refresh_token
-HEVY_API_KEY=tu_hevy_api_key
-GOOGLE_FIT_CLIENT_ID=tu_google_fit_client_id
-GOOGLE_FIT_CLIENT_SECRET=tu_google_fit_client_secret
-GOOGLE_FIT_REDIRECT_URI=http://localhost:3000/callback
-GOOGLE_FIT_REFRESH_TOKEN=tu_google_fit_refresh_token
-```
+**Cron Jobs** (configured in `vercel.json`):
 
-### 3. Scheduled Functions
+- Strava data: Daily at 6:00 AM UTC
+- Hevy data: Daily at 6:15 AM UTC
+- Google Fit data: Daily at 6:30 AM UTC
 
-Netlify ejecutará automáticamente estas funciones diariamente:
-
-- **6:00 AM UTC**: `update-strava` - Actualiza datos de Strava
-- **6:15 AM UTC**: `update-hevy` - Actualiza workouts de Hevy
-- **6:30 AM UTC**: `update-googlefit` - Actualiza datos de salud desde Google Fit
-
-### 4. Build Settings
-
-```toml
-Build command: bun run build
-Publish directory: dist
-Functions directory: netlify/functions
-Node version: 18.17.1
-```
-
-### 5. Testing Functions Locally
+**Environment Variables:**
 
 ```bash
-# Instalar Netlify CLI
-npm install -g netlify-cli
-
-# Correr funciones localmente
-netlify dev
-
-# Test manual de función
-curl http://localhost:8888/.netlify/functions/update-strava
+STRAVA_CLIENT_ID
+STRAVA_CLIENT_SECRET
+STRAVA_REFRESH_TOKEN
+GOOGLE_FIT_CLIENT_ID
+GOOGLE_FIT_CLIENT_SECRET
+GOOGLE_FIT_REFRESH_TOKEN
+HEVY_API_KEY
 ```
 
-### 6. Manual Trigger (desde Netlify Dashboard)
+### ✅ GitHub Pages
 
-Puedes ejecutar manualmente las funciones desde:
+**Pros:**
 
-- **Functions → [función] → Trigger function**
+- ✅ Free for public repos
+- ✅ Simple setup
+- ✅ Good for static sites
 
-O vía API:
+**Cons:**
+
+- ⚠️ Uses `/fit/` base path (repo name)
+- ⚠️ No serverless functions
+- ⚠️ Must rely on GitHub Actions for data updates
+
+**Current Status:** ✅ Configured (base path support added)
+
+**Setup:**
+
+1. Enable GitHub Pages in repo settings
+2. Choose "GitHub Actions" as source
+3. Workflow `.github/workflows/deploy-github-pages.yml` handles deployment
+
+**URL:** `https://JuanPabloDiaz.github.io/fit/`
+
+**Note:** The app automatically handles the `/fit/` base path when `ASTRO_BASE_PATH=/fit/` is set.
+
+### ⏸️ Netlify (Disabled)
+
+**Status:** ⏸️ Disabled (config renamed to `netlify.toml.disabled`)
+
+**Why disabled:**
+
+- Currently using Vercel and GitHub Pages
+- Netlify Functions need updates to work properly
+- Can be re-enabled later if needed
+
+**To re-enable:**
+
+1. Rename `netlify.toml.disabled` to `netlify.toml`
+2. Update Netlify Functions in `netlify/functions/`
+3. Configure environment variables in Netlify dashboard
+
+## 🔧 How Base Path Works
+
+The app uses `import.meta.env.BASE_URL` for dynamic routing.
+
+## 📦 Build Configuration
+
+### For Vercel (no base path)
 
 ```bash
-curl https://ftness.netlify.app/.netlify/functions/update-strava
+bun run build
 ```
 
----
-
-## 🔷 Deployment en Vercel (Alternativa)
-
-### 1. Configuración Inicial
-
-El proyecto incluye `vercel.json` para configuración automática.
-
-### 2. Import Project
+### For GitHub Pages (with base path)
 
 ```bash
-# Opción 1: CLI
-vercel
-
-# Opción 2: Dashboard
-# 1. Ir a vercel.com/new
-# 2. Import tu repositorio de GitHub
-# 3. Vercel detectará Astro automáticamente
+ASTRO_BASE_PATH=/fit/ bun run build
 ```
 
-### 3. Environment Variables
-
-Añade en **Vercel Dashboard → Settings → Environment Variables**:
-
-```bash
-STRAVA_CLIENT_ID=tu_client_id
-STRAVA_CLIENT_SECRET=tu_client_secret
-STRAVA_REFRESH_TOKEN=tu_refresh_token
-HEVY_API_KEY=tu_hevy_api_key
-GOOGLE_FIT_CLIENT_ID=tu_google_fit_client_id
-GOOGLE_FIT_CLIENT_SECRET=tu_google_fit_client_secret
-GOOGLE_FIT_REDIRECT_URI=http://localhost:3000/callback
-GOOGLE_FIT_REFRESH_TOKEN=tu_google_fit_refresh_token
-CRON_SECRET=genera_un_secret_aleatorio
-```
-
-**Generar CRON_SECRET:**
-
-```bash
-openssl rand -base64 32
-```
-
-### 4. Cron Jobs Configuration
-
-Los cron jobs están configurados en `vercel.json`:
-
-```json
-{
-  "crons": [
-    {
-      "path": "/api/update-strava",
-      "schedule": "0 6 * * *"
-    }
-  ]
-}
-```
-
-⚠️ **Nota**: Vercel Cron Jobs requieren un plan **Pro** o superior.
-
-### 5. Build Settings
-
-Vercel detecta automáticamente:
-
-- **Framework**: Astro
-- **Build Command**: `bun run build`
-- **Output Directory**: `dist`
-
-### 6. Testing API Routes Locally
-
-```bash
-# Development mode
-bun dev
-
-# Test API route
-curl http://localhost:4321/api/update-strava \
-  -H "Authorization: Bearer $CRON_SECRET"
-```
-
----
-
-## 📊 Comparación: Netlify vs Vercel
-
-| Feature                  | Netlify (Actual)            | Vercel                     |
-| ------------------------ | --------------------------- | -------------------------- |
-| **Cron Jobs Gratis**     | ✅ Sí (Scheduled Functions) | ❌ No (requiere Pro)       |
-| **Build Time**           | ~2-3 min                    | ~1-2 min                   |
-| **Serverless Functions** | ✅ Ilimitadas (Free tier)   | ✅ 100 GB-hours/mes (Free) |
-| **Edge Network**         | ✅ Global CDN               | ✅ Global Edge Network     |
-| **Logs**                 | ✅ Function logs            | ✅ Detailed logs           |
-| **Deploy Previews**      | ✅ Automático               | ✅ Automático              |
-
-**Recomendación**: Usar **Netlify** para este proyecto por el soporte gratuito de Scheduled Functions.
-
----
-
-## 🔧 Switching Between Platforms
-
-### De Netlify a Vercel:
-
-1. Deploy a Vercel siguiendo los pasos arriba
-2. Actualizar DNS o dominio custom
-3. Mantener Netlify como backup
-
-### De Vercel a Netlify:
-
-1. Ya configurado en `netlify.toml`
-2. Push a GitHub
-3. Netlify auto-deploys
-
----
-
-## 📝 Notes
-
-### Netlify Specific:
-
-- Las funciones serverless se ejecutan desde `netlify/functions/`
-- Los archivos JSON se escriben en `dist/` (directorio de build)
-- Scheduled Functions no requieren autenticación especial
-
-### Vercel Specific:
-
-- API routes están en `src/pages/api/`
-- Requiere `CRON_SECRET` para seguridad
-- Cron jobs verifican el header `Authorization: Bearer $CRON_SECRET`
-
-### Ambas Plataformas:
-
-- Auto-deploys en cada push a `main`
-- Support para PR previews
-- Environment variables separadas por entorno (Production/Preview)
-
----
-
-## 🐛 Troubleshooting
-
-### Netlify Functions no ejecutan:
-
-```bash
-# Verificar logs
-netlify functions:log update-strava
-
-# Verificar deployment
-netlify status
-```
-
-### Vercel API routes 500 error:
-
-```bash
-# Check logs
-vercel logs
-
-# Verificar environment variables
-vercel env ls
-```
-
-### Datos no actualizan:
-
-1. Verificar que las API keys sean válidas
-2. Check function logs para errores
-3. Verificar que el archivo JSON existe en `dist/` o `public/`
-
----
-
-## 🔐 Security Best Practices
-
-1. **Nunca** commits API keys al código
-2. Usa environment variables en ambas plataformas
-3. Para Vercel, usa `CRON_SECRET` para proteger endpoints
-4. Rota tokens periódicamente
-5. Monitor function logs para intentos no autorizados
-
----
-
-## 📚 Resources
-
-- [Netlify Functions Docs](https://docs.netlify.com/functions/overview/)
-- [Netlify Scheduled Functions](https://docs.netlify.com/functions/scheduled-functions/)
-- [Vercel Cron Jobs](https://vercel.com/docs/cron-jobs)
-- [Astro Deployment](https://docs.astro.build/en/guides/deploy/)
+See full documentation for more details.

@@ -7,8 +7,8 @@ export async function getStaticPaths() {
   const paths: Array<{ params: { date: string } }> = [];
   const today = new globalThis.Date();
 
-  // Generate paths for last 7 days
-  for (let i = 0; i < 7; i++) {
+  // Generate paths for last 90 days
+  for (let i = 0; i < 90; i++) {
     const date = new globalThis.Date(today);
     date.setDate(date.getDate() - i);
     const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
@@ -170,7 +170,7 @@ const moveMinutesData =
 const heartRateData =
   testMode && testSnapshot
     ? testSnapshot.heartRateData
-    : await fetchHeartRateData(7).catch(() => ({}));
+    : await fetchHeartRateData(90).catch(() => ({}));
 
 // Fetch Hevy workout count
 let workoutCount = 0;
