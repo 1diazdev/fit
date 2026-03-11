@@ -1,8 +1,9 @@
 /**
- * Data Aggregation Service
+ * Data Aggregation Service - OPTIMIZED VERSION
  *
  * Centralized service to aggregate all health and fitness data for any date.
- * Combines data from Strava, Hevy, and Google Fit APIs.
+ * READS FROM PRE-GENERATED JSON FILES for fast builds (no API calls!)
+ * Only falls back to API calls if JSONs don't exist.
  */
 
 import { memoize } from "@/lib/dataCache";
@@ -131,12 +132,114 @@ export interface TestModeSnapshot {
 // ============================================================================
 
 /**
+ * Load all data from pre-generated JSON files
+ * This is MUCH faster than calling APIs and prevents rate limits
+ * Returns null if JSONs don't exist (will fallback to API)
+ */
+async function loadDataFromJSON() {
+  const cwd = process.cwd();
+
+  try {
+    console.log("[DataAggregation] Loading from JSON files...");
+
+    // Load health data (Google Fit)
+    const healthPath = resolve(cwd, "public", "health-data.json");
+    const healthRaw = await readFile(healthPath, "utf-8");
+    const healthData = JSON.parse(healthRaw);
+
+    // Load Hevy data
+    let hevyWorkouts: HevyWorkout[] = [];
+    try {
+      const hevyPath = resolve(cwd, "public", "hevy-data.json");
+      const hevyRaw = await readFile(hevyPath, "utf-8");
+      const hevyData = JSON.parse(hevyRaw);
+      hevyWorkouts = hevyData.workouts || [];
+    } catch (error) {
+      console.warn("[DataAggregation] hevy-data.json not found, using empty array");
+    }
+
+    // Note: Strava script only saves distance data, not individual activities
+    // Activities would need to be fetched from API if needed
+    // For now, we'll use empty array for activities when loading from JSON
+    const stravaActivities: StravaActivity[] = [];
+
+    console.log("[DataAggregation] ✅ Loaded from JSON (fast!)");
+
+    return {
+      health: healthData,
+      hevy: hevyWorkouts,
+      strava: stravaActivities,
+      fromJSON: true,
+    };
+  } catch (error) {
+    console.warn("[DataAggregation] Could not load from JSON:", error);
+    return null;
+  }
+}
+
+/**
  * Get all data for a specific date
+ * OPTIMIZED: Reads from JSON files first, only calls APIs as fallback
  */
 export async function getDataForDate(date: string): Promise<DayData> {
   return memoize(`day-data-${date}`, async () => {
     console.log(`[DataAggregation] Fetching data for ${date}...`);
 
+    // PRIORITY 1: Load from JSON files (fast!)
+    const jsonData = await loadDataFromJSON();
+    if (jsonData?.fromJSON) {
+      console.log(`[DataAggregation] ✅ Using JSON data (fast build!)`);
+
+      const stepsData = jsonData.health.steps || {};
+      const sleepData = jsonData.health.sleep || {};
+      const hrData = jsonData.health.heartRate || {};
+      const moveData = jsonData.health.moveMinutes || {};
+      const hrZones = jsonData.health.heartRateZones || {};
+
+      // Extract data for specific date
+      const rawSteps = stepsData[date] || { steps: 0, distance: 0, calories: 0 };
+      const daySleep = sleepData[date] || null;
+      const dayHR = hrData[date] || null;
+      const dayMove = moveData[date] || { activeMinutes: 0, heartMinutes: 0 };
+      const dayHRZones = hrZones[date] || null;
+
+      // Filter activities for this date
+      const dayActivities = jsonData.strava.filter((activity: StravaActivity) => {
+        const activityDate = new Date(activity.start_date);
+        const nyDate = new Date(
+          activityDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
+        );
+        const activityDateStr = formatDate(nyDate);
+        return activityDateStr === date;
+      });
+
+      // Filter workouts for this date
+      const dayWorkouts = jsonData.hevy.filter((workout: HevyWorkout) => {
+        const workoutDate = new Date(workout.start_time);
+        const nyDate = new Date(
+          workoutDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
+        );
+        const workoutDateStr = formatDate(nyDate);
+        return workoutDateStr === date;
+      });
+
+      return {
+        date,
+        steps: {
+          count: rawSteps.steps,
+          distance: rawSteps.distance,
+          calories: rawSteps.calories,
+        },
+        activities: dayActivities,
+        workouts: dayWorkouts,
+        sleep: daySleep,
+        heartRate: dayHR,
+        moveMinutes: dayMove,
+        heartRateZones: dayHRZones,
+      };
+    }
+
+    // PRIORITY 2: Dummy data (for testing)
     const dummyData = await loadDummyHealthData();
     if (dummyData) {
       const rawSteps = dummyData.steps?.[date] || {
@@ -184,6 +287,9 @@ export async function getDataForDate(date: string): Promise<DayData> {
         heartRateZones: null,
       };
     }
+
+    // PRIORITY 3: API calls (slowest, only as fallback)
+    console.log(`[DataAggregation] ⚠️ JSONs not found, calling APIs (slow build)...`);
 
     // Calculate how many days back from today
     const targetDate = new Date(date);
