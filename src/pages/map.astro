@@ -4,7 +4,8 @@ import { PAGE_METADATA } from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
 import ActivityFilters from "@components/ActivityFilters.astro";
 import ActivityCard from "@components/ActivityCard.astro";
-import { fetchActivities, getActivityStats } from "@services/stravaService";
+import { getActivityStats } from "@services/stravaService";
+import { loadAllDataFromJSON } from "@lib/jsonLoader";
 
 const activitiesPerPage = 6;
 const pageParam = Astro.url.searchParams.get("page");
@@ -16,7 +17,9 @@ if (pageParam) {
   }
 }
 
-const allActivities = await fetchActivities(1, 200);
+// Load activities from JSON to avoid API calls
+const jsonData = await loadAllDataFromJSON();
+const allActivities = jsonData?.strava.activities || [];
 const totalActivities = allActivities.length;
 const totalPages = Math.ceil(totalActivities / activitiesPerPage);
 const startIndex = (currentPage - 1) * activitiesPerPage;

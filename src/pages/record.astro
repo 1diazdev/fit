@@ -2,11 +2,11 @@
 import Base from "@layouts/Base.astro";
 import { PAGE_METADATA } from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
-import { fetchStepsData, type StepsData } from "@services/googleFitService";
-import { fetchActivities, type StravaActivity } from "@services/stravaService";
-import { fetchHevyData } from "@services/hevyService";
+import { type StepsData } from "@services/googleFitService";
+import { type StravaActivity } from "@services/stravaService";
 import type { Workout as HevyWorkout } from "@services/hevyService";
 import { getPersonalRecords } from "@utils/statsUtils";
+import { loadAllDataFromJSON } from "@lib/jsonLoader";
 import {
   Footprints,
   Activity,
@@ -16,12 +16,11 @@ import {
   TrendingUp,
 } from "lucide-astro";
 
-// Fetch all data for personal records
-const stepsData: StepsData = await fetchStepsData(365).catch(() => ({}));
-const allActivities: StravaActivity[] = await fetchActivities(1, 200).catch(
-  () => [],
-);
-const allWorkouts: HevyWorkout[] = await fetchHevyData().catch(() => []);
+// Fetch all data for personal records - use JSON loader to avoid API calls
+const jsonData = await loadAllDataFromJSON();
+const stepsData: StepsData = jsonData?.health.steps || {};
+const allActivities: StravaActivity[] = jsonData?.strava.activities || [];
+const allWorkouts: HevyWorkout[] = jsonData?.hevy.workouts || [];
 
 // Get personal records
 const records = getPersonalRecords(stepsData, allActivities, allWorkouts);

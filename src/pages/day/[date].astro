@@ -40,15 +40,10 @@ import {
 import {
   fetchDistanceData,
   processDistanceData,
-  fetchActivities,
 } from "@services/stravaService";
-import {
-  fetchStepsData,
-  fetchHeartRateData,
-  fetchMoveMinutesData,
-} from "@services/googleFitService";
 import { generateInsights, getPersonalRecords } from "@utils/statsUtils";
-import { fetchHevyData, fetchWorkoutCount } from "@services/hevyService";
+import { fetchWorkoutCount } from "@services/hevyService";
+import { loadAllDataFromJSON } from "@lib/jsonLoader";
 import { Flame, Zap, Dumbbell } from "lucide-astro";
 
 // Get date from path parameter
@@ -98,14 +93,27 @@ const testMode = isTestDataMode();
 const testSnapshot = testMode ? await getTestModeSnapshot() : null;
 
 // Fetch data for insights generation
-const [stepsData, allActivities, allWorkouts] =
-  testMode && testSnapshot
-    ? [testSnapshot.stepsData, testSnapshot.activities, testSnapshot.workouts]
-    : await Promise.all([
-        fetchStepsData(365).catch(() => ({})),
-        fetchActivities(1, 200).catch(() => []),
-        fetchHevyData().catch(() => []),
-      ]);
+// CRITICAL: Use JSON loader to avoid API calls during build (90 pages × 3 APIs = 270 calls!)
+let stepsData = {};
+let allActivities: any[] = [];
+let allWorkouts: any[] = [];
+
+if (testMode && testSnapshot) {
+  stepsData = testSnapshot.stepsData;
+  allActivities = testSnapshot.activities;
+  allWorkouts = testSnapshot.workouts;
+} else {
+  // Load from pre-generated JSON files (no API calls!)
+  const jsonData = await loadAllDataFromJSON();
+  if (jsonData) {
+    stepsData = jsonData.health.steps || {};
+    allActivities = jsonData.strava.activities || [];
+    allWorkouts = jsonData.hevy.workouts || [];
+    console.log(`[day/[date]] ✅ Loaded data from JSON (no API calls)`);
+  } else {
+    console.warn(`[day/[date]] ⚠️ JSON files not found, using empty data`);
+  }
+}
 
 const personalRecords = getPersonalRecords(
   stepsData,
@@ -160,28 +168,29 @@ const minDistance =
 const maxDistance =
   positiveDistances.length > 0 ? Math.max(...positiveDistances) : 1;
 
-// Fetch move minutes for chart
-const moveMinutesData =
-  testMode && testSnapshot
-    ? testSnapshot.moveMinutesData
-    : await fetchMoveMinutesData(30).catch(() => ({}));
+// Fetch move minutes and heart rate from JSON (no API calls!)
+let moveMinutesData = {};
+let heartRateData = {};
 
-// Fetch heart rate data
-const heartRateData =
-  testMode && testSnapshot
-    ? testSnapshot.heartRateData
-    : await fetchHeartRateData(90).catch(() => ({}));
+if (testMode && testSnapshot) {
+  moveMinutesData = testSnapshot.moveMinutesData;
+  heartRateData = testSnapshot.heartRateData;
+} else {
+  const healthJson = await loadAllDataFromJSON();
+  if (healthJson) {
+    moveMinutesData = healthJson.health.moveMinutes || {};
+    heartRateData = healthJson.health.heartRate || {};
+  }
+}
 
-// Fetch Hevy workout count
+// Get Hevy workout count from JSON (no API call!)
 let workoutCount = 0;
 if (testMode && testSnapshot) {
   workoutCount = testSnapshot.workoutCount;
 } else {
-  try {
-    workoutCount = await fetchWorkoutCount();
-  } catch (error) {
-    console.error("Error fetching workout count:", error);
-    workoutCount = 0;
+  const hevyJson = await loadAllDataFromJSON();
+  if (hevyJson && hevyJson.hevy.workouts) {
+    workoutCount = hevyJson.hevy.workouts.length;
   }
 }
 
