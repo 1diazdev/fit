@@ -1,234 +1,3016 @@
 {
   "steps": {
-    "2026-02-15": {
-      "steps": 8543,
-      "distance": 6.2,
-      "calories": 320
+    "2025-02-24": {
+      "steps": 10885,
+      "distance": 7500,
+      "calories": 158
     },
-    "2026-02-16": {
-      "steps": 10234,
-      "distance": 7.8,
-      "calories": 410
+    "2025-02-25": {
+      "steps": 18408,
+      "distance": 5300,
+      "calories": 188
     },
-    "2026-02-17": {
-      "steps": 6789,
-      "distance": 5.1,
-      "calories": 280
+    "2025-02-26": {
+      "steps": 12016,
+      "distance": 4700,
+      "calories": 437
     },
-    "2026-02-18": {
-      "steps": 12456,
-      "distance": 9.3,
-      "calories": 485
+    "2025-02-27": {
+      "steps": 5625,
+      "distance": 8400,
+      "calories": 259
     },
-    "2026-02-19": {
-      "steps": 9876,
-      "distance": 7.2,
-      "calories": 390
+    "2025-02-28": {
+      "steps": 5069,
+      "distance": 12400,
+      "calories": 525
     },
-    "2026-02-20": {
-      "steps": 11234,
-      "distance": 8.5,
+    "2025-03-01": {
+      "steps": 7583,
+      "distance": 5200,
+      "calories": 254
+    },
+    "2025-03-02": {
+      "steps": 12495,
+      "distance": 10600,
+      "calories": 404
+    },
+    "2025-03-03": {
+      "steps": 19957,
+      "distance": 11300,
+      "calories": 381
+    },
+    "2025-03-04": {
+      "steps": 15014,
+      "distance": 12600,
+      "calories": 337
+    },
+    "2025-03-05": {
+      "steps": 14171,
+      "distance": 4200,
+      "calories": 310
+    },
+    "2025-03-06": {
+      "steps": 3583,
+      "distance": 6200,
+      "calories": 256
+    },
+    "2025-03-07": {
+      "steps": 18824,
+      "distance": 7700,
+      "calories": 388
+    },
+    "2025-03-08": {
+      "steps": 8414,
+      "distance": 10100,
+      "calories": 336
+    },
+    "2025-03-09": {
+      "steps": 16599,
+      "distance": 2100,
+      "calories": 561
+    },
+    "2025-03-10": {
+      "steps": 5944,
+      "distance": 6700,
+      "calories": 370
+    },
+    "2025-03-11": {
+      "steps": 11754,
+      "distance": 5300,
+      "calories": 478
+    },
+    "2025-03-12": {
+      "steps": 17606,
+      "distance": 13500,
+      "calories": 316
+    },
+    "2025-03-13": {
+      "steps": 17348,
+      "distance": 5100,
+      "calories": 224
+    },
+    "2025-03-14": {
+      "steps": 18362,
+      "distance": 7100,
+      "calories": 153
+    },
+    "2025-03-15": {
+      "steps": 7563,
+      "distance": 11900,
+      "calories": 459
+    },
+    "2025-03-16": {
+      "steps": 16570,
+      "distance": 10000,
+      "calories": 214
+    },
+    "2025-03-17": {
+      "steps": 17723,
+      "distance": 5200,
+      "calories": 590
+    },
+    "2025-03-18": {
+      "steps": 18432,
+      "distance": 3900,
+      "calories": 553
+    },
+    "2025-03-19": {
+      "steps": 4153,
+      "distance": 13000,
+      "calories": 578
+    },
+    "2025-03-20": {
+      "steps": 4395,
+      "distance": 5700,
+      "calories": 323
+    },
+    "2025-03-21": {
+      "steps": 7094,
+      "distance": 3200,
+      "calories": 256
+    },
+    "2025-03-22": {
+      "steps": 6182,
+      "distance": 6200,
+      "calories": 418
+    },
+    "2025-03-23": {
+      "steps": 11496,
+      "distance": 5800,
+      "calories": 503
+    },
+    "2025-03-24": {
+      "steps": 11406,
+      "distance": 13700,
+      "calories": 490
+    },
+    "2025-03-25": {
+      "steps": 17091,
+      "distance": 5900,
+      "calories": 441
+    },
+    "2025-03-26": {
+      "steps": 3963,
+      "distance": 2900,
+      "calories": 158
+    },
+    "2025-03-27": {
+      "steps": 18083,
+      "distance": 2300,
+      "calories": 490
+    },
+    "2025-03-28": {
+      "steps": 17577,
+      "distance": 15000,
+      "calories": 480
+    },
+    "2025-03-29": {
+      "steps": 5977,
+      "distance": 5200,
+      "calories": 356
+    },
+    "2025-03-30": {
+      "steps": 7227,
+      "distance": 11200,
       "calories": 445
     },
-    "2026-02-21": {
-      "steps": 13567,
-      "distance": 10.2,
-      "calories": 520
+    "2025-03-31": {
+      "steps": 10042,
+      "distance": 4900,
+      "calories": 428
     },
-    "2026-02-22": {
-      "steps": 7890,
-      "distance": 5.9,
+    "2025-04-01": {
+      "steps": 7950,
+      "distance": 6700,
+      "calories": 268
+    },
+    "2025-04-02": {
+      "steps": 14165,
+      "distance": 4200,
+      "calories": 494
+    },
+    "2025-04-03": {
+      "steps": 13568,
+      "distance": 6900,
+      "calories": 595
+    },
+    "2025-04-04": {
+      "steps": 13659,
+      "distance": 14800,
+      "calories": 166
+    },
+    "2025-04-05": {
+      "steps": 8707,
+      "distance": 3800,
+      "calories": 171
+    },
+    "2025-04-06": {
+      "steps": 11539,
+      "distance": 4100,
+      "calories": 290
+    },
+    "2025-04-07": {
+      "steps": 10637,
+      "distance": 9700,
+      "calories": 217
+    },
+    "2025-04-08": {
+      "steps": 14570,
+      "distance": 7600,
+      "calories": 372
+    },
+    "2025-04-09": {
+      "steps": 17227,
+      "distance": 6000,
+      "calories": 339
+    },
+    "2025-04-10": {
+      "steps": 11310,
+      "distance": 10300,
+      "calories": 481
+    },
+    "2025-04-11": {
+      "steps": 13455,
+      "distance": 12500,
+      "calories": 270
+    },
+    "2025-04-12": {
+      "steps": 16511,
+      "distance": 7800,
+      "calories": 583
+    },
+    "2025-04-13": {
+      "steps": 13394,
+      "distance": 13200,
+      "calories": 242
+    },
+    "2025-04-14": {
+      "steps": 16658,
+      "distance": 9900,
+      "calories": 392
+    },
+    "2025-04-15": {
+      "steps": 15432,
+      "distance": 11000,
+      "calories": 287
+    },
+    "2025-04-16": {
+      "steps": 3348,
+      "distance": 11400,
+      "calories": 541
+    },
+    "2025-04-17": {
+      "steps": 4576,
+      "distance": 6000,
+      "calories": 592
+    },
+    "2025-04-18": {
+      "steps": 18404,
+      "distance": 9400,
+      "calories": 524
+    },
+    "2025-04-19": {
+      "steps": 5082,
+      "distance": 3700,
+      "calories": 374
+    },
+    "2025-04-20": {
+      "steps": 4203,
+      "distance": 6500,
+      "calories": 458
+    },
+    "2025-04-21": {
+      "steps": 11939,
+      "distance": 13900,
+      "calories": 494
+    },
+    "2025-04-22": {
+      "steps": 5398,
+      "distance": 10600,
+      "calories": 235
+    },
+    "2025-04-23": {
+      "steps": 3128,
+      "distance": 13800,
+      "calories": 420
+    },
+    "2025-04-24": {
+      "steps": 16830,
+      "distance": 5300,
+      "calories": 261
+    },
+    "2025-04-25": {
+      "steps": 14206,
+      "distance": 8200,
+      "calories": 282
+    },
+    "2025-04-26": {
+      "steps": 18621,
+      "distance": 3800,
+      "calories": 579
+    },
+    "2025-04-27": {
+      "steps": 10780,
+      "distance": 11700,
+      "calories": 550
+    },
+    "2025-04-28": {
+      "steps": 3583,
+      "distance": 13300,
+      "calories": 458
+    },
+    "2025-04-29": {
+      "steps": 19336,
+      "distance": 14300,
+      "calories": 369
+    },
+    "2025-04-30": {
+      "steps": 12400,
+      "distance": 5700,
+      "calories": 572
+    },
+    "2025-05-01": {
+      "steps": 5531,
+      "distance": 8500,
+      "calories": 501
+    },
+    "2025-05-02": {
+      "steps": 19530,
+      "distance": 9100,
+      "calories": 369
+    },
+    "2025-05-03": {
+      "steps": 18100,
+      "distance": 2300,
+      "calories": 225
+    },
+    "2025-05-04": {
+      "steps": 16961,
+      "distance": 8800,
+      "calories": 566
+    },
+    "2025-05-05": {
+      "steps": 6737,
+      "distance": 8800,
+      "calories": 300
+    },
+    "2025-05-06": {
+      "steps": 19828,
+      "distance": 5000,
+      "calories": 428
+    },
+    "2025-05-07": {
+      "steps": 6196,
+      "distance": 12400,
+      "calories": 341
+    },
+    "2025-05-08": {
+      "steps": 5770,
+      "distance": 12100,
+      "calories": 555
+    },
+    "2025-05-09": {
+      "steps": 3345,
+      "distance": 11300,
+      "calories": 300
+    },
+    "2025-05-10": {
+      "steps": 13016,
+      "distance": 4900,
+      "calories": 354
+    },
+    "2025-05-11": {
+      "steps": 8023,
+      "distance": 7800,
+      "calories": 576
+    },
+    "2025-05-12": {
+      "steps": 13747,
+      "distance": 8600,
+      "calories": 192
+    },
+    "2025-05-13": {
+      "steps": 14774,
+      "distance": 8500,
+      "calories": 301
+    },
+    "2025-05-14": {
+      "steps": 10273,
+      "distance": 11400,
+      "calories": 208
+    },
+    "2025-05-15": {
+      "steps": 12231,
+      "distance": 3800,
+      "calories": 442
+    },
+    "2025-05-16": {
+      "steps": 17154,
+      "distance": 9400,
+      "calories": 210
+    },
+    "2025-05-17": {
+      "steps": 19105,
+      "distance": 8000,
+      "calories": 349
+    },
+    "2025-05-18": {
+      "steps": 11983,
+      "distance": 9600,
+      "calories": 174
+    },
+    "2025-05-19": {
+      "steps": 18891,
+      "distance": 13500,
+      "calories": 384
+    },
+    "2025-05-20": {
+      "steps": 9739,
+      "distance": 5900,
+      "calories": 250
+    },
+    "2025-05-21": {
+      "steps": 18038,
+      "distance": 14200,
+      "calories": 420
+    },
+    "2025-05-22": {
+      "steps": 8290,
+      "distance": 2500,
+      "calories": 267
+    },
+    "2025-05-23": {
+      "steps": 3340,
+      "distance": 6000,
+      "calories": 186
+    },
+    "2025-05-24": {
+      "steps": 18115,
+      "distance": 8500,
+      "calories": 222
+    },
+    "2025-05-25": {
+      "steps": 11445,
+      "distance": 14200,
+      "calories": 358
+    },
+    "2025-05-26": {
+      "steps": 18429,
+      "distance": 12000,
+      "calories": 232
+    },
+    "2025-05-27": {
+      "steps": 12514,
+      "distance": 5700,
+      "calories": 366
+    },
+    "2025-05-28": {
+      "steps": 18037,
+      "distance": 12900,
+      "calories": 265
+    },
+    "2025-05-29": {
+      "steps": 14250,
+      "distance": 8700,
       "calories": 310
-    }
-  },
-  "heartRate": {
+    },
+    "2025-05-30": {
+      "steps": 16361,
+      "distance": 2200,
+      "calories": 228
+    },
+    "2025-05-31": {
+      "steps": 8711,
+      "distance": 7900,
+      "calories": 180
+    },
+    "2025-06-01": {
+      "steps": 18274,
+      "distance": 8400,
+      "calories": 593
+    },
+    "2025-06-02": {
+      "steps": 10455,
+      "distance": 14000,
+      "calories": 530
+    },
+    "2025-06-03": {
+      "steps": 19018,
+      "distance": 12100,
+      "calories": 500
+    },
+    "2025-06-04": {
+      "steps": 17332,
+      "distance": 13200,
+      "calories": 510
+    },
+    "2025-06-05": {
+      "steps": 9850,
+      "distance": 7400,
+      "calories": 586
+    },
+    "2025-06-06": {
+      "steps": 12724,
+      "distance": 10100,
+      "calories": 354
+    },
+    "2025-06-07": {
+      "steps": 14205,
+      "distance": 12700,
+      "calories": 413
+    },
+    "2025-06-08": {
+      "steps": 4908,
+      "distance": 13300,
+      "calories": 472
+    },
+    "2025-06-09": {
+      "steps": 18431,
+      "distance": 3000,
+      "calories": 588
+    },
+    "2025-06-10": {
+      "steps": 5121,
+      "distance": 13600,
+      "calories": 359
+    },
+    "2025-06-11": {
+      "steps": 16572,
+      "distance": 4600,
+      "calories": 593
+    },
+    "2025-06-12": {
+      "steps": 4363,
+      "distance": 10900,
+      "calories": 200
+    },
+    "2025-06-13": {
+      "steps": 4166,
+      "distance": 5200,
+      "calories": 537
+    },
+    "2025-06-14": {
+      "steps": 13578,
+      "distance": 11100,
+      "calories": 326
+    },
+    "2025-06-15": {
+      "steps": 9345,
+      "distance": 5700,
+      "calories": 213
+    },
+    "2025-06-16": {
+      "steps": 13886,
+      "distance": 8500,
+      "calories": 358
+    },
+    "2025-06-17": {
+      "steps": 3208,
+      "distance": 7100,
+      "calories": 384
+    },
+    "2025-06-18": {
+      "steps": 11850,
+      "distance": 3100,
+      "calories": 224
+    },
+    "2025-06-19": {
+      "steps": 19833,
+      "distance": 6400,
+      "calories": 547
+    },
+    "2025-06-20": {
+      "steps": 10275,
+      "distance": 12800,
+      "calories": 359
+    },
+    "2025-06-21": {
+      "steps": 15578,
+      "distance": 9200,
+      "calories": 187
+    },
+    "2025-06-22": {
+      "steps": 6866,
+      "distance": 11400,
+      "calories": 342
+    },
+    "2025-06-23": {
+      "steps": 9250,
+      "distance": 13700,
+      "calories": 388
+    },
+    "2025-06-24": {
+      "steps": 3454,
+      "distance": 11600,
+      "calories": 546
+    },
+    "2025-06-25": {
+      "steps": 16611,
+      "distance": 7200,
+      "calories": 158
+    },
+    "2025-06-26": {
+      "steps": 3386,
+      "distance": 2100,
+      "calories": 230
+    },
+    "2025-06-27": {
+      "steps": 18372,
+      "distance": 12400,
+      "calories": 335
+    },
+    "2025-06-28": {
+      "steps": 17011,
+      "distance": 3200,
+      "calories": 378
+    },
+    "2025-06-29": {
+      "steps": 13325,
+      "distance": 5000,
+      "calories": 441
+    },
+    "2025-06-30": {
+      "steps": 3700,
+      "distance": 2300,
+      "calories": 469
+    },
+    "2025-07-01": {
+      "steps": 5696,
+      "distance": 10800,
+      "calories": 502
+    },
+    "2025-07-02": {
+      "steps": 9420,
+      "distance": 7700,
+      "calories": 294
+    },
+    "2025-07-03": {
+      "steps": 17606,
+      "distance": 7700,
+      "calories": 552
+    },
+    "2025-07-04": {
+      "steps": 18898,
+      "distance": 5900,
+      "calories": 329
+    },
+    "2025-07-05": {
+      "steps": 19264,
+      "distance": 5800,
+      "calories": 533
+    },
+    "2025-07-06": {
+      "steps": 6889,
+      "distance": 10100,
+      "calories": 387
+    },
+    "2025-07-07": {
+      "steps": 11065,
+      "distance": 6600,
+      "calories": 250
+    },
+    "2025-07-08": {
+      "steps": 19424,
+      "distance": 12600,
+      "calories": 392
+    },
+    "2025-07-09": {
+      "steps": 16759,
+      "distance": 2800,
+      "calories": 232
+    },
+    "2025-07-10": {
+      "steps": 12336,
+      "distance": 4000,
+      "calories": 189
+    },
+    "2025-07-11": {
+      "steps": 14707,
+      "distance": 6600,
+      "calories": 301
+    },
+    "2025-07-12": {
+      "steps": 19457,
+      "distance": 8600,
+      "calories": 330
+    },
+    "2025-07-13": {
+      "steps": 3634,
+      "distance": 12800,
+      "calories": 238
+    },
+    "2025-07-14": {
+      "steps": 17691,
+      "distance": 11300,
+      "calories": 510
+    },
+    "2025-07-15": {
+      "steps": 13082,
+      "distance": 8300,
+      "calories": 237
+    },
+    "2025-07-16": {
+      "steps": 9822,
+      "distance": 14600,
+      "calories": 394
+    },
+    "2025-07-17": {
+      "steps": 8846,
+      "distance": 2100,
+      "calories": 321
+    },
+    "2025-07-18": {
+      "steps": 7640,
+      "distance": 8000,
+      "calories": 590
+    },
+    "2025-07-19": {
+      "steps": 18624,
+      "distance": 14500,
+      "calories": 531
+    },
+    "2025-07-20": {
+      "steps": 7331,
+      "distance": 13500,
+      "calories": 491
+    },
+    "2025-07-21": {
+      "steps": 13339,
+      "distance": 3200,
+      "calories": 585
+    },
+    "2025-07-22": {
+      "steps": 15376,
+      "distance": 11200,
+      "calories": 510
+    },
+    "2025-07-23": {
+      "steps": 19059,
+      "distance": 4600,
+      "calories": 175
+    },
+    "2025-07-24": {
+      "steps": 11496,
+      "distance": 11600,
+      "calories": 358
+    },
+    "2025-07-25": {
+      "steps": 17689,
+      "distance": 11600,
+      "calories": 363
+    },
+    "2025-07-26": {
+      "steps": 12747,
+      "distance": 9200,
+      "calories": 370
+    },
+    "2025-07-27": {
+      "steps": 5334,
+      "distance": 9000,
+      "calories": 408
+    },
+    "2025-07-28": {
+      "steps": 19682,
+      "distance": 12400,
+      "calories": 224
+    },
+    "2025-07-29": {
+      "steps": 18083,
+      "distance": 7900,
+      "calories": 363
+    },
+    "2025-07-30": {
+      "steps": 11712,
+      "distance": 5400,
+      "calories": 234
+    },
+    "2025-07-31": {
+      "steps": 8066,
+      "distance": 9100,
+      "calories": 570
+    },
+    "2025-08-01": {
+      "steps": 10751,
+      "distance": 2200,
+      "calories": 442
+    },
+    "2025-08-02": {
+      "steps": 18852,
+      "distance": 2600,
+      "calories": 243
+    },
+    "2025-08-03": {
+      "steps": 17611,
+      "distance": 4100,
+      "calories": 271
+    },
+    "2025-08-04": {
+      "steps": 11108,
+      "distance": 4500,
+      "calories": 486
+    },
+    "2025-08-05": {
+      "steps": 9261,
+      "distance": 9600,
+      "calories": 151
+    },
+    "2025-08-06": {
+      "steps": 16782,
+      "distance": 5500,
+      "calories": 430
+    },
+    "2025-08-07": {
+      "steps": 5824,
+      "distance": 2300,
+      "calories": 184
+    },
+    "2025-08-08": {
+      "steps": 17495,
+      "distance": 4900,
+      "calories": 158
+    },
+    "2025-08-09": {
+      "steps": 8825,
+      "distance": 6000,
+      "calories": 357
+    },
+    "2025-08-10": {
+      "steps": 8827,
+      "distance": 14300,
+      "calories": 535
+    },
+    "2025-08-11": {
+      "steps": 9912,
+      "distance": 12200,
+      "calories": 458
+    },
+    "2025-08-12": {
+      "steps": 16011,
+      "distance": 8600,
+      "calories": 451
+    },
+    "2025-08-13": {
+      "steps": 16057,
+      "distance": 13200,
+      "calories": 565
+    },
+    "2025-08-14": {
+      "steps": 18203,
+      "distance": 3300,
+      "calories": 168
+    },
+    "2025-08-15": {
+      "steps": 11937,
+      "distance": 13200,
+      "calories": 223
+    },
+    "2025-08-16": {
+      "steps": 18383,
+      "distance": 8500,
+      "calories": 265
+    },
+    "2025-08-17": {
+      "steps": 9256,
+      "distance": 3200,
+      "calories": 212
+    },
+    "2025-08-18": {
+      "steps": 12672,
+      "distance": 13600,
+      "calories": 387
+    },
+    "2025-08-19": {
+      "steps": 6893,
+      "distance": 3300,
+      "calories": 325
+    },
+    "2025-08-20": {
+      "steps": 18044,
+      "distance": 8500,
+      "calories": 394
+    },
+    "2025-08-21": {
+      "steps": 9739,
+      "distance": 7800,
+      "calories": 575
+    },
+    "2025-08-22": {
+      "steps": 17102,
+      "distance": 3800,
+      "calories": 237
+    },
+    "2025-08-23": {
+      "steps": 4028,
+      "distance": 9600,
+      "calories": 204
+    },
+    "2025-08-24": {
+      "steps": 8345,
+      "distance": 11900,
+      "calories": 497
+    },
+    "2025-08-25": {
+      "steps": 18789,
+      "distance": 8000,
+      "calories": 491
+    },
+    "2025-08-26": {
+      "steps": 4501,
+      "distance": 4600,
+      "calories": 342
+    },
+    "2025-08-27": {
+      "steps": 12900,
+      "distance": 12100,
+      "calories": 312
+    },
+    "2025-08-28": {
+      "steps": 14705,
+      "distance": 12500,
+      "calories": 319
+    },
+    "2025-08-29": {
+      "steps": 13652,
+      "distance": 2800,
+      "calories": 180
+    },
+    "2025-08-30": {
+      "steps": 16254,
+      "distance": 8600,
+      "calories": 585
+    },
+    "2025-08-31": {
+      "steps": 9525,
+      "distance": 14100,
+      "calories": 271
+    },
+    "2025-09-01": {
+      "steps": 3933,
+      "distance": 4900,
+      "calories": 163
+    },
+    "2025-09-02": {
+      "steps": 8195,
+      "distance": 13400,
+      "calories": 439
+    },
+    "2025-09-03": {
+      "steps": 3214,
+      "distance": 14500,
+      "calories": 454
+    },
+    "2025-09-04": {
+      "steps": 9067,
+      "distance": 6800,
+      "calories": 573
+    },
+    "2025-09-05": {
+      "steps": 15568,
+      "distance": 6100,
+      "calories": 405
+    },
+    "2025-09-06": {
+      "steps": 11869,
+      "distance": 6600,
+      "calories": 185
+    },
+    "2025-09-07": {
+      "steps": 13804,
+      "distance": 3300,
+      "calories": 542
+    },
+    "2025-09-08": {
+      "steps": 14602,
+      "distance": 4200,
+      "calories": 497
+    },
+    "2025-09-09": {
+      "steps": 6090,
+      "distance": 6500,
+      "calories": 489
+    },
+    "2025-09-10": {
+      "steps": 9240,
+      "distance": 4300,
+      "calories": 344
+    },
+    "2025-09-11": {
+      "steps": 4949,
+      "distance": 4200,
+      "calories": 183
+    },
+    "2025-09-12": {
+      "steps": 6510,
+      "distance": 6600,
+      "calories": 591
+    },
+    "2025-09-13": {
+      "steps": 11657,
+      "distance": 13000,
+      "calories": 167
+    },
+    "2025-09-14": {
+      "steps": 15359,
+      "distance": 11700,
+      "calories": 438
+    },
+    "2025-09-15": {
+      "steps": 8036,
+      "distance": 14400,
+      "calories": 395
+    },
+    "2025-09-16": {
+      "steps": 13750,
+      "distance": 7300,
+      "calories": 363
+    },
+    "2025-09-17": {
+      "steps": 3600,
+      "distance": 3900,
+      "calories": 468
+    },
+    "2025-09-18": {
+      "steps": 11579,
+      "distance": 8900,
+      "calories": 173
+    },
+    "2025-09-19": {
+      "steps": 13712,
+      "distance": 12900,
+      "calories": 319
+    },
+    "2025-09-20": {
+      "steps": 12326,
+      "distance": 8000,
+      "calories": 214
+    },
+    "2025-09-21": {
+      "steps": 15351,
+      "distance": 4500,
+      "calories": 328
+    },
+    "2025-09-22": {
+      "steps": 13974,
+      "distance": 9000,
+      "calories": 436
+    },
+    "2025-09-23": {
+      "steps": 3775,
+      "distance": 12700,
+      "calories": 586
+    },
+    "2025-09-24": {
+      "steps": 11945,
+      "distance": 13000,
+      "calories": 167
+    },
+    "2025-09-25": {
+      "steps": 15696,
+      "distance": 8800,
+      "calories": 232
+    },
+    "2025-09-26": {
+      "steps": 15463,
+      "distance": 2600,
+      "calories": 484
+    },
+    "2025-09-27": {
+      "steps": 14181,
+      "distance": 7800,
+      "calories": 383
+    },
+    "2025-09-28": {
+      "steps": 16175,
+      "distance": 13700,
+      "calories": 162
+    },
+    "2025-09-29": {
+      "steps": 5108,
+      "distance": 12700,
+      "calories": 316
+    },
+    "2025-09-30": {
+      "steps": 16978,
+      "distance": 3400,
+      "calories": 549
+    },
+    "2025-10-01": {
+      "steps": 19438,
+      "distance": 3000,
+      "calories": 328
+    },
+    "2025-10-02": {
+      "steps": 19241,
+      "distance": 4000,
+      "calories": 398
+    },
+    "2025-10-03": {
+      "steps": 14349,
+      "distance": 5800,
+      "calories": 432
+    },
+    "2025-10-04": {
+      "steps": 14655,
+      "distance": 6100,
+      "calories": 289
+    },
+    "2025-10-05": {
+      "steps": 19977,
+      "distance": 4400,
+      "calories": 342
+    },
+    "2025-10-06": {
+      "steps": 4943,
+      "distance": 10200,
+      "calories": 511
+    },
+    "2025-10-07": {
+      "steps": 17201,
+      "distance": 15000,
+      "calories": 488
+    },
+    "2025-10-08": {
+      "steps": 10841,
+      "distance": 7100,
+      "calories": 313
+    },
+    "2025-10-09": {
+      "steps": 3486,
+      "distance": 14900,
+      "calories": 595
+    },
+    "2025-10-10": {
+      "steps": 11324,
+      "distance": 12600,
+      "calories": 476
+    },
+    "2025-10-11": {
+      "steps": 10944,
+      "distance": 10500,
+      "calories": 421
+    },
+    "2025-10-12": {
+      "steps": 13589,
+      "distance": 8100,
+      "calories": 516
+    },
+    "2025-10-13": {
+      "steps": 13603,
+      "distance": 2400,
+      "calories": 579
+    },
+    "2025-10-14": {
+      "steps": 9143,
+      "distance": 8000,
+      "calories": 495
+    },
+    "2025-10-15": {
+      "steps": 4898,
+      "distance": 12800,
+      "calories": 220
+    },
+    "2025-10-16": {
+      "steps": 5586,
+      "distance": 3100,
+      "calories": 458
+    },
+    "2025-10-17": {
+      "steps": 8051,
+      "distance": 8900,
+      "calories": 527
+    },
+    "2025-10-18": {
+      "steps": 11352,
+      "distance": 14700,
+      "calories": 420
+    },
+    "2025-10-19": {
+      "steps": 7694,
+      "distance": 12700,
+      "calories": 492
+    },
+    "2025-10-20": {
+      "steps": 13074,
+      "distance": 4200,
+      "calories": 334
+    },
+    "2025-10-21": {
+      "steps": 10381,
+      "distance": 9800,
+      "calories": 423
+    },
+    "2025-10-22": {
+      "steps": 19364,
+      "distance": 13700,
+      "calories": 597
+    },
+    "2025-10-23": {
+      "steps": 19810,
+      "distance": 5500,
+      "calories": 433
+    },
+    "2025-10-24": {
+      "steps": 18183,
+      "distance": 2400,
+      "calories": 256
+    },
+    "2025-10-25": {
+      "steps": 8984,
+      "distance": 7000,
+      "calories": 436
+    },
+    "2025-10-26": {
+      "steps": 3212,
+      "distance": 14500,
+      "calories": 151
+    },
+    "2025-10-27": {
+      "steps": 8431,
+      "distance": 2000,
+      "calories": 311
+    },
+    "2025-10-28": {
+      "steps": 16075,
+      "distance": 5100,
+      "calories": 233
+    },
+    "2025-10-29": {
+      "steps": 17715,
+      "distance": 14500,
+      "calories": 470
+    },
+    "2025-10-30": {
+      "steps": 19297,
+      "distance": 2100,
+      "calories": 202
+    },
+    "2025-10-31": {
+      "steps": 19264,
+      "distance": 4500,
+      "calories": 424
+    },
+    "2025-11-01": {
+      "steps": 15460,
+      "distance": 6300,
+      "calories": 529
+    },
+    "2025-11-02": {
+      "steps": 4232,
+      "distance": 13100,
+      "calories": 449
+    },
+    "2025-11-03": {
+      "steps": 3207,
+      "distance": 2200,
+      "calories": 389
+    },
+    "2025-11-04": {
+      "steps": 8458,
+      "distance": 2000,
+      "calories": 540
+    },
+    "2025-11-05": {
+      "steps": 9120,
+      "distance": 8100,
+      "calories": 269
+    },
+    "2025-11-06": {
+      "steps": 5713,
+      "distance": 9300,
+      "calories": 345
+    },
+    "2025-11-07": {
+      "steps": 13943,
+      "distance": 8500,
+      "calories": 391
+    },
+    "2025-11-08": {
+      "steps": 6595,
+      "distance": 7500,
+      "calories": 306
+    },
+    "2025-11-09": {
+      "steps": 7471,
+      "distance": 14300,
+      "calories": 466
+    },
+    "2025-11-10": {
+      "steps": 15788,
+      "distance": 6800,
+      "calories": 398
+    },
+    "2025-11-11": {
+      "steps": 3090,
+      "distance": 13700,
+      "calories": 564
+    },
+    "2025-11-12": {
+      "steps": 16374,
+      "distance": 6700,
+      "calories": 574
+    },
+    "2025-11-13": {
+      "steps": 13682,
+      "distance": 11300,
+      "calories": 593
+    },
+    "2025-11-14": {
+      "steps": 3116,
+      "distance": 4400,
+      "calories": 374
+    },
+    "2025-11-15": {
+      "steps": 6064,
+      "distance": 7800,
+      "calories": 480
+    },
+    "2025-11-16": {
+      "steps": 19425,
+      "distance": 12500,
+      "calories": 268
+    },
+    "2025-11-17": {
+      "steps": 5684,
+      "distance": 14300,
+      "calories": 229
+    },
+    "2025-11-18": {
+      "steps": 18785,
+      "distance": 14700,
+      "calories": 455
+    },
+    "2025-11-19": {
+      "steps": 14774,
+      "distance": 3600,
+      "calories": 266
+    },
+    "2025-11-20": {
+      "steps": 3627,
+      "distance": 10600,
+      "calories": 448
+    },
+    "2025-11-21": {
+      "steps": 3604,
+      "distance": 3300,
+      "calories": 423
+    },
+    "2025-11-22": {
+      "steps": 15495,
+      "distance": 11000,
+      "calories": 371
+    },
+    "2025-11-23": {
+      "steps": 9977,
+      "distance": 8400,
+      "calories": 402
+    },
+    "2025-11-24": {
+      "steps": 5255,
+      "distance": 15000,
+      "calories": 370
+    },
+    "2025-11-25": {
+      "steps": 10500,
+      "distance": 9700,
+      "calories": 199
+    },
+    "2025-11-26": {
+      "steps": 14742,
+      "distance": 6000,
+      "calories": 324
+    },
+    "2025-11-27": {
+      "steps": 18958,
+      "distance": 7600,
+      "calories": 181
+    },
+    "2025-11-28": {
+      "steps": 10320,
+      "distance": 5600,
+      "calories": 189
+    },
+    "2025-11-29": {
+      "steps": 11290,
+      "distance": 12100,
+      "calories": 314
+    },
+    "2025-11-30": {
+      "steps": 6437,
+      "distance": 4500,
+      "calories": 395
+    },
+    "2025-12-01": {
+      "steps": 9871,
+      "distance": 8900,
+      "calories": 532
+    },
+    "2025-12-02": {
+      "steps": 19302,
+      "distance": 6300,
+      "calories": 224
+    },
+    "2025-12-03": {
+      "steps": 3386,
+      "distance": 12800,
+      "calories": 151
+    },
+    "2025-12-04": {
+      "steps": 10989,
+      "distance": 6300,
+      "calories": 192
+    },
+    "2025-12-05": {
+      "steps": 5521,
+      "distance": 8200,
+      "calories": 525
+    },
+    "2025-12-06": {
+      "steps": 4813,
+      "distance": 9100,
+      "calories": 170
+    },
+    "2025-12-07": {
+      "steps": 3120,
+      "distance": 13700,
+      "calories": 510
+    },
+    "2025-12-08": {
+      "steps": 9120,
+      "distance": 2700,
+      "calories": 241
+    },
+    "2025-12-09": {
+      "steps": 10106,
+      "distance": 12200,
+      "calories": 563
+    },
+    "2025-12-10": {
+      "steps": 15866,
+      "distance": 8600,
+      "calories": 436
+    },
+    "2025-12-11": {
+      "steps": 11425,
+      "distance": 13300,
+      "calories": 208
+    },
+    "2025-12-12": {
+      "steps": 10341,
+      "distance": 12000,
+      "calories": 283
+    },
+    "2025-12-13": {
+      "steps": 14784,
+      "distance": 9700,
+      "calories": 324
+    },
+    "2025-12-14": {
+      "steps": 13990,
+      "distance": 10100,
+      "calories": 467
+    },
+    "2025-12-15": {
+      "steps": 17268,
+      "distance": 6500,
+      "calories": 443
+    },
+    "2025-12-16": {
+      "steps": 9079,
+      "distance": 10500,
+      "calories": 451
+    },
+    "2025-12-17": {
+      "steps": 18906,
+      "distance": 5900,
+      "calories": 567
+    },
+    "2025-12-18": {
+      "steps": 13109,
+      "distance": 8200,
+      "calories": 523
+    },
+    "2025-12-19": {
+      "steps": 8802,
+      "distance": 10700,
+      "calories": 572
+    },
+    "2025-12-20": {
+      "steps": 7869,
+      "distance": 11900,
+      "calories": 499
+    },
+    "2025-12-21": {
+      "steps": 11678,
+      "distance": 11700,
+      "calories": 236
+    },
+    "2025-12-22": {
+      "steps": 8710,
+      "distance": 6600,
+      "calories": 481
+    },
+    "2025-12-23": {
+      "steps": 12695,
+      "distance": 5300,
+      "calories": 572
+    },
+    "2025-12-24": {
+      "steps": 14594,
+      "distance": 3200,
+      "calories": 579
+    },
+    "2025-12-25": {
+      "steps": 11786,
+      "distance": 4100,
+      "calories": 347
+    },
+    "2025-12-26": {
+      "steps": 19057,
+      "distance": 4700,
+      "calories": 476
+    },
+    "2025-12-27": {
+      "steps": 3676,
+      "distance": 2000,
+      "calories": 370
+    },
+    "2025-12-28": {
+      "steps": 13132,
+      "distance": 6900,
+      "calories": 579
+    },
+    "2025-12-29": {
+      "steps": 17629,
+      "distance": 6000,
+      "calories": 567
+    },
+    "2025-12-30": {
+      "steps": 4238,
+      "distance": 10400,
+      "calories": 376
+    },
+    "2025-12-31": {
+      "steps": 10447,
+      "distance": 7400,
+      "calories": 215
+    },
+    "2026-01-01": {
+      "steps": 7728,
+      "distance": 7600,
+      "calories": 495
+    },
+    "2026-01-02": {
+      "steps": 10933,
+      "distance": 14200,
+      "calories": 255
+    },
+    "2026-01-03": {
+      "steps": 3337,
+      "distance": 5800,
+      "calories": 551
+    },
+    "2026-01-04": {
+      "steps": 11714,
+      "distance": 4400,
+      "calories": 275
+    },
+    "2026-01-05": {
+      "steps": 18765,
+      "distance": 5900,
+      "calories": 382
+    },
+    "2026-01-06": {
+      "steps": 11931,
+      "distance": 6500,
+      "calories": 363
+    },
+    "2026-01-07": {
+      "steps": 8945,
+      "distance": 12500,
+      "calories": 208
+    },
+    "2026-01-08": {
+      "steps": 14931,
+      "distance": 11400,
+      "calories": 497
+    },
+    "2026-01-09": {
+      "steps": 7431,
+      "distance": 3000,
+      "calories": 445
+    },
+    "2026-01-10": {
+      "steps": 4032,
+      "distance": 9100,
+      "calories": 548
+    },
+    "2026-01-11": {
+      "steps": 8010,
+      "distance": 14000,
+      "calories": 371
+    },
+    "2026-01-12": {
+      "steps": 3615,
+      "distance": 11100,
+      "calories": 208
+    },
+    "2026-01-13": {
+      "steps": 17756,
+      "distance": 9500,
+      "calories": 512
+    },
+    "2026-01-14": {
+      "steps": 4736,
+      "distance": 12500,
+      "calories": 554
+    },
+    "2026-01-15": {
+      "steps": 19379,
+      "distance": 12800,
+      "calories": 213
+    },
+    "2026-01-16": {
+      "steps": 9939,
+      "distance": 11800,
+      "calories": 187
+    },
+    "2026-01-17": {
+      "steps": 6862,
+      "distance": 5100,
+      "calories": 242
+    },
+    "2026-01-18": {
+      "steps": 12691,
+      "distance": 6400,
+      "calories": 482
+    },
+    "2026-01-19": {
+      "steps": 7223,
+      "distance": 10300,
+      "calories": 277
+    },
+    "2026-01-20": {
+      "steps": 16247,
+      "distance": 3400,
+      "calories": 334
+    },
+    "2026-01-21": {
+      "steps": 17818,
+      "distance": 10200,
+      "calories": 489
+    },
+    "2026-01-22": {
+      "steps": 16219,
+      "distance": 12900,
+      "calories": 428
+    },
+    "2026-01-23": {
+      "steps": 14585,
+      "distance": 2900,
+      "calories": 539
+    },
+    "2026-01-24": {
+      "steps": 5063,
+      "distance": 8100,
+      "calories": 224
+    },
+    "2026-01-25": {
+      "steps": 12505,
+      "distance": 13800,
+      "calories": 519
+    },
+    "2026-01-26": {
+      "steps": 19793,
+      "distance": 9000,
+      "calories": 155
+    },
+    "2026-01-27": {
+      "steps": 10646,
+      "distance": 2400,
+      "calories": 306
+    },
+    "2026-01-28": {
+      "steps": 8334,
+      "distance": 6900,
+      "calories": 547
+    },
+    "2026-01-29": {
+      "steps": 14697,
+      "distance": 14500,
+      "calories": 219
+    },
+    "2026-01-30": {
+      "steps": 14008,
+      "distance": 5300,
+      "calories": 573
+    },
+    "2026-01-31": {
+      "steps": 12171,
+      "distance": 8100,
+      "calories": 358
+    },
+    "2026-02-01": {
+      "steps": 17637,
+      "distance": 12700,
+      "calories": 200
+    },
+    "2026-02-02": {
+      "steps": 6426,
+      "distance": 7200,
+      "calories": 489
+    },
+    "2026-02-03": {
+      "steps": 12704,
+      "distance": 13400,
+      "calories": 555
+    },
+    "2026-02-04": {
+      "steps": 17412,
+      "distance": 10800,
+      "calories": 594
+    },
+    "2026-02-05": {
+      "steps": 17566,
+      "distance": 8100,
+      "calories": 331
+    },
+    "2026-02-06": {
+      "steps": 3394,
+      "distance": 7600,
+      "calories": 181
+    },
+    "2026-02-07": {
+      "steps": 5760,
+      "distance": 11000,
+      "calories": 555
+    },
+    "2026-02-08": {
+      "steps": 15421,
+      "distance": 8000,
+      "calories": 556
+    },
+    "2026-02-09": {
+      "steps": 5385,
+      "distance": 2500,
+      "calories": 373
+    },
+    "2026-02-10": {
+      "steps": 7235,
+      "distance": 11700,
+      "calories": 398
+    },
+    "2026-02-11": {
+      "steps": 19649,
+      "distance": 9600,
+      "calories": 438
+    },
+    "2026-02-12": {
+      "steps": 10603,
+      "distance": 7600,
+      "calories": 434
+    },
+    "2026-02-13": {
+      "steps": 4963,
+      "distance": 7300,
+      "calories": 394
+    },
+    "2026-02-14": {
+      "steps": 12092,
+      "distance": 6400,
+      "calories": 207
+    },
     "2026-02-15": {
-      "resting": 62,
-      "avg": 78,
-      "max": 145,
-      "zones": {
-        "rest": 680,
-        "fat_burn": 120,
-        "cardio": 45,
-        "peak": 5
-      }
+      "steps": 6919,
+      "distance": 8500,
+      "calories": 383
     },
     "2026-02-16": {
-      "resting": 61,
-      "avg": 82,
-      "max": 158,
-      "zones": {
-        "rest": 640,
-        "fat_burn": 150,
-        "cardio": 60,
-        "peak": 10
-      }
+      "steps": 13007,
+      "distance": 12300,
+      "calories": 195
     },
     "2026-02-17": {
-      "resting": 63,
-      "avg": 75,
-      "max": 132,
-      "zones": {
-        "rest": 720,
-        "fat_burn": 90,
-        "cardio": 30,
-        "peak": 0
-      }
+      "steps": 18506,
+      "distance": 10400,
+      "calories": 348
     },
     "2026-02-18": {
-      "resting": 60,
-      "avg": 85,
-      "max": 165,
-      "zones": {
-        "rest": 600,
-        "fat_burn": 180,
-        "cardio": 75,
-        "peak": 15
-      }
+      "steps": 7128,
+      "distance": 5900,
+      "calories": 259
     },
     "2026-02-19": {
-      "resting": 62,
-      "avg": 80,
-      "max": 152,
-      "zones": {
-        "rest": 660,
-        "fat_burn": 140,
-        "cardio": 50,
-        "peak": 8
-      }
+      "steps": 3281,
+      "distance": 9400,
+      "calories": 594
     },
     "2026-02-20": {
-      "resting": 61,
-      "avg": 83,
-      "max": 160,
-      "zones": {
-        "rest": 620,
-        "fat_burn": 165,
-        "cardio": 68,
-        "peak": 12
-      }
+      "steps": 8657,
+      "distance": 14300,
+      "calories": 194
     },
     "2026-02-21": {
-      "resting": 59,
-      "avg": 88,
-      "max": 172,
-      "zones": {
-        "rest": 580,
-        "fat_burn": 200,
-        "cardio": 85,
-        "peak": 20
-      }
+      "steps": 5406,
+      "distance": 15000,
+      "calories": 377
     },
     "2026-02-22": {
-      "resting": 63,
-      "avg": 76,
-      "max": 140,
-      "zones": {
-        "rest": 700,
-        "fat_burn": 100,
-        "cardio": 38,
-        "peak": 2
-      }
-    }
-  },
-  "moveMinutes": {
-    "2026-02-15": {
-      "total": 45,
-      "active": 28,
-      "heart": 17
+      "steps": 13607,
+      "distance": 9300,
+      "calories": 316
     },
-    "2026-02-16": {
-      "total": 62,
-      "active": 38,
-      "heart": 24
-    },
-    "2026-02-17": {
-      "total": 38,
-      "active": 22,
-      "heart": 16
-    },
-    "2026-02-18": {
-      "total": 78,
-      "active": 52,
-      "heart": 26
-    },
-    "2026-02-19": {
-      "total": 55,
-      "active": 35,
-      "heart": 20
-    },
-    "2026-02-20": {
-      "total": 68,
-      "active": 44,
-      "heart": 24
-    },
-    "2026-02-21": {
-      "total": 85,
-      "active": 58,
-      "heart": 27
-    },
-    "2026-02-22": {
-      "total": 42,
-      "active": 26,
-      "heart": 16
+    "2026-02-23": {
+      "steps": 13233,
+      "distance": 6800,
+      "calories": 293
     }
   },
   "sleep": {
+    "2025-11-26": {
+      "totalMinutes": 505,
+      "deepMinutes": 117,
+      "lightMinutes": 283,
+      "remMinutes": 95,
+      "sleepScore": 100
+    },
+    "2025-11-27": {
+      "totalMinutes": 500,
+      "deepMinutes": 122,
+      "lightMinutes": 185,
+      "remMinutes": 65,
+      "sleepScore": 100
+    },
+    "2025-11-28": {
+      "totalMinutes": 432,
+      "deepMinutes": 86,
+      "lightMinutes": 284,
+      "remMinutes": 89,
+      "sleepScore": 90
+    },
+    "2025-11-29": {
+      "totalMinutes": 443,
+      "deepMinutes": 66,
+      "lightMinutes": 292,
+      "remMinutes": 50,
+      "sleepScore": 92
+    },
+    "2025-11-30": {
+      "totalMinutes": 362,
+      "deepMinutes": 63,
+      "lightMinutes": 193,
+      "remMinutes": 120,
+      "sleepScore": 75
+    },
+    "2025-12-01": {
+      "totalMinutes": 482,
+      "deepMinutes": 112,
+      "lightMinutes": 281,
+      "remMinutes": 107,
+      "sleepScore": 100
+    },
+    "2025-12-02": {
+      "totalMinutes": 318,
+      "deepMinutes": 82,
+      "lightMinutes": 199,
+      "remMinutes": 58,
+      "sleepScore": 66
+    },
+    "2025-12-03": {
+      "totalMinutes": 420,
+      "deepMinutes": 87,
+      "lightMinutes": 198,
+      "remMinutes": 49,
+      "sleepScore": 88
+    },
+    "2025-12-04": {
+      "totalMinutes": 375,
+      "deepMinutes": 133,
+      "lightMinutes": 276,
+      "remMinutes": 46,
+      "sleepScore": 78
+    },
+    "2025-12-05": {
+      "totalMinutes": 512,
+      "deepMinutes": 121,
+      "lightMinutes": 212,
+      "remMinutes": 69,
+      "sleepScore": 100
+    },
+    "2025-12-06": {
+      "totalMinutes": 351,
+      "deepMinutes": 73,
+      "lightMinutes": 292,
+      "remMinutes": 96,
+      "sleepScore": 73
+    },
+    "2025-12-07": {
+      "totalMinutes": 493,
+      "deepMinutes": 118,
+      "lightMinutes": 298,
+      "remMinutes": 65,
+      "sleepScore": 100
+    },
+    "2025-12-08": {
+      "totalMinutes": 499,
+      "deepMinutes": 125,
+      "lightMinutes": 267,
+      "remMinutes": 85,
+      "sleepScore": 100
+    },
+    "2025-12-09": {
+      "totalMinutes": 442,
+      "deepMinutes": 118,
+      "lightMinutes": 220,
+      "remMinutes": 115,
+      "sleepScore": 92
+    },
+    "2025-12-10": {
+      "totalMinutes": 533,
+      "deepMinutes": 122,
+      "lightMinutes": 247,
+      "remMinutes": 53,
+      "sleepScore": 100
+    },
+    "2025-12-11": {
+      "totalMinutes": 517,
+      "deepMinutes": 106,
+      "lightMinutes": 243,
+      "remMinutes": 62,
+      "sleepScore": 100
+    },
+    "2025-12-12": {
+      "totalMinutes": 387,
+      "deepMinutes": 74,
+      "lightMinutes": 221,
+      "remMinutes": 61,
+      "sleepScore": 81
+    },
+    "2025-12-13": {
+      "totalMinutes": 505,
+      "deepMinutes": 124,
+      "lightMinutes": 234,
+      "remMinutes": 115,
+      "sleepScore": 100
+    },
+    "2025-12-14": {
+      "totalMinutes": 494,
+      "deepMinutes": 62,
+      "lightMinutes": 207,
+      "remMinutes": 77,
+      "sleepScore": 100
+    },
+    "2025-12-15": {
+      "totalMinutes": 328,
+      "deepMinutes": 137,
+      "lightMinutes": 237,
+      "remMinutes": 119,
+      "sleepScore": 68
+    },
+    "2025-12-16": {
+      "totalMinutes": 429,
+      "deepMinutes": 140,
+      "lightMinutes": 243,
+      "remMinutes": 105,
+      "sleepScore": 89
+    },
+    "2025-12-17": {
+      "totalMinutes": 403,
+      "deepMinutes": 137,
+      "lightMinutes": 247,
+      "remMinutes": 80,
+      "sleepScore": 84
+    },
+    "2025-12-18": {
+      "totalMinutes": 479,
+      "deepMinutes": 71,
+      "lightMinutes": 195,
+      "remMinutes": 58,
+      "sleepScore": 100
+    },
+    "2025-12-19": {
+      "totalMinutes": 341,
+      "deepMinutes": 74,
+      "lightMinutes": 232,
+      "remMinutes": 104,
+      "sleepScore": 71
+    },
+    "2025-12-20": {
+      "totalMinutes": 360,
+      "deepMinutes": 145,
+      "lightMinutes": 226,
+      "remMinutes": 91,
+      "sleepScore": 75
+    },
+    "2025-12-21": {
+      "totalMinutes": 370,
+      "deepMinutes": 136,
+      "lightMinutes": 181,
+      "remMinutes": 73,
+      "sleepScore": 77
+    },
+    "2025-12-22": {
+      "totalMinutes": 435,
+      "deepMinutes": 103,
+      "lightMinutes": 221,
+      "remMinutes": 67,
+      "sleepScore": 91
+    },
+    "2025-12-23": {
+      "totalMinutes": 377,
+      "deepMinutes": 76,
+      "lightMinutes": 288,
+      "remMinutes": 45,
+      "sleepScore": 79
+    },
+    "2025-12-24": {
+      "totalMinutes": 330,
+      "deepMinutes": 86,
+      "lightMinutes": 258,
+      "remMinutes": 66,
+      "sleepScore": 69
+    },
+    "2025-12-25": {
+      "totalMinutes": 330,
+      "deepMinutes": 119,
+      "lightMinutes": 263,
+      "remMinutes": 54,
+      "sleepScore": 69
+    },
+    "2025-12-26": {
+      "totalMinutes": 503,
+      "deepMinutes": 87,
+      "lightMinutes": 264,
+      "remMinutes": 110,
+      "sleepScore": 100
+    },
+    "2025-12-27": {
+      "totalMinutes": 420,
+      "deepMinutes": 110,
+      "lightMinutes": 246,
+      "remMinutes": 62,
+      "sleepScore": 88
+    },
+    "2025-12-28": {
+      "totalMinutes": 363,
+      "deepMinutes": 132,
+      "lightMinutes": 216,
+      "remMinutes": 76,
+      "sleepScore": 76
+    },
+    "2025-12-29": {
+      "totalMinutes": 328,
+      "deepMinutes": 106,
+      "lightMinutes": 222,
+      "remMinutes": 68,
+      "sleepScore": 68
+    },
+    "2025-12-30": {
+      "totalMinutes": 538,
+      "deepMinutes": 87,
+      "lightMinutes": 289,
+      "remMinutes": 61,
+      "sleepScore": 100
+    },
+    "2025-12-31": {
+      "totalMinutes": 495,
+      "deepMinutes": 85,
+      "lightMinutes": 230,
+      "remMinutes": 104,
+      "sleepScore": 100
+    },
+    "2026-01-01": {
+      "totalMinutes": 469,
+      "deepMinutes": 90,
+      "lightMinutes": 294,
+      "remMinutes": 116,
+      "sleepScore": 98
+    },
+    "2026-01-02": {
+      "totalMinutes": 422,
+      "deepMinutes": 138,
+      "lightMinutes": 250,
+      "remMinutes": 47,
+      "sleepScore": 88
+    },
+    "2026-01-03": {
+      "totalMinutes": 522,
+      "deepMinutes": 78,
+      "lightMinutes": 205,
+      "remMinutes": 77,
+      "sleepScore": 100
+    },
+    "2026-01-04": {
+      "totalMinutes": 519,
+      "deepMinutes": 64,
+      "lightMinutes": 263,
+      "remMinutes": 120,
+      "sleepScore": 100
+    },
+    "2026-01-05": {
+      "totalMinutes": 487,
+      "deepMinutes": 135,
+      "lightMinutes": 214,
+      "remMinutes": 109,
+      "sleepScore": 100
+    },
+    "2026-01-06": {
+      "totalMinutes": 458,
+      "deepMinutes": 72,
+      "lightMinutes": 186,
+      "remMinutes": 60,
+      "sleepScore": 95
+    },
+    "2026-01-07": {
+      "totalMinutes": 306,
+      "deepMinutes": 115,
+      "lightMinutes": 247,
+      "remMinutes": 65,
+      "sleepScore": 64
+    },
+    "2026-01-08": {
+      "totalMinutes": 428,
+      "deepMinutes": 61,
+      "lightMinutes": 187,
+      "remMinutes": 64,
+      "sleepScore": 89
+    },
+    "2026-01-09": {
+      "totalMinutes": 321,
+      "deepMinutes": 85,
+      "lightMinutes": 184,
+      "remMinutes": 56,
+      "sleepScore": 67
+    },
+    "2026-01-10": {
+      "totalMinutes": 450,
+      "deepMinutes": 141,
+      "lightMinutes": 222,
+      "remMinutes": 54,
+      "sleepScore": 94
+    },
+    "2026-01-11": {
+      "totalMinutes": 533,
+      "deepMinutes": 92,
+      "lightMinutes": 254,
+      "remMinutes": 60,
+      "sleepScore": 100
+    },
+    "2026-01-12": {
+      "totalMinutes": 307,
+      "deepMinutes": 77,
+      "lightMinutes": 218,
+      "remMinutes": 106,
+      "sleepScore": 64
+    },
+    "2026-01-13": {
+      "totalMinutes": 421,
+      "deepMinutes": 120,
+      "lightMinutes": 281,
+      "remMinutes": 113,
+      "sleepScore": 88
+    },
+    "2026-01-14": {
+      "totalMinutes": 384,
+      "deepMinutes": 103,
+      "lightMinutes": 251,
+      "remMinutes": 118,
+      "sleepScore": 80
+    },
+    "2026-01-15": {
+      "totalMinutes": 374,
+      "deepMinutes": 94,
+      "lightMinutes": 256,
+      "remMinutes": 77,
+      "sleepScore": 78
+    },
+    "2026-01-16": {
+      "totalMinutes": 313,
+      "deepMinutes": 107,
+      "lightMinutes": 232,
+      "remMinutes": 61,
+      "sleepScore": 65
+    },
+    "2026-01-17": {
+      "totalMinutes": 377,
+      "deepMinutes": 117,
+      "lightMinutes": 193,
+      "remMinutes": 69,
+      "sleepScore": 79
+    },
+    "2026-01-18": {
+      "totalMinutes": 537,
+      "deepMinutes": 143,
+      "lightMinutes": 191,
+      "remMinutes": 98,
+      "sleepScore": 100
+    },
+    "2026-01-19": {
+      "totalMinutes": 533,
+      "deepMinutes": 138,
+      "lightMinutes": 231,
+      "remMinutes": 89,
+      "sleepScore": 100
+    },
+    "2026-01-20": {
+      "totalMinutes": 324,
+      "deepMinutes": 88,
+      "lightMinutes": 206,
+      "remMinutes": 114,
+      "sleepScore": 68
+    },
+    "2026-01-21": {
+      "totalMinutes": 360,
+      "deepMinutes": 102,
+      "lightMinutes": 218,
+      "remMinutes": 77,
+      "sleepScore": 75
+    },
+    "2026-01-22": {
+      "totalMinutes": 523,
+      "deepMinutes": 87,
+      "lightMinutes": 242,
+      "remMinutes": 91,
+      "sleepScore": 100
+    },
+    "2026-01-23": {
+      "totalMinutes": 399,
+      "deepMinutes": 148,
+      "lightMinutes": 258,
+      "remMinutes": 96,
+      "sleepScore": 83
+    },
+    "2026-01-24": {
+      "totalMinutes": 465,
+      "deepMinutes": 129,
+      "lightMinutes": 263,
+      "remMinutes": 61,
+      "sleepScore": 97
+    },
+    "2026-01-25": {
+      "totalMinutes": 303,
+      "deepMinutes": 138,
+      "lightMinutes": 224,
+      "remMinutes": 108,
+      "sleepScore": 63
+    },
+    "2026-01-26": {
+      "totalMinutes": 494,
+      "deepMinutes": 82,
+      "lightMinutes": 279,
+      "remMinutes": 98,
+      "sleepScore": 100
+    },
+    "2026-01-27": {
+      "totalMinutes": 384,
+      "deepMinutes": 140,
+      "lightMinutes": 233,
+      "remMinutes": 45,
+      "sleepScore": 80
+    },
+    "2026-01-28": {
+      "totalMinutes": 332,
+      "deepMinutes": 60,
+      "lightMinutes": 296,
+      "remMinutes": 85,
+      "sleepScore": 69
+    },
+    "2026-01-29": {
+      "totalMinutes": 340,
+      "deepMinutes": 79,
+      "lightMinutes": 249,
+      "remMinutes": 73,
+      "sleepScore": 71
+    },
+    "2026-01-30": {
+      "totalMinutes": 354,
+      "deepMinutes": 136,
+      "lightMinutes": 189,
+      "remMinutes": 45,
+      "sleepScore": 74
+    },
+    "2026-01-31": {
+      "totalMinutes": 436,
+      "deepMinutes": 118,
+      "lightMinutes": 193,
+      "remMinutes": 64,
+      "sleepScore": 91
+    },
+    "2026-02-01": {
+      "totalMinutes": 484,
+      "deepMinutes": 79,
+      "lightMinutes": 295,
+      "remMinutes": 52,
+      "sleepScore": 100
+    },
+    "2026-02-02": {
+      "totalMinutes": 365,
+      "deepMinutes": 115,
+      "lightMinutes": 206,
+      "remMinutes": 80,
+      "sleepScore": 76
+    },
+    "2026-02-03": {
+      "totalMinutes": 376,
+      "deepMinutes": 128,
+      "lightMinutes": 181,
+      "remMinutes": 119,
+      "sleepScore": 78
+    },
+    "2026-02-04": {
+      "totalMinutes": 339,
+      "deepMinutes": 83,
+      "lightMinutes": 295,
+      "remMinutes": 97,
+      "sleepScore": 71
+    },
+    "2026-02-05": {
+      "totalMinutes": 450,
+      "deepMinutes": 69,
+      "lightMinutes": 201,
+      "remMinutes": 94,
+      "sleepScore": 94
+    },
+    "2026-02-06": {
+      "totalMinutes": 526,
+      "deepMinutes": 128,
+      "lightMinutes": 266,
+      "remMinutes": 71,
+      "sleepScore": 100
+    },
+    "2026-02-07": {
+      "totalMinutes": 360,
+      "deepMinutes": 109,
+      "lightMinutes": 215,
+      "remMinutes": 94,
+      "sleepScore": 75
+    },
+    "2026-02-08": {
+      "totalMinutes": 433,
+      "deepMinutes": 80,
+      "lightMinutes": 298,
+      "remMinutes": 45,
+      "sleepScore": 90
+    },
+    "2026-02-09": {
+      "totalMinutes": 351,
+      "deepMinutes": 131,
+      "lightMinutes": 257,
+      "remMinutes": 91,
+      "sleepScore": 73
+    },
+    "2026-02-10": {
+      "totalMinutes": 327,
+      "deepMinutes": 79,
+      "lightMinutes": 208,
+      "remMinutes": 68,
+      "sleepScore": 68
+    },
+    "2026-02-11": {
+      "totalMinutes": 441,
+      "deepMinutes": 71,
+      "lightMinutes": 180,
+      "remMinutes": 61,
+      "sleepScore": 92
+    },
+    "2026-02-12": {
+      "totalMinutes": 389,
+      "deepMinutes": 87,
+      "lightMinutes": 244,
+      "remMinutes": 108,
+      "sleepScore": 81
+    },
+    "2026-02-13": {
+      "totalMinutes": 463,
+      "deepMinutes": 147,
+      "lightMinutes": 211,
+      "remMinutes": 88,
+      "sleepScore": 96
+    },
+    "2026-02-14": {
+      "totalMinutes": 463,
+      "deepMinutes": 68,
+      "lightMinutes": 264,
+      "remMinutes": 101,
+      "sleepScore": 96
+    },
     "2026-02-15": {
-      "duration": 420,
-      "deep": 105,
-      "light": 245,
-      "rem": 70,
-      "awake": 15
+      "totalMinutes": 469,
+      "deepMinutes": 150,
+      "lightMinutes": 245,
+      "remMinutes": 58,
+      "sleepScore": 98
     },
     "2026-02-16": {
-      "duration": 450,
-      "deep": 120,
-      "light": 260,
-      "rem": 85,
-      "awake": 10
+      "totalMinutes": 539,
+      "deepMinutes": 80,
+      "lightMinutes": 225,
+      "remMinutes": 118,
+      "sleepScore": 100
     },
     "2026-02-17": {
-      "duration": 390,
-      "deep": 95,
-      "light": 225,
-      "rem": 65,
-      "awake": 20
+      "totalMinutes": 310,
+      "deepMinutes": 126,
+      "lightMinutes": 245,
+      "remMinutes": 45,
+      "sleepScore": 65
     },
     "2026-02-18": {
-      "duration": 465,
-      "deep": 130,
-      "light": 270,
-      "rem": 90,
-      "awake": 8
+      "totalMinutes": 331,
+      "deepMinutes": 125,
+      "lightMinutes": 227,
+      "remMinutes": 120,
+      "sleepScore": 69
     },
     "2026-02-19": {
-      "duration": 435,
-      "deep": 110,
-      "light": 255,
-      "rem": 78,
-      "awake": 12
+      "totalMinutes": 339,
+      "deepMinutes": 77,
+      "lightMinutes": 253,
+      "remMinutes": 85,
+      "sleepScore": 71
     },
     "2026-02-20": {
-      "duration": 455,
-      "deep": 125,
-      "light": 265,
-      "rem": 88,
-      "awake": 9
+      "totalMinutes": 314,
+      "deepMinutes": 131,
+      "lightMinutes": 210,
+      "remMinutes": 87,
+      "sleepScore": 65
     },
     "2026-02-21": {
-      "duration": 470,
-      "deep": 135,
-      "light": 275,
-      "rem": 95,
-      "awake": 7
+      "totalMinutes": 521,
+      "deepMinutes": 94,
+      "lightMinutes": 222,
+      "remMinutes": 63,
+      "sleepScore": 100
     },
     "2026-02-22": {
-      "duration": 410,
-      "deep": 100,
-      "light": 240,
-      "rem": 72,
-      "awake": 18
+      "totalMinutes": 329,
+      "deepMinutes": 111,
+      "lightMinutes": 284,
+      "remMinutes": 113,
+      "sleepScore": 69
+    },
+    "2026-02-23": {
+      "totalMinutes": 495,
+      "deepMinutes": 88,
+      "lightMinutes": 244,
+      "remMinutes": 58,
+      "sleepScore": 100
     }
+  },
+  "heartRate": {
+    "2026-01-25": {
+      "min": 56,
+      "max": 154,
+      "avg": 70,
+      "resting": 56
+    },
+    "2026-01-26": {
+      "min": 59,
+      "max": 176,
+      "avg": 92,
+      "resting": 59
+    },
+    "2026-01-27": {
+      "min": 59,
+      "max": 157,
+      "avg": 72,
+      "resting": 59
+    },
+    "2026-01-28": {
+      "min": 70,
+      "max": 140,
+      "avg": 86,
+      "resting": 70
+    },
+    "2026-01-29": {
+      "min": 67,
+      "max": 159,
+      "avg": 73,
+      "resting": 67
+    },
+    "2026-01-30": {
+      "min": 61,
+      "max": 179,
+      "avg": 81,
+      "resting": 61
+    },
+    "2026-01-31": {
+      "min": 60,
+      "max": 157,
+      "avg": 95,
+      "resting": 60
+    },
+    "2026-02-01": {
+      "min": 68,
+      "max": 147,
+      "avg": 78,
+      "resting": 68
+    },
+    "2026-02-02": {
+      "min": 60,
+      "max": 167,
+      "avg": 71,
+      "resting": 60
+    },
+    "2026-02-03": {
+      "min": 66,
+      "max": 149,
+      "avg": 72,
+      "resting": 66
+    },
+    "2026-02-04": {
+      "min": 62,
+      "max": 130,
+      "avg": 87,
+      "resting": 62
+    },
+    "2026-02-05": {
+      "min": 67,
+      "max": 178,
+      "avg": 83,
+      "resting": 67
+    },
+    "2026-02-06": {
+      "min": 57,
+      "max": 131,
+      "avg": 73,
+      "resting": 57
+    },
+    "2026-02-07": {
+      "min": 57,
+      "max": 148,
+      "avg": 93,
+      "resting": 57
+    },
+    "2026-02-08": {
+      "min": 63,
+      "max": 167,
+      "avg": 71,
+      "resting": 63
+    },
+    "2026-02-09": {
+      "min": 69,
+      "max": 144,
+      "avg": 86,
+      "resting": 69
+    },
+    "2026-02-10": {
+      "min": 55,
+      "max": 163,
+      "avg": 95,
+      "resting": 55
+    },
+    "2026-02-11": {
+      "min": 68,
+      "max": 148,
+      "avg": 76,
+      "resting": 68
+    },
+    "2026-02-12": {
+      "min": 66,
+      "max": 137,
+      "avg": 81,
+      "resting": 66
+    },
+    "2026-02-13": {
+      "min": 56,
+      "max": 175,
+      "avg": 81,
+      "resting": 56
+    },
+    "2026-02-14": {
+      "min": 65,
+      "max": 134,
+      "avg": 91,
+      "resting": 65
+    },
+    "2026-02-15": {
+      "min": 65,
+      "max": 151,
+      "avg": 82,
+      "resting": 65
+    },
+    "2026-02-16": {
+      "min": 69,
+      "max": 172,
+      "avg": 89,
+      "resting": 69
+    },
+    "2026-02-17": {
+      "min": 70,
+      "max": 153,
+      "avg": 86,
+      "resting": 70
+    },
+    "2026-02-18": {
+      "min": 55,
+      "max": 130,
+      "avg": 72,
+      "resting": 55
+    },
+    "2026-02-19": {
+      "min": 56,
+      "max": 160,
+      "avg": 76,
+      "resting": 56
+    },
+    "2026-02-20": {
+      "min": 55,
+      "max": 139,
+      "avg": 88,
+      "resting": 55
+    },
+    "2026-02-21": {
+      "min": 70,
+      "max": 169,
+      "avg": 84,
+      "resting": 70
+    },
+    "2026-02-22": {
+      "min": 60,
+      "max": 177,
+      "avg": 75,
+      "resting": 60
+    },
+    "2026-02-23": {
+      "min": 62,
+      "max": 165,
+      "avg": 86,
+      "resting": 62
+    }
+  },
+  "moveMinutes": {
+    "2026-01-25": {
+      "activeMinutes": 62,
+      "heartMinutes": 32
+    },
+    "2026-01-26": {
+      "activeMinutes": 80,
+      "heartMinutes": 24
+    },
+    "2026-01-27": {
+      "activeMinutes": 38,
+      "heartMinutes": 13
+    },
+    "2026-01-28": {
+      "activeMinutes": 29,
+      "heartMinutes": 21
+    },
+    "2026-01-29": {
+      "activeMinutes": 39,
+      "heartMinutes": 25
+    },
+    "2026-01-30": {
+      "activeMinutes": 13,
+      "heartMinutes": 29
+    },
+    "2026-01-31": {
+      "activeMinutes": 40,
+      "heartMinutes": 20
+    },
+    "2026-02-01": {
+      "activeMinutes": 56,
+      "heartMinutes": 37
+    },
+    "2026-02-02": {
+      "activeMinutes": 46,
+      "heartMinutes": 12
+    },
+    "2026-02-03": {
+      "activeMinutes": 30,
+      "heartMinutes": 39
+    },
+    "2026-02-04": {
+      "activeMinutes": 54,
+      "heartMinutes": 15
+    },
+    "2026-02-05": {
+      "activeMinutes": 70,
+      "heartMinutes": 33
+    },
+    "2026-02-06": {
+      "activeMinutes": 26,
+      "heartMinutes": 24
+    },
+    "2026-02-07": {
+      "activeMinutes": 68,
+      "heartMinutes": 10
+    },
+    "2026-02-08": {
+      "activeMinutes": 48,
+      "heartMinutes": 10
+    },
+    "2026-02-09": {
+      "activeMinutes": 43,
+      "heartMinutes": 16
+    },
+    "2026-02-10": {
+      "activeMinutes": 38,
+      "heartMinutes": 30
+    },
+    "2026-02-11": {
+      "activeMinutes": 69,
+      "heartMinutes": 28
+    },
+    "2026-02-12": {
+      "activeMinutes": 24,
+      "heartMinutes": 24
+    },
+    "2026-02-13": {
+      "activeMinutes": 42,
+      "heartMinutes": 15
+    },
+    "2026-02-14": {
+      "activeMinutes": 46,
+      "heartMinutes": 25
+    },
+    "2026-02-15": {
+      "activeMinutes": 15,
+      "heartMinutes": 21
+    },
+    "2026-02-16": {
+      "activeMinutes": 21,
+      "heartMinutes": 11
+    },
+    "2026-02-17": {
+      "activeMinutes": 79,
+      "heartMinutes": 17
+    },
+    "2026-02-18": {
+      "activeMinutes": 75,
+      "heartMinutes": 39
+    },
+    "2026-02-19": {
+      "activeMinutes": 11,
+      "heartMinutes": 19
+    },
+    "2026-02-20": {
+      "activeMinutes": 11,
+      "heartMinutes": 32
+    },
+    "2026-02-21": {
+      "activeMinutes": 53,
+      "heartMinutes": 31
+    },
+    "2026-02-22": {
+      "activeMinutes": 13,
+      "heartMinutes": 39
+    },
+    "2026-02-23": {
+      "activeMinutes": 43,
+      "heartMinutes": 23
+    }
+  },
+  "heartRateZones": {
+    "2026-01-25": {
+      "zone1Minutes": 756,
+      "zone2Minutes": 123,
+      "zone3Minutes": 46,
+      "zone4Minutes": 12,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 937
+    },
+    "2026-01-26": {
+      "zone1Minutes": 770,
+      "zone2Minutes": 171,
+      "zone3Minutes": 70,
+      "zone4Minutes": 29,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 1040
+    },
+    "2026-01-27": {
+      "zone1Minutes": 701,
+      "zone2Minutes": 166,
+      "zone3Minutes": 95,
+      "zone4Minutes": 19,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 981
+    },
+    "2026-01-28": {
+      "zone1Minutes": 599,
+      "zone2Minutes": 179,
+      "zone3Minutes": 77,
+      "zone4Minutes": 18,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 873
+    },
+    "2026-01-29": {
+      "zone1Minutes": 788,
+      "zone2Minutes": 103,
+      "zone3Minutes": 53,
+      "zone4Minutes": 26,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 970
+    },
+    "2026-01-30": {
+      "zone1Minutes": 536,
+      "zone2Minutes": 133,
+      "zone3Minutes": 72,
+      "zone4Minutes": 26,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 767
+    },
+    "2026-01-31": {
+      "zone1Minutes": 788,
+      "zone2Minutes": 147,
+      "zone3Minutes": 94,
+      "zone4Minutes": 10,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 1039
+    },
+    "2026-02-01": {
+      "zone1Minutes": 767,
+      "zone2Minutes": 193,
+      "zone3Minutes": 43,
+      "zone4Minutes": 16,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 1019
+    },
+    "2026-02-02": {
+      "zone1Minutes": 792,
+      "zone2Minutes": 174,
+      "zone3Minutes": 76,
+      "zone4Minutes": 21,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 1063
+    },
+    "2026-02-03": {
+      "zone1Minutes": 627,
+      "zone2Minutes": 106,
+      "zone3Minutes": 37,
+      "zone4Minutes": 30,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 800
+    },
+    "2026-02-04": {
+      "zone1Minutes": 779,
+      "zone2Minutes": 172,
+      "zone3Minutes": 31,
+      "zone4Minutes": 30,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 1012
+    },
+    "2026-02-05": {
+      "zone1Minutes": 687,
+      "zone2Minutes": 81,
+      "zone3Minutes": 30,
+      "zone4Minutes": 1,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 799
+    },
+    "2026-02-06": {
+      "zone1Minutes": 570,
+      "zone2Minutes": 189,
+      "zone3Minutes": 22,
+      "zone4Minutes": 1,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 782
+    },
+    "2026-02-07": {
+      "zone1Minutes": 707,
+      "zone2Minutes": 194,
+      "zone3Minutes": 20,
+      "zone4Minutes": 19,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 940
+    },
+    "2026-02-08": {
+      "zone1Minutes": 552,
+      "zone2Minutes": 124,
+      "zone3Minutes": 33,
+      "zone4Minutes": 27,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 736
+    },
+    "2026-02-09": {
+      "zone1Minutes": 590,
+      "zone2Minutes": 139,
+      "zone3Minutes": 73,
+      "zone4Minutes": 24,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 826
+    },
+    "2026-02-10": {
+      "zone1Minutes": 725,
+      "zone2Minutes": 80,
+      "zone3Minutes": 33,
+      "zone4Minutes": 13,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 851
+    },
+    "2026-02-11": {
+      "zone1Minutes": 595,
+      "zone2Minutes": 118,
+      "zone3Minutes": 89,
+      "zone4Minutes": 11,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 813
+    },
+    "2026-02-12": {
+      "zone1Minutes": 669,
+      "zone2Minutes": 165,
+      "zone3Minutes": 26,
+      "zone4Minutes": 5,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 865
+    },
+    "2026-02-13": {
+      "zone1Minutes": 589,
+      "zone2Minutes": 116,
+      "zone3Minutes": 32,
+      "zone4Minutes": 11,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 748
+    },
+    "2026-02-14": {
+      "zone1Minutes": 740,
+      "zone2Minutes": 125,
+      "zone3Minutes": 36,
+      "zone4Minutes": 12,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 913
+    },
+    "2026-02-15": {
+      "zone1Minutes": 663,
+      "zone2Minutes": 109,
+      "zone3Minutes": 97,
+      "zone4Minutes": 7,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 876
+    },
+    "2026-02-16": {
+      "zone1Minutes": 771,
+      "zone2Minutes": 198,
+      "zone3Minutes": 63,
+      "zone4Minutes": 20,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 1052
+    },
+    "2026-02-17": {
+      "zone1Minutes": 548,
+      "zone2Minutes": 173,
+      "zone3Minutes": 85,
+      "zone4Minutes": 24,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 830
+    },
+    "2026-02-18": {
+      "zone1Minutes": 712,
+      "zone2Minutes": 196,
+      "zone3Minutes": 28,
+      "zone4Minutes": 29,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 965
+    },
+    "2026-02-19": {
+      "zone1Minutes": 551,
+      "zone2Minutes": 100,
+      "zone3Minutes": 74,
+      "zone4Minutes": 3,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 728
+    },
+    "2026-02-20": {
+      "zone1Minutes": 656,
+      "zone2Minutes": 191,
+      "zone3Minutes": 67,
+      "zone4Minutes": 19,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 933
+    },
+    "2026-02-21": {
+      "zone1Minutes": 692,
+      "zone2Minutes": 180,
+      "zone3Minutes": 77,
+      "zone4Minutes": 21,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 970
+    },
+    "2026-02-22": {
+      "zone1Minutes": 777,
+      "zone2Minutes": 82,
+      "zone3Minutes": 75,
+      "zone4Minutes": 18,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 952
+    },
+    "2026-02-23": {
+      "zone1Minutes": 567,
+      "zone2Minutes": 84,
+      "zone3Minutes": 26,
+      "zone4Minutes": 30,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 707
+    }
+  },
+  "lastUpdated": "2026-03-11T18:46:37.983Z",
+  "source": "Google Fit",
+  "dataRange": {
+    "stepsDays": 365,
+    "sleepDays": 90,
+    "heartRateDays": 30,
+    "moveMinutesDays": 30,
+    "heartRateZonesDays": 30
   }
 }
