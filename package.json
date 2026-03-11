@@ -14,7 +14,10 @@
     "strava-script": "bun scripts/strava-script.ts",
     "googlefit-setup": "bun scripts/googlefit-setup.ts",
     "googlefit-script": "bun scripts/googlefit-script.ts",
+    "hevy-script": "bun scripts/hevy-script.ts",
     "debug-googlefit": "bun scripts/debug-googlefit.ts",
+    "compare-googlefit": "bun scripts/compare-googlefit.ts",
+    "update-all": "bun run strava-script && bun run googlefit-script && bun run hevy-script",
     "generate-dummy-data": "bun scripts/generate-dummy-data.ts"
   },
   "dependencies": {

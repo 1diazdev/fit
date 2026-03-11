@@ -36,9 +36,12 @@ import { resolve } from "node:path";
 const { date } = Astro.params;
 const dateToUse = date || "";
 
+// Get base URL for proper routing
+const base = import.meta.env.BASE_URL;
+
 // Validate date format
 if (!/^\d{4}-\d{2}-\d{2}$/.test(dateToUse)) {
-  return Astro.redirect("/health");
+  return Astro.redirect(`${base}health`);
 }
 
 console.log(`[health/[date]] Loading health data for date: ${dateToUse}`);
@@ -136,7 +139,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
 >
   <!-- Date Navigator -->
   <div class="date-navigator">
-    <a href={`/health/${prevDayStr}`} class="nav-arrow" title="Previous day">
+    <a href={`${base}health/${prevDayStr}`} class="nav-arrow" title="Previous day">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -155,7 +158,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
       <div class="date-text">{displayDate}</div>
       {
         !isToday && (
-          <a href="/health" class="today-btn">
+          <a href={`${base}health`} class="today-btn">
             [TODAY]
           </a>
         )
@@ -163,7 +166,7 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     </div>
 
     <a
-      href={isNextDayFuture ? "#" : `/health/${nextDayStr}`}
+      href={isNextDayFuture ? "#" : `${base}health/${nextDayStr}`}
       class={`nav-arrow ${isNextDayFuture ? "disabled" : ""}`}
       title="Next day"
     >

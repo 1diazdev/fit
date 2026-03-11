@@ -17,14 +17,17 @@ export interface Props {
 
 const { currentPath = "/" } = Astro.props;
 
+// Use BASE_URL to support both GitHub Pages (/fit/) and custom domains (/)
+const base = import.meta.env.BASE_URL;
+
 const navItems = [
-  { path: "/", label: "DASHBOARD", Icon: Activity },
-  { path: "/last", label: "ACTIVITIES", Icon: List },
-  { path: "/map", label: "ROUTES", Icon: Map },
-  { path: "/hevy", label: "WORKOUTS", Icon: Dumbbell },
-  { path: "/health", label: "HEALTH", Icon: Heart },
-  { path: "/record", label: "RECORDS", Icon: Trophy },
-  { path: "/about", label: "ABOUT", Icon: Info },
+  { path: `${base}`, label: "DASHBOARD", Icon: Activity },
+  { path: `${base}last`, label: "ACTIVITIES", Icon: List },
+  { path: `${base}map`, label: "ROUTES", Icon: Map },
+  { path: `${base}hevy`, label: "WORKOUTS", Icon: Dumbbell },
+  { path: `${base}health`, label: "HEALTH", Icon: Heart },
+  { path: `${base}record`, label: "RECORDS", Icon: Trophy },
+  { path: `${base}about`, label: "ABOUT", Icon: Info },
 ];
 ---
 

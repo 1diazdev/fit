@@ -1,0 +1,28 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "strava",
+    "googlefit",
+    "hevy",
+    "Strava",
+    "Hevy",
+    "jpdiaz",
+    "Zepp",
+    "Fitbit",
+    "ASTRO",
+    "astro",
+    "bun",
+    "CLAUDE",
+    "tailwindcss",
+    "lucide",
+    "VITE"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    ".astro/**",
+    "public/**",
+    "bun.lockb"
+  ]
+}

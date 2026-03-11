@@ -1,0 +1,65 @@
+name: Update All Fitness Data
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # Daily at 6am UTC (1am EST / 2am EDT)
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-fitness-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Update Strava data
+        run: bun run strava-script
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+        continue-on-error: true
+
+      - name: Update Google Fit data
+        run: bun run googlefit-script
+        env:
+          GOOGLE_FIT_CLIENT_ID: ${{ secrets.GOOGLE_FIT_CLIENT_ID }}
+          GOOGLE_FIT_CLIENT_SECRET: ${{ secrets.GOOGLE_FIT_CLIENT_SECRET }}
+          GOOGLE_FIT_REFRESH_TOKEN: ${{ secrets.GOOGLE_FIT_REFRESH_TOKEN }}
+        continue-on-error: true
+
+      - name: Update Hevy data
+        run: bun run hevy-script
+        env:
+          HEVY_API_KEY: ${{ secrets.HEVY_API_KEY }}
+        continue-on-error: true
+
+      - name: Commit updated data
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🤖 Update fitness data [skip ci]"
+          file_pattern: "public/*.json"
+          commit_user_name: "Fitness Bot"
+          commit_user_email: "bot@fit.jpdiaz.dev"
+          commit_author: "Fitness Bot <bot@fit.jpdiaz.dev>"
+
+      - name: Trigger deployments (optional)
+        if: success()
+        run: |
+          # Vercel auto-deploys on commit, no webhook needed
+          echo "ℹ️ Vercel will auto-deploy on commit"
+
+          # Netlify webhook (if configured)
+          if [ -n "${{ secrets.NETLIFY_BUILD_HOOK }}" ]; then
+            curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
+            echo "✅ Netlify rebuild triggered"
+          fi
