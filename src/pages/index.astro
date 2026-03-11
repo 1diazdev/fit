@@ -169,17 +169,17 @@ const minDistance =
 const maxDistance =
   positiveDistances.length > 0 ? Math.max(...positiveDistances) : 1;
 
-// Fetch move minutes for chart (last 7 days)
+// Fetch move minutes for chart (last 90 days)
 const moveMinutesData =
   testMode && testSnapshot
     ? testSnapshot.moveMinutesData
     : await fetchMoveMinutesData(30).catch(() => ({}));
 
-// Fetch heart rate data for zones component
+// Fetch heart rate data for zones component (last 90 days)
 const heartRateData =
   testMode && testSnapshot
     ? testSnapshot.heartRateData
-    : await fetchHeartRateData(7).catch(() => ({}));
+    : await fetchHeartRateData(90).catch(() => ({}));
 
 // Fetch Hevy workout count
 let workoutCount = 0;
