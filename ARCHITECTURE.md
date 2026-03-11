@@ -94,6 +94,7 @@
 **Output**: `public/health-data.json`
 **Frequency**: Daily via GitHub Actions
 **Data Ranges**:
+
 - Steps: 365 days
 - Sleep: 90 days (API limit)
 - Heart Rate: 30 days
@@ -174,6 +175,7 @@
 **Debug Script**: `bun run compare-googlefit`
 
 This script:
+
 - Lists ALL available data sources
 - Shows data from each source separately
 - Compares with aggregate endpoint

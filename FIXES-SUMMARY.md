@@ -5,70 +5,83 @@
 ### 1. ✅ Google Fit Data Accuracy (CRITICAL FIX)
 
 **Problem:**
+
 - Google Fit data showing **less than half** the actual steps
 - Example: 3/10/2026 showed 16,056 steps instead of 34,891 steps
 - Missing ~18,835 steps per day (54% of data!)
 
 **Root Cause:**
+
 - Using Google Fit aggregate endpoint that auto-selects a default data source
 - Default source didn't include data from Zepp watch and other apps
 - Only captured phone-based step counting
 
 **Solution:**
+
 - Changed from aggregate endpoint to **direct data source fetch**
 - Now uses specific data source: `derived:com.google.step_count.delta:com.google.android.gms:estimated_steps`
 - This source includes: Phone + Zepp watch + connected apps
 
 **Results:**
+
 - **Before:** 16,056 steps (54% missing)
 - **After:** 34,762 steps
 - **Google Fit app:** 34,891 steps
 - **Accuracy:** 99.63% (only 129 steps difference)
 
 **Files Modified:**
+
 - `src/services/googleFitService.ts` - Complete rewrite of `fetchStepsData()`
 
 ### 2. ✅ GitHub Pages Deployment Support
 
 **Problem:**
+
 - GitHub Pages uses `/fit/` base path (repo name)
 - All links were hardcoded as `/` causing 404s
 
 **Solution:**
+
 - Added `ASTRO_BASE_PATH` environment variable support in `astro.config.mjs`
 - Updated all navigation links to use `import.meta.env.BASE_URL`
 - Created GitHub Pages deployment workflow
 
 **Files Modified:**
+
 - `astro.config.mjs` - Added base path support
 - `src/components/Navigation.astro` - Dynamic base URLs
 - `src/pages/health/[date].astro` - Dynamic base URLs
 - `.github/workflows/deploy-github-pages.yml` - New workflow
 
 **Now Works On:**
+
 - ✅ Vercel: `https://fit.jpdiaz.dev` (base: `/`)
 - ✅ GitHub Pages: `https://JuanPabloDiaz.github.io/fit/` (base: `/fit/`)
 
 ### 3. ⏸️ Netlify Temporarily Disabled
 
 **Action:**
+
 - Renamed `netlify.toml` to `netlify.toml.disabled`
 - Netlify Functions preserved in `netlify/functions/`
 - Can be re-enabled later if needed
 
 **Reason:**
+
 - Currently using Vercel (primary) and GitHub Pages (backup)
 - Simplified deployment strategy
 
 ### 4. 📊 Unified Data Update System
 
 **Created:**
+
 - `.github/workflows/update-all-data.yml` - Daily data updates (6am UTC)
 - `scripts/hevy-script.ts` - Hevy data fetch script
 - `scripts/compare-googlefit.ts` - Debug tool for data sources
 - `scripts/test-datasource.ts` - Test specific data sources
 
 **Improvements:**
+
 - All data sources (Strava, Google Fit, Hevy) update daily
 - Auto-commit to git
 - Vercel auto-deploys on commit
@@ -76,6 +89,7 @@
 ### 5. 📚 Complete Documentation
 
 **Created:**
+
 - `ARCHITECTURE.md` - System architecture and data flow
 - `DEPLOYMENT.md` - Full deployment guide
 - `README-DEPLOYMENT.md` - Quick start guide
@@ -97,11 +111,11 @@ ASTRO_BASE_PATH=/fit/ bun run build  # GitHub Pages build
 
 ## 🚀 Deployment Status
 
-| Platform | Status | URL | Base Path |
-|----------|--------|-----|-----------|
-| **Vercel** | ✅ Active | https://fit.jpdiaz.dev | `/` |
-| **GitHub Pages** | ✅ Ready | https://JuanPabloDiaz.github.io/fit/ | `/fit/` |
-| **Netlify** | ⏸️ Disabled | - | - |
+| Platform         | Status      | URL                                  | Base Path |
+| ---------------- | ----------- | ------------------------------------ | --------- |
+| **Vercel**       | ✅ Active   | https://fit.jpdiaz.dev               | `/`       |
+| **GitHub Pages** | ✅ Ready    | https://JuanPabloDiaz.github.io/fit/ | `/fit/`   |
+| **Netlify**      | ⏸️ Disabled | -                                    | -         |
 
 ## 🔄 Data Update Flow
 

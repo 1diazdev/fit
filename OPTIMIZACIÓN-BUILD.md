@@ -25,6 +25,7 @@ const [...] = await Promise.all([
 ```
 
 **Consecuencias:**
+
 - ❌ Build tarda 10-15 segundos (solo en llamadas API)
 - ❌ Puede fallar por rate limits
 - ❌ Puede fallar por timeouts de red
@@ -103,16 +104,17 @@ export async function getDataForDate(date: string): Promise<DayData> {
 
 ### Paso 3: Beneficios
 
-| Antes (API calls) | Después (JSON) |
-|-------------------|----------------|
-| 10-15 segundos | <100ms |
-| Puede fallar | Siempre funciona |
-| Rate limits | Sin límites |
-| Inestable | Estable |
+| Antes (API calls) | Después (JSON)   |
+| ----------------- | ---------------- |
+| 10-15 segundos    | <100ms           |
+| Puede fallar      | Siempre funciona |
+| Rate limits       | Sin límites      |
+| Inestable         | Estable          |
 
 ## Implementación Paso a Paso
 
 1. **Generar JSONs inicialmente:**
+
    ```bash
    bun run update-all
    ```

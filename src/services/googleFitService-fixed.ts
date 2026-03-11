@@ -13,9 +13,12 @@ const GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
 // Specific data source IDs that include ALL your data
 const DATA_SOURCES = {
   // This includes phone + Zepp watch + all connected apps
-  STEPS: "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps",
-  DISTANCE: "derived:com.google.distance.delta:com.google.android.gms:merge_distance_delta",
-  CALORIES: "derived:com.google.calories.expended:com.google.android.gms:merge_calories_expended",
+  STEPS:
+    "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps",
+  DISTANCE:
+    "derived:com.google.distance.delta:com.google.android.gms:merge_distance_delta",
+  CALORIES:
+    "derived:com.google.calories.expended:com.google.android.gms:merge_calories_expended",
 };
 
 export interface StepsData {
@@ -30,7 +33,7 @@ function nanosToDateString(nanos: string): string {
   const millis = parseInt(nanos) / 1000000;
   const date = new Date(millis);
   const nyDate = new Date(
-    date.toLocaleString("en-US", { timeZone: "America/New_York" })
+    date.toLocaleString("en-US", { timeZone: "America/New_York" }),
   );
 
   const year = nyDate.getFullYear();
@@ -40,7 +43,9 @@ function nanosToDateString(nanos: string): string {
   return `${year}-${month}-${day}`;
 }
 
-export async function refreshAccessToken(refreshToken: string): Promise<string> {
+export async function refreshAccessToken(
+  refreshToken: string,
+): Promise<string> {
   const clientId = import.meta.env.GOOGLE_FIT_CLIENT_ID;
   const clientSecret = import.meta.env.GOOGLE_FIT_CLIENT_SECRET;
 
@@ -71,7 +76,7 @@ export async function getAccessToken(): Promise<string> {
 
   if (!refreshToken) {
     throw new Error(
-      "GOOGLE_FIT_REFRESH_TOKEN not found. Run the setup script first: bun run googlefit-setup"
+      "GOOGLE_FIT_REFRESH_TOKEN not found. Run the setup script first: bun run googlefit-setup",
     );
   }
 
@@ -82,7 +87,9 @@ export async function getAccessToken(): Promise<string> {
  * Fetch steps data using SPECIFIC data source (not default aggregate)
  * This ensures we get ALL data including Zepp watch, apps, etc.
  */
-export async function fetchStepsDataFixed(days: number = 365): Promise<StepsData> {
+export async function fetchStepsDataFixed(
+  days: number = 365,
+): Promise<StepsData> {
   const today = new Date().toISOString().split("T")[0];
   return memoize(`googlefit-steps-fixed-${today}-${days}`, async () => {
     const accessToken = await getAccessToken();
@@ -92,7 +99,7 @@ export async function fetchStepsDataFixed(days: number = 365): Promise<StepsData
     const chunks = Math.ceil(days / CHUNK_SIZE);
 
     console.log(
-      `   [FIXED] Fetching ${days} days in ${chunks} chunks using specific data sources...`
+      `   [FIXED] Fetching ${days} days in ${chunks} chunks using specific data sources...`,
     );
 
     for (let i = 0; i < chunks; i++) {
@@ -134,7 +141,7 @@ export async function fetchStepsDataFixed(days: number = 365): Promise<StepsData
         const errorText = await stepsResponse.text();
         console.error(`Steps API Error (chunk ${i + 1}):`, errorText);
         throw new Error(
-          `Google Fit API error: ${stepsResponse.status} - ${errorText}`
+          `Google Fit API error: ${stepsResponse.status} - ${errorText}`,
         );
       }
 
@@ -171,11 +178,13 @@ export async function fetchStepsDataFixed(days: number = 365): Promise<StepsData
 
       // Small delay between chunks
       if (i < chunks - 1) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
     }
 
-    console.log(`   ✅ Fetched ${Object.keys(stepsData).length} days with data`);
+    console.log(
+      `   ✅ Fetched ${Object.keys(stepsData).length} days with data`,
+    );
     return stepsData;
   });
 }

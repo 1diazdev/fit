@@ -363,7 +363,9 @@ export async function fetchStepsData(days: number = 365): Promise<StepsData> {
       }
     }
 
-    console.log(`   ✅ Fetched ${Object.keys(stepsData).length} days with data`);
+    console.log(
+      `   ✅ Fetched ${Object.keys(stepsData).length} days with data`,
+    );
     return stepsData;
   });
 }

@@ -3,10 +3,12 @@
 ## 🎯 Current Setup
 
 **Active Deployments:**
+
 - ✅ **Vercel** - https://fit.jpdiaz.dev (primary)
 - ✅ **GitHub Pages** - https://JuanPabloDiaz.github.io/fit/ (backup)
 
 **Disabled:**
+
 - ⏸️ **Netlify** - Config saved as `netlify.toml.disabled`
 
 ## 🚀 Quick Start - Vercel
@@ -24,6 +26,7 @@
 ## 🔄 Data Updates
 
 GitHub Actions runs daily at 6am UTC:
+
 - Fetches from Strava, Google Fit, Hevy
 - Saves to `public/*.json`
 - Auto-commits changes

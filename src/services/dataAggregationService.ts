@@ -155,7 +155,9 @@ async function loadDataFromJSON() {
       const hevyData = JSON.parse(hevyRaw);
       hevyWorkouts = hevyData.workouts || [];
     } catch (error) {
-      console.warn("[DataAggregation] hevy-data.json not found, using empty array");
+      console.warn(
+        "[DataAggregation] hevy-data.json not found, using empty array",
+      );
     }
 
     // Note: Strava script only saves distance data, not individual activities
@@ -197,21 +199,29 @@ export async function getDataForDate(date: string): Promise<DayData> {
       const hrZones = jsonData.health.heartRateZones || {};
 
       // Extract data for specific date
-      const rawSteps = stepsData[date] || { steps: 0, distance: 0, calories: 0 };
+      const rawSteps = stepsData[date] || {
+        steps: 0,
+        distance: 0,
+        calories: 0,
+      };
       const daySleep = sleepData[date] || null;
       const dayHR = hrData[date] || null;
       const dayMove = moveData[date] || { activeMinutes: 0, heartMinutes: 0 };
       const dayHRZones = hrZones[date] || null;
 
       // Filter activities for this date
-      const dayActivities = jsonData.strava.filter((activity: StravaActivity) => {
-        const activityDate = new Date(activity.start_date);
-        const nyDate = new Date(
-          activityDate.toLocaleString("en-US", { timeZone: "America/New_York" }),
-        );
-        const activityDateStr = formatDate(nyDate);
-        return activityDateStr === date;
-      });
+      const dayActivities = jsonData.strava.filter(
+        (activity: StravaActivity) => {
+          const activityDate = new Date(activity.start_date);
+          const nyDate = new Date(
+            activityDate.toLocaleString("en-US", {
+              timeZone: "America/New_York",
+            }),
+          );
+          const activityDateStr = formatDate(nyDate);
+          return activityDateStr === date;
+        },
+      );
 
       // Filter workouts for this date
       const dayWorkouts = jsonData.hevy.filter((workout: HevyWorkout) => {
@@ -289,7 +299,9 @@ export async function getDataForDate(date: string): Promise<DayData> {
     }
 
     // PRIORITY 3: API calls (slowest, only as fallback)
-    console.log(`[DataAggregation] ⚠️ JSONs not found, calling APIs (slow build)...`);
+    console.log(
+      `[DataAggregation] ⚠️ JSONs not found, calling APIs (slow build)...`,
+    );
 
     // Calculate how many days back from today
     const targetDate = new Date(date);

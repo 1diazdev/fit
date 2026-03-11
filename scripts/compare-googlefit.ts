@@ -61,9 +61,9 @@ const main = async () => {
 
     // Filter step count sources
     const stepSources = dataSources.filter(
-      (ds) =>
+      ds =>
         ds.dataType.name === "com.google.step_count.delta" ||
-        ds.dataType.name === "com.google.step_count.cumulative"
+        ds.dataType.name === "com.google.step_count.cumulative",
     );
 
     console.log("📍 Step Count Data Sources:\n");
@@ -72,7 +72,7 @@ const main = async () => {
       console.log(`   Type: ${ds.type}`);
       if (ds.device) {
         console.log(
-          `   Device: ${ds.device.manufacturer || "Unknown"} ${ds.device.model || ""}`
+          `   Device: ${ds.device.manufacturer || "Unknown"} ${ds.device.model || ""}`,
         );
       }
       if (ds.application) {
@@ -89,7 +89,9 @@ const main = async () => {
     const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
 
     for (const source of stepSources) {
-      console.log(`\n🔎 Fetching from: ${source.dataStreamId.substring(0, 60)}...`);
+      console.log(
+        `\n🔎 Fetching from: ${source.dataStreamId.substring(0, 60)}...`,
+      );
 
       const dataUrl = `${GOOGLE_FIT_API_BASE}/dataSources/${encodeURIComponent(source.dataStreamId)}/datasets/${sevenDaysAgo * 1000000}-${now * 1000000}`;
 
@@ -109,9 +111,10 @@ const main = async () => {
             console.log(`   Last 3 points:`);
             points.slice(-3).forEach((point: any) => {
               const date = new Date(parseInt(point.startTimeNanos) / 1000000);
-              const value = point.value[0]?.intVal || point.value[0]?.fpVal || 0;
+              const value =
+                point.value[0]?.intVal || point.value[0]?.fpVal || 0;
               console.log(
-                `      ${date.toLocaleDateString()} ${date.toLocaleTimeString()}: ${value} steps`
+                `      ${date.toLocaleDateString()} ${date.toLocaleTimeString()}: ${value} steps`,
               );
             });
 
@@ -119,7 +122,7 @@ const main = async () => {
             const total = points.reduce(
               (sum: number, point: any) =>
                 sum + (point.value[0]?.intVal || point.value[0]?.fpVal || 0),
-              0
+              0,
             );
             console.log(`   📊 Total: ${total.toLocaleString()} steps`);
           }
@@ -179,7 +182,7 @@ const main = async () => {
 
             if (steps > 0) {
               console.log(
-                `      ${date.toLocaleDateString()}: ${steps.toLocaleString()} steps`
+                `      ${date.toLocaleDateString()}: ${steps.toLocaleString()} steps`,
               );
             }
           });
@@ -198,20 +201,20 @@ const main = async () => {
 
     console.log("1. Check which data source has the most complete data");
     console.log("2. Compare totals with your Google Fit mobile app");
-    console.log("3. The app may be using a specific device source (e.g., Zepp)");
     console.log(
-      "4. Try using 'derived:...:merged' sources for most accurate data"
+      "3. The app may be using a specific device source (e.g., Zepp)",
+    );
+    console.log(
+      "4. Try using 'derived:...:merged' sources for most accurate data",
     );
     console.log("\n5. Common data sources:");
     console.log(
-      "   - derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
+      "   - derived:com.google.step_count.delta:com.google.android.gms:estimated_steps",
     );
     console.log(
-      "   - derived:com.google.step_count.delta:com.google.android.gms:merge_step_deltas"
+      "   - derived:com.google.step_count.delta:com.google.android.gms:merge_step_deltas",
     );
-    console.log(
-      "   - raw:com.google.step_count.delta:<device_specific>\n"
-    );
+    console.log("   - raw:com.google.step_count.delta:<device_specific>\n");
 
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   } catch (error) {

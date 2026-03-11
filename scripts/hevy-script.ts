@@ -26,14 +26,18 @@ const main = async (): Promise<void> => {
 
   const apiKey = process.env.HEVY_API_KEY;
   if (!apiKey) {
-    console.error("❌ Error: HEVY_API_KEY not found in environment variables\n");
+    console.error(
+      "❌ Error: HEVY_API_KEY not found in environment variables\n",
+    );
     console.log("💡 Add your API key to your .env file:");
     console.log("   HEVY_API_KEY=hvy_your_actual_api_key_here\n");
     process.exit(1);
   }
 
   console.log("✅ API key found");
-  console.log(`   Key: ${apiKey.substring(0, 8)}...${apiKey.substring(apiKey.length - 4)}\n`);
+  console.log(
+    `   Key: ${apiKey.substring(0, 8)}...${apiKey.substring(apiKey.length - 4)}\n`,
+  );
 
   try {
     console.log("🔄 Fetching workout data from Hevy API...\n");
@@ -56,7 +60,9 @@ const main = async (): Promise<void> => {
     if (workouts.length > 0) {
       const lastWorkout = workouts[0];
       console.log(`   Last workout: ${lastWorkout.title}`);
-      console.log(`   Date: ${new Date(lastWorkout.start_time).toLocaleDateString()}`);
+      console.log(
+        `   Date: ${new Date(lastWorkout.start_time).toLocaleDateString()}`,
+      );
       console.log(`   Exercises: ${lastWorkout.exercises.length}\n`);
     }
 
@@ -75,7 +81,7 @@ const main = async (): Promise<void> => {
     console.log(`✅ Hevy data saved to ${outputPath}`);
 
     // Calculate file size
-    const stats = await import("fs").then((fs) => fs.promises.stat(outputPath));
+    const stats = await import("fs").then(fs => fs.promises.stat(outputPath));
     const fileSizeKB = (stats.size / 1024).toFixed(2);
     console.log(`   File size: ${fileSizeKB} KB\n`);
 
@@ -86,7 +92,10 @@ const main = async (): Promise<void> => {
     if (error instanceof Error) {
       console.error(`   ${error.message}\n`);
 
-      if (error.message.includes("401") || error.message.includes("Authentication")) {
+      if (
+        error.message.includes("401") ||
+        error.message.includes("Authentication")
+      ) {
         console.log("💡 Authentication error:");
         console.log("   - Your API key may be invalid or expired");
         console.log("   - Get a new API key from Hevy app settings\n");

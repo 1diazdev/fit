@@ -31,6 +31,7 @@ NETLIFY_BUILD_HOOK=https://api.netlify.com/build_hooks/your_hook_id
 ### 2. Enable GitHub Actions
 
 The workflow `.github/workflows/update-all-data.yml` will:
+
 - Run daily at 6am UTC (1am EST / 2am EDT)
 - Fetch data from all APIs
 - Save to `public/*.json`
@@ -62,6 +63,7 @@ bun run compare-googlefit
 ```
 
 This will:
+
 1. List ALL available data sources in your Google Fit account
 2. Show data from each source for the last 7 days
 3. Compare with the aggregate endpoint (what the app uses)
@@ -85,6 +87,7 @@ raw:com.google.step_count.delta:com.mi.health:
 Google Fit may be showing "merged" data that combines multiple sources.
 
 **Fix**: Use the `merge_step_deltas` data source:
+
 ```
 derived:com.google.step_count.delta:com.google.android.gms:merge_step_deltas
 ```
@@ -97,7 +100,7 @@ The script uses `America/New_York` timezone. If you're in a different timezone, 
 
 ```typescript
 const nyDate = new Date(
-  date.toLocaleString("en-US", { timeZone: "YOUR_TIMEZONE" })
+  date.toLocaleString("en-US", { timeZone: "YOUR_TIMEZONE" }),
 );
 ```
 
@@ -123,6 +126,7 @@ public/
 ```
 
 These files are:
+
 - ✅ Committed to git
 - ✅ Updated daily by GitHub Actions
 - ✅ Read during build (no API calls = fast builds!)
@@ -169,7 +173,7 @@ Edit `.github/workflows/update-all-data.yml`:
 ```yaml
 on:
   schedule:
-    - cron: "0 6 * * *"  # Daily at 6am UTC
+    - cron: "0 6 * * *" # Daily at 6am UTC
     # Change to:
     # - cron: "0 */6 * * *"  # Every 6 hours
     # - cron: "0 6,18 * * *"  # 6am and 6pm UTC
@@ -181,8 +185,8 @@ Edit individual scripts:
 
 ```typescript
 // In googlefit-script.ts
-const stepsData = await fetchStepsData(365);  // Change days
-const sleepData = await fetchSleepData(90);   // Max 90 days
+const stepsData = await fetchStepsData(365); // Change days
+const sleepData = await fetchSleepData(90); // Max 90 days
 ```
 
 ### Test Mode with Dummy Data

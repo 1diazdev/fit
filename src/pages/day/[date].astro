@@ -170,7 +170,7 @@ const moveMinutesData =
 const heartRateData =
   testMode && testSnapshot
     ? testSnapshot.heartRateData
-    : await fetchHeartRateData(7).catch(() => ({}));
+    : await fetchHeartRateData(90).catch(() => ({}));
 
 // Fetch Hevy workout count
 let workoutCount = 0;

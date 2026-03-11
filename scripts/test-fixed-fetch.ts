@@ -19,11 +19,14 @@ async function main() {
     for (const date of dates) {
       const data = stepsData[date];
       console.log(
-        `   ${date}: ${data.steps.toLocaleString()} steps, ${(data.distance / 1000).toFixed(2)} km, ${Math.round(data.calories)} cal`
+        `   ${date}: ${data.steps.toLocaleString()} steps, ${(data.distance / 1000).toFixed(2)} km, ${Math.round(data.calories)} cal`,
       );
     }
 
-    const totalSteps = dates.reduce((sum, date) => sum + stepsData[date].steps, 0);
+    const totalSteps = dates.reduce(
+      (sum, date) => sum + stepsData[date].steps,
+      0,
+    );
     console.log(`\n   📊 Total: ${totalSteps.toLocaleString()} steps`);
 
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
