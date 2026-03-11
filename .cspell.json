@@ -16,7 +16,11 @@
     "CLAUDE",
     "tailwindcss",
     "lucide",
-    "VITE"
+    "VITE",
+    "Millis",
+    "millis",
+    "heartrate",
+    "nanos"
   ],
   "ignorePaths": [
     "node_modules/**",
