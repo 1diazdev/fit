@@ -186,6 +186,12 @@ export async function refreshAccessToken(
   const clientId = import.meta.env.GOOGLE_FIT_CLIENT_ID;
   const clientSecret = import.meta.env.GOOGLE_FIT_CLIENT_SECRET;
 
+  // Debug logging
+  console.log("[GoogleFit] Client ID length:", clientId?.length || 0);
+  console.log("[GoogleFit] Client ID ends with:", clientId?.slice(-30) || "undefined");
+  console.log("[GoogleFit] Client Secret exists:", !!clientSecret);
+  console.log("[GoogleFit] Refresh Token exists:", !!refreshToken);
+
   const response = await fetch(GOOGLE_TOKEN_URL, {
     method: "POST",
     headers: {
