@@ -379,13 +379,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
           </div>
         </div>
 
-        <div class="heatmap-display">
-          <HeatmapGrid
-            distanceData={distanceData}
-            minDistance={minDistance}
-            maxDistance={maxDistance}
-          />
-        </div>
+        <HeatmapGrid
+          distanceData={distanceData}
+          minDistance={minDistance}
+          maxDistance={maxDistance}
+        />
 
         <div class="heatmap-footer mt-4">
           <div class="flex justify-between items-center text-xs">
@@ -504,12 +502,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
   .heatmap-wrapper {
     position: relative;
     z-index: 2;
-  }
-
-  .heatmap-display {
-    max-width: 1200px;
-    margin: 0 auto;
-    aspect-ratio: 53/7;
   }
 
   .heatmap-info,

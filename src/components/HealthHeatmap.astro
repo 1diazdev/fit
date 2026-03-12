@@ -80,9 +80,10 @@ const monthLabels = getMonthLabels(dataArray);
 const totalWeeks = Math.ceil(dataArray.length / 7);
 ---
 
-<div
-  class="relative w-full max-w-full p-6 bg-black rounded-xl border border-green-500/30 shadow-2xl shadow-green-500/20 overflow-hidden"
->
+<div class="heatmap-wrapper-container">
+  <div
+    class="relative w-full p-6 bg-black rounded-xl border border-green-500/30 shadow-2xl shadow-green-500/20 overflow-hidden"
+  >
   <!-- Matrix digital rain effect -->
   <div class="absolute inset-0 opacity-10 pointer-events-none">
     <div
@@ -142,8 +143,8 @@ const totalWeeks = Math.ceil(dataArray.length / 7);
 
     <!-- Main Heatmap Grid -->
     <div
-      class="grid grid-rows-7 grid-flow-col gap-0.5 w-full min-h-[140px] relative"
-      style={{ gridTemplateColumns: `repeat(${totalWeeks}, 1fr)` }}
+      class="grid grid-rows-7 grid-flow-col gap-0.5 min-h-[140px] relative heatmap-grid"
+      style={{ gridTemplateColumns: `repeat(${totalWeeks}, minmax(12px, 20px))` }}
     >
       {
         dataArray.map((data, index) => {
@@ -240,9 +241,28 @@ const totalWeeks = Math.ceil(dataArray.length / 7);
     >
     </div>
   </div>
+  </div>
 </div>
 
 <style>
+  .heatmap-wrapper-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .heatmap-grid {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .heatmap-wrapper-container {
+      min-height: 180px;
+    }
+  }
+
   @keyframes scaleIn {
     from {
       transform: scale(0);
