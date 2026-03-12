@@ -243,7 +243,7 @@ export async function loadJSON<T>(filePath: string): Promise<T | null> {
  * Calculate data range (how many days of data we have for each metric)
  */
 export function calculateDataRange(data: Record<string, any>): number {
-  return Object.keys(data).filter((key) => !key.startsWith("_")).length;
+  return Object.keys(data).filter(key => !key.startsWith("_")).length;
 }
 
 /**
@@ -251,7 +251,7 @@ export function calculateDataRange(data: Record<string, any>): number {
  */
 export function getDateRangeString(data: Record<string, any>): string {
   const dates = Object.keys(data)
-    .filter((key) => !key.startsWith("_"))
+    .filter(key => !key.startsWith("_"))
     .sort();
 
   if (dates.length === 0) return "No data";

@@ -61,9 +61,7 @@ const main = async (): Promise<void> => {
 
     // Step 2: Fetch data from Hevy API
     console.log("🔄 Fetching workout data from Hevy API...");
-    console.log(
-      "   Note: Hevy API returns all workouts (no date filtering)\n",
-    );
+    console.log("   Note: Hevy API returns all workouts (no date filtering)\n");
 
     const startTime = Date.now();
 
@@ -123,16 +121,12 @@ const main = async (): Promise<void> => {
     });
 
     // Calculate file size
-    const stats = await import("fs").then((fs) =>
-      fs.promises.stat(outputPath),
-    );
+    const stats = await import("fs").then(fs => fs.promises.stat(outputPath));
     const fileSizeKB = (stats.size / 1024).toFixed(2);
     console.log(`   File size: ${fileSizeKB} KB\n`);
 
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    console.log(
-      `✨ Hevy ${isBootstrap ? "bootstrap" : "update"} complete!\n`,
-    );
+    console.log(`✨ Hevy ${isBootstrap ? "bootstrap" : "update"} complete!\n`);
     console.log("💡 Historical workouts preserved even if deleted from Hevy\n");
   } catch (error) {
     console.error("\n❌ Error fetching Hevy data:\n");

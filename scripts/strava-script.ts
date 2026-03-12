@@ -156,7 +156,9 @@ const main = async (): Promise<void> => {
     const newDistanceMap = summarizeDistance(newActivities);
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
-    console.log(`  ✅ Fetched ${newActivities.length} activities in ${elapsed}s\n`);
+    console.log(
+      `  ✅ Fetched ${newActivities.length} activities in ${elapsed}s\n`,
+    );
 
     // Step 4: Load existing data and merge (if incremental)
     let finalDistances = newDistanceMap;
@@ -182,6 +184,13 @@ const main = async (): Promise<void> => {
       }
     }
 
+    // Sort activities by date (newest first) to ensure correct ordering
+    finalActivities.sort((a, b) => {
+      const dateA = new Date(a.start_date).getTime();
+      const dateB = new Date(b.start_date).getTime();
+      return dateB - dateA; // Descending order (newest first)
+    });
+
     // Step 5: Calculate statistics
     const totalDistanceDays = calculateDataRange(finalDistances);
     const totalActivities = finalActivities.length;
@@ -205,9 +214,7 @@ const main = async (): Promise<void> => {
     });
 
     // Calculate file size
-    const stats = await import("fs").then((fs) =>
-      fs.promises.stat(outputPath),
-    );
+    const stats = await import("fs").then(fs => fs.promises.stat(outputPath));
     const fileSizeKB = (stats.size / 1024).toFixed(2);
     console.log(`   File size: ${fileSizeKB} KB\n`);
 

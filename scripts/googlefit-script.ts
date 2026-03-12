@@ -129,10 +129,7 @@ const main = async (): Promise<void> => {
       const existingData = await loadJSON<HealthData>(outputPath);
 
       if (existingData) {
-        finalStepsData = mergeByDateKey(
-          existingData.steps || {},
-          newStepsData,
-        );
+        finalStepsData = mergeByDateKey(existingData.steps || {}, newStepsData);
         finalSleepData = mergeByDateKey(existingData.sleep || {}, newSleepData);
         finalHeartRateData = mergeByDateKey(
           existingData.heartRate || {},
@@ -157,11 +154,21 @@ const main = async (): Promise<void> => {
     const totalZonesDays = calculateDataRange(finalHeartRateZonesData);
 
     console.log("📊 Total Data Summary:");
-    console.log(`   Steps: ${totalStepsDays} days (${getDateRangeString(finalStepsData)})`);
-    console.log(`   Sleep: ${totalSleepDays} days (${getDateRangeString(finalSleepData)})`);
-    console.log(`   Heart rate: ${totalHrDays} days (${getDateRangeString(finalHeartRateData)})`);
-    console.log(`   Move minutes: ${totalMoveDays} days (${getDateRangeString(finalMoveMinutesData)})`);
-    console.log(`   HR zones: ${totalZonesDays} days (${getDateRangeString(finalHeartRateZonesData)})\n`);
+    console.log(
+      `   Steps: ${totalStepsDays} days (${getDateRangeString(finalStepsData)})`,
+    );
+    console.log(
+      `   Sleep: ${totalSleepDays} days (${getDateRangeString(finalSleepData)})`,
+    );
+    console.log(
+      `   Heart rate: ${totalHrDays} days (${getDateRangeString(finalHeartRateData)})`,
+    );
+    console.log(
+      `   Move minutes: ${totalMoveDays} days (${getDateRangeString(finalMoveMinutesData)})`,
+    );
+    console.log(
+      `   HR zones: ${totalZonesDays} days (${getDateRangeString(finalHeartRateZonesData)})\n`,
+    );
 
     // Calculate quick stats from recent data
     if (totalStepsDays > 0) {
@@ -194,7 +201,7 @@ const main = async (): Promise<void> => {
     if (totalHrDays > 0) {
       const avgHeartRates = Object.values(finalHeartRateData)
         .map((day: any) => day.avg)
-        .filter((hr) => hr > 0);
+        .filter(hr => hr > 0);
       if (avgHeartRates.length > 0) {
         const overallAvg = Math.round(
           avgHeartRates.reduce((a, b) => a + b, 0) / avgHeartRates.length,
@@ -234,9 +241,7 @@ const main = async (): Promise<void> => {
     });
 
     // Calculate file size
-    const stats = await import("fs").then((fs) =>
-      fs.promises.stat(outputPath),
-    );
+    const stats = await import("fs").then(fs => fs.promises.stat(outputPath));
     const fileSizeKB = (stats.size / 1024).toFixed(2);
     console.log(`   File size: ${fileSizeKB} KB\n`);
 
