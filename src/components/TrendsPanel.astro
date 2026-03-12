@@ -4,6 +4,14 @@
  * Shows fitness metrics trends over time with visualizations
  * Mobile-friendly with touch-optimized controls
  */
+import {
+  BarChart3,
+  Activity,
+  Flame,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+} from "lucide-astro";
 
 interface TrendData {
   date: string;
@@ -114,7 +122,9 @@ const periodLabels = {
   <!-- Stats Summary -->
   <div class="stats-summary">
     <div class="stat-card">
-      <div class="stat-icon">📊</div>
+      <div class="stat-icon">
+        <BarChart3 size={24} />
+      </div>
       <div class="stat-content">
         <div class="stat-value">{stats.avgSteps.toLocaleString()}</div>
         <div class="stat-label">AVG_STEPS/DAY</div>
@@ -122,7 +132,9 @@ const periodLabels = {
     </div>
 
     <div class="stat-card">
-      <div class="stat-icon">🏃</div>
+      <div class="stat-icon">
+        <Activity size={24} />
+      </div>
       <div class="stat-content">
         <div class="stat-value">{stats.avgDistance} km</div>
         <div class="stat-label">AVG_DISTANCE/DAY</div>
@@ -130,7 +142,9 @@ const periodLabels = {
     </div>
 
     <div class="stat-card">
-      <div class="stat-icon">🔥</div>
+      <div class="stat-icon">
+        <Flame size={24} />
+      </div>
       <div class="stat-content">
         <div class="stat-value">{stats.avgCalories.toLocaleString()}</div>
         <div class="stat-label">AVG_CALORIES/DAY</div>
@@ -139,7 +153,15 @@ const periodLabels = {
 
     <div class="stat-card">
       <div class="stat-icon">
-        {stats.trend === "up" ? "📈" : stats.trend === "down" ? "📉" : "➡️"}
+        {
+          stats.trend === "up" ? (
+            <TrendingUp size={24} />
+          ) : stats.trend === "down" ? (
+            <TrendingDown size={24} />
+          ) : (
+            <Minus size={24} />
+          )
+        }
       </div>
       <div class="stat-content">
         <div class="stat-value">
@@ -314,7 +336,10 @@ const periodLabels = {
   }
 
   .stat-icon {
-    font-size: 1.5rem;
+    color: #00ff00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .stat-content {
@@ -506,9 +531,6 @@ const periodLabels = {
       padding: 0.875rem;
     }
 
-    .stat-icon {
-      font-size: 1.25rem;
-    }
 
     .stat-value {
       font-size: 1rem;

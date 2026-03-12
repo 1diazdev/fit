@@ -4,6 +4,14 @@
  * Compare fitness metrics across different time periods
  * Mobile-friendly design with touch-optimized controls
  */
+import {
+  Footprints,
+  Ruler,
+  Flame,
+  Activity,
+  Dumbbell,
+  Calendar,
+} from "lucide-astro";
 
 interface PeriodStats {
   steps: number;
@@ -65,7 +73,7 @@ const getTrendIcon = (change: number): string => {
 interface MetricConfig {
   key: keyof typeof changes;
   label: string;
-  icon: string;
+  Icon: any;
   unit: string;
   format: (value: number) => string;
 }
@@ -74,42 +82,42 @@ const metrics: MetricConfig[] = [
   {
     key: "steps",
     label: "STEPS",
-    icon: "👣",
+    Icon: Footprints,
     unit: "",
     format: v => v.toLocaleString(),
   },
   {
     key: "distance",
     label: "DISTANCE",
-    icon: "📏",
+    Icon: Ruler,
     unit: "km",
     format: v => v.toFixed(2),
   },
   {
     key: "calories",
     label: "CALORIES",
-    icon: "🔥",
+    Icon: Flame,
     unit: "kcal",
     format: v => v.toLocaleString(),
   },
   {
     key: "activities",
     label: "ACTIVITIES",
-    icon: "🏃",
+    Icon: Activity,
     unit: "",
     format: v => v.toString(),
   },
   {
     key: "workouts",
     label: "WORKOUTS",
-    icon: "💪",
+    Icon: Dumbbell,
     unit: "",
     format: v => v.toString(),
   },
   {
     key: "activeDays",
     label: "ACTIVE_DAYS",
-    icon: "📅",
+    Icon: Calendar,
     unit: "",
     format: v => v.toString(),
   },
@@ -140,7 +148,9 @@ const metrics: MetricConfig[] = [
         return (
           <div class="metric-card">
             <div class="metric-header">
-              <span class="metric-icon">{metric.icon}</span>
+              <span class="metric-icon">
+                <metric.Icon size={20} />
+              </span>
               <span class="metric-label">{metric.label}</span>
             </div>
 
@@ -312,7 +322,10 @@ const metrics: MetricConfig[] = [
   }
 
   .metric-icon {
-    font-size: 1.25rem;
+    color: #00ff00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .metric-label {

@@ -16,6 +16,17 @@ import {
   getComparisonLabel,
 } from "@utils/trendsUtils";
 import { loadAllDataFromJSON } from "@lib/jsonLoader";
+import {
+  BarChart3,
+  Activity,
+  Flame,
+  Dumbbell,
+  Target,
+  Zap,
+  Home,
+  Heart,
+  List,
+} from "lucide-astro";
 
 // Get URL params
 const url = new URL(Astro.request.url);
@@ -178,7 +189,9 @@ const totalWorkouts = allWorkouts.length;
     </div>
     <div class="quick-stats-grid">
       <div class="stat-box">
-        <div class="stat-icon">📊</div>
+        <div class="stat-icon">
+          <BarChart3 size={28} />
+        </div>
         <div class="stat-content">
           <div class="stat-value">
             {Math.round(current.steps / periodDays).toLocaleString()}
@@ -188,7 +201,9 @@ const totalWorkouts = allWorkouts.length;
       </div>
 
       <div class="stat-box">
-        <div class="stat-icon">🏃</div>
+        <div class="stat-icon">
+          <Activity size={28} />
+        </div>
         <div class="stat-content">
           <div class="stat-value">
             {(current.distance / periodDays).toFixed(2)} km
@@ -198,7 +213,9 @@ const totalWorkouts = allWorkouts.length;
       </div>
 
       <div class="stat-box">
-        <div class="stat-icon">🔥</div>
+        <div class="stat-icon">
+          <Flame size={28} />
+        </div>
         <div class="stat-content">
           <div class="stat-value">
             {Math.round(current.calories / periodDays).toLocaleString()}
@@ -208,7 +225,9 @@ const totalWorkouts = allWorkouts.length;
       </div>
 
       <div class="stat-box">
-        <div class="stat-icon">💪</div>
+        <div class="stat-icon">
+          <Dumbbell size={28} />
+        </div>
         <div class="stat-content">
           <div class="stat-value">{current.activeDays}</div>
           <div class="stat-label">Active Days</div>
@@ -216,7 +235,9 @@ const totalWorkouts = allWorkouts.length;
       </div>
 
       <div class="stat-box">
-        <div class="stat-icon">🎯</div>
+        <div class="stat-icon">
+          <Target size={28} />
+        </div>
         <div class="stat-content">
           <div class="stat-value">
             {Math.round((current.activeDays / periodDays) * 100)}%
@@ -226,7 +247,9 @@ const totalWorkouts = allWorkouts.length;
       </div>
 
       <div class="stat-box">
-        <div class="stat-icon">⚡</div>
+        <div class="stat-icon">
+          <Zap size={28} />
+        </div>
         <div class="stat-content">
           <div class="stat-value">
             {current.activities + current.workouts}
@@ -240,15 +263,21 @@ const totalWorkouts = allWorkouts.length;
   <!-- Navigation Links -->
   <div class="navigation-links">
     <a href="/" class="nav-link">
-      <span class="nav-icon">🏠</span>
+      <span class="nav-icon">
+        <Home size={20} />
+      </span>
       <span class="nav-text">[DASHBOARD]</span>
     </a>
     <a href="/health" class="nav-link">
-      <span class="nav-icon">❤️</span>
+      <span class="nav-icon">
+        <Heart size={20} />
+      </span>
       <span class="nav-text">[HEALTH]</span>
     </a>
     <a href="/last" class="nav-link">
-      <span class="nav-icon">📊</span>
+      <span class="nav-icon">
+        <List size={20} />
+      </span>
       <span class="nav-text">[ACTIVITIES]</span>
     </a>
   </div>
@@ -340,7 +369,10 @@ const totalWorkouts = allWorkouts.length;
   }
 
   .stat-icon {
-    font-size: 1.75rem;
+    color: #00ff00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .stat-content {
@@ -393,7 +425,10 @@ const totalWorkouts = allWorkouts.length;
   }
 
   .nav-icon {
-    font-size: 1.25rem;
+    color: #00ff00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-text {
@@ -427,9 +462,6 @@ const totalWorkouts = allWorkouts.length;
       padding: 1rem;
     }
 
-    .stat-icon {
-      font-size: 1.5rem;
-    }
 
     .stat-value {
       font-size: 1.125rem;
