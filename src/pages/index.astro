@@ -1,6 +1,6 @@
 ---
 import Base from "@layouts/Base.astro";
-import { PAGE_METADATA, MIN_DATA_DATE } from "@src/consts";
+import { PAGE_METADATA } from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
 import DayMetricsGrid from "@components/DayMetricsGrid.astro";
 import DaysSinceLast from "@components/DaysSinceLast.astro";
@@ -21,6 +21,7 @@ import {
   calculateStreaks,
   isTestDataMode,
   getTestModeSnapshot,
+  getMinDataDate,
 } from "@services/dataAggregationService";
 import {
   fetchDistanceData,
@@ -62,7 +63,8 @@ const displayDate = new Intl.DateTimeFormat("en-US", {
 const isToday = selectedDate === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
 // Check if we can go back (not at minimum data date)
-const isPrevDayBeforeMinDate = prevDayStr < MIN_DATA_DATE;
+const minDataDate = getMinDataDate();
+const isPrevDayBeforeMinDate = prevDayStr < minDataDate;
 
 console.log(
   `[index.astro] ====== Loading dashboard for date: ${selectedDate} ======`,
@@ -243,7 +245,7 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
       <div class="date-picker-container">
-        <DatePicker selectedDate={selectedDate} label="" />
+        <DatePicker selectedDate={selectedDate} minDate={minDataDate} label="" />
       </div>
     </div>
 

@@ -4,15 +4,14 @@
  * Mobile-friendly date selection component
  */
 
-import { MIN_DATA_DATE } from "@src/consts";
-
 interface Props {
   selectedDate: string; // YYYY-MM-DD format
+  minDate?: string; // Minimum selectable date (YYYY-MM-DD format)
   baseUrl?: string; // Base URL for navigation (default: current page)
   label?: string; // Label for the picker
 }
 
-const { selectedDate, baseUrl = "", label = "[SELECT_DATE]" } = Astro.props;
+const { selectedDate, minDate, baseUrl = "", label = "[SELECT_DATE]" } = Astro.props;
 
 // Generate unique ID for this instance
 const pickerId = `datepicker-${Math.random().toString(36).substr(2, 9)}`;
@@ -20,8 +19,6 @@ const pickerId = `datepicker-${Math.random().toString(36).substr(2, 9)}`;
 // Calculate max date (today)
 const today = new Date();
 const maxDate = today.toISOString().split("T")[0];
-// Use minimum data date from constants
-const minDate = MIN_DATA_DATE;
 ---
 
 <div class="matrix-datepicker-wrapper">

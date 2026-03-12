@@ -2,27 +2,8 @@
 // Dynamic route for date-specific dashboard
 // Accessed as /day/2026-02-19
 
-import { MIN_DATA_DATE } from "@src/consts";
-
-// Generate static paths from MIN_DATA_DATE to today
-export async function getStaticPaths() {
-  const paths: Array<{ params: { date: string } }> = [];
-  const today = new globalThis.Date();
-  const minDate = new globalThis.Date(MIN_DATA_DATE);
-
-  // Generate paths from min data date to today
-  let currentDate = new globalThis.Date(minDate);
-  while (currentDate <= today) {
-    const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
-    paths.push({ params: { date: dateStr } });
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-
-  return paths;
-}
-
 import Base from "@layouts/Base.astro";
-import { PAGE_METADATA, MIN_DATA_DATE } from "@src/consts";
+import { PAGE_METADATA, MIN_DATA_DATE_REAL, MIN_DATA_DATE_DUMMY } from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
 import DayMetricsGrid from "@components/DayMetricsGrid.astro";
 import DayComparison from "@components/DayComparison.astro";
@@ -40,6 +21,7 @@ import {
   calculateStreaks,
   isTestDataMode,
   getTestModeSnapshot,
+  getMinDataDate,
 } from "@services/dataAggregationService";
 import {
   fetchDistanceData,
@@ -88,7 +70,8 @@ const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart
 const isToday = selectedDate === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
 // Check if we can go back (not at minimum data date)
-const isPrevDayBeforeMinDate = prevDayStr < MIN_DATA_DATE;
+const minDataDate = getMinDataDate();
+const isPrevDayBeforeMinDate = prevDayStr < minDataDate;
 
 // Fetch all data for selected date
 const dayData = await getDataForDate(selectedDate);
@@ -242,7 +225,7 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
       <div class="date-picker-container">
-        <DatePicker selectedDate={selectedDate} label="" />
+        <DatePicker selectedDate={selectedDate} minDate={minDataDate} label="" />
       </div>
       {
         !isToday && (
