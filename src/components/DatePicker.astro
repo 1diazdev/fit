@@ -4,6 +4,8 @@
  * Mobile-friendly date selection component
  */
 
+import { MIN_DATA_DATE } from "@src/consts";
+
 interface Props {
   selectedDate: string; // YYYY-MM-DD format
   baseUrl?: string; // Base URL for navigation (default: current page)
@@ -18,6 +20,8 @@ const pickerId = `datepicker-${Math.random().toString(36).substr(2, 9)}`;
 // Calculate max date (today)
 const today = new Date();
 const maxDate = today.toISOString().split("T")[0];
+// Use minimum data date from constants
+const minDate = MIN_DATA_DATE;
 ---
 
 <div class="matrix-datepicker-wrapper">
@@ -30,6 +34,7 @@ const maxDate = today.toISOString().split("T")[0];
       value={selectedDate}
       placeholder="Select date..."
       data-base-url={baseUrl}
+      data-min-date={minDate}
       data-max-date={maxDate}
       readonly
     />
@@ -257,10 +262,12 @@ const maxDate = today.toISOString().split("T")[0];
 
     inputs.forEach(input => {
       const baseUrl = input.dataset.baseUrl || "";
+      const minDate = input.dataset.minDate;
       const maxDate = input.dataset.maxDate || new Date();
 
       flatpickr(input, {
         dateFormat: "Y-m-d",
+        minDate: minDate,
         maxDate: maxDate,
         defaultDate: input.value,
         allowInput: false,

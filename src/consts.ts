@@ -6,6 +6,9 @@ export const SITE_PORTFOLIO = "https://jpdiaz.dev";
 export const SITE_GITHUB = "https://github.com/juanpablodiaz";
 export const SITE_LINKEDIN = "https://linkedin.com/in/1diazdev";
 
+// Data availability - first date with health data
+export const MIN_DATA_DATE = "2026-01-24";
+
 export interface PageMeta {
   title: string;
   description: string;

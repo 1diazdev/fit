@@ -1,6 +1,6 @@
 ---
 import Base from "@layouts/Base.astro";
-import { PAGE_METADATA } from "@src/consts";
+import { PAGE_METADATA, MIN_DATA_DATE } from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
 import DayMetricsGrid from "@components/DayMetricsGrid.astro";
 import DaysSinceLast from "@components/DaysSinceLast.astro";
@@ -61,6 +61,8 @@ const displayDate = new Intl.DateTimeFormat("en-US", {
 // Check if selected date is today
 const isToday = selectedDate === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
+// Check if we can go back (not at minimum data date)
+const isPrevDayBeforeMinDate = prevDayStr < MIN_DATA_DATE;
 
 console.log(
   `[index.astro] ====== Loading dashboard for date: ${selectedDate} ======`,
@@ -219,7 +221,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
 >
   <!-- Date Navigator - Uses /day/YYYY-MM-DD routes -->
   <div class="date-navigator">
-    <a href={`/day/${prevDayStr}`} class="nav-arrow" title="Previous day">
+    <a
+      href={isPrevDayBeforeMinDate ? "#" : `/day/${prevDayStr}`}
+      class={`nav-arrow ${isPrevDayBeforeMinDate ? "disabled" : ""}`}
+      title="Previous day"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
