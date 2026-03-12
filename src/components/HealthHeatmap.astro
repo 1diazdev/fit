@@ -8,24 +8,38 @@ export interface Props {
 
 const { stepsData } = Astro.props;
 
-// Convert StepsData to array format [timestamp, steps]
-const dataArray: [
-  number,
-  { steps: number; distance: number; calories: number },
-][] = Object.entries(stepsData)
-  .map(
-    ([date, data]) =>
-      [new Date(date).getTime(), data] as [
-        number,
-        { steps: number; distance: number; calories: number },
-      ],
-  )
-  .sort((a, b) => a[0] - b[0]);
+// Generate 365 days of data (similar to processDistanceData in stravaService)
+function generate365DaysData(data: StepsData): [number, { steps: number; distance: number; calories: number }][] {
+  const today = new Date();
+  const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const startDate = new Date(endDate);
+  startDate.setDate(startDate.getDate() - 364); // 365 days total
 
-// Calculate min/max for color scaling
-const stepCounts = dataArray.map(d => d[1].steps);
-const maxSteps = Math.max(...stepCounts.filter(s => s > 0));
-const minSteps = Math.min(...stepCounts.filter(s => s > 0));
+  // Adjust to start on Sunday
+  const dayOfWeek = startDate.getDay();
+  startDate.setDate(startDate.getDate() - dayOfWeek);
+
+  const result: [number, { steps: number; distance: number; calories: number }][] = [];
+  const currentDate = new Date(startDate);
+
+  for (let i = 0; i < 371; i++) { // 53 weeks * 7 days
+    const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
+    const dayData = data[dateStr] || { steps: 0, distance: 0, calories: 0 };
+
+    result.push([currentDate.getTime(), dayData]);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return result;
+}
+
+// Generate complete 365-day array with empty days
+const dataArray = generate365DaysData(stepsData);
+
+// Calculate min/max for color scaling (only from days with data)
+const stepCounts = dataArray.map(d => d[1].steps).filter(s => s > 0);
+const maxSteps = stepCounts.length > 0 ? Math.max(...stepCounts) : 1;
+const minSteps = stepCounts.length > 0 ? Math.min(...stepCounts) : 0;
 
 // Enhanced color function with Matrix green colors
 function getStepsColor(steps: number, min: number, max: number) {
