@@ -1,0 +1,467 @@
+---
+/**
+ * Trends & Analysis Page
+ * Demonstrates the new TrendsPanel and MetricsComparison components
+ * Fully mobile-responsive
+ */
+import Base from "@layouts/Base.astro";
+import SectionLayout from "@components/SectionLayout.astro";
+import TrendsPanel from "@components/TrendsPanel.astro";
+import MetricsComparison from "@components/MetricsComparison.astro";
+import DatePicker from "@components/DatePicker.astro";
+import {
+  prepareTrendData,
+  prepareComparisonData,
+  getPeriodLabel,
+  getComparisonLabel,
+} from "@utils/trendsUtils";
+import { loadAllDataFromJSON } from "@lib/jsonLoader";
+
+// Get URL params
+const url = new URL(Astro.request.url);
+const dateParam = url.searchParams.get("date");
+const periodParam = url.searchParams.get("period") || "7d";
+
+// Determine selected date
+const today = new Date();
+const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+const selectedDate = /^\d{4}-\d{2}-\d{2}$/.test(dateParam || "")
+  ? dateParam!
+  : todayStr;
+
+// Get period in days
+const periodDays =
+  periodParam === "7d" ? 7 : periodParam === "30d" ? 30 : 90;
+const period = periodParam as "7d" | "30d" | "90d";
+
+console.log(`[trends.astro] Loading trends for date: ${selectedDate}, period: ${periodParam}`);
+
+// Load all data from JSON
+const jsonData = await loadAllDataFromJSON();
+const stepsData = jsonData?.health?.steps || {};
+const allActivities = jsonData?.strava?.activities || [];
+const allWorkouts = jsonData?.hevy?.workouts || [];
+
+// Prepare trend data
+const trendData = prepareTrendData(
+  stepsData,
+  allActivities,
+  allWorkouts,
+  selectedDate,
+  periodDays,
+);
+
+// Prepare comparison data (current vs previous period)
+const { current, previous } = prepareComparisonData(
+  stepsData,
+  allActivities,
+  allWorkouts,
+  selectedDate,
+  periodDays,
+);
+
+const periodLabel = getPeriodLabel(periodDays);
+const comparisonLabel = getComparisonLabel(periodDays);
+
+// Format date for display
+const [year, month, day] = selectedDate.split("-").map(Number);
+const displayDate = new Intl.DateTimeFormat("en-US", {
+  weekday: "short",
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+}).format(new Date(Date.UTC(year, month - 1, day, 12)));
+
+// Calculate total data points
+const totalDays = Object.keys(stepsData).length;
+const totalActivities = allActivities.length;
+const totalWorkouts = allWorkouts.length;
+---
+
+<Base
+  title="Trends & Analysis | Fitness Matrix"
+  description="Analyze your fitness trends and compare performance across different time periods"
+  keywords={[
+    "fitness trends",
+    "performance analysis",
+    "metrics comparison",
+    "workout stats",
+    "fitness analytics",
+    "progress tracking",
+  ]}
+  windowTitle="TRENDS_ANALYSIS"
+  terminalCommand={`./analyze_trends.sh ${selectedDate} --period=${period}`}
+  systemMessage={`Analysis Date: ${selectedDate} | Period: ${period.toUpperCase()} | Data Points: ${totalDays}`}
+>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">[TRENDS_&_ANALYSIS]</h1>
+      <p class="page-subtitle">
+        Deep dive into your fitness data • Spot patterns • Track progress
+      </p>
+    </div>
+    <div class="data-info">
+      <div class="info-item">
+        <span class="info-label">TOTAL_DAYS:</span>
+        <span class="info-value">{totalDays}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">ACTIVITIES:</span>
+        <span class="info-value">{totalActivities}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">WORKOUTS:</span>
+        <span class="info-value">{totalWorkouts}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Date Picker Section -->
+  <SectionLayout title="[DATE_SELECTION]" rightHeaderText={`[${displayDate}]`}>
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+    >
+    </div>
+    <div class="date-picker-section">
+      <DatePicker
+        selectedDate={selectedDate}
+        baseUrl="/trends"
+        label="[JUMP_TO_DATE]"
+      />
+    </div>
+  </SectionLayout>
+
+  <!-- Trends Analysis Panel -->
+  <SectionLayout
+    title="[TRENDS_ANALYSIS]"
+    rightHeaderText={`[${period.toUpperCase()}]`}
+  >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+    >
+    </div>
+    <TrendsPanel
+      trendData={trendData}
+      period={period}
+      currentDate={selectedDate}
+    />
+  </SectionLayout>
+
+  <!-- Performance Comparison -->
+  <SectionLayout
+    title="[PERFORMANCE_COMPARISON]"
+    rightHeaderText="[CURRENT_VS_PREVIOUS]"
+  >
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
+    >
+    </div>
+    <MetricsComparison
+      currentPeriod={current}
+      previousPeriod={previous}
+      periodLabel={periodLabel}
+      comparisonLabel={comparisonLabel}
+    />
+  </SectionLayout>
+
+  <!-- Quick Stats Summary -->
+  <SectionLayout title="[QUICK_STATS]" rightHeaderText="[SUMMARY]">
+    <div
+      slot="headerElements"
+      class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
+    >
+    </div>
+    <div class="quick-stats-grid">
+      <div class="stat-box">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+          <div class="stat-value">
+            {Math.round(current.steps / periodDays).toLocaleString()}
+          </div>
+          <div class="stat-label">Avg Steps/Day</div>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-icon">🏃</div>
+        <div class="stat-content">
+          <div class="stat-value">
+            {(current.distance / periodDays).toFixed(2)} km
+          </div>
+          <div class="stat-label">Avg Distance/Day</div>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-content">
+          <div class="stat-value">
+            {Math.round(current.calories / periodDays).toLocaleString()}
+          </div>
+          <div class="stat-label">Avg Calories/Day</div>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-icon">💪</div>
+        <div class="stat-content">
+          <div class="stat-value">{current.activeDays}</div>
+          <div class="stat-label">Active Days</div>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-content">
+          <div class="stat-value">
+            {Math.round((current.activeDays / periodDays) * 100)}%
+          </div>
+          <div class="stat-label">Consistency Rate</div>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-content">
+          <div class="stat-value">
+            {current.activities + current.workouts}
+          </div>
+          <div class="stat-label">Total Sessions</div>
+        </div>
+      </div>
+    </div>
+  </SectionLayout>
+
+  <!-- Navigation Links -->
+  <div class="navigation-links">
+    <a href="/" class="nav-link">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-text">[DASHBOARD]</span>
+    </a>
+    <a href="/health" class="nav-link">
+      <span class="nav-icon">❤️</span>
+      <span class="nav-text">[HEALTH]</span>
+    </a>
+    <a href="/last" class="nav-link">
+      <span class="nav-icon">📊</span>
+      <span class="nav-text">[ACTIVITIES]</span>
+    </a>
+  </div>
+</Base>
+
+<style>
+  .page-header {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 20, 0, 0.7) 100%
+    );
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+  }
+
+  .header-content {
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-family: "Courier New", monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ff00;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .page-subtitle {
+    font-family: "Courier New", monospace;
+    font-size: 0.875rem;
+    color: rgba(0, 255, 0, 0.7);
+    letter-spacing: 0.05em;
+  }
+
+  .data-info {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 255, 0, 0.2);
+  }
+
+  .info-item {
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+  }
+
+  .info-label {
+    color: rgba(0, 255, 0, 0.6);
+    margin-right: 0.5rem;
+  }
+
+  .info-value {
+    color: #00ff00;
+    font-weight: bold;
+  }
+
+  .quick-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 20, 0, 0.5) 100%
+    );
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .stat-box:hover {
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .stat-icon {
+    font-size: 1.75rem;
+  }
+
+  .stat-content {
+    flex: 1;
+  }
+
+  .stat-value {
+    font-family: "Courier New", monospace;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #00ff00;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-family: "Courier New", monospace;
+    font-size: 0.625rem;
+    color: rgba(0, 255, 0, 0.6);
+  }
+
+  .navigation-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 6px;
+    color: #00ff00;
+    text-decoration: none;
+    font-family: "Courier New", monospace;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-link:hover {
+    background: rgba(0, 255, 0, 0.15);
+    border-color: rgba(0, 255, 0, 0.6);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .nav-icon {
+    font-size: 1.25rem;
+  }
+
+  .nav-text {
+    letter-spacing: 0.05em;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .page-header {
+      padding: 1rem;
+    }
+
+    .page-title {
+      font-size: 1.125rem;
+    }
+
+    .page-subtitle {
+      font-size: 0.75rem;
+    }
+
+    .data-info {
+      gap: 1rem;
+    }
+
+    .quick-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .stat-box {
+      padding: 1rem;
+    }
+
+    .stat-icon {
+      font-size: 1.5rem;
+    }
+
+    .stat-value {
+      font-size: 1.125rem;
+    }
+
+    .navigation-links {
+      grid-template-columns: 1fr;
+    }
+
+    .nav-link {
+      min-height: 44px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page-title {
+      font-size: 1rem;
+    }
+
+    .quick-stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .data-info {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  .date-picker-section {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
+</style>

@@ -1,0 +1,556 @@
+---
+/**
+ * Trends Panel Component
+ * Shows fitness metrics trends over time with visualizations
+ * Mobile-friendly with touch-optimized controls
+ */
+
+interface TrendData {
+  date: string;
+  steps: number;
+  distance: number;
+  calories: number;
+  activities: number;
+  workouts: number;
+}
+
+interface Props {
+  trendData: TrendData[];
+  period?: "7d" | "30d" | "90d";
+  currentDate: string;
+}
+
+const { trendData, period = "7d", currentDate } = Astro.props;
+
+// Calculate statistics
+const calculateStats = (data: TrendData[]) => {
+  if (data.length === 0)
+    return {
+      avgSteps: 0,
+      avgDistance: 0,
+      avgCalories: 0,
+      totalActivities: 0,
+      totalWorkouts: 0,
+      trend: "stable",
+    };
+
+  const total = data.reduce(
+    (acc, day) => ({
+      steps: acc.steps + day.steps,
+      distance: acc.distance + day.distance,
+      calories: acc.calories + day.calories,
+      activities: acc.activities + day.activities,
+      workouts: acc.workouts + day.workouts,
+    }),
+    { steps: 0, distance: 0, calories: 0, activities: 0, workouts: 0 },
+  );
+
+  const avg = {
+    avgSteps: Math.round(total.steps / data.length),
+    avgDistance: Number((total.distance / data.length).toFixed(2)),
+    avgCalories: Math.round(total.calories / data.length),
+    totalActivities: total.activities,
+    totalWorkouts: total.workouts,
+  };
+
+  // Calculate trend (comparing first half vs second half)
+  const midPoint = Math.floor(data.length / 2);
+  const firstHalf = data.slice(0, midPoint);
+  const secondHalf = data.slice(midPoint);
+
+  const firstHalfAvg =
+    firstHalf.reduce((sum, d) => sum + d.steps, 0) / firstHalf.length;
+  const secondHalfAvg =
+    secondHalf.reduce((sum, d) => sum + d.steps, 0) / secondHalf.length;
+  const change = ((secondHalfAvg - firstHalfAvg) / firstHalfAvg) * 100;
+
+  let trend = "stable";
+  if (change > 10) trend = "up";
+  else if (change < -10) trend = "down";
+
+  return { ...avg, trend, changePercent: Math.abs(Math.round(change)) };
+};
+
+const stats = calculateStats(trendData);
+
+// Find max values for chart scaling
+const maxSteps = Math.max(...trendData.map(d => d.steps), 1);
+const maxDistance = Math.max(...trendData.map(d => d.distance), 1);
+const maxCalories = Math.max(...trendData.map(d => d.calories), 1);
+
+// Period labels
+const periodLabels = {
+  "7d": "LAST_7_DAYS",
+  "30d": "LAST_30_DAYS",
+  "90d": "LAST_90_DAYS",
+};
+---
+
+<div class="trends-panel">
+  <!-- Header -->
+  <div class="trends-header">
+    <div class="header-title">
+      <span class="title-text">[TRENDS_ANALYSIS]</span>
+      <span class="period-badge">{periodLabels[period]}</span>
+    </div>
+
+    <!-- Period Selector -->
+    <div class="period-selector">
+      <a
+        href={`?date=${currentDate}&period=7d`}
+        class={`period-btn ${period === "7d" ? "active" : ""}`}>7D</a
+      >
+      <a
+        href={`?date=${currentDate}&period=30d`}
+        class={`period-btn ${period === "30d" ? "active" : ""}`}>30D</a
+      >
+      <a
+        href={`?date=${currentDate}&period=90d`}
+        class={`period-btn ${period === "90d" ? "active" : ""}`}>90D</a
+      >
+    </div>
+  </div>
+
+  <!-- Stats Summary -->
+  <div class="stats-summary">
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-value">{stats.avgSteps.toLocaleString()}</div>
+        <div class="stat-label">AVG_STEPS/DAY</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🏃</div>
+      <div class="stat-content">
+        <div class="stat-value">{stats.avgDistance} km</div>
+        <div class="stat-label">AVG_DISTANCE/DAY</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🔥</div>
+      <div class="stat-content">
+        <div class="stat-value">{stats.avgCalories.toLocaleString()}</div>
+        <div class="stat-label">AVG_CALORIES/DAY</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        {stats.trend === "up" ? "📈" : stats.trend === "down" ? "📉" : "➡️"}
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">
+          {stats.trend === "stable" ? "STABLE" : `${stats.changePercent}%`}
+        </div>
+        <div class="stat-label">TREND</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mini Charts -->
+  <div class="mini-charts">
+    <!-- Steps Chart -->
+    <div class="chart-container">
+      <div class="chart-title">STEPS_TREND</div>
+      <div class="chart">
+        {
+          trendData.map(day => {
+            const height = (day.steps / maxSteps) * 100;
+            return (
+              <div class="bar-wrapper" title={`${day.date}: ${day.steps} steps`}>
+                <div
+                  class="bar steps-bar"
+                  style={`height: ${height}%`}
+                  data-value={day.steps}
+                />
+              </div>
+            );
+          })
+        }
+      </div>
+      <div class="chart-footer">
+        <span class="chart-min">0</span>
+        <span class="chart-max">{maxSteps.toLocaleString()}</span>
+      </div>
+    </div>
+
+    <!-- Activities + Workouts Chart -->
+    <div class="chart-container">
+      <div class="chart-title">ACTIVITY_FREQUENCY</div>
+      <div class="activity-chart">
+        {
+          trendData.map(day => {
+            const hasActivity = day.activities > 0;
+            const hasWorkout = day.workouts > 0;
+            return (
+              <div class="activity-day" title={day.date}>
+                <div class={`activity-dot ${hasActivity ? "active" : "inactive"}`} />
+                <div class={`workout-dot ${hasWorkout ? "active" : "inactive"}`} />
+              </div>
+            );
+          })
+        }
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <div class="legend-dot activity-legend" />
+          <span>Activities ({stats.totalActivities})</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot workout-legend" />
+          <span>Workouts ({stats.totalWorkouts})</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .trends-panel {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 20, 0, 0.7) 100%
+    );
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow:
+      0 0 20px rgba(0, 255, 0, 0.2),
+      inset 0 0 20px rgba(0, 255, 0, 0.05);
+    font-family: "Courier New", monospace;
+  }
+
+  .trends-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .title-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #00ff00;
+    letter-spacing: 0.1em;
+  }
+
+  .period-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    background: rgba(0, 255, 0, 0.15);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+    color: rgba(0, 255, 0, 0.8);
+  }
+
+  .period-selector {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .period-btn {
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+    color: rgba(0, 255, 0, 0.7);
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .period-btn:hover {
+    background: rgba(0, 255, 0, 0.15);
+    border-color: rgba(0, 255, 0, 0.5);
+    color: #00ff00;
+  }
+
+  .period-btn.active {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: #00ff00;
+    color: #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  }
+
+  .stats-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .stat-card:hover {
+    border-color: rgba(0, 255, 0, 0.4);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .stat-icon {
+    font-size: 1.5rem;
+  }
+
+  .stat-content {
+    flex: 1;
+  }
+
+  .stat-value {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: #00ff00;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.625rem;
+    color: rgba(0, 255, 0, 0.6);
+    letter-spacing: 0.05em;
+  }
+
+  .mini-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .chart-container {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 6px;
+  }
+
+  .chart-title {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.8);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.25rem;
+    height: 100px;
+    margin-bottom: 0.5rem;
+  }
+
+  .bar-wrapper {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .bar {
+    width: 100%;
+    min-height: 2px;
+    background: linear-gradient(
+      to top,
+      rgba(0, 255, 0, 0.8),
+      rgba(0, 255, 0, 0.3)
+    );
+    border: 1px solid rgba(0, 255, 0, 0.5);
+    border-radius: 2px 2px 0 0;
+    transition: all 0.2s ease;
+  }
+
+  .bar:hover {
+    background: linear-gradient(to top, #00ff00, rgba(0, 255, 0, 0.5));
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .chart-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.625rem;
+    color: rgba(0, 255, 0, 0.5);
+  }
+
+  .activity-chart {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 0;
+  }
+
+  .activity-day {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    align-items: center;
+  }
+
+  .activity-dot,
+  .workout-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .activity-dot.active {
+    background: rgba(0, 200, 255, 0.8);
+    box-shadow: 0 0 8px rgba(0, 200, 255, 0.6);
+  }
+
+  .activity-dot.inactive {
+    background: rgba(0, 200, 255, 0.1);
+    border: 1px solid rgba(0, 200, 255, 0.2);
+  }
+
+  .workout-dot.active {
+    background: rgba(255, 100, 0, 0.8);
+    box-shadow: 0 0 8px rgba(255, 100, 0, 0.6);
+  }
+
+  .workout-dot.inactive {
+    background: rgba(255, 100, 0, 0.1);
+    border: 1px solid rgba(255, 100, 0, 0.2);
+  }
+
+  .chart-legend {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(0, 255, 0, 0.1);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.625rem;
+    color: rgba(0, 255, 0, 0.7);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .activity-legend {
+    background: rgba(0, 200, 255, 0.8);
+    box-shadow: 0 0 6px rgba(0, 200, 255, 0.5);
+  }
+
+  .workout-legend {
+    background: rgba(255, 100, 0, 0.8);
+    box-shadow: 0 0 6px rgba(255, 100, 0, 0.5);
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .trends-panel {
+      padding: 1rem;
+    }
+
+    .trends-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .header-title {
+      width: 100%;
+    }
+
+    .period-selector {
+      width: 100%;
+      justify-content: stretch;
+    }
+
+    .period-btn {
+      flex: 1;
+      text-align: center;
+      padding: 0.75rem;
+      font-size: 0.75rem;
+      min-height: 44px;
+    }
+
+    .stats-summary {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .stat-card {
+      padding: 0.875rem;
+    }
+
+    .stat-icon {
+      font-size: 1.25rem;
+    }
+
+    .stat-value {
+      font-size: 1rem;
+    }
+
+    .mini-charts {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .chart {
+      height: 80px;
+    }
+
+    .activity-dot,
+    .workout-dot {
+      width: 6px;
+      height: 6px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .trends-panel {
+      padding: 0.875rem;
+    }
+
+    .title-text {
+      font-size: 0.875rem;
+    }
+
+    .period-badge {
+      font-size: 0.625rem;
+      padding: 0.2rem 0.5rem;
+    }
+
+    .stats-summary {
+      grid-template-columns: 1fr;
+    }
+
+    .chart-legend {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>

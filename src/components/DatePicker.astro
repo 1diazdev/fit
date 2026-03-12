@@ -1,357 +1,287 @@
 ---
 /**
- * Date Picker Component
- *
- * Calendar interface for selecting dates to view fitness data.
- * Features:
- * - Matrix green theme
- * - Quick shortcuts (Today, Yesterday, Last Week)
- * - Highlights days with data
- * - Responsive with swipe gestures on mobile
+ * Matrix-themed Date Picker using Flatpickr
+ * Mobile-friendly date selection component
  */
 
-export interface Props {
+interface Props {
   selectedDate: string; // YYYY-MM-DD format
+  baseUrl?: string; // Base URL for navigation (default: current page)
+  label?: string; // Label for the picker
 }
 
-const { selectedDate } = Astro.props;
+const { selectedDate, baseUrl = "", label = "[SELECT_DATE]" } = Astro.props;
 
-// Parse selected date
-const selected = new Date(selectedDate);
-const currentMonth = selected.getMonth();
-const currentYear = selected.getFullYear();
+// Generate unique ID for this instance
+const pickerId = `datepicker-${Math.random().toString(36).substr(2, 9)}`;
 
-// Calculate calendar grid
-const firstDay = new Date(currentYear, currentMonth, 1);
-const lastDay = new Date(currentYear, currentMonth + 1, 0);
-const startingDayOfWeek = firstDay.getDay(); // 0 = Sunday
-const daysInMonth = lastDay.getDate();
-
-// Generate calendar days
-const calendarDays: Array<{
-  date: number;
-  isCurrentMonth: boolean;
-  dateStr: string;
-}> = [];
-
-// Previous month days
-const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
-for (let i = startingDayOfWeek - 1; i >= 0; i--) {
-  const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
-  const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
-  const date = prevMonthLastDay - i;
-  calendarDays.push({
-    date,
-    isCurrentMonth: false,
-    dateStr: `${prevYear}-${String(prevMonth + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`,
-  });
-}
-
-// Current month days
-for (let date = 1; date <= daysInMonth; date++) {
-  calendarDays.push({
-    date,
-    isCurrentMonth: true,
-    dateStr: `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`,
-  });
-}
-
-// Next month days to fill the grid
-const remainingDays = 42 - calendarDays.length; // 6 rows x 7 days
-for (let date = 1; date <= remainingDays; date++) {
-  const nextMonth = currentMonth === 11 ? 0 : currentMonth + 1;
-  const nextYear = currentMonth === 11 ? currentYear + 1 : currentYear;
-  calendarDays.push({
-    date,
-    isCurrentMonth: false,
-    dateStr: `${nextYear}-${String(nextMonth + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`,
-  });
-}
-
-// Month names
-const monthNames = [
-  "JANUARY",
-  "FEBRUARY",
-  "MARCH",
-  "APRIL",
-  "MAY",
-  "JUNE",
-  "JULY",
-  "AUGUST",
-  "SEPTEMBER",
-  "OCTOBER",
-  "NOVEMBER",
-  "DECEMBER",
-];
-
-// Quick shortcut dates
+// Calculate max date (today)
 const today = new Date();
-const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
-
-const yesterday = new Date(today);
-yesterday.setDate(yesterday.getDate() - 1);
-const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, "0")}-${String(yesterday.getDate()).padStart(2, "0")}`;
-
-const lastWeek = new Date(today);
-lastWeek.setDate(lastWeek.getDate() - 7);
-const lastWeekStr = `${lastWeek.getFullYear()}-${String(lastWeek.getMonth() + 1).padStart(2, "0")}-${String(lastWeek.getDate()).padStart(2, "0")}`;
-
-// Previous and next month navigation
-const prevMonth = new Date(currentYear, currentMonth - 1, 1);
-const nextMonth = new Date(currentYear, currentMonth + 1, 1);
-const prevMonthStr = `${prevMonth.getFullYear()}-${String(prevMonth.getMonth() + 1).padStart(2, "0")}-${String(prevMonth.getDate()).padStart(2, "0")}`;
-const nextMonthStr = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, "0")}-${String(nextMonth.getDate()).padStart(2, "0")}`;
+const maxDate = today.toISOString().split("T")[0];
 ---
 
-<div class="date-picker">
-  <!-- Header with month/year and navigation -->
-  <div class="picker-header">
-    <a href={`/?date=${prevMonthStr}`} class="nav-btn">&lt;</a>
-    <div class="month-year">
-      {monthNames[currentMonth]}
-      {currentYear}
-    </div>
-    <a href={`/?date=${nextMonthStr}`} class="nav-btn">&gt;</a>
-  </div>
-
-  <!-- Day labels -->
-  <div class="day-labels">
-    <div class="day-label">SU</div>
-    <div class="day-label">MO</div>
-    <div class="day-label">TU</div>
-    <div class="day-label">WE</div>
-    <div class="day-label">TH</div>
-    <div class="day-label">FR</div>
-    <div class="day-label">SA</div>
-  </div>
-
-  <!-- Calendar grid -->
-  <div class="calendar-grid">
-    {
-      calendarDays.map(({ date, isCurrentMonth, dateStr }) => {
-        const isSelected = dateStr === selectedDate;
-        const isToday = dateStr === todayStr;
-        const isFuture = new Date(dateStr) > today;
-
-        return (
-          <a
-            href={`/?date=${dateStr}`}
-            class:list={[
-              "calendar-day",
-              {
-                "current-month": isCurrentMonth,
-                "other-month": !isCurrentMonth,
-                selected: isSelected,
-                today: isToday && !isSelected,
-                future: isFuture,
-              },
-            ]}
-            data-date={dateStr}
-          >
-            {date}
-          </a>
-        );
-      })
-    }
-  </div>
-
-  <!-- Quick shortcuts -->
-  <div class="shortcuts">
-    <a href={`/?date=${todayStr}`} class="shortcut-btn">[TODAY]</a>
-    <a href={`/?date=${yesterdayStr}`} class="shortcut-btn">[YESTERDAY]</a>
-    <a href={`/?date=${lastWeekStr}`} class="shortcut-btn">[LAST_WEEK]</a>
+<div class="matrix-datepicker-wrapper">
+  <label for={pickerId} class="datepicker-label">{label}</label>
+  <div class="datepicker-input-wrapper">
+    <input
+      type="text"
+      id={pickerId}
+      class="datepicker-input"
+      value={selectedDate}
+      placeholder="Select date..."
+      data-base-url={baseUrl}
+      data-max-date={maxDate}
+      readonly
+    />
+    <svg
+      class="calendar-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+      ></path>
+    </svg>
   </div>
 </div>
 
-<style>
-  .date-picker {
+<style is:global>
+  /* Flatpickr Matrix Theme */
+  .flatpickr-calendar {
     background: linear-gradient(
       135deg,
-      rgba(0, 0, 0, 0.9) 0%,
-      rgba(0, 20, 0, 0.7) 100%
-    );
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 8px;
-    padding: 1.5rem;
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 20, 0, 0.9) 100%
+    ) !important;
+    border: 2px solid rgba(0, 255, 0, 0.4) !important;
+    border-radius: 8px !important;
     box-shadow:
-      0 0 20px rgba(0, 255, 0, 0.2),
-      inset 0 0 20px rgba(0, 255, 0, 0.05);
-    font-family: "Courier New", monospace;
+      0 10px 40px rgba(0, 255, 0, 0.3),
+      inset 0 0 20px rgba(0, 255, 0, 0.05) !important;
+    font-family: "Courier New", monospace !important;
   }
 
-  .picker-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  .flatpickr-months {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.3) !important;
   }
 
-  .month-year {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #00ff00;
-    letter-spacing: 0.1em;
-    text-align: center;
-    flex: 1;
+  .flatpickr-month {
+    color: #00ff00 !important;
   }
 
-  .nav-btn {
-    padding: 0.5rem 0.75rem;
-    background: rgba(0, 255, 0, 0.1);
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 4px;
-    color: #00ff00;
-    text-decoration: none;
-    font-size: 1.2rem;
-    transition: all 0.2s ease;
-    cursor: pointer;
+  .flatpickr-current-month {
+    color: #00ff00 !important;
+    font-weight: bold !important;
   }
 
-  .nav-btn:hover {
-    background: rgba(0, 255, 0, 0.2);
-    border-color: rgba(0, 255, 0, 0.5);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  .flatpickr-current-month .flatpickr-monthDropdown-months {
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(0, 255, 0, 0.3) !important;
+    color: #00ff00 !important;
   }
 
-  .day-labels {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+  .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+    background: rgba(0, 255, 0, 0.1) !important;
   }
 
-  .day-label {
-    text-align: center;
-    font-size: 0.75rem;
-    color: rgba(0, 255, 0, 0.6);
-    font-weight: bold;
+  .flatpickr-current-month input.cur-year {
+    color: #00ff00 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(0, 255, 0, 0.3) !important;
+    font-weight: bold !important;
   }
 
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    color: #00ff00 !important;
+    fill: #00ff00 !important;
   }
 
-  .calendar-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(0, 255, 0, 0.2);
-    border-radius: 4px;
-    color: rgba(0, 255, 0, 0.7);
-    font-size: 0.875rem;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    cursor: pointer;
+  .flatpickr-prev-month:hover,
+  .flatpickr-next-month:hover {
+    background: rgba(0, 255, 0, 0.2) !important;
   }
 
-  .calendar-day.other-month {
-    color: rgba(0, 255, 0, 0.3);
-    background: rgba(0, 0, 0, 0.3);
+  .flatpickr-weekdays {
+    background: rgba(0, 0, 0, 0.3) !important;
   }
 
-  .calendar-day.current-month:hover:not(.selected):not(.future) {
-    background: rgba(0, 255, 0, 0.15);
-    border-color: rgba(0, 255, 0, 0.5);
-    color: #00ff00;
-    transform: scale(1.05);
+  .flatpickr-weekday {
+    color: rgba(0, 255, 0, 0.7) !important;
+    font-weight: bold !important;
   }
 
-  .calendar-day.selected {
-    background: rgba(0, 255, 0, 0.3);
-    border-color: #00ff00;
-    color: #00ff00;
-    font-weight: bold;
+  .flatpickr-days {
+    background: rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .flatpickr-day {
+    color: rgba(0, 255, 0, 0.8) !important;
+    border: 1px solid transparent !important;
+  }
+
+  .flatpickr-day:hover:not(.flatpickr-disabled) {
+    background: rgba(0, 255, 0, 0.2) !important;
+    border-color: rgba(0, 255, 0, 0.5) !important;
+    color: #00ff00 !important;
+  }
+
+  .flatpickr-day.today {
+    border-color: rgba(0, 255, 0, 0.6) !important;
+    background: rgba(0, 255, 0, 0.1) !important;
+    color: #00ff00 !important;
+  }
+
+  .flatpickr-day.selected {
+    background: rgba(0, 255, 0, 0.3) !important;
+    border-color: #00ff00 !important;
+    color: #00ff00 !important;
+    font-weight: bold !important;
     box-shadow:
       0 0 15px rgba(0, 255, 0, 0.5),
-      inset 0 0 10px rgba(0, 255, 0, 0.2);
+      inset 0 0 10px rgba(0, 255, 0, 0.2) !important;
   }
 
-  .calendar-day.today {
-    border-color: rgba(0, 255, 0, 0.6);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  .flatpickr-day.flatpickr-disabled {
+    color: rgba(0, 255, 0, 0.2) !important;
+    cursor: not-allowed !important;
   }
 
-  .calendar-day.future {
-    opacity: 0.3;
-    cursor: not-allowed;
-    pointer-events: none;
+  .flatpickr-day.prevMonthDay,
+  .flatpickr-day.nextMonthDay {
+    color: rgba(0, 255, 0, 0.3) !important;
   }
 
-  .shortcuts {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(0, 255, 0, 0.2);
+  .flatpickr-time {
+    border-top: 1px solid rgba(0, 255, 0, 0.3) !important;
+    background: rgba(0, 0, 0, 0.5) !important;
   }
 
-  .shortcut-btn {
-    flex: 1;
-    padding: 0.5rem;
-    background: rgba(0, 255, 0, 0.1);
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 4px;
-    color: #00ff00;
-    text-decoration: none;
-    font-size: 0.75rem;
-    text-align: center;
-    transition: all 0.2s ease;
-    cursor: pointer;
-  }
-
-  .shortcut-btn:hover {
-    background: rgba(0, 255, 0, 0.2);
-    border-color: rgba(0, 255, 0, 0.5);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-    transform: translateY(-2px);
-  }
-
-  /* Responsive */
+  /* Mobile optimizations */
   @media (max-width: 768px) {
-    .date-picker {
-      padding: 1rem;
+    .flatpickr-calendar {
+      width: min(350px, calc(100vw - 2rem)) !important;
     }
 
-    .month-year {
-      font-size: 0.875rem;
-    }
-
-    .day-label {
-      font-size: 0.625rem;
-    }
-
-    .calendar-day {
-      font-size: 0.75rem;
-    }
-
-    .shortcuts {
-      flex-direction: column;
-    }
-
-    .shortcut-btn {
-      font-size: 0.7rem;
-      padding: 0.4rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .date-picker {
-      padding: 0.75rem;
-    }
-
-    .calendar-grid {
-      gap: 0.25rem;
-    }
-
-    .day-labels {
-      gap: 0.25rem;
+    .flatpickr-day {
+      height: 42px !important;
+      line-height: 42px !important;
+      max-width: 42px !important;
     }
   }
 </style>
+
+<style>
+  .matrix-datepicker-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .datepicker-label {
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.8);
+    letter-spacing: 0.05em;
+    font-weight: bold;
+  }
+
+  .datepicker-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .datepicker-input {
+    width: 100%;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 6px;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .datepicker-input:hover {
+    background: rgba(0, 255, 0, 0.1);
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+  }
+
+  .datepicker-input:focus {
+    outline: none;
+    border-color: rgba(0, 255, 0, 0.6);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+  }
+
+  .calendar-icon {
+    position: absolute;
+    right: 0.75rem;
+    width: 20px;
+    height: 20px;
+    color: rgba(0, 255, 0, 0.7);
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .matrix-datepicker-wrapper {
+      max-width: 100%;
+    }
+
+    .datepicker-input {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+  }
+</style>
+
+<script>
+  import flatpickr from "flatpickr";
+  import "flatpickr/dist/flatpickr.min.css";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const inputs = document.querySelectorAll(
+      ".datepicker-input",
+    ) as NodeListOf<HTMLInputElement>;
+
+    inputs.forEach(input => {
+      const baseUrl = input.dataset.baseUrl || "";
+      const maxDate = input.dataset.maxDate || new Date();
+
+      flatpickr(input, {
+        dateFormat: "Y-m-d",
+        maxDate: maxDate,
+        defaultDate: input.value,
+        allowInput: false,
+        disableMobile: false, // Use flatpickr on mobile too
+        monthSelectorType: "static",
+        onChange: (selectedDates, dateStr) => {
+          if (dateStr) {
+            // Navigate to the selected date
+            const url = baseUrl
+              ? `${baseUrl}?date=${dateStr}`
+              : `?date=${dateStr}`;
+            window.location.href = url;
+          }
+        },
+        onReady: (selectedDates, dateStr, instance) => {
+          // Add custom class to calendar
+          if (instance.calendarContainer) {
+            instance.calendarContainer.classList.add("matrix-calendar");
+          }
+        },
+      });
+    });
+  });
+</script>
