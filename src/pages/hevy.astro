@@ -25,12 +25,7 @@ const hevyWorkouts: Workout[] = jsonData?.hevy.workouts || [];
 
     <!-- Pagination Navigator -->
     <div class="workout-navigator mb-4">
-      <button
-        id="prev-page"
-        class="nav-arrow"
-        title="Previous page"
-        disabled
-      >
+      <button id="prev-page" class="nav-arrow" title="Previous page" disabled>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -47,18 +42,16 @@ const hevyWorkouts: Workout[] = jsonData?.hevy.workouts || [];
 
       <div class="page-info">
         <div class="page-text">
-          Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+          Page <span id="current-page">1</span> of <span id="total-pages"
+            >1</span
+          >
         </div>
         <div class="range-text">
           Showing <span id="showing-range">1-12</span>
         </div>
       </div>
 
-      <button
-        id="next-page"
-        class="nav-arrow"
-        title="Next page"
-      >
+      <button id="next-page" class="nav-arrow" title="Next page">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -106,18 +99,16 @@ const hevyWorkouts: Workout[] = jsonData?.hevy.workouts || [];
 
       <div class="page-info">
         <div class="page-text">
-          Page <span id="current-page-bottom">1</span> of <span id="total-pages-bottom">1</span>
+          Page <span id="current-page-bottom">1</span> of <span
+            id="total-pages-bottom">1</span
+          >
         </div>
         <div class="range-text">
           Showing <span id="showing-range-bottom">1-12</span>
         </div>
       </div>
 
-      <button
-        id="next-page-bottom"
-        class="nav-arrow"
-        title="Next page"
-      >
+      <button id="next-page-bottom" class="nav-arrow" title="Next page">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -153,9 +144,13 @@ const hevyWorkouts: Workout[] = jsonData?.hevy.workouts || [];
     const totalPagesSpan = document.getElementById("total-pages");
     const showingRangeSpan = document.getElementById("showing-range");
 
-    const currentPageSpanBottom = document.getElementById("current-page-bottom");
+    const currentPageSpanBottom = document.getElementById(
+      "current-page-bottom",
+    );
     const totalPagesSpanBottom = document.getElementById("total-pages-bottom");
-    const showingRangeSpanBottom = document.getElementById("showing-range-bottom");
+    const showingRangeSpanBottom = document.getElementById(
+      "showing-range-bottom",
+    );
 
     function showPage(page) {
       currentPage = page;
@@ -164,7 +159,7 @@ const hevyWorkouts: Workout[] = jsonData?.hevy.workouts || [];
 
       // Show/hide cards
       cards.forEach((card, index) => {
-        card.style.display = (index >= start && index < end) ? "" : "none";
+        card.style.display = index >= start && index < end ? "" : "none";
       });
 
       // Update all displays
@@ -185,9 +180,11 @@ const hevyWorkouts: Workout[] = jsonData?.hevy.workouts || [];
       if (showingRangeSpan) showingRangeSpan.textContent = rangeText;
 
       // Update bottom controls
-      if (currentPageSpanBottom) currentPageSpanBottom.textContent = currentPage;
+      if (currentPageSpanBottom)
+        currentPageSpanBottom.textContent = currentPage;
       if (totalPagesSpanBottom) totalPagesSpanBottom.textContent = totalPages;
-      if (showingRangeSpanBottom) showingRangeSpanBottom.textContent = rangeText;
+      if (showingRangeSpanBottom)
+        showingRangeSpanBottom.textContent = rangeText;
 
       // Update button states
       if (prevBtn) prevBtn.disabled = currentPage === 1;

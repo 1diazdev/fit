@@ -30,7 +30,10 @@ export interface PeriodStats {
  * @param days - Number of days to include
  */
 export function prepareTrendData(
-  stepsData: Record<string, { steps: number; distance: number; calories: number }>,
+  stepsData: Record<
+    string,
+    { steps: number; distance: number; calories: number }
+  >,
   activitiesData: any[],
   workoutsData: any[],
   endDate: string,
@@ -46,7 +49,11 @@ export function prepareTrendData(
     const dateStr = formatDateToYYYYMMDD(currentDate);
 
     // Get steps data
-    const daySteps = stepsData[dateStr] || { steps: 0, distance: 0, calories: 0 };
+    const daySteps = stepsData[dateStr] || {
+      steps: 0,
+      distance: 0,
+      calories: 0,
+    };
 
     // Count activities for this day
     const dayActivities = activitiesData.filter(activity => {
@@ -89,7 +96,14 @@ export function calculatePeriodStats(trendData: TrendDataPoint[]): PeriodStats {
       workouts: acc.workouts + day.workouts,
       activeDays: acc.activeDays + (day.steps > 0 ? 1 : 0),
     }),
-    { steps: 0, distance: 0, calories: 0, activities: 0, workouts: 0, activeDays: 0 },
+    {
+      steps: 0,
+      distance: 0,
+      calories: 0,
+      activities: 0,
+      workouts: 0,
+      activeDays: 0,
+    },
   );
 
   return stats;
@@ -104,7 +118,10 @@ export function calculatePeriodStats(trendData: TrendDataPoint[]): PeriodStats {
  * @param days - Number of days in each period
  */
 export function prepareComparisonData(
-  stepsData: Record<string, { steps: number; distance: number; calories: number }>,
+  stepsData: Record<
+    string,
+    { steps: number; distance: number; calories: number }
+  >,
   activitiesData: any[],
   workoutsData: any[],
   endDate: string,

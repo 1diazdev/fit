@@ -41,11 +41,12 @@ const selectedDate = /^\d{4}-\d{2}-\d{2}$/.test(dateParam || "")
   : todayStr;
 
 // Get period in days
-const periodDays =
-  periodParam === "7d" ? 7 : periodParam === "30d" ? 30 : 90;
+const periodDays = periodParam === "7d" ? 7 : periodParam === "30d" ? 30 : 90;
 const period = periodParam as "7d" | "30d" | "90d";
 
-console.log(`[trends.astro] Loading trends for date: ${selectedDate}, period: ${periodParam}`);
+console.log(
+  `[trends.astro] Loading trends for date: ${selectedDate}, period: ${periodParam}`,
+);
 
 // Load all data from JSON
 const jsonData = await loadAllDataFromJSON();
@@ -259,8 +260,6 @@ const totalWorkouts = allWorkouts.length;
       </div>
     </div>
   </SectionLayout>
-
-
 </Base>
 
 <style>
@@ -441,7 +440,6 @@ const totalWorkouts = allWorkouts.length;
     .stat-box {
       padding: 1rem;
     }
-
 
     .stat-value {
       font-size: 1.125rem;

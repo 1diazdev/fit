@@ -11,7 +11,12 @@ interface Props {
   label?: string; // Label for the picker
 }
 
-const { selectedDate, minDate, baseUrl = "", label = "[SELECT_DATE]" } = Astro.props;
+const {
+  selectedDate,
+  minDate,
+  baseUrl = "",
+  label = "[SELECT_DATE]",
+} = Astro.props;
 
 // Generate unique ID for this instance
 const pickerId = `datepicker-${Math.random().toString(36).substr(2, 9)}`;

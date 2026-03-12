@@ -245,7 +245,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
       <div class="date-picker-container">
-        <DatePicker selectedDate={selectedDate} minDate={minDataDate} label="" />
+        <DatePicker
+          selectedDate={selectedDate}
+          minDate={minDataDate}
+          label=""
+        />
       </div>
     </div>
 

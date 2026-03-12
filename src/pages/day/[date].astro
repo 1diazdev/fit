@@ -3,7 +3,11 @@
 // Accessed as /day/2026-02-19
 
 import Base from "@layouts/Base.astro";
-import { PAGE_METADATA, MIN_DATA_DATE_REAL, MIN_DATA_DATE_DUMMY } from "@src/consts";
+import {
+  PAGE_METADATA,
+  MIN_DATA_DATE_REAL,
+  MIN_DATA_DATE_DUMMY,
+} from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
 import DayMetricsGrid from "@components/DayMetricsGrid.astro";
 import DayComparison from "@components/DayComparison.astro";
@@ -39,7 +43,9 @@ export async function getStaticPaths() {
 
   // In production builds, always use real data date range
   // Dummy data is only used during development with USE_DUMMY_HEALTH_DATA=true
-  const isDummyMode = String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() === "true";
+  const isDummyMode =
+    String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() ===
+    "true";
   const minDateStr = isDummyMode ? MIN_DATA_DATE_DUMMY : MIN_DATA_DATE_REAL;
   const minDate = new globalThis.Date(minDateStr);
 
@@ -248,7 +254,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
       <div class="date-picker-container">
-        <DatePicker selectedDate={selectedDate} minDate={minDataDate} label="" />
+        <DatePicker
+          selectedDate={selectedDate}
+          minDate={minDataDate}
+          label=""
+        />
       </div>
       {
         !isToday && (
