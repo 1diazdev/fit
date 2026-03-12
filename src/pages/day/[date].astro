@@ -29,6 +29,7 @@ import HeartRateZones from "@components/HeartRateZones.astro";
 import HeatmapGrid from "@components/HeatmapGrid.astro";
 import ActivityDashboard from "@components/ActivityDashboard.astro";
 import HevyWorkoutCount from "@components/HevyWorkoutCount.astro";
+import DatePicker from "@components/DatePicker.astro";
 
 import {
   getDataForDate,
@@ -231,6 +232,9 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
+      <div class="date-picker-container">
+        <DatePicker selectedDate={selectedDate} label="" />
+      </div>
       {
         !isToday && (
           <a href="/" class="today-btn">
@@ -643,6 +647,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     align-items: center;
     gap: 0.5rem;
     min-width: 280px;
+  }
+
+  .date-picker-container {
+    width: 100%;
+    max-width: 260px;
   }
 
   .date-text {
