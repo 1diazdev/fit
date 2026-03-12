@@ -2,24 +2,12 @@
 // Dynamic route for date-specific dashboard
 // Accessed as /day/2026-02-19
 
-// Generate static paths for the last 90 days
-export async function getStaticPaths() {
-  const paths: Array<{ params: { date: string } }> = [];
-  const today = new globalThis.Date();
-
-  // Generate paths for last 90 days
-  for (let i = 0; i < 90; i++) {
-    const date = new globalThis.Date(today);
-    date.setDate(date.getDate() - i);
-    const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-    paths.push({ params: { date: dateStr } });
-  }
-
-  return paths;
-}
-
 import Base from "@layouts/Base.astro";
-import { PAGE_METADATA } from "@src/consts";
+import {
+  PAGE_METADATA,
+  MIN_DATA_DATE_REAL,
+  MIN_DATA_DATE_DUMMY,
+} from "@src/consts";
 import SectionLayout from "@components/SectionLayout.astro";
 import DayMetricsGrid from "@components/DayMetricsGrid.astro";
 import DayComparison from "@components/DayComparison.astro";
@@ -29,6 +17,7 @@ import HeartRateZones from "@components/HeartRateZones.astro";
 import HeatmapGrid from "@components/HeatmapGrid.astro";
 import ActivityDashboard from "@components/ActivityDashboard.astro";
 import HevyWorkoutCount from "@components/HevyWorkoutCount.astro";
+import DatePicker from "@components/DatePicker.astro";
 
 import {
   getDataForDate,
@@ -36,6 +25,7 @@ import {
   calculateStreaks,
   isTestDataMode,
   getTestModeSnapshot,
+  getMinDataDate,
 } from "@services/dataAggregationService";
 import {
   fetchDistanceData,
@@ -44,6 +34,31 @@ import {
 import { generateInsights, getPersonalRecords } from "@utils/statsUtils";
 import { loadAllDataFromJSON } from "@lib/jsonLoader";
 import { Flame, Zap, Dumbbell } from "lucide-astro";
+
+// Generate static paths from minimum data date to today
+// Uses REAL data date for production builds (dummy data is only for development)
+export async function getStaticPaths() {
+  const paths: Array<{ params: { date: string } }> = [];
+  const today = new globalThis.Date();
+
+  // In production builds, always use real data date range
+  // Dummy data is only used during development with USE_DUMMY_HEALTH_DATA=true
+  const isDummyMode =
+    String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() ===
+    "true";
+  const minDateStr = isDummyMode ? MIN_DATA_DATE_DUMMY : MIN_DATA_DATE_REAL;
+  const minDate = new globalThis.Date(minDateStr);
+
+  // Generate paths from min data date to today
+  let currentDate = new globalThis.Date(minDate);
+  while (currentDate <= today) {
+    const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
+    paths.push({ params: { date: dateStr } });
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return paths;
+}
 
 // Get date from path parameter
 const { date } = Astro.params;
@@ -83,6 +98,9 @@ const today = new globalThis.Date();
 const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 const isToday = selectedDate === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
+// Check if we can go back (not at minimum data date)
+const minDataDate = getMinDataDate();
+const isPrevDayBeforeMinDate = prevDayStr < minDataDate;
 
 // Fetch all data for selected date
 const dayData = await getDataForDate(selectedDate);
@@ -214,7 +232,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
 >
   <!-- Date Navigator -->
   <div class="date-navigator">
-    <a href={`/day/${prevDayStr}`} class="nav-arrow" title="Previous day">
+    <a
+      href={isPrevDayBeforeMinDate ? "#" : `/day/${prevDayStr}`}
+      class={`nav-arrow ${isPrevDayBeforeMinDate ? "disabled" : ""}`}
+      title="Previous day"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -231,6 +253,13 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
+      <div class="date-picker-container">
+        <DatePicker
+          selectedDate={selectedDate}
+          minDate={minDataDate}
+          label=""
+        />
+      </div>
       {
         !isToday && (
           <a href="/" class="today-btn">
@@ -360,13 +389,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
           </div>
         </div>
 
-        <div class="heatmap-display">
-          <HeatmapGrid
-            distanceData={distanceData}
-            minDistance={minDistance}
-            maxDistance={maxDistance}
-          />
-        </div>
+        <HeatmapGrid
+          distanceData={distanceData}
+          minDistance={minDistance}
+          maxDistance={maxDistance}
+        />
 
         <div class="heatmap-footer mt-4">
           <div class="flex justify-between items-center text-xs">
@@ -485,12 +512,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
   .heatmap-wrapper {
     position: relative;
     z-index: 2;
-  }
-
-  .heatmap-display {
-    max-width: 1200px;
-    margin: 0 auto;
-    aspect-ratio: 53/7;
   }
 
   .heatmap-info,
@@ -643,6 +664,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     align-items: center;
     gap: 0.5rem;
     min-width: 280px;
+  }
+
+  .date-picker-container {
+    width: 100%;
+    max-width: 260px;
   }
 
   .date-text {

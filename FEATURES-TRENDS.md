@@ -5,6 +5,7 @@ Este documento describe las nuevas funcionalidades agregadas para visualizar ten
 ## 📱 Componentes Mobile-Friendly
 
 Todos los nuevos componentes están optimizados para dispositivos móviles con:
+
 - Touch targets de al menos 44x44px
 - Diseño responsive que se adapta a diferentes tamaños de pantalla
 - Eliminación de efectos de tap highlight en iOS
@@ -13,11 +14,13 @@ Todos los nuevos componentes están optimizados para dispositivos móviles con:
 ## 🆕 Nuevos Componentes
 
 ### 1. DatePicker (Mejorado)
+
 **Ubicación**: `src/components/DatePicker.astro`
 
 Calendario completo con vista mensual para seleccionar fechas.
 
 **Props**:
+
 ```typescript
 {
   selectedDate: string;  // YYYY-MM-DD format
@@ -26,6 +29,7 @@ Calendario completo con vista mensual para seleccionar fechas.
 ```
 
 **Características**:
+
 - Vista de calendario mensual
 - Navegación entre meses
 - Atajos rápidos: Today, Yesterday, Last Week
@@ -33,6 +37,7 @@ Calendario completo con vista mensual para seleccionar fechas.
 - Diseño responsive con mejor UX en móvil
 
 **Ejemplo de uso**:
+
 ```astro
 import DatePicker from "@components/DatePicker.astro";
 
@@ -42,11 +47,13 @@ import DatePicker from "@components/DatePicker.astro";
 ---
 
 ### 2. TrendsPanel
+
 **Ubicación**: `src/components/TrendsPanel.astro`
 
 Panel de análisis de tendencias con gráficos y estadísticas.
 
 **Props**:
+
 ```typescript
 {
   trendData: TrendDataPoint[];  // Array de datos por día
@@ -65,6 +72,7 @@ interface TrendDataPoint {
 ```
 
 **Características**:
+
 - Selector de período (7, 30, 90 días)
 - Estadísticas promedio (steps/day, distance/day, calories/day)
 - Indicador de tendencia (up/down/stable)
@@ -73,33 +81,26 @@ interface TrendDataPoint {
 - Mobile-friendly con diseño en columna en pantallas pequeñas
 
 **Ejemplo de uso**:
+
 ```astro
-import TrendsPanel from "@components/TrendsPanel.astro";
-import { prepareTrendData } from "@utils/trendsUtils";
+import TrendsPanel from "@components/TrendsPanel.astro"; import {
+  prepareTrendData
+} from "@utils/trendsUtils"; const trendData = prepareTrendData( stepsData,
+activities, workouts, "2026-03-11", 7 // 7 días );
 
-const trendData = prepareTrendData(
-  stepsData,
-  activities,
-  workouts,
-  "2026-03-11",
-  7  // 7 días
-);
-
-<TrendsPanel
-  trendData={trendData}
-  period="7d"
-  currentDate="2026-03-11"
-/>
+<TrendsPanel trendData={trendData} period="7d" currentDate="2026-03-11" />
 ```
 
 ---
 
 ### 3. MetricsComparison
+
 **Ubicación**: `src/components/MetricsComparison.astro`
 
 Compara métricas entre el período actual y el anterior.
 
 **Props**:
+
 ```typescript
 {
   currentPeriod: PeriodStats;
@@ -119,6 +120,7 @@ interface PeriodStats {
 ```
 
 **Características**:
+
 - Compara 6 métricas clave
 - Calcula cambio porcentual
 - Indicadores visuales (↗ positivo, ↘ negativo, → neutral)
@@ -127,17 +129,12 @@ interface PeriodStats {
 - Diseño responsive con layout en columna en móvil
 
 **Ejemplo de uso**:
-```astro
-import MetricsComparison from "@components/MetricsComparison.astro";
-import { prepareComparisonData } from "@utils/trendsUtils";
 
-const { current, previous } = prepareComparisonData(
-  stepsData,
-  activities,
-  workouts,
-  "2026-03-11",
-  7  // Comparar últimas 2 semanas
-);
+```astro
+import MetricsComparison from "@components/MetricsComparison.astro"; import {
+  prepareComparisonData
+} from "@utils/trendsUtils"; const {(current, previous)} = prepareComparisonData(
+stepsData, activities, workouts, "2026-03-11", 7 // Comparar últimas 2 semanas );
 
 <MetricsComparison
   currentPeriod={current}
@@ -152,46 +149,55 @@ const { current, previous } = prepareComparisonData(
 ## 🛠️ Utilidades
 
 ### trendsUtils.ts
+
 **Ubicación**: `src/utils/trendsUtils.ts`
 
 Funciones helper para preparar datos:
 
 #### `prepareTrendData()`
+
 Prepara datos de tendencias para un número específico de días.
 
 ```typescript
 function prepareTrendData(
-  stepsData: Record<string, { steps: number; distance: number; calories: number }>,
+  stepsData: Record<
+    string,
+    { steps: number; distance: number; calories: number }
+  >,
   activitiesData: any[],
   workoutsData: any[],
   endDate: string,
   days: number,
-): TrendDataPoint[]
+): TrendDataPoint[];
 ```
 
 #### `calculatePeriodStats()`
+
 Calcula estadísticas agregadas para un período.
 
 ```typescript
-function calculatePeriodStats(
-  trendData: TrendDataPoint[]
-): PeriodStats
+function calculatePeriodStats(trendData: TrendDataPoint[]): PeriodStats;
 ```
 
 #### `prepareComparisonData()`
+
 Prepara datos para comparación entre dos períodos.
 
 ```typescript
 function prepareComparisonData(
-  stepsData: Record<string, { steps: number; distance: number; calories: number }>,
+  stepsData: Record<
+    string,
+    { steps: number; distance: number; calories: number }
+  >,
   activitiesData: any[],
   workoutsData: any[],
   endDate: string,
   days: number,
-): { current: PeriodStats; previous: PeriodStats }
+): { current: PeriodStats; previous: PeriodStats };
 ```
 
 #### `getPeriodLabel()` y `getComparisonLabel()`
+
 Generan etiquetas automáticas según el número de días.
 
 ---
@@ -210,7 +216,7 @@ import {
   prepareTrendData,
   prepareComparisonData,
   getPeriodLabel,
-  getComparisonLabel
+  getComparisonLabel,
 } from "@utils/trendsUtils";
 ---
 ```
@@ -230,7 +236,7 @@ const trendData = prepareTrendData(
   allActivities,
   allWorkouts,
   selectedDate,
-  periodDays
+  periodDays,
 );
 
 // Preparar datos de comparación
@@ -239,7 +245,7 @@ const { current, previous } = prepareComparisonData(
   allActivities,
   allWorkouts,
   selectedDate,
-  periodDays
+  periodDays,
 );
 
 const periodLabel = getPeriodLabel(periodDays);
@@ -282,6 +288,7 @@ const comparisonLabel = getComparisonLabel(periodDays);
 ## 🎨 Estilos Matrix Theme
 
 Todos los componentes mantienen el tema Matrix con:
+
 - Fondo degradado negro/verde oscuro
 - Bordes verdes neón con glow
 - Tipografía monoespaciada (Courier New)
@@ -289,6 +296,7 @@ Todos los componentes mantienen el tema Matrix con:
 - Efectos hover con glow verde
 
 ### Código de colores:
+
 - Verde primario: `#00ff00`
 - Verde secundario: `rgba(0, 255, 0, 0.8)`
 - Verde oscuro: `rgba(0, 20, 0, 0.7)`
@@ -301,15 +309,19 @@ Todos los componentes mantienen el tema Matrix con:
 ## 📱 Consideraciones Mobile
 
 ### Breakpoints:
+
 - Desktop: > 768px
 - Tablet: 480px - 768px
 - Mobile: < 480px
 
 ### Touch Targets:
+
 Todos los botones e inputs tienen mínimo 44x44px en móvil para cumplir con las guías de accesibilidad de Apple y Google.
 
 ### Grid Layouts:
+
 Los grids se adaptan automáticamente:
+
 - Desktop: 2-3 columnas
 - Tablet: 2 columnas
 - Mobile: 1 columna

@@ -41,11 +41,12 @@ const selectedDate = /^\d{4}-\d{2}-\d{2}$/.test(dateParam || "")
   : todayStr;
 
 // Get period in days
-const periodDays =
-  periodParam === "7d" ? 7 : periodParam === "30d" ? 30 : 90;
+const periodDays = periodParam === "7d" ? 7 : periodParam === "30d" ? 30 : 90;
 const period = periodParam as "7d" | "30d" | "90d";
 
-console.log(`[trends.astro] Loading trends for date: ${selectedDate}, period: ${periodParam}`);
+console.log(
+  `[trends.astro] Loading trends for date: ${selectedDate}, period: ${periodParam}`,
+);
 
 // Load all data from JSON
 const jsonData = await loadAllDataFromJSON();
@@ -259,28 +260,6 @@ const totalWorkouts = allWorkouts.length;
       </div>
     </div>
   </SectionLayout>
-
-  <!-- Navigation Links -->
-  <div class="navigation-links">
-    <a href="/" class="nav-link">
-      <span class="nav-icon">
-        <Home size={20} />
-      </span>
-      <span class="nav-text">[DASHBOARD]</span>
-    </a>
-    <a href="/health" class="nav-link">
-      <span class="nav-icon">
-        <Heart size={20} />
-      </span>
-      <span class="nav-text">[HEALTH]</span>
-    </a>
-    <a href="/last" class="nav-link">
-      <span class="nav-icon">
-        <List size={20} />
-      </span>
-      <span class="nav-text">[ACTIVITIES]</span>
-    </a>
-  </div>
 </Base>
 
 <style>
@@ -461,7 +440,6 @@ const totalWorkouts = allWorkouts.length;
     .stat-box {
       padding: 1rem;
     }
-
 
     .stat-value {
       font-size: 1.125rem;

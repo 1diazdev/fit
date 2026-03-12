@@ -26,6 +26,7 @@ import {
   type MoveMinutesData,
   type HeartRateZones,
 } from "./googleFitService";
+import { MIN_DATA_DATE_REAL, MIN_DATA_DATE_DUMMY } from "@src/consts";
 
 // ============================================================================
 // INTERFACES
@@ -372,6 +373,14 @@ export async function getDataForDate(date: string): Promise<DayData> {
 
 export function isTestDataMode(): boolean {
   return DUMMY_DATA_ENABLED;
+}
+
+/**
+ * Get the minimum date for available data based on current data mode
+ * @returns YYYY-MM-DD format date string
+ */
+export function getMinDataDate(): string {
+  return isTestDataMode() ? MIN_DATA_DATE_DUMMY : MIN_DATA_DATE_REAL;
 }
 
 export async function getTestModeSnapshot(): Promise<TestModeSnapshot | null> {

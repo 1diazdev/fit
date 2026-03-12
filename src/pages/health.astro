@@ -5,6 +5,7 @@ import StepsCounter from "@/components/StepsCounter.astro";
 import HealthHeatmap from "@/components/HealthHeatmap.astro";
 import SleepTracker from "@/components/SleepTracker.astro";
 import HeartRateZones from "@/components/HeartRateZones.astro";
+import DatePicker from "@/components/DatePicker.astro";
 import type {
   StepsData,
   SleepData,
@@ -12,6 +13,7 @@ import type {
 } from "@/services/googleFitService";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { getMinDataDate } from "@/services/dataAggregationService";
 
 // Get date from query param or use today
 const url = new URL(Astro.request.url);
@@ -47,6 +49,10 @@ const displayDate = new Intl.DateTimeFormat("en-US", {
 
 const isToday = dateToUse === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
+
+// Check if we can go back (not at minimum data date)
+const minDataDate = getMinDataDate();
+const isPrevDayBeforeMinDate = prevDayStr < minDataDate;
 
 // Load cached health data from JSON file (no API call during build!)
 let healthData: {
@@ -111,9 +117,13 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
   terminalCommand={`./run_health_scan.exe ${dateToUse}`}
   systemMessage="[SYSTEM] Google Fit API connected. Biometric data streaming..."
 >
-  <!-- Date Navigator - Uses /health/YYYY-MM-DD routes -->
+  <!-- Date Navigator - Uses query parameters -->
   <div class="date-navigator">
-    <a href={`/health/${prevDayStr}`} class="nav-arrow" title="Previous day">
+    <a
+      href={isPrevDayBeforeMinDate ? "#" : `/health?date=${prevDayStr}`}
+      class={`nav-arrow ${isPrevDayBeforeMinDate ? "disabled" : ""}`}
+      title="Previous day"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -130,11 +140,19 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
+      <div class="date-picker-container">
+        <DatePicker
+          selectedDate={dateToUse}
+          minDate={minDataDate}
+          baseUrl="/health"
+          label=""
+        />
+      </div>
       {isToday && <div class="date-badge">TODAY</div>}
     </div>
 
     <a
-      href={isNextDayFuture ? "#" : `/health/${nextDayStr}`}
+      href={isNextDayFuture ? "#" : `/health?date=${nextDayStr}`}
       class={`nav-arrow ${isNextDayFuture ? "disabled" : ""}`}
       title="Next day"
     >
@@ -305,7 +323,8 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 180px;
+    gap: 0.5rem;
+    min-width: 280px;
   }
 
   .date-text {
@@ -314,6 +333,11 @@ const lastUpdatedStr = lastUpdated.toLocaleDateString("en-US", {
     font-weight: bold;
     color: #00ff00;
     text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .date-picker-container {
+    width: 100%;
+    max-width: 260px;
   }
 
   .date-badge {
