@@ -24,15 +24,9 @@ import {
 import {
   fetchDistanceData,
   processDistanceData,
-  fetchActivities,
 } from "@services/stravaService";
-import {
-  fetchStepsData,
-  fetchHeartRateData,
-  fetchMoveMinutesData,
-} from "@services/googleFitService";
 import { generateInsights, getPersonalRecords } from "@utils/statsUtils";
-import { fetchHevyData, fetchWorkoutCount } from "@services/hevyService";
+import { loadAllDataFromJSON } from "@lib/jsonLoader";
 
 // WORKAROUND: Query parameters don't work in Astro dev server
 // Load today's data by default, client-side will handle date navigation
@@ -87,15 +81,23 @@ const streaks = await calculateStreaks(selectedDate);
 const testMode = isTestDataMode();
 const testSnapshot = testMode ? await getTestModeSnapshot() : null;
 
-// Fetch data for insights generation
-const [stepsData, allActivities, allWorkouts] =
-  testMode && testSnapshot
-    ? [testSnapshot.stepsData, testSnapshot.activities, testSnapshot.workouts]
-    : await Promise.all([
-        fetchStepsData(365).catch(() => ({})),
-        fetchActivities(1, 200).catch(() => []),
-        fetchHevyData().catch(() => []),
-      ]);
+// Fetch data for insights generation - use JSON loader to avoid API calls
+let stepsData = {};
+let allActivities: any[] = [];
+let allWorkouts: any[] = [];
+
+if (testMode && testSnapshot) {
+  stepsData = testSnapshot.stepsData;
+  allActivities = testSnapshot.activities;
+  allWorkouts = testSnapshot.workouts;
+} else {
+  const jsonData = await loadAllDataFromJSON();
+  if (jsonData) {
+    stepsData = jsonData.health.steps || {};
+    allActivities = jsonData.strava.activities || [];
+    allWorkouts = jsonData.hevy.workouts || [];
+  }
+}
 
 const personalRecords = getPersonalRecords(
   stepsData,
@@ -169,28 +171,29 @@ const minDistance =
 const maxDistance =
   positiveDistances.length > 0 ? Math.max(...positiveDistances) : 1;
 
-// Fetch move minutes for chart (last 90 days)
-const moveMinutesData =
-  testMode && testSnapshot
-    ? testSnapshot.moveMinutesData
-    : await fetchMoveMinutesData(30).catch(() => ({}));
+// Fetch move minutes and heart rate from JSON (no API calls!)
+let moveMinutesData = {};
+let heartRateData = {};
 
-// Fetch heart rate data for zones component (last 90 days)
-const heartRateData =
-  testMode && testSnapshot
-    ? testSnapshot.heartRateData
-    : await fetchHeartRateData(90).catch(() => ({}));
+if (testMode && testSnapshot) {
+  moveMinutesData = testSnapshot.moveMinutesData;
+  heartRateData = testSnapshot.heartRateData;
+} else {
+  const healthJson = await loadAllDataFromJSON();
+  if (healthJson) {
+    moveMinutesData = healthJson.health.moveMinutes || {};
+    heartRateData = healthJson.health.heartRate || {};
+  }
+}
 
-// Fetch Hevy workout count
+// Get Hevy workout count from JSON (no API call!)
 let workoutCount = 0;
 if (testMode && testSnapshot) {
   workoutCount = testSnapshot.workoutCount;
 } else {
-  try {
-    workoutCount = await fetchWorkoutCount();
-  } catch (error) {
-    console.error("Error fetching workout count:", error);
-    workoutCount = 0;
+  const hevyJson = await loadAllDataFromJSON();
+  if (hevyJson && hevyJson.hevy.workouts) {
+    workoutCount = hevyJson.hevy.workouts.length;
   }
 }
 

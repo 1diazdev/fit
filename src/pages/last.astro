@@ -3,11 +3,12 @@ import SectionLayout from "@components/SectionLayout.astro";
 import DaysSinceLast from "@components/DaysSinceLast.astro";
 import Base from "@layouts/Base.astro";
 import { PAGE_METADATA } from "@src/consts";
-import { fetchActivities } from "@services/stravaService";
+import { loadAllDataFromJSON } from "@lib/jsonLoader";
 import { BarChart3, ClipboardList, TrendingUp } from "lucide-astro";
 
-// Fetch activities once (optimized - single API call instead of 3 separate calls)
-const allActivities = await fetchActivities(1, 50);
+// Load activities from JSON to avoid API calls
+const jsonData = await loadAllDataFromJSON();
+const allActivities = jsonData?.strava.activities || [];
 
 // Helper function to find last activity by type
 const findLastActivityByType = (type: string) => {
