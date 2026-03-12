@@ -10,8 +10,13 @@
  *   - HEVY_API_KEY must be set in environment variables
  */
 
-import { writeFile } from "fs/promises";
 import { fetchHevyData, fetchWorkoutCount } from "../src/services/hevyService";
+import {
+  needsBootstrap,
+  mergeByUniqueId,
+  saveJSON,
+  loadJSON,
+} from "./lib/jsonMerger";
 
 interface HevyDataOutput {
   workouts: any[];
@@ -21,7 +26,7 @@ interface HevyDataOutput {
 }
 
 const main = async (): Promise<void> => {
-  console.log("💪 Hevy Workout Data Fetch Script\n");
+  console.log("💪 Hevy Workout Data Fetch Script (Incremental)\n");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
   const apiKey = process.env.HEVY_API_KEY;
@@ -39,46 +44,81 @@ const main = async (): Promise<void> => {
     `   Key: ${apiKey.substring(0, 8)}...${apiKey.substring(apiKey.length - 4)}\n`,
   );
 
+  const outputPath = "public/hevy-data.json";
+
   try {
-    console.log("🔄 Fetching workout data from Hevy API...\n");
+    // Step 1: Check if we need to update
+    // Note: Hevy API doesn't support date filtering, so we always fetch all
+    // But we can skip if data was updated recently
+    const isBootstrap = await needsBootstrap({
+      jsonPath: outputPath,
+      maxStaleDays: 2,
+    });
+
+    console.log(
+      `\n🔄 Mode: ${isBootstrap ? "BOOTSTRAP (full fetch)" : "UPDATE (merge with existing)"}\n`,
+    );
+
+    // Step 2: Fetch data from Hevy API
+    console.log("🔄 Fetching workout data from Hevy API...");
+    console.log("   Note: Hevy API returns all workouts (no date filtering)\n");
 
     const startTime = Date.now();
 
-    const [workouts, workoutCount] = await Promise.all([
+    const [newWorkouts, workoutCount] = await Promise.all([
       fetchHevyData(apiKey),
       fetchWorkoutCount(apiKey),
     ]);
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+    console.log(`✅ Fetched ${newWorkouts.length} workouts in ${elapsed}s\n`);
 
-    console.log(`✅ Data fetched successfully in ${elapsed}s\n`);
+    // Step 3: Merge with existing data (preserves deleted workouts)
+    let finalWorkouts = newWorkouts;
 
+    if (!isBootstrap) {
+      console.log("🔀 Merging with existing data...");
+      console.log(
+        "   This preserves workouts deleted from Hevy but keeps your history\n",
+      );
+
+      const existingData = await loadJSON<HevyDataOutput>(outputPath);
+
+      if (existingData && existingData.workouts) {
+        finalWorkouts = mergeByUniqueId(
+          existingData.workouts,
+          newWorkouts,
+          "id",
+        );
+      }
+    }
+
+    // Step 4: Calculate statistics
     console.log("📊 Data Summary:");
-    console.log(`   Total workouts: ${workoutCount}`);
-    console.log(`   Workouts fetched: ${workouts.length}`);
+    console.log(`   Total workouts in history: ${finalWorkouts.length}`);
+    console.log(`   Workouts from API: ${newWorkouts.length}`);
+    console.log(`   API reported count: ${workoutCount}`);
 
-    if (workouts.length > 0) {
-      const lastWorkout = workouts[0];
-      console.log(`   Last workout: ${lastWorkout.title}`);
+    if (finalWorkouts.length > 0) {
+      const lastWorkout = finalWorkouts[0];
+      console.log(`\n   Most recent workout: ${lastWorkout.title}`);
       console.log(
         `   Date: ${new Date(lastWorkout.start_time).toLocaleDateString()}`,
       );
       console.log(`   Exercises: ${lastWorkout.exercises.length}\n`);
     }
 
-    // Prepare data for JSON
+    // Step 5: Save with metadata
     const hevyData: HevyDataOutput = {
-      workouts,
-      workoutCount,
+      workouts: finalWorkouts,
+      workoutCount: finalWorkouts.length, // Use actual count
       lastUpdated: new Date().toISOString(),
       source: "Hevy",
     };
 
-    // Write to public directory
-    const outputPath = "public/hevy-data.json";
-    await writeFile(outputPath, JSON.stringify(hevyData, null, 2));
-
-    console.log(`✅ Hevy data saved to ${outputPath}`);
+    await saveJSON(outputPath, hevyData, {
+      source: "Hevy",
+    });
 
     // Calculate file size
     const stats = await import("fs").then(fs => fs.promises.stat(outputPath));
@@ -86,7 +126,8 @@ const main = async (): Promise<void> => {
     console.log(`   File size: ${fileSizeKB} KB\n`);
 
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    console.log("✨ Hevy data fetch complete!\n");
+    console.log(`✨ Hevy ${isBootstrap ? "bootstrap" : "update"} complete!\n`);
+    console.log("💡 Historical workouts preserved even if deleted from Hevy\n");
   } catch (error) {
     console.error("\n❌ Error fetching Hevy data:\n");
     if (error instanceof Error) {

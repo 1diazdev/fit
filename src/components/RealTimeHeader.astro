@@ -12,9 +12,7 @@
  * - Current streak
  */
 
-import { fetchStepsData } from "@/services/googleFitService";
-import { fetchActivities } from "@/services/stravaService";
-import { fetchHevyData } from "@/services/hevyService";
+import { loadAllDataFromJSON } from "@lib/jsonLoader";
 import {
   calculateStreaks,
   isTestDataMode,
@@ -60,38 +58,43 @@ try {
 
     weeklyWorkouts = snapshot?.workoutCount || 0;
   } else {
-    // Get today's steps
-    const stepsData = await fetchStepsData(1);
-    todaySteps = stepsData[todayStr]?.steps || 0;
+    // Load data from JSON (no API calls!)
+    const jsonData = await loadAllDataFromJSON();
 
-    // Get last activity
-    const activities = await fetchActivities(1, 10);
-    if (activities.length > 0) {
-      const lastActivityDate = new Date(activities[0].start_date);
-      const now = new Date();
-      const diffMs = now.getTime() - lastActivityDate.getTime();
-      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-      const diffDays = Math.floor(diffHours / 24);
+    if (jsonData) {
+      // Get today's steps
+      const stepsData = jsonData.health.steps || {};
+      todaySteps = stepsData[todayStr]?.steps || 0;
 
-      if (diffDays > 0) {
-        lastActivity = `${diffDays}D AGO`;
-      } else if (diffHours > 0) {
-        lastActivity = `${diffHours}H AGO`;
-      } else {
-        const diffMins = Math.floor(diffMs / (1000 * 60));
-        lastActivity = `${diffMins}M AGO`;
+      // Get last activity
+      const activities = jsonData.strava.activities || [];
+      if (activities.length > 0) {
+        const lastActivityDate = new Date(activities[0].start_date);
+        const now = new Date();
+        const diffMs = now.getTime() - lastActivityDate.getTime();
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffHours / 24);
+
+        if (diffDays > 0) {
+          lastActivity = `${diffDays}D AGO`;
+        } else if (diffHours > 0) {
+          lastActivity = `${diffHours}H AGO`;
+        } else {
+          const diffMins = Math.floor(diffMs / (1000 * 60));
+          lastActivity = `${diffMins}M AGO`;
+        }
       }
+
+      // Get weekly workout count
+      const workouts = jsonData.hevy.workouts || [];
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+
+      weeklyWorkouts = workouts.filter(w => {
+        const workoutDate = new Date(w.start_time);
+        return workoutDate >= weekAgo;
+      }).length;
     }
-
-    // Get weekly workout count
-    const workouts = await fetchHevyData();
-    const weekAgo = new Date();
-    weekAgo.setDate(weekAgo.getDate() - 7);
-
-    weeklyWorkouts = workouts.filter(w => {
-      const workoutDate = new Date(w.start_time);
-      return workoutDate >= weekAgo;
-    }).length;
   }
 
   // Get current step streak

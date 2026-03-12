@@ -3,9 +3,11 @@ import Base from "@layouts/Base.astro";
 import { PAGE_METADATA } from "@src/consts";
 import HevyWorkoutCard from "@components/HevyWorkoutCard.astro";
 import type { Workout } from "@services/hevyService";
-import { fetchHevyData } from "@services/hevyService";
+import { loadAllDataFromJSON } from "@lib/jsonLoader";
 
-const hevyWorkouts: Workout[] = await fetchHevyData();
+// Load workouts from JSON to avoid API calls
+const jsonData = await loadAllDataFromJSON();
+const hevyWorkouts: Workout[] = jsonData?.hevy.workouts || [];
 ---
 
 <Base

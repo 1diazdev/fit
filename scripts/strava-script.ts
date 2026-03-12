@@ -1,4 +1,12 @@
-import { writeFile } from "fs/promises";
+import {
+  needsBootstrap,
+  mergeByDateKey,
+  mergeByUniqueId,
+  saveJSON,
+  loadJSON,
+  calculateDataRange,
+  getDateRangeString,
+} from "./lib/jsonMerger";
 
 // Define interfaces for Strava API responses
 interface StravaTokenResponse {
@@ -15,8 +23,22 @@ interface StravaActivity {
   distance: number;
   start_date: string; // ISO 8601 date string
   type: string;
-  // Add other relevant activity properties
-  // e.g., moving_time, elapsed_time, total_elevation_gain, etc.
+  sport_type: string;
+  moving_time: number;
+  elapsed_time: number;
+  total_elevation_gain: number;
+  start_latlng?: [number, number];
+  end_latlng?: [number, number];
+  map?: {
+    summary_polyline?: string;
+  };
+}
+
+interface StravaData {
+  distances: Record<string, number>;
+  activities: StravaActivity[];
+  lastUpdated?: string;
+  source?: string;
 }
 
 const STRAVA_CLIENT_ID: string = process.env.STRAVA_CLIENT_ID!;
@@ -48,13 +70,18 @@ const getBearerToken = async (): Promise<string> => {
   return `Bearer ${data.access_token}`;
 };
 
-const getAllActivities = async (bearer: string): Promise<StravaActivity[]> => {
-  const oneYearAgo = Math.floor(Date.now() / 1000) - 365 * 24 * 60 * 60;
+const getAllActivities = async (
+  bearer: string,
+  days: number = 365,
+): Promise<StravaActivity[]> => {
+  const afterTimestamp = Math.floor(Date.now() / 1000) - days * 24 * 60 * 60;
   let page = 1;
   let all: StravaActivity[] = [];
 
+  console.log(`  Fetching Strava activities (last ${days} days)...`);
+
   while (true) {
-    const url = `https://www.strava.com/api/v3/athlete/activities?after=${oneYearAgo}&per_page=200&page=${page}`;
+    const url = `https://www.strava.com/api/v3/athlete/activities?after=${afterTimestamp}&per_page=200&page=${page}`;
     const res = await fetch(url, {
       headers: { Authorization: bearer },
     });
@@ -102,16 +129,99 @@ const summarizeDistance = (activities: StravaActivity[]): DistanceMap => {
 };
 
 const main = async (): Promise<void> => {
-  try {
-    const bearer = await getBearerToken();
-    const activities = await getAllActivities(bearer);
-    const distanceMap = summarizeDistance(activities);
+  console.log("🏃 Strava Data Fetch Script (Incremental)\n");
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
-    await writeFile(
-      "public/last-activities.json",
-      JSON.stringify(distanceMap, null, 2),
+  const outputPath = "public/last-activities.json"; // Keep same filename for compatibility
+
+  try {
+    // Step 1: Determine if we need bootstrap or incremental update
+    const isBootstrap = await needsBootstrap({
+      jsonPath: outputPath,
+      maxStaleDays: 2,
+    });
+
+    // Step 2: Determine how many days to fetch
+    const daysToFetch = isBootstrap ? 365 : 7;
+
+    console.log(
+      `\n🔄 Mode: ${isBootstrap ? "BOOTSTRAP (365 days)" : "INCREMENTAL (7 days)"}\n`,
     );
-    console.log("✅ Distance data saved to public/last-activities.json");
+
+    const startTime = Date.now();
+
+    // Step 3: Fetch new data
+    const bearer = await getBearerToken();
+    const newActivities = await getAllActivities(bearer, daysToFetch);
+    const newDistanceMap = summarizeDistance(newActivities);
+
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+    console.log(
+      `  ✅ Fetched ${newActivities.length} activities in ${elapsed}s\n`,
+    );
+
+    // Step 4: Load existing data and merge (if incremental)
+    let finalDistances = newDistanceMap;
+    let finalActivities = newActivities;
+
+    if (!isBootstrap) {
+      console.log("🔀 Merging with existing data...\n");
+      const existingData = await loadJSON<StravaData>(outputPath);
+
+      if (existingData) {
+        // Merge distances by date (newer values overwrite)
+        finalDistances = mergeByDateKey(
+          existingData.distances || {},
+          newDistanceMap,
+        );
+
+        // Merge activities by unique ID (preserves historical data)
+        finalActivities = mergeByUniqueId(
+          existingData.activities || [],
+          newActivities,
+          "id",
+        );
+      }
+    }
+
+    // Sort activities by date (newest first) to ensure correct ordering
+    finalActivities.sort((a, b) => {
+      const dateA = new Date(a.start_date).getTime();
+      const dateB = new Date(b.start_date).getTime();
+      return dateB - dateA; // Descending order (newest first)
+    });
+
+    // Step 5: Calculate statistics
+    const totalDistanceDays = calculateDataRange(finalDistances);
+    const totalActivities = finalActivities.length;
+
+    console.log("📊 Total Data Summary:");
+    console.log(
+      `   Distances: ${totalDistanceDays} days (${getDateRangeString(finalDistances)})`,
+    );
+    console.log(`   Activities: ${totalActivities} total\n`);
+
+    // Step 6: Save with metadata
+    const stravaData: StravaData = {
+      distances: finalDistances,
+      activities: finalActivities,
+      lastUpdated: new Date().toISOString(),
+      source: "Strava",
+    };
+
+    await saveJSON(outputPath, stravaData, {
+      source: "Strava",
+    });
+
+    // Calculate file size
+    const stats = await import("fs").then(fs => fs.promises.stat(outputPath));
+    const fileSizeKB = (stats.size / 1024).toFixed(2);
+    console.log(`   File size: ${fileSizeKB} KB\n`);
+
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    console.log(
+      `✨ Strava ${isBootstrap ? "bootstrap" : "incremental update"} complete!\n`,
+    );
   } catch (err: any) {
     console.error("❌ Error:", err.message);
     process.exit(1);

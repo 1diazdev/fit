@@ -1,0 +1,575 @@
+---
+/**
+ * Metrics Comparison Component
+ * Compare fitness metrics across different time periods
+ * Mobile-friendly design with touch-optimized controls
+ */
+import {
+  Footprints,
+  Ruler,
+  Flame,
+  Activity,
+  Dumbbell,
+  Calendar,
+} from "lucide-astro";
+
+interface PeriodStats {
+  steps: number;
+  distance: number;
+  calories: number;
+  activities: number;
+  workouts: number;
+  activeDays: number;
+}
+
+interface Props {
+  currentPeriod: PeriodStats;
+  previousPeriod: PeriodStats;
+  periodLabel?: string; // e.g., "This Week", "This Month"
+  comparisonLabel?: string; // e.g., "Last Week", "Last Month"
+}
+
+const {
+  currentPeriod,
+  previousPeriod,
+  periodLabel = "THIS_PERIOD",
+  comparisonLabel = "PREVIOUS_PERIOD",
+} = Astro.props;
+
+// Calculate percentage changes
+const calculateChange = (current: number, previous: number): number => {
+  if (previous === 0) return current > 0 ? 100 : 0;
+  return Number((((current - previous) / previous) * 100).toFixed(1));
+};
+
+const changes = {
+  steps: calculateChange(currentPeriod.steps, previousPeriod.steps),
+  distance: calculateChange(currentPeriod.distance, previousPeriod.distance),
+  calories: calculateChange(currentPeriod.calories, previousPeriod.calories),
+  activities: calculateChange(
+    currentPeriod.activities,
+    previousPeriod.activities,
+  ),
+  workouts: calculateChange(currentPeriod.workouts, previousPeriod.workouts),
+  activeDays: calculateChange(
+    currentPeriod.activeDays,
+    previousPeriod.activeDays,
+  ),
+};
+
+// Determine trend status
+const getTrendClass = (change: number): string => {
+  if (change > 5) return "positive";
+  if (change < -5) return "negative";
+  return "neutral";
+};
+
+const getTrendIcon = (change: number): string => {
+  if (change > 5) return "↗";
+  if (change < -5) return "↘";
+  return "→";
+};
+
+interface MetricConfig {
+  key: keyof typeof changes;
+  label: string;
+  Icon: any;
+  unit: string;
+  format: (value: number) => string;
+}
+
+const metrics: MetricConfig[] = [
+  {
+    key: "steps",
+    label: "STEPS",
+    Icon: Footprints,
+    unit: "",
+    format: v => v.toLocaleString(),
+  },
+  {
+    key: "distance",
+    label: "DISTANCE",
+    Icon: Ruler,
+    unit: "km",
+    format: v => v.toFixed(2),
+  },
+  {
+    key: "calories",
+    label: "CALORIES",
+    Icon: Flame,
+    unit: "kcal",
+    format: v => v.toLocaleString(),
+  },
+  {
+    key: "activities",
+    label: "ACTIVITIES",
+    Icon: Activity,
+    unit: "",
+    format: v => v.toString(),
+  },
+  {
+    key: "workouts",
+    label: "WORKOUTS",
+    Icon: Dumbbell,
+    unit: "",
+    format: v => v.toString(),
+  },
+  {
+    key: "activeDays",
+    label: "ACTIVE_DAYS",
+    Icon: Calendar,
+    unit: "",
+    format: v => v.toString(),
+  },
+];
+---
+
+<div class="metrics-comparison">
+  <!-- Header -->
+  <div class="comparison-header">
+    <div class="header-title">[METRICS_COMPARISON]</div>
+    <div class="period-labels">
+      <div class="period-label current">{periodLabel}</div>
+      <div class="vs-separator">VS</div>
+      <div class="period-label previous">{comparisonLabel}</div>
+    </div>
+  </div>
+
+  <!-- Metrics Grid -->
+  <div class="metrics-grid">
+    {
+      metrics.map(metric => {
+        const currentValue = currentPeriod[metric.key];
+        const previousValue = previousPeriod[metric.key];
+        const change = changes[metric.key];
+        const trendClass = getTrendClass(change);
+        const trendIcon = getTrendIcon(change);
+
+        return (
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-icon">
+                <metric.Icon size={20} />
+              </span>
+              <span class="metric-label">{metric.label}</span>
+            </div>
+
+            <div class="metric-values">
+              <div class="current-value">
+                <div class="value-number">
+                  {metric.format(currentValue)}
+                  {metric.unit && <span class="unit"> {metric.unit}</span>}
+                </div>
+                <div class="value-label">Current</div>
+              </div>
+
+              <div class={`change-indicator ${trendClass}`}>
+                <div class="change-icon">{trendIcon}</div>
+                <div class="change-value">
+                  {change > 0 ? "+" : ""}
+                  {change}%
+                </div>
+              </div>
+
+              <div class="previous-value">
+                <div class="value-number">
+                  {metric.format(previousValue)}
+                  {metric.unit && <span class="unit"> {metric.unit}</span>}
+                </div>
+                <div class="value-label">Previous</div>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+              <div
+                class={`progress-bar ${trendClass}`}
+                style={`width: ${Math.min(Math.abs(change), 100)}%`}
+              />
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <!-- Summary -->
+  <div class="comparison-summary">
+    <div class="summary-title">OVERALL_PERFORMANCE:</div>
+    <div class="summary-content">
+      {
+        (() => {
+          const positiveChanges = Object.values(changes).filter(
+            c => c > 5,
+          ).length;
+          const negativeChanges = Object.values(changes).filter(
+            c => c < -5,
+          ).length;
+
+          if (positiveChanges > negativeChanges) {
+            return (
+              <div class="summary-message positive">
+                📈 IMPROVING - {positiveChanges} metrics increased
+              </div>
+            );
+          } else if (negativeChanges > positiveChanges) {
+            return (
+              <div class="summary-message negative">
+                📉 DECLINING - {negativeChanges} metrics decreased
+              </div>
+            );
+          } else {
+            return (
+              <div class="summary-message neutral">
+                ➡️ STABLE - Performance maintaining
+              </div>
+            );
+          }
+        })()
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .metrics-comparison {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 20, 0, 0.7) 100%
+    );
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow:
+      0 0 20px rgba(0, 255, 0, 0.2),
+      inset 0 0 20px rgba(0, 255, 0, 0.05);
+    font-family: "Courier New", monospace;
+  }
+
+  .comparison-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  }
+
+  .header-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #00ff00;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .period-labels {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .period-label {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .period-label.current {
+    background: rgba(0, 255, 0, 0.15);
+    border: 1px solid rgba(0, 255, 0, 0.4);
+    color: #00ff00;
+  }
+
+  .period-label.previous {
+    background: rgba(0, 255, 0, 0.05);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    color: rgba(0, 255, 0, 0.6);
+  }
+
+  .vs-separator {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: rgba(0, 255, 0, 0.5);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .metric-card {
+    padding: 1.25rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .metric-card:hover {
+    border-color: rgba(0, 255, 0, 0.4);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .metric-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+  }
+
+  .metric-icon {
+    color: #00ff00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.8);
+    letter-spacing: 0.05em;
+    font-weight: bold;
+  }
+
+  .metric-values {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .current-value,
+  .previous-value {
+    text-align: center;
+  }
+
+  .value-number {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: #00ff00;
+    margin-bottom: 0.25rem;
+  }
+
+  .unit {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.6);
+  }
+
+  .value-label {
+    font-size: 0.625rem;
+    color: rgba(0, 255, 0, 0.5);
+  }
+
+  .change-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .change-indicator.positive {
+    background: rgba(0, 255, 100, 0.1);
+    border: 1px solid rgba(0, 255, 100, 0.3);
+  }
+
+  .change-indicator.negative {
+    background: rgba(255, 100, 0, 0.1);
+    border: 1px solid rgba(255, 100, 0, 0.3);
+  }
+
+  .change-indicator.neutral {
+    background: rgba(200, 200, 0, 0.1);
+    border: 1px solid rgba(200, 200, 0, 0.3);
+  }
+
+  .change-icon {
+    font-size: 1.25rem;
+  }
+
+  .positive .change-icon {
+    color: rgb(0, 255, 100);
+  }
+
+  .negative .change-icon {
+    color: rgb(255, 100, 0);
+  }
+
+  .neutral .change-icon {
+    color: rgb(200, 200, 0);
+  }
+
+  .change-value {
+    font-size: 0.875rem;
+    font-weight: bold;
+  }
+
+  .positive .change-value {
+    color: rgb(0, 255, 100);
+  }
+
+  .negative .change-value {
+    color: rgb(255, 100, 0);
+  }
+
+  .neutral .change-value {
+    color: rgb(200, 200, 0);
+  }
+
+  .progress-bar-container {
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  .progress-bar.positive {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 255, 100, 0.5),
+      rgba(0, 255, 100, 0.8)
+    );
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
+  }
+
+  .progress-bar.negative {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 100, 0, 0.5),
+      rgba(255, 100, 0, 0.8)
+    );
+    box-shadow: 0 0 10px rgba(255, 100, 0, 0.5);
+  }
+
+  .progress-bar.neutral {
+    background: linear-gradient(
+      90deg,
+      rgba(200, 200, 0, 0.5),
+      rgba(200, 200, 0, 0.8)
+    );
+  }
+
+  .comparison-summary {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 6px;
+  }
+
+  .summary-title {
+    font-size: 0.75rem;
+    color: rgba(0, 255, 0, 0.7);
+    margin-bottom: 0.625rem;
+    letter-spacing: 0.05em;
+  }
+
+  .summary-message {
+    font-size: 0.875rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .summary-message.positive {
+    background: rgba(0, 255, 100, 0.1);
+    color: rgb(0, 255, 100);
+    border: 1px solid rgba(0, 255, 100, 0.3);
+  }
+
+  .summary-message.negative {
+    background: rgba(255, 100, 0, 0.1);
+    color: rgb(255, 100, 0);
+    border: 1px solid rgba(255, 100, 0, 0.3);
+  }
+
+  .summary-message.neutral {
+    background: rgba(200, 200, 0, 0.1);
+    color: rgb(200, 200, 0);
+    border: 1px solid rgba(200, 200, 0, 0.3);
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .metrics-comparison {
+      padding: 1rem;
+    }
+
+    .metrics-grid {
+      grid-template-columns: 1fr;
+      gap: 0.875rem;
+    }
+
+    .metric-card {
+      padding: 1rem;
+    }
+
+    .metric-values {
+      gap: 0.625rem;
+    }
+
+    .value-number {
+      font-size: 1rem;
+    }
+
+    .period-labels {
+      gap: 0.625rem;
+    }
+
+    .period-label {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.6875rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .metrics-comparison {
+      padding: 0.875rem;
+    }
+
+    .header-title {
+      font-size: 0.875rem;
+    }
+
+    .period-labels {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .period-label {
+      flex: 1;
+      text-align: center;
+    }
+
+    .vs-separator {
+      flex: 0;
+    }
+
+    .metric-values {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .change-indicator {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .value-number {
+      font-size: 0.9375rem;
+    }
+  }
+</style>
