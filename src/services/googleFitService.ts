@@ -391,15 +391,15 @@ export async function fetchSleepData(days: number = 90): Promise<SleepData> {
 
     const sleepData: SleepData = {};
 
-    // Convert to nanoseconds for sessions API
-    const startTimeNanos = (startTimeMillis * 1000000).toString();
-    const endTimeNanos = (endTimeMillis * 1000000).toString();
+    // Convert to ISO 8601 format for sessions API (NOT nanoseconds!)
+    const startTimeISO = new Date(startTimeMillis).toISOString();
+    const endTimeISO = new Date(endTimeMillis).toISOString();
 
     console.log(`   Fetching sleep sessions (${actualDays} days)...`);
 
     const sleepUrl = `${GOOGLE_FIT_API_BASE}/sessions`;
     const sleepResponse = await fetch(
-      `${sleepUrl}?startTime=${startTimeNanos}&endTime=${endTimeNanos}&activityType=72`,
+      `${sleepUrl}?startTime=${startTimeISO}&endTime=${endTimeISO}&activityType=72`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -421,10 +421,17 @@ export async function fetchSleepData(days: number = 90): Promise<SleepData> {
 
     if (data.session) {
       for (const session of data.session) {
-        const dateStr = nanosToDateString(session.startTimeMillis);
+        // Sessions API returns milliseconds (not nanoseconds like other endpoints!)
         const startMs = parseInt(session.startTimeMillis);
         const endMs = parseInt(session.endTimeMillis);
         const totalMinutes = (endMs - startMs) / (1000 * 60);
+
+        // Convert to date string using NY timezone
+        const date = new Date(startMs);
+        const nyDate = new Date(
+          date.toLocaleString("en-US", { timeZone: "America/New_York" }),
+        );
+        const dateStr = nyDate.toISOString().split("T")[0];
 
         // Google Fit sleep segments: 1=awake, 2=sleep, 3=out-of-bed, 4=light, 5=deep, 6=REM
         let deepMinutes = 0;
