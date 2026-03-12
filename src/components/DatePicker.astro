@@ -272,8 +272,14 @@ const maxDate = today.toISOString().split("T")[0];
         monthSelectorType: "static",
         onChange: (selectedDates, dateStr) => {
           if (dateStr) {
-            // Navigate to the selected date using /day/YYYY-MM-DD format
-            window.location.href = `/day/${dateStr}`;
+            // Navigate to the selected date
+            // If baseUrl is provided, use query parameter format
+            // Otherwise use /day/YYYY-MM-DD format
+            if (baseUrl) {
+              window.location.href = `${baseUrl}?date=${dateStr}`;
+            } else {
+              window.location.href = `/day/${dateStr}`;
+            }
           }
         },
         onReady: (selectedDates, dateStr, instance) => {

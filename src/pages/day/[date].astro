@@ -31,6 +31,29 @@ import { generateInsights, getPersonalRecords } from "@utils/statsUtils";
 import { loadAllDataFromJSON } from "@lib/jsonLoader";
 import { Flame, Zap, Dumbbell } from "lucide-astro";
 
+// Generate static paths from minimum data date to today
+// Uses REAL data date for production builds (dummy data is only for development)
+export async function getStaticPaths() {
+  const paths: Array<{ params: { date: string } }> = [];
+  const today = new globalThis.Date();
+
+  // In production builds, always use real data date range
+  // Dummy data is only used during development with USE_DUMMY_HEALTH_DATA=true
+  const isDummyMode = String(import.meta.env.USE_DUMMY_HEALTH_DATA || "").toLowerCase() === "true";
+  const minDateStr = isDummyMode ? MIN_DATA_DATE_DUMMY : MIN_DATA_DATE_REAL;
+  const minDate = new globalThis.Date(minDateStr);
+
+  // Generate paths from min data date to today
+  let currentDate = new globalThis.Date(minDate);
+  while (currentDate <= today) {
+    const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
+    paths.push({ params: { date: dateStr } });
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return paths;
+}
+
 // Get date from path parameter
 const { date } = Astro.params;
 const selectedDate = date || "";

@@ -11,6 +11,9 @@ import {
   Activity,
   Dumbbell,
   Calendar,
+  TrendingUp,
+  TrendingDown,
+  ArrowRight,
 } from "lucide-astro";
 
 interface PeriodStats {
@@ -209,19 +212,22 @@ const metrics: MetricConfig[] = [
           if (positiveChanges > negativeChanges) {
             return (
               <div class="summary-message positive">
-                📈 IMPROVING - {positiveChanges} metrics increased
+                <TrendingUp size={16} />
+                <span>IMPROVING - {positiveChanges} metrics increased</span>
               </div>
             );
           } else if (negativeChanges > positiveChanges) {
             return (
               <div class="summary-message negative">
-                📉 DECLINING - {negativeChanges} metrics decreased
+                <TrendingDown size={16} />
+                <span>DECLINING - {negativeChanges} metrics decreased</span>
               </div>
             );
           } else {
             return (
               <div class="summary-message neutral">
-                ➡️ STABLE - Performance maintaining
+                <ArrowRight size={16} />
+                <span>STABLE - Performance maintaining</span>
               </div>
             );
           }
@@ -477,11 +483,14 @@ const metrics: MetricConfig[] = [
   }
 
   .summary-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: bold;
     padding: 0.5rem;
     border-radius: 4px;
-    text-align: center;
   }
 
   .summary-message.positive {
