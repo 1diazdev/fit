@@ -16,10 +16,223 @@ const hevyWorkouts: Workout[] = jsonData?.hevy.workouts || [];
   keywords={PAGE_METADATA.hevy.keywords}
 >
   <main class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Hevy Workouts</h1>
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold text-[#00ff00]">Hevy Workouts</h1>
+      <div class="text-sm text-[#00ff00] font-mono">
+        Total: <span id="total-count">{hevyWorkouts.length}</span> workouts
+      </div>
+    </div>
 
-    <section class="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- Workouts grid -->
+    <section
+      id="workouts-container"
+      class="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
       {hevyWorkouts.map(workout => <HevyWorkoutCard workout={workout} />)}
     </section>
+
+    <!-- Pagination Navigator -->
+    <div class="workout-navigator mt-4">
+      <button id="prev-page" class="nav-arrow" title="Previous page" disabled>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <div class="page-info">
+        <div class="page-text">
+          Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+        </div>
+        <div class="range-text">
+          Showing <span id="showing-range">1-12</span>
+        </div>
+      </div>
+
+      <button id="next-page" class="nav-arrow" title="Next page">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
   </main>
+
+  <script define:vars={{ workouts: hevyWorkouts }}>
+    const WORKOUTS_PER_PAGE = 12;
+    let currentPage = 1;
+    const totalPages = Math.ceil(workouts.length / WORKOUTS_PER_PAGE);
+
+    // Get all workout cards
+    const container = document.getElementById("workouts-container");
+    const cards = Array.from(container?.children || []);
+
+    // Get all control elements
+    const prevBtn = document.getElementById("prev-page");
+    const nextBtn = document.getElementById("next-page");
+    const currentPageSpan = document.getElementById("current-page");
+    const totalPagesSpan = document.getElementById("total-pages");
+    const showingRangeSpan = document.getElementById("showing-range");
+
+    function showPage(page) {
+      currentPage = page;
+      const start = (page - 1) * WORKOUTS_PER_PAGE;
+      const end = start + WORKOUTS_PER_PAGE;
+
+      // Show/hide cards
+      cards.forEach((card, index) => {
+        card.style.display = index >= start && index < end ? "" : "none";
+      });
+
+      // Update all displays
+      updatePaginationDisplay();
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function updatePaginationDisplay() {
+      const start = (currentPage - 1) * WORKOUTS_PER_PAGE + 1;
+      const end = Math.min(currentPage * WORKOUTS_PER_PAGE, workouts.length);
+      const rangeText = `${start}-${end}`;
+
+      // Update controls
+      if (currentPageSpan) currentPageSpan.textContent = currentPage;
+      if (totalPagesSpan) totalPagesSpan.textContent = totalPages;
+      if (showingRangeSpan) showingRangeSpan.textContent = rangeText;
+
+      // Update button states
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+    }
+
+    // Event listeners
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (currentPage > 1) showPage(currentPage - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (currentPage < totalPages) showPage(currentPage + 1);
+      });
+    }
+
+    // Initialize
+    showPage(1);
+  </script>
+
+  <style>
+    .workout-navigator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 20, 0, 0.6) 100%
+      );
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      border-radius: 8px;
+      font-family: "Courier New", monospace;
+    }
+
+    .nav-arrow {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      border-radius: 6px;
+      color: #00ff00;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-arrow:hover:not(:disabled) {
+      background: rgba(0, 255, 0, 0.15);
+      border-color: rgba(0, 255, 0, 0.6);
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+      transform: scale(1.1);
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .nav-arrow svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .page-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      min-width: 200px;
+    }
+
+    .page-text {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #00ff00;
+      text-align: center;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+
+    .range-text {
+      font-size: 0.75rem;
+      color: rgba(0, 255, 0, 0.7);
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .workout-navigator {
+        gap: 1rem;
+        padding: 0.75rem;
+      }
+
+      .nav-arrow {
+        width: 36px;
+        height: 36px;
+      }
+
+      .page-info {
+        min-width: 150px;
+      }
+
+      .page-text {
+        font-size: 0.875rem;
+      }
+
+      .range-text {
+        font-size: 0.65rem;
+      }
+    }
+  </style>
 </Base>

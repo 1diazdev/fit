@@ -61,7 +61,7 @@ const getApiKey = (): string | undefined => {
   return undefined;
 };
 
-// Function to fetch data from the Hevy API
+// Function to fetch data from the Hevy API with pagination support
 const fetchHevyData = async (apiKey?: string): Promise<Workout[]> => {
   // Memoize with today's date to cache for the day
   const today = new Date().toISOString().split("T")[0];
@@ -87,49 +87,78 @@ const fetchHevyData = async (apiKey?: string): Promise<Workout[]> => {
       );
     }
 
-    const apiUrl = "https://api.hevyapp.com/v1/workouts";
+    const allWorkouts: Workout[] = [];
+    let page = 1;
+    const pageSize = 10; // Hevy API maximum page size is 10
+    let hasMore = true;
 
-    console.log(`Fetching data from ${apiUrl}`);
+    console.log(`Fetching all workouts from Hevy API with pagination...`);
     console.log(
       `Using API key: ${key.substring(0, 8)}...${key.substring(key.length - 4)}`,
-    ); // Solo mostrar parte de la key por seguridad
+    );
 
     try {
-      const response = await fetch(apiUrl, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "api-key": key,
-        },
-      });
+      while (hasMore) {
+        const apiUrl = `https://api.hevyapp.com/v1/workouts?page=${page}&pageSize=${pageSize}`;
+        console.log(`Fetching page ${page} (${pageSize} workouts per page)...`);
 
-      if (!response.ok) {
-        const errorBody = await response.text();
-        console.error(
-          `API request failed with status ${response.status}: ${response.statusText}`,
-        );
-        console.error("Error body:", errorBody);
+        const response = await fetch(apiUrl, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": key,
+          },
+        });
 
-        if (response.status === 401) {
+        if (!response.ok) {
+          const errorBody = await response.text();
+          console.error(
+            `API request failed with status ${response.status}: ${response.statusText}`,
+          );
+          console.error("Error body:", errorBody);
+
+          if (response.status === 401) {
+            throw new Error(
+              `Authentication failed. Please verify your Hevy API key is correct and active. Status: ${response.status}`,
+            );
+          }
+
           throw new Error(
-            `Authentication failed. Please verify your Hevy API key is correct and active. Status: ${response.status}`,
+            `Failed to fetch workout data from Hevy API. Status: ${response.status}, Body: ${errorBody}`,
           );
         }
 
-        throw new Error(
-          `Failed to fetch workout data from Hevy API. Status: ${response.status}, Body: ${errorBody}`,
+        const data = await response.json();
+        if (!data || !Array.isArray(data.workouts)) {
+          throw new Error(
+            "Unexpected data structure from Hevy API: No workouts found or data.workouts is not an array.",
+          );
+        }
+
+        const pageWorkouts = data.workouts;
+        allWorkouts.push(...pageWorkouts);
+
+        console.log(
+          `✓ Fetched ${pageWorkouts.length} workouts (total: ${allWorkouts.length})`,
         );
+
+        // Check if there are more pages
+        hasMore = pageWorkouts.length === pageSize;
+        page++;
+
+        // Safety limit to prevent infinite loops
+        if (page > 100) {
+          console.warn(
+            "Warning: Reached page limit (100). Stopping pagination.",
+          );
+          break;
+        }
       }
 
-      const data = await response.json();
-      if (!data || !Array.isArray(data.workouts)) {
-        // Check if data.workouts is an array
-        throw new Error(
-          "Unexpected data structure from Hevy API: No workouts found or data.workouts is not an array.",
-        );
-      }
+      console.log(`✅ Total workouts fetched: ${allWorkouts.length}`);
+
       // Sort workouts by start_time in descending order (newest first)
-      const sortedWorkouts: Workout[] = data.workouts.sort(
+      const sortedWorkouts: Workout[] = allWorkouts.sort(
         (a: Workout, b: Workout) => {
           return (
             new Date(b.start_time).getTime() - new Date(a.start_time).getTime()

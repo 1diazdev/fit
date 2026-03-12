@@ -6,11 +6,17 @@
 
 interface Props {
   selectedDate: string; // YYYY-MM-DD format
+  minDate?: string; // Minimum selectable date (YYYY-MM-DD format)
   baseUrl?: string; // Base URL for navigation (default: current page)
   label?: string; // Label for the picker
 }
 
-const { selectedDate, baseUrl = "", label = "[SELECT_DATE]" } = Astro.props;
+const {
+  selectedDate,
+  minDate,
+  baseUrl = "",
+  label = "[SELECT_DATE]",
+} = Astro.props;
 
 // Generate unique ID for this instance
 const pickerId = `datepicker-${Math.random().toString(36).substr(2, 9)}`;
@@ -30,6 +36,7 @@ const maxDate = today.toISOString().split("T")[0];
       value={selectedDate}
       placeholder="Select date..."
       data-base-url={baseUrl}
+      data-min-date={minDate}
       data-max-date={maxDate}
       readonly
     />
@@ -257,10 +264,12 @@ const maxDate = today.toISOString().split("T")[0];
 
     inputs.forEach(input => {
       const baseUrl = input.dataset.baseUrl || "";
+      const minDate = input.dataset.minDate;
       const maxDate = input.dataset.maxDate || new Date();
 
       flatpickr(input, {
         dateFormat: "Y-m-d",
+        minDate: minDate,
         maxDate: maxDate,
         defaultDate: input.value,
         allowInput: false,
@@ -269,10 +278,13 @@ const maxDate = today.toISOString().split("T")[0];
         onChange: (selectedDates, dateStr) => {
           if (dateStr) {
             // Navigate to the selected date
-            const url = baseUrl
-              ? `${baseUrl}?date=${dateStr}`
-              : `?date=${dateStr}`;
-            window.location.href = url;
+            // If baseUrl is provided, use query parameter format
+            // Otherwise use /day/YYYY-MM-DD format
+            if (baseUrl) {
+              window.location.href = `${baseUrl}?date=${dateStr}`;
+            } else {
+              window.location.href = `/day/${dateStr}`;
+            }
           }
         },
         onReady: (selectedDates, dateStr, instance) => {

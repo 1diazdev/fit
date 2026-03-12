@@ -183,7 +183,10 @@ const periodLabels = {
           trendData.map(day => {
             const height = (day.steps / maxSteps) * 100;
             return (
-              <div class="bar-wrapper" title={`${day.date}: ${day.steps} steps`}>
+              <div
+                class="bar-wrapper"
+                title={`${day.date}: ${day.steps} steps`}
+              >
                 <div
                   class="bar steps-bar"
                   style={`height: ${height}%`}
@@ -210,8 +213,12 @@ const periodLabels = {
             const hasWorkout = day.workouts > 0;
             return (
               <div class="activity-day" title={day.date}>
-                <div class={`activity-dot ${hasActivity ? "active" : "inactive"}`} />
-                <div class={`workout-dot ${hasWorkout ? "active" : "inactive"}`} />
+                <div
+                  class={`activity-dot ${hasActivity ? "active" : "inactive"}`}
+                />
+                <div
+                  class={`workout-dot ${hasWorkout ? "active" : "inactive"}`}
+                />
               </div>
             );
           })
@@ -219,11 +226,11 @@ const periodLabels = {
       </div>
       <div class="chart-legend">
         <div class="legend-item">
-          <div class="legend-dot activity-legend" />
+          <div class="legend-dot activity-legend"></div>
           <span>Activities ({stats.totalActivities})</span>
         </div>
         <div class="legend-item">
-          <div class="legend-dot workout-legend" />
+          <div class="legend-dot workout-legend"></div>
           <span>Workouts ({stats.totalWorkouts})</span>
         </div>
       </div>
@@ -531,7 +538,6 @@ const periodLabels = {
     .stat-card {
       padding: 0.875rem;
     }
-
 
     .stat-value {
       font-size: 1rem;

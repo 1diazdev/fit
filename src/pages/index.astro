@@ -13,6 +13,7 @@ import HeatmapGrid from "@components/HeatmapGrid.astro";
 import ActivityDashboard from "@components/ActivityDashboard.astro";
 import HevyWorkoutCount from "@components/HevyWorkoutCount.astro";
 import DayComparison from "@components/DayComparison.astro";
+import DatePicker from "@components/DatePicker.astro";
 
 import {
   getDataForDate,
@@ -20,6 +21,7 @@ import {
   calculateStreaks,
   isTestDataMode,
   getTestModeSnapshot,
+  getMinDataDate,
 } from "@services/dataAggregationService";
 import {
   fetchDistanceData,
@@ -60,6 +62,9 @@ const displayDate = new Intl.DateTimeFormat("en-US", {
 // Check if selected date is today
 const isToday = selectedDate === todayStr;
 const isNextDayFuture = nextDayStr > todayStr;
+// Check if we can go back (not at minimum data date)
+const minDataDate = getMinDataDate();
+const isPrevDayBeforeMinDate = prevDayStr < minDataDate;
 
 console.log(
   `[index.astro] ====== Loading dashboard for date: ${selectedDate} ======`,
@@ -218,7 +223,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
 >
   <!-- Date Navigator - Uses /day/YYYY-MM-DD routes -->
   <div class="date-navigator">
-    <a href={`/day/${prevDayStr}`} class="nav-arrow" title="Previous day">
+    <a
+      href={isPrevDayBeforeMinDate ? "#" : `/day/${prevDayStr}`}
+      class={`nav-arrow ${isPrevDayBeforeMinDate ? "disabled" : ""}`}
+      title="Previous day"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -235,6 +244,13 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
 
     <div class="date-display">
       <div class="date-text">{displayDate}</div>
+      <div class="date-picker-container">
+        <DatePicker
+          selectedDate={selectedDate}
+          minDate={minDataDate}
+          label=""
+        />
+      </div>
     </div>
 
     <a
@@ -364,13 +380,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
         </div>
 
         <!-- Main Heatmap Grid -->
-        <div class="heatmap-display">
-          <HeatmapGrid
-            distanceData={distanceData}
-            minDistance={minDistance}
-            maxDistance={maxDistance}
-          />
-        </div>
+        <HeatmapGrid
+          distanceData={distanceData}
+          minDistance={minDistance}
+          maxDistance={maxDistance}
+        />
 
         <!-- Heatmap Footer Info with Strava Button -->
         <div class="heatmap-footer mt-4">
@@ -492,12 +506,6 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
   .heatmap-wrapper {
     position: relative;
     z-index: 2;
-  }
-
-  .heatmap-display {
-    max-width: 1200px;
-    margin: 0 auto;
-    aspect-ratio: 53/7;
   }
 
   .heatmap-info,
@@ -661,6 +669,11 @@ const systemMessage = `${selectedDate} | Fit: ${hasSteps ? "✓" : "○"} | Stra
     text-align: center;
     letter-spacing: 0.05em;
     text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  .date-picker-container {
+    width: 100%;
+    max-width: 260px;
   }
 
   .today-btn {
