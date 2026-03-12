@@ -19,7 +19,7 @@ jobs:
 
       - name: Fetch upstream and merge
         run: |
-          git remote add upstream https://github.com/original-owner/repo.git
+          git remote add upstream https://github.com/JuanPabloDiaz/fit.git
           git fetch upstream
           git merge upstream/main --no-edit
           git push origin main
