@@ -216,12 +216,12 @@
       "calories": 1009.1532570279102
     },
     "2026-03-08": {
-      "steps": 14322,
-      "distance": 8759.811994162592,
-      "calories": 2384.6845727031714
+      "steps": 0,
+      "distance": 0,
+      "calories": 927.7114145913607
     },
     "2026-03-09": {
-      "steps": 17500,
+      "steps": 17421,
       "distance": 15013.072586369366,
       "calories": 2456.760763150957
     },
@@ -253,7 +253,12 @@
     "2026-03-14": {
       "steps": 11001,
       "distance": 7262.763662432031,
-      "calories": 2132.3613849559138
+      "calories": 2301.868311416242
+    },
+    "2026-03-15": {
+      "steps": 24454,
+      "distance": 17595.174625086034,
+      "calories": 2932.8077827673646
     }
   },
   "sleep": {
@@ -764,32 +769,32 @@
       "resting": 7
     },
     "2026-03-09": {
-      "min": 76.28944869122076,
-      "max": 76.28944869122076,
+      "min": 76.33566133889275,
+      "max": 76.33566133889275,
       "avg": 76,
       "resting": 8
     },
     "2026-03-10": {
-      "min": 84.3261524206625,
-      "max": 84.3261524206625,
+      "min": 84.39877229557563,
+      "max": 84.39877229557563,
       "avg": 84,
       "resting": 8
     },
     "2026-03-11": {
-      "min": 62.067060458651845,
-      "max": 62.067060458651845,
+      "min": 62.082001389854064,
+      "max": 62.082001389854064,
       "avg": 62,
       "resting": 6
     },
     "2026-03-12": {
-      "min": 67.04412786657402,
-      "max": 67.04412786657402,
+      "min": 66.9266851980542,
+      "max": 66.9266851980542,
       "avg": 67,
       "resting": 7
     },
     "2026-03-13": {
-      "min": 49.78867403314917,
-      "max": 49.78867403314917,
+      "min": 49.66275659824047,
+      "max": 49.66275659824047,
       "avg": 50,
       "resting": 5
     }
@@ -930,6 +935,10 @@
     "2026-03-14": {
       "activeMinutes": 149,
       "heartMinutes": 9
+    },
+    "2026-03-15": {
+      "activeMinutes": 357,
+      "heartMinutes": 7
     }
   },
   "heartRateZones": {
@@ -1161,17 +1170,17 @@
       "zone1Minutes": 74,
       "zone2Minutes": 40,
       "zone3Minutes": 49,
-      "zone4Minutes": 8,
-      "zone5Minutes": 26,
+      "zone4Minutes": 6,
+      "zone5Minutes": 28,
       "totalActiveMinutes": 197
     },
     "2026-03-10": {
-      "zone1Minutes": 275,
-      "zone2Minutes": 191,
+      "zone1Minutes": 274,
+      "zone2Minutes": 189,
       "zone3Minutes": 5,
-      "zone4Minutes": 12,
+      "zone4Minutes": 13,
       "zone5Minutes": 5,
-      "totalActiveMinutes": 488
+      "totalActiveMinutes": 486
     },
     "2026-03-11": {
       "zone1Minutes": 5,
@@ -1212,15 +1221,23 @@
       "zone4Minutes": 0,
       "zone5Minutes": 0,
       "totalActiveMinutes": 0
+    },
+    "2026-03-16": {
+      "zone1Minutes": 0,
+      "zone2Minutes": 0,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 0
     }
   },
-  "lastUpdated": "2026-03-15T06:56:35.460Z",
+  "lastUpdated": "2026-03-16T07:17:04.349Z",
   "source": "Google Fit",
   "dataRange": {
-    "stepsDays": 51,
+    "stepsDays": 52,
     "sleepDays": 48,
     "heartRateDays": 33,
-    "moveMinutesDays": 34,
-    "heartRateZonesDays": 35
+    "moveMinutesDays": 35,
+    "heartRateZonesDays": 36
   }
 }
