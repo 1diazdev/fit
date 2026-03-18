@@ -226,12 +226,12 @@
       "calories": 926.3787346523326
     },
     "2026-03-10": {
-      "steps": 34572,
-      "distance": 25014.635855510358,
-      "calories": 4624.5398617493665
+      "steps": 0,
+      "distance": 0,
+      "calories": 1315.7390155919127
     },
     "2026-03-11": {
-      "steps": 2192,
+      "steps": 2185,
       "distance": 1029,
       "calories": 1672.146362486738
     },
@@ -261,14 +261,19 @@
       "calories": 2492.478272917567
     },
     "2026-03-16": {
-      "steps": 10227,
-      "distance": 7129.463250117444,
-      "calories": 1596.9421883604066
+      "steps": 9966,
+      "distance": 6929.513775082452,
+      "calories": 1580.7287772967393
     },
     "2026-03-17": {
-      "steps": 104,
-      "distance": 63.54607325971027,
-      "calories": 32.508532871649
+      "steps": 1473,
+      "distance": 192,
+      "calories": 1899.4804775462615
+    },
+    "2026-03-18": {
+      "steps": 154,
+      "distance": 100.73011074471931,
+      "calories": 19.792251864285287
     }
   },
   "sleep": {
@@ -621,6 +626,13 @@
       "lightMinutes": 193,
       "remMinutes": 96.5,
       "sleepScore": 90
+    },
+    "2026-03-17": {
+      "totalMinutes": 392,
+      "deepMinutes": 98,
+      "lightMinutes": 196,
+      "remMinutes": 98,
+      "sleepScore": 90
     }
   },
   "heartRate": {
@@ -805,40 +817,46 @@
       "resting": 8
     },
     "2026-03-11": {
-      "min": 62.06740792216817,
-      "max": 62.06740792216817,
+      "min": 62.06914523974983,
+      "max": 62.06914523974983,
       "avg": 62,
       "resting": 6
     },
     "2026-03-12": {
-      "min": 67.00938151494093,
-      "max": 67.00938151494093,
+      "min": 67.0225851285615,
+      "max": 67.0225851285615,
       "avg": 67,
       "resting": 7
     },
     "2026-03-13": {
-      "min": 66.15149409312022,
-      "max": 66.15149409312022,
+      "min": 66.091382904795,
+      "max": 66.091382904795,
       "avg": 66,
       "resting": 7
     },
     "2026-03-14": {
-      "min": 72.67129951355108,
-      "max": 72.67129951355108,
+      "min": 72.70813064628214,
+      "max": 72.70813064628214,
       "avg": 73,
       "resting": 7
     },
     "2026-03-15": {
-      "min": 70.03405142460042,
-      "max": 70.03405142460042,
+      "min": 70.0542043085476,
+      "max": 70.0542043085476,
       "avg": 70,
       "resting": 7
     },
     "2026-03-16": {
-      "min": 69.22596153846153,
-      "max": 69.22596153846153,
-      "avg": 69,
-      "resting": 7
+      "min": 75.79812369701182,
+      "max": 75.79812369701182,
+      "avg": 76,
+      "resting": 8
+    },
+    "2026-03-17": {
+      "min": 50.67368421052632,
+      "max": 50.67368421052632,
+      "avg": 51,
+      "resting": 5
     }
   },
   "moveMinutes": {
@@ -983,8 +1001,12 @@
       "heartMinutes": 7
     },
     "2026-03-16": {
-      "activeMinutes": 138,
+      "activeMinutes": 277,
       "heartMinutes": 5
+    },
+    "2026-03-17": {
+      "activeMinutes": 20,
+      "heartMinutes": 0
     }
   },
   "heartRateZones": {
@@ -1269,14 +1291,22 @@
       "totalActiveMinutes": 190
     },
     "2026-03-16": {
-      "zone1Minutes": 12,
+      "zone1Minutes": 171,
+      "zone2Minutes": 9,
+      "zone3Minutes": 0,
+      "zone4Minutes": 0,
+      "zone5Minutes": 0,
+      "totalActiveMinutes": 180
+    },
+    "2026-03-17": {
+      "zone1Minutes": 6,
       "zone2Minutes": 0,
       "zone3Minutes": 0,
       "zone4Minutes": 0,
       "zone5Minutes": 0,
-      "totalActiveMinutes": 12
+      "totalActiveMinutes": 6
     },
-    "2026-03-17": {
+    "2026-03-18": {
       "zone1Minutes": 0,
       "zone2Minutes": 0,
       "zone3Minutes": 0,
@@ -1285,13 +1315,13 @@
       "totalActiveMinutes": 0
     }
   },
-  "lastUpdated": "2026-03-17T07:04:05.740Z",
+  "lastUpdated": "2026-03-18T07:01:36.997Z",
   "source": "Google Fit",
   "dataRange": {
-    "stepsDays": 54,
-    "sleepDays": 50,
-    "heartRateDays": 36,
-    "moveMinutesDays": 36,
-    "heartRateZonesDays": 37
+    "stepsDays": 55,
+    "sleepDays": 51,
+    "heartRateDays": 37,
+    "moveMinutesDays": 37,
+    "heartRateZonesDays": 38
   }
 }
