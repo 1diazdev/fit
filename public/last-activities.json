@@ -116,7 +116,7 @@
       "location_state": null,
       "location_country": null,
       "achievement_count": 0,
-      "kudos_count": 0,
+      "kudos_count": 1,
       "comment_count": 0,
       "athlete_count": 1,
       "photo_count": 0,
@@ -8850,6 +8850,6 @@
       "has_kudoed": false
     }
   ],
-  "lastUpdated": "2026-04-06T07:56:06.345Z",
+  "lastUpdated": "2026-04-07T07:16:41.400Z",
   "source": "Strava"
 }
