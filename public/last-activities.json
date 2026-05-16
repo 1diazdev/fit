@@ -104,9 +104,64 @@
     "2026-5-3": 0,
     "2026-5-6": 0,
     "2026-5-12": 0,
-    "2026-5-13": 0
+    "2026-5-13": 0,
+    "2026-5-15": 0
   },
   "activities": [
+    {
+      "resource_state": 2,
+      "athlete": {
+        "id": 47698767,
+        "resource_state": 1
+      },
+      "name": "Lower 2",
+      "distance": 0,
+      "moving_time": 1919,
+      "elapsed_time": 1919,
+      "total_elevation_gain": 0,
+      "type": "WeightTraining",
+      "sport_type": "WeightTraining",
+      "workout_type": 30,
+      "device_name": "Hevy",
+      "id": 18519454593,
+      "start_date": "2026-05-15T16:56:39Z",
+      "start_date_local": "2026-05-15T12:56:39Z",
+      "timezone": "(GMT-05:00) America/New_York",
+      "utc_offset": -14400,
+      "location_city": null,
+      "location_state": null,
+      "location_country": null,
+      "achievement_count": 0,
+      "kudos_count": 1,
+      "comment_count": 0,
+      "athlete_count": 1,
+      "photo_count": 0,
+      "map": {
+        "id": "a18519454593",
+        "summary_polyline": "",
+        "resource_state": 2
+      },
+      "trainer": false,
+      "commute": false,
+      "manual": true,
+      "private": false,
+      "visibility": "everyone",
+      "flagged": false,
+      "gear_id": null,
+      "start_latlng": [],
+      "end_latlng": [],
+      "average_speed": 0,
+      "max_speed": 0,
+      "has_heartrate": false,
+      "heartrate_opt_out": false,
+      "display_hide_heartrate_option": false,
+      "upload_id": null,
+      "external_id": null,
+      "from_accepted_tag": false,
+      "pr_count": 0,
+      "total_photo_count": 1,
+      "has_kudoed": false
+    },
     {
       "resource_state": 2,
       "athlete": {
@@ -9794,6 +9849,6 @@
       "has_kudoed": false
     }
   ],
-  "lastUpdated": "2026-05-15T09:19:03.948Z",
+  "lastUpdated": "2026-05-16T08:03:14.884Z",
   "source": "Strava"
 }
