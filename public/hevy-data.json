@@ -11650,6 +11650,145 @@
       ]
     },
     {
+      "id": "ee700888-815b-4094-ada5-bb938cfb4926",
+      "title": "Lower 2",
+      "routine_id": "7f49f50c-67d4-4133-8391-d010a0b45f0c",
+      "description": "",
+      "start_time": "2026-06-06T14:00:01+00:00",
+      "end_time": "2026-06-06T14:23:30+00:00",
+      "updated_at": "2026-06-06T18:56:59.672Z",
+      "created_at": "2026-06-06T14:48:25.697Z",
+      "exercises": [
+        {
+          "index": 0,
+          "title": "Leg Press (Machine)",
+          "notes": "",
+          "exercise_template_id": "C7973E0E",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 3,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 4,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "title": "Back Extension (Weighted Hyperextension)",
+          "notes": "",
+          "exercise_template_id": "091737FA",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "warmup",
+              "weight_kg": 0,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "title": "Romanian Deadlift (Dumbbell)",
+          "notes": "",
+          "exercise_template_id": "72CFFAD5",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 13.607787283069193,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 13.607787283069193,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 13.607787283069193,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 3,
+              "type": "normal",
+              "weight_kg": 13.607787283069193,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "ee60998f-bb3d-475d-ace9-d7488f2f4bff",
       "title": "Upper Body",
       "routine_id": "20b1812d-5192-4e4e-94ae-864539b98fef",
@@ -19344,6 +19483,281 @@
               "type": "normal",
               "weight_kg": 49.895220037920375,
               "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e57d2938-80bf-4171-9b55-ad8c92bafcb4",
+      "title": "Legs (Machine)",
+      "routine_id": "a721b488-15e9-48d1-9f7c-b5170a72b78a",
+      "description": "",
+      "start_time": "2026-06-07T01:45:03+00:00",
+      "end_time": "2026-06-07T02:45:59+00:00",
+      "updated_at": "2026-06-07T08:13:19.614Z",
+      "created_at": "2026-06-07T08:13:19.614Z",
+      "exercises": [
+        {
+          "index": 0,
+          "title": "Lunges Bench (Body)",
+          "notes": "",
+          "exercise_template_id": "334d39b3-819a-4edf-8950-086e37fdeafa",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": null,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": null,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": null,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "title": "Calf Press (Machine)",
+          "notes": "",
+          "exercise_template_id": "91237BDD",
+          "superset_id": 4,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 61.235042773811365,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 61.235042773811365,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 61.235042773811365,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "title": "Romanian Deadlift (Dumbbell)",
+          "notes": "",
+          "exercise_template_id": "72CFFAD5",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 20.41168092460379,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 20.41168092460379,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 20.41168092460379,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 3,
+              "type": "normal",
+              "weight_kg": 20.41168092460379,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "title": "Leg Press (Machine)",
+          "notes": "",
+          "exercise_template_id": "C7973E0E",
+          "superset_id": 4,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "title": "Hip Adduction (Machine)",
+          "notes": "",
+          "exercise_template_id": "8BEBFED6",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "title": "Hip Abduction (Machine)",
+          "notes": "",
+          "exercise_template_id": "F4B4C6EE",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 6,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 6,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 6,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "title": "Seated Leg Curl (Machine)",
+          "notes": "",
+          "exercise_template_id": "11A123F3",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 45.35929094356398,
+              "reps": 6,
               "distance_meters": null,
               "duration_seconds": null,
               "rpe": null,
@@ -77346,6 +77760,282 @@
               "type": "normal",
               "weight_kg": 54.43114913227677,
               "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8ee5c8ab-5420-4cd2-b15a-b93563d0a0b8",
+      "title": "Upper 2",
+      "routine_id": "3e15296d-10f4-4827-a432-27b7cfa6b1da",
+      "description": "",
+      "start_time": "2026-06-05T15:09:16+00:00",
+      "end_time": "2026-06-05T15:59:19+00:00",
+      "updated_at": "2026-06-06T18:57:05.768Z",
+      "created_at": "2026-06-06T13:59:13.184Z",
+      "exercises": [
+        {
+          "index": 0,
+          "title": "Incline Bench Press (Dumbbell)",
+          "notes": "",
+          "exercise_template_id": "07B38369",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "warmup",
+              "weight_kg": 9.071858188712795,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 18.14371637742559,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 18.14371637742559,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 3,
+              "type": "normal",
+              "weight_kg": 18.14371637742559,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 4,
+              "type": "normal",
+              "weight_kg": 18.14371637742559,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "title": "Chest Supported Incline Row (Dumbbell)",
+          "notes": "",
+          "exercise_template_id": "914F3A96",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "warmup",
+              "weight_kg": 13.607787283069193,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 13.607787283069193,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 13.607787283069193,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 3,
+              "type": "normal",
+              "weight_kg": 13.607787283069193,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "title": "Triceps Extension (Dumbbell)",
+          "notes": "",
+          "exercise_template_id": "3765684D",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 18.14371637742559,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 18.14371637742559,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 18.14371637742559,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "title": "Lat Pulldown (Cable)",
+          "notes": "",
+          "exercise_template_id": "6A6C31A5",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 47.62725549074217,
+              "reps": 8,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 47.62725549074217,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 47.62725549074217,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "title": "Triceps Pushdown",
+          "notes": "",
+          "exercise_template_id": "93A552C6",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 24.947610018960187,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 24.947610018960187,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 24.947610018960187,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "title": "Lateral Raise (Dumbbell)",
+          "notes": "",
+          "exercise_template_id": "422B08F1",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 4.535929094356398,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 4.535929094356398,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 4.535929094356398,
+              "reps": 12,
               "distance_meters": null,
               "duration_seconds": null,
               "rpe": null,
@@ -142764,6 +143454,281 @@
       ]
     },
     {
+      "id": "2d480e1e-e1df-4a83-9063-40a1eb364b06",
+      "title": "Legs (Machine)",
+      "routine_id": "a721b488-15e9-48d1-9f7c-b5170a72b78a",
+      "description": "",
+      "start_time": "2026-06-07T01:10:07+00:00",
+      "end_time": "2026-06-07T02:13:50+00:00",
+      "updated_at": "2026-06-07T08:14:07.548Z",
+      "created_at": "2026-06-07T08:13:21.408Z",
+      "exercises": [
+        {
+          "index": 0,
+          "title": "Lunges Bench (Body)",
+          "notes": "",
+          "exercise_template_id": "334d39b3-819a-4edf-8950-086e37fdeafa",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": null,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": null,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": null,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "title": "Calf Press (Machine)",
+          "notes": "",
+          "exercise_template_id": "91237BDD",
+          "superset_id": 4,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 61.235042773811365,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 61.235042773811365,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 61.235042773811365,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "title": "Romanian Deadlift (Dumbbell)",
+          "notes": "",
+          "exercise_template_id": "72CFFAD5",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 20.41168092460379,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 20.41168092460379,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 20.41168092460379,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 3,
+              "type": "normal",
+              "weight_kg": 20.41168092460379,
+              "reps": 12,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "title": "Leg Press (Machine)",
+          "notes": "",
+          "exercise_template_id": "C7973E0E",
+          "superset_id": 4,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 86.18265279277155,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "title": "Hip Adduction (Machine)",
+          "notes": "",
+          "exercise_template_id": "8BEBFED6",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 15,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "title": "Hip Abduction (Machine)",
+          "notes": "",
+          "exercise_template_id": "F4B4C6EE",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 6,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 1,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 6,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            },
+            {
+              "index": 2,
+              "type": "normal",
+              "weight_kg": 52.16318458509857,
+              "reps": 6,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "title": "Seated Leg Curl (Machine)",
+          "notes": "",
+          "exercise_template_id": "11A123F3",
+          "superset_id": null,
+          "sets": [
+            {
+              "index": 0,
+              "type": "normal",
+              "weight_kg": 45.35929094356398,
+              "reps": 6,
+              "distance_meters": null,
+              "duration_seconds": null,
+              "rpe": null,
+              "custom_metric": null
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "2d082fc8-f7d3-49b5-b957-89f0af53c45d",
       "title": "Chest & Bicep",
       "routine_id": null,
@@ -172918,7 +173883,7 @@
       ]
     }
   ],
-  "workoutCount": 514,
-  "lastUpdated": "2026-06-06T08:32:29.634Z",
+  "workoutCount": 518,
+  "lastUpdated": "2026-06-07T08:54:48.226Z",
   "source": "Hevy"
 }
